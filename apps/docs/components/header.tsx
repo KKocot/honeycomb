@@ -36,7 +36,7 @@ export function Header() {
 
         <div className="ml-auto flex items-center gap-4">
           <a
-            href="https://github.com/your-org/hive-ui"
+            href="https://github.com/KKocot/hive-ui"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground transition-colors hover:text-foreground"
