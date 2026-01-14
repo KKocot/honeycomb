@@ -43,10 +43,10 @@ export const docsConfig: NavSection[] = [
   {
     title: "Hooks",
     items: [
-      { title: "useHiveChain", href: "/docs/hooks/use-hive-chain", disabled: true },
-      { title: "useHiveAuth", href: "/docs/hooks/use-hive-auth", disabled: true },
-      { title: "useHiveAccount", href: "/docs/hooks/use-hive-account", disabled: true },
-      { title: "useVote", href: "/docs/hooks/use-vote", disabled: true },
+      { title: "useHiveChain", href: "/docs/hooks/use-hive-chain" },
+      { title: "useHiveAuth", href: "/docs/hooks/use-hive-auth" },
+      { title: "useHiveAccount", href: "/docs/hooks/use-hive-account" },
+      { title: "useVote", href: "/docs/hooks/use-vote" },
     ],
   },
 ];
