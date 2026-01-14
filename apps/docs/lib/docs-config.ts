@@ -25,7 +25,7 @@ export const docsConfig: NavSection[] = [
     title: "Configuration",
     items: [
       { title: "Hive Provider", href: "/docs/hive-provider" },
-      { title: "API Nodes", href: "/docs/api-nodes", disabled: true },
+      { title: "API Nodes", href: "/docs/api-nodes" },
       { title: "Theming", href: "/docs/theming", disabled: true },
     ],
   },
