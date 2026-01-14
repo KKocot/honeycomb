@@ -32,6 +32,7 @@ export const docsConfig: NavSection[] = [
   {
     title: "Components",
     items: [
+      { title: "Smart Signer", href: "/docs/components/smart-signer" },
       { title: "Keychain Login", href: "/docs/components/keychain-login" },
       { title: "Hivesigner Login", href: "/docs/components/hivesigner-login" },
       { title: "Avatar", href: "/docs/components/avatar" },
