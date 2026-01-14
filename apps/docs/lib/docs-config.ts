@@ -32,12 +32,13 @@ export const docsConfig: NavSection[] = [
   {
     title: "Components",
     items: [
-      { title: "Keychain Login", href: "/docs/components/keychain-login", disabled: true },
-      { title: "Hivesigner Login", href: "/docs/components/hivesigner-login", disabled: true },
-      { title: "Avatar", href: "/docs/components/avatar", disabled: true },
-      { title: "User Card", href: "/docs/components/user-card", disabled: true },
-      { title: "Vote Button", href: "/docs/components/vote-button", disabled: true },
-      { title: "Balance Card", href: "/docs/components/balance-card", disabled: true },
+      { title: "Keychain Login", href: "/docs/components/keychain-login" },
+      { title: "Hivesigner Login", href: "/docs/components/hivesigner-login" },
+      { title: "Avatar", href: "/docs/components/avatar" },
+      { title: "User Card", href: "/docs/components/user-card" },
+      { title: "Vote Button", href: "/docs/components/vote-button" },
+      { title: "Balance Card", href: "/docs/components/balance-card" },
+      { title: "Comment Form", href: "/docs/components/comment-form" },
     ],
   },
   {
