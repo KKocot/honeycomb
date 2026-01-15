@@ -81,7 +81,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/follow-button",
     icon: <Heart className="h-6 w-6" />,
     category: "social",
-    status: "coming-soon",
+    status: "available",
   },
   {
     title: "Mute Button",
@@ -89,7 +89,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/mute-button",
     icon: <Bell className="h-6 w-6" />,
     category: "social",
-    status: "coming-soon",
+    status: "available",
   },
   {
     title: "Badge List",
@@ -97,7 +97,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/badge-list",
     icon: <Award className="h-6 w-6" />,
     category: "social",
-    status: "coming-soon",
+    status: "available",
   },
 
   // Content
@@ -123,7 +123,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/post-editor",
     icon: <FileText className="h-6 w-6" />,
     category: "content",
-    status: "coming-soon",
+    status: "available",
   },
   {
     title: "Post Summary",
@@ -131,7 +131,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/post-summary",
     icon: <FileText className="h-6 w-6" />,
     category: "content",
-    status: "coming-soon",
+    status: "available",
   },
   {
     title: "Reblog Button",
@@ -139,7 +139,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/reblog-button",
     icon: <Repeat className="h-6 w-6" />,
     category: "content",
-    status: "coming-soon",
+    status: "available",
   },
 
   // Wallet
@@ -157,7 +157,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/transfer-dialog",
     icon: <Send className="h-6 w-6" />,
     category: "wallet",
-    status: "coming-soon",
+    status: "available",
   },
   {
     title: "Power Up/Down",
@@ -165,7 +165,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/power-up-down",
     icon: <TrendingUp className="h-6 w-6" />,
     category: "wallet",
-    status: "coming-soon",
+    status: "available",
   },
   {
     title: "Delegation Card",
@@ -173,7 +173,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/delegation-card",
     icon: <CreditCard className="h-6 w-6" />,
     category: "wallet",
-    status: "coming-soon",
+    status: "available",
   },
   {
     title: "Trade Hive",
@@ -181,7 +181,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/trade-hive",
     icon: <TrendingUp className="h-6 w-6" />,
     category: "wallet",
-    status: "coming-soon",
+    status: "available",
   },
 
   // Community / Governance
@@ -191,7 +191,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/communities-list",
     icon: <Globe className="h-6 w-6" />,
     category: "community",
-    status: "coming-soon",
+    status: "available",
   },
   {
     title: "Witness Vote",
@@ -199,7 +199,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/witness-vote",
     icon: <Vote className="h-6 w-6" />,
     category: "community",
-    status: "coming-soon",
+    status: "available",
   },
   {
     title: "Proposals",
@@ -207,7 +207,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/proposals",
     icon: <FileText className="h-6 w-6" />,
     category: "community",
-    status: "coming-soon",
+    status: "available",
   },
   {
     title: "Authorities",
@@ -215,7 +215,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/authorities",
     icon: <Lock className="h-6 w-6" />,
     category: "community",
-    status: "coming-soon",
+    status: "available",
   },
   {
     title: "Account Settings",
@@ -223,7 +223,7 @@ const components: ComponentCard[] = [
     href: "/docs/components/account-settings",
     icon: <Settings className="h-6 w-6" />,
     category: "community",
-    status: "coming-soon",
+    status: "available",
   },
 ];
 
