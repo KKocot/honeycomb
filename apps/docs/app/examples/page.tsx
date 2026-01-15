@@ -38,6 +38,8 @@ import {
   VolumeX,
   UserPlus,
   UserMinus,
+  Smartphone,
+  FileKey,
 } from "lucide-react";
 
 // ============ INTERACTIVE DEMO COMPONENTS ============
@@ -403,7 +405,7 @@ function SmartSignerDemo() {
     { id: "keychain", name: "Keychain", icon: Key },
     { id: "hivesigner", name: "Hivesigner", icon: LogIn },
     { id: "hiveauth", name: "HiveAuth", icon: Shield },
-    { id: "peaklock", name: "PeakLock", icon: Lock },
+    { id: "peakvault", name: "PeakVault", icon: Wallet },
   ];
 
   return (
@@ -427,6 +429,170 @@ function SmartSignerDemo() {
           )}
         </button>
       ))}
+    </div>
+  );
+}
+
+// HiveAuth Login Demo
+function HiveAuthLoginDemo() {
+  const [step, setStep] = useState<"idle" | "scanning" | "confirming">("idle");
+
+  return (
+    <div className="w-full max-w-xs space-y-4">
+      {step === "idle" && (
+        <button
+          onClick={() => setStep("scanning")}
+          className="w-full flex items-center justify-center gap-2 rounded-lg bg-hive-red px-4 py-2.5 text-white font-medium hover:bg-hive-red/90"
+        >
+          <Smartphone className="h-5 w-5" />
+          Login with HiveAuth
+        </button>
+      )}
+      {step === "scanning" && (
+        <div className="text-center space-y-4">
+          <div className="mx-auto w-32 h-32 bg-muted rounded-lg flex items-center justify-center">
+            <div className="grid grid-cols-3 gap-1">
+              {Array.from({ length: 9 }).map((_, i) => (
+                <div key={i} className="w-4 h-4 bg-foreground rounded-sm" />
+              ))}
+            </div>
+          </div>
+          <p className="text-sm text-muted-foreground">Scan with HiveAuth app</p>
+          <button
+            onClick={() => setStep("confirming")}
+            className="text-xs text-hive-red hover:underline"
+          >
+            Simulate scan
+          </button>
+        </div>
+      )}
+      {step === "confirming" && (
+        <div className="text-center space-y-4">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto text-hive-red" />
+          <p className="text-sm">Confirm on your phone...</p>
+          <button
+            onClick={() => setStep("idle")}
+            className="text-xs text-muted-foreground hover:text-foreground"
+          >
+            Reset
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// PeakVault Login Demo
+function PeakVaultLoginDemo() {
+  const [username, setUsername] = useState("");
+
+  return (
+    <div className="w-full max-w-xs space-y-4">
+      <div>
+        <label className="block text-sm font-medium mb-1.5">Hive Username</label>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value.toLowerCase())}
+          placeholder="Enter your username"
+          className="w-full px-3 py-2.5 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+        />
+      </div>
+      <button className="w-full flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-white font-medium hover:bg-blue-700">
+        <Wallet className="h-5 w-5" />
+        Login with PeakVault
+      </button>
+      <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+        <Check className="h-3 w-3 text-green-500" />
+        PeakVault detected
+      </div>
+    </div>
+  );
+}
+
+// HB-Auth Login Demo
+function HBAuthLoginDemo() {
+  const [mode, setMode] = useState<"login" | "register">("login");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  return (
+    <div className="w-full max-w-xs space-y-4">
+      <div className="flex rounded-lg bg-muted p-1">
+        <button
+          onClick={() => setMode("login")}
+          className={`flex-1 rounded-md py-1.5 text-sm font-medium transition-colors ${
+            mode === "login" ? "bg-background shadow-sm" : "text-muted-foreground"
+          }`}
+        >
+          Login
+        </button>
+        <button
+          onClick={() => setMode("register")}
+          className={`flex-1 rounded-md py-1.5 text-sm font-medium transition-colors ${
+            mode === "register" ? "bg-background shadow-sm" : "text-muted-foreground"
+          }`}
+        >
+          Register Key
+        </button>
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1.5">Username</label>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value.toLowerCase())}
+          placeholder="Enter your username"
+          className="w-full px-3 py-2.5 rounded-lg border border-border bg-background"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1.5">Password</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter password"
+          className="w-full px-3 py-2.5 rounded-lg border border-border bg-background"
+        />
+      </div>
+      <button className="w-full flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2.5 text-white font-medium hover:bg-emerald-700">
+        <Lock className="h-5 w-5" />
+        {mode === "login" ? "Unlock Wallet" : "Save Key"}
+      </button>
+    </div>
+  );
+}
+
+// WIF Login Demo
+function WIFLoginDemo() {
+  return (
+    <div className="w-full max-w-xs space-y-4">
+      <div className="rounded-lg border border-red-500/20 bg-red-500/5 p-3">
+        <p className="text-xs text-red-500 font-medium">
+          ⚠️ Direct key entry is the least secure method
+        </p>
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1.5">Username</label>
+        <input
+          type="text"
+          placeholder="Enter your username"
+          className="w-full px-3 py-2.5 rounded-lg border border-border bg-background"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1.5">Private Key (WIF)</label>
+        <input
+          type="password"
+          placeholder="5..."
+          className="w-full px-3 py-2.5 rounded-lg border border-border bg-background font-mono"
+        />
+      </div>
+      <button className="w-full flex items-center justify-center gap-2 rounded-lg bg-orange-600 px-4 py-2.5 text-white font-medium hover:bg-orange-700">
+        <FileKey className="h-5 w-5" />
+        Login with Private Key
+      </button>
     </div>
   );
 }
@@ -529,11 +695,43 @@ const components: ComponentCard[] = [
     category: "auth",
   },
   {
+    title: "PeakVault Login",
+    description: "Login with PeakD's browser extension",
+    href: "/docs/components/peakvault-login",
+    icon: <Wallet className="h-6 w-6" />,
+    category: "auth",
+    demo: <PeakVaultLoginDemo />,
+  },
+  {
     title: "Hivesigner Login",
     description: "OAuth-style authentication with Hivesigner",
     href: "/docs/components/hivesigner-login",
     icon: <LogIn className="h-6 w-6" />,
     category: "auth",
+  },
+  {
+    title: "HiveAuth Login",
+    description: "Mobile QR code authentication",
+    href: "/docs/components/hiveauth-login",
+    icon: <Smartphone className="h-6 w-6" />,
+    category: "auth",
+    demo: <HiveAuthLoginDemo />,
+  },
+  {
+    title: "HB-Auth Login",
+    description: "Encrypted local key storage with password",
+    href: "/docs/components/hbauth-login",
+    icon: <Lock className="h-6 w-6" />,
+    category: "auth",
+    demo: <HBAuthLoginDemo />,
+  },
+  {
+    title: "WIF Login",
+    description: "Direct private key entry (use with caution)",
+    href: "/docs/components/wif-login",
+    icon: <FileKey className="h-6 w-6" />,
+    category: "auth",
+    demo: <WIFLoginDemo />,
   },
 
   // Social

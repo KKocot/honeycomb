@@ -1,12 +1,17 @@
 import { createHighlighter, type Highlighter } from "shiki";
 
-// Singleton instance - cached globally
-let highlighterPromise: Promise<Highlighter> | null = null;
+// Singleton instance - use globalThis to persist across hot reloads
+const globalForHighlighter = globalThis as unknown as {
+  highlighterPromise?: Promise<Highlighter>;
+};
+
+// VS Code-like theme
+const THEME = "one-dark-pro";
 
 export async function getHighlighter(): Promise<Highlighter> {
-  if (!highlighterPromise) {
-    highlighterPromise = createHighlighter({
-      themes: ["github-dark"],
+  if (!globalForHighlighter.highlighterPromise) {
+    globalForHighlighter.highlighterPromise = createHighlighter({
+      themes: [THEME],
       langs: [
         "typescript",
         "tsx",
@@ -22,7 +27,7 @@ export async function getHighlighter(): Promise<Highlighter> {
       ],
     });
   }
-  return highlighterPromise;
+  return globalForHighlighter.highlighterPromise;
 }
 
 export async function highlightCode(
@@ -44,13 +49,13 @@ export async function highlightCode(
   try {
     return hl.codeToHtml(code, {
       lang,
-      theme: "github-dark",
+      theme: THEME,
     });
   } catch {
     // Fallback to text if language not supported
     return hl.codeToHtml(code, {
       lang: "text",
-      theme: "github-dark",
+      theme: THEME,
     });
   }
 }

@@ -40,8 +40,8 @@
   }
 }
 
-/* Code blocks */
-pre {
+/* Code blocks - exclude Shiki generated code */
+pre:not(.shiki) {
   @apply rounded-lg bg-muted p-4 overflow-x-auto text-sm;
 }
 
@@ -49,8 +49,18 @@ code {
   @apply font-mono text-sm;
 }
 
+
 :not(pre) > code {
   @apply bg-muted px-1.5 py-0.5 rounded text-hive-red;
+}
+
+/* Shiki syntax highlighting */
+pre.shiki {
+  @apply overflow-x-auto text-sm;
+}
+
+pre.shiki code {
+  @apply block;
 }
 
 /* Smooth scrolling */

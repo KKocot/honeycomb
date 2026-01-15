@@ -32,9 +32,13 @@ export const docsConfig: NavSection[] = [
   {
     title: "Authentication",
     items: [
-      { title: "Smart Signer", href: "/docs/components/smart-signer" },
+      { title: "Smart Signer", href: "/docs/components/smart-signer", label: "All-in-One" },
       { title: "Keychain Login", href: "/docs/components/keychain-login" },
+      { title: "PeakVault Login", href: "/docs/components/peakvault-login" },
       { title: "Hivesigner Login", href: "/docs/components/hivesigner-login" },
+      { title: "HiveAuth Login", href: "/docs/components/hiveauth-login" },
+      { title: "HB-Auth Login", href: "/docs/components/hbauth-login", label: "Safe Storage" },
+      { title: "WIF Login", href: "/docs/components/wif-login", label: "Direct Key" },
     ],
   },
   {

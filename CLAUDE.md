@@ -15,8 +15,17 @@ pnpm install
 # Run docs dev server (port 3030)
 pnpm dev:docs
 
+# Run demo app (port 3031)
+pnpm dev:demo
+
 # Build docs
 pnpm build:docs
+
+# Build demo
+pnpm build:demo
+
+# Lint
+pnpm lint
 
 # Run all apps in dev mode
 pnpm dev
@@ -29,7 +38,8 @@ pnpm build
 
 ### Monorepo Structure (Turborepo + pnpm workspaces)
 
-- `apps/docs` - Next.js 15 documentation site with App Router
+- `apps/docs` - Next.js 15 documentation site with App Router (port 3030)
+- `apps/demo` - Interactive demo app to test all components (port 3031, default user: barddev)
 - `packages/react` - React components (placeholder)
 - `packages/cli` - CLI tool for adding components (placeholder)
 
@@ -37,15 +47,19 @@ pnpm build
 
 **Key directories:**
 - `app/docs/` - Documentation pages (file-based routing)
-- `app/examples/` - Component showcase grid
+- `app/examples/` - Interactive component showcase with live demos
 - `components/` - Shared UI components for docs site
-- `lib/` - Utilities (highlighter, config, cn helper)
+- `lib/` - Utilities (highlighter, docs-config, cn helper)
 
-**Documentation structure in `lib/docs-config.ts`:**
-- Getting Started (Introduction, Installation, Project Structure)
-- Configuration (Hive Provider, API Nodes, Theming)
-- Components (Smart Signer, Keychain Login, Avatar, etc.)
-- Hooks (useHiveChain, useHiveAuth, useHiveAccount, useVote)
+**Navigation structure defined in `lib/docs-config.ts`:**
+- Getting Started: Introduction, Installation, Project Structure
+- Configuration: Hive Provider, API Nodes, Theming
+- Authentication: Smart Signer (All-in-One), Keychain, PeakVault, Hivesigner, HiveAuth, HB-Auth, WIF
+- Social: Avatar, User Card, Follow Button, Mute Button, Badge List
+- Content: Vote Button, Comment Form, Post Editor, Post Summary, Reblog Button
+- Wallet: Balance Card, Transfer Dialog, Power Up/Down, Delegation Card, Trade Hive
+- Community: Communities List, Witness Vote, Proposals, Authorities, Account Settings
+- Hooks: useHiveChain, useHiveAuth, useHiveAccount, useVote
 
 ### Code Highlighting
 
@@ -65,17 +79,25 @@ Components interact with Hive blockchain via `@hiveio/wax` library. Key concepts
 - **Tokens**: HIVE, HBD (stablecoin), HP (staked HIVE)
 - **Resource Credits**: Replace transaction fees, regenerate over ~5 days
 
-## Component Categories
+## Authentication Methods
 
-Authentication: Smart Signer (8 methods), Keychain Login, Hivesigner Login
-Social: Avatar, User Card, Follow Button, Mute Button
-Content: Vote Button, Comment Form, Post Editor
-Wallet: Balance Card, Transfer Dialog, Delegations
-Community: Witness Vote, Proposals, Communities List
+The library provides 7 separate login components that can be used individually or combined via Smart Signer:
+- **Keychain** - Hive Keychain browser extension
+- **PeakVault** - PeakD's browser extension
+- **Hivesigner** - OAuth-style redirect flow
+- **HiveAuth** - Mobile QR code authentication via WebSocket
+- **HB-Auth** - Encrypted local key storage with password (Safe Storage)
+- **WIF** - Direct private key entry (least secure, for development)
 
 ## Adding New Documentation Pages
 
 1. Create page in `app/docs/[category]/[component]/page.tsx`
 2. Add entry to `lib/docs-config.ts`
 3. Use `CodeBlock` component for code examples
-4. Follow existing page structure (heading, description, usage, code)
+4. Follow existing page structure (heading, description, preview, code, props table)
+
+## Adding Interactive Examples
+
+1. Create demo component function in `app/examples/page.tsx`
+2. Add entry to `components` array with `demo` property
+3. Choose appropriate category: auth, social, content, wallet, community
