@@ -40,24 +40,24 @@ const features = [
 
 const componentCategories = [
   {
-    icon: User,
+    icon: Shield,
     title: "Authentication",
-    items: ["KeychainLogin", "HivesignerLogin", "LoginModal", "AuthGuard"],
+    items: ["SmartSigner", "KeychainLogin", "HivesignerLogin"],
   },
   {
     icon: User,
-    title: "Profile",
-    items: ["Avatar", "UserCard", "ReputationBadge", "ProfileHeader"],
+    title: "Social",
+    items: ["Avatar", "UserCard", "FollowButton", "MuteButton", "BadgeList"],
+  },
+  {
+    icon: Vote,
+    title: "Content",
+    items: ["VoteButton", "CommentForm", "PostEditor", "ReblogButton"],
   },
   {
     icon: Wallet,
     title: "Wallet",
-    items: ["BalanceCard", "TransferModal", "ClaimRewards", "PowerUp"],
-  },
-  {
-    icon: Vote,
-    title: "Voting",
-    items: ["VoteButton", "VotingPowerBar", "PayoutDisplay", "VoterList"],
+    items: ["BalanceCard", "TransferDialog", "PowerUp/Down", "DelegationCard"],
   },
 ];
 
@@ -98,7 +98,7 @@ export default function HomePage() {
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
-            href="/docs/components"
+            href="/examples"
             className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-6 py-3 font-medium transition-colors hover:bg-muted"
           >
             Browse Components

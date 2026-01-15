@@ -21,7 +21,7 @@ export function Header() {
             Docs
           </Link>
           <Link
-            href="/docs/components"
+            href="/docs/components/smart-signer"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Components
