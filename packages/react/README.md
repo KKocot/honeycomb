@@ -186,6 +186,79 @@ export function LoginPage() {
 }
 ```
 
+## Social Components
+
+### HiveAvatar
+
+Display Hive user avatars with automatic fallback to initials:
+
+```tsx
+'use client'
+
+import { HiveAvatar } from '@kkocot/hive-ui-react'
+
+export function UserProfile() {
+  return (
+    <div className="flex items-center gap-4">
+      <HiveAvatar username="blocktrades" size="xs" />
+      <HiveAvatar username="blocktrades" size="sm" />
+      <HiveAvatar username="blocktrades" size="md" />
+      <HiveAvatar username="blocktrades" size="lg" />
+      <HiveAvatar username="blocktrades" size="xl" />
+    </div>
+  )
+}
+```
+
+### UserCard
+
+Display Hive user profile cards with account information:
+
+```tsx
+'use client'
+
+import { UserCard } from '@kkocot/hive-ui-react'
+
+export function ProfilePage() {
+  return (
+    <div className="space-y-4">
+      {/* Compact - inline display */}
+      <UserCard username="blocktrades" variant="compact" />
+
+      {/* Default - card with basic info */}
+      <UserCard username="blocktrades" variant="default" />
+
+      {/* Expanded - full profile card with cover image */}
+      <UserCard username="blocktrades" variant="expanded" />
+    </div>
+  )
+}
+```
+
+### useHiveAccount
+
+Hook to fetch Hive account data:
+
+```tsx
+'use client'
+
+import { useHiveAccount } from '@kkocot/hive-ui-react'
+
+export function AccountInfo({ username }: { username: string }) {
+  const { account, isLoading, error } = useHiveAccount(username)
+
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
+
+  return (
+    <div>
+      <p>Balance: {account?.balance}</p>
+      <p>Posts: {account?.post_count}</p>
+    </div>
+  )
+}
+```
+
 ## SSR Compatibility
 
 The package is fully SSR-compatible:

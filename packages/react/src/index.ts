@@ -24,6 +24,26 @@ export {
   type PeakVaultLoginProps,
 } from "./peakvault-login";
 
+// Social Components
+export {
+  HiveAvatar,
+  type HiveAvatarProps,
+  type AvatarSize,
+} from "./avatar";
+
+export {
+  UserCard,
+  type UserCardProps,
+  type UserCardVariant,
+} from "./user-card";
+
+// Hooks
+export {
+  useHiveAccount,
+  type HiveAccount,
+  type UseHiveAccountResult,
+} from "./use-hive-account";
+
 // Types
 export type {
   LoginProps,
