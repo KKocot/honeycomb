@@ -63,7 +63,7 @@ const mockCommunities: Community[] = [
   },
 ];
 
-export function CommunitiesList({ username, onSubscribe, className }: CommunitiesListProps) {
+export function HiveCommunitiesList({ username, onSubscribe, className }: CommunitiesListProps) {
   const [communities] = useState<Community[]>(mockCommunities);
   const [subscribed, setSubscribed] = useState<string[]>([]);
   const [search, setSearch] = useState("");

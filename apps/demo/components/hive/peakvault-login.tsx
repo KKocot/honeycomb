@@ -24,7 +24,7 @@ interface PeakVaultLoginProps {
   className?: string;
 }
 
-export function PeakVaultLogin({
+export function HivePeakVaultLogin({
   onSuccess,
   onError,
   keyType = "posting",

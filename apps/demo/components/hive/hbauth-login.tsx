@@ -10,7 +10,7 @@ interface HBAuthLoginProps {
   className?: string;
 }
 
-export function HBAuthLogin({
+export function HiveHBAuthLogin({
   onSuccess,
   onError,
   className,

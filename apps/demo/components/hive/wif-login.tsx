@@ -11,7 +11,7 @@ interface WIFLoginProps {
   className?: string;
 }
 
-export function WIFLogin({
+export function HiveWIFLogin({
   onSuccess,
   onError,
   keyType = "posting",

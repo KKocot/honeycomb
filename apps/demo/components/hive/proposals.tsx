@@ -64,7 +64,7 @@ const mockProposals: Proposal[] = [
   },
 ];
 
-export function Proposals({ username, onVote, className }: ProposalsProps) {
+export function HiveProposals({ username, onVote, className }: ProposalsProps) {
   const [proposals] = useState<Proposal[]>(mockProposals);
   const [votedProposals, setVotedProposals] = useState<Record<number, boolean>>({});
   const [isLoading, setIsLoading] = useState<number | null>(null);

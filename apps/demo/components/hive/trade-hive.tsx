@@ -12,7 +12,7 @@ interface TradeHiveProps {
   className?: string;
 }
 
-export function TradeHive({
+export function HiveTradeCard({
   username,
   hiveBalance = "1000.000",
   hbdBalance = "500.000",

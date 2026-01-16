@@ -17,7 +17,7 @@ interface TransferData {
   memo: string;
 }
 
-export function TransferDialog({ username, onTransfer, className }: TransferDialogProps) {
+export function HiveTransferDialog({ username, onTransfer, className }: TransferDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [to, setTo] = useState("");
   const [amount, setAmount] = useState("");

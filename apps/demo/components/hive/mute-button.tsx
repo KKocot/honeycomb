@@ -11,7 +11,7 @@ interface MuteButtonProps {
   className?: string;
 }
 
-export function MuteButton({
+export function HiveMuteButton({
   username,
   initialMuted = false,
   onMute,

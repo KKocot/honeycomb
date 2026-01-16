@@ -11,7 +11,7 @@ interface FollowButtonProps {
   className?: string;
 }
 
-export function FollowButton({
+export function HiveFollowButton({
   username,
   initialFollowing = false,
   onFollow,

@@ -28,29 +28,29 @@ import {
   ArrowUpDown,
 } from "lucide-react";
 import {
-  Avatar,
-  UserCard,
-  FollowButton,
-  MuteButton,
-  VoteButton,
-  ReblogButton,
-  BadgeList,
-  BalanceCard,
-  KeychainLogin,
-  PeakVaultLogin,
+  HiveAvatar,
+  HiveUserCard,
+  HiveFollowButton,
+  HiveMuteButton,
+  HiveVoteButton,
+  HiveReblogButton,
+  HiveBadgeList,
+  HiveBalanceCard,
+  HiveKeychainLogin,
+  HivePeakVaultLogin,
   HiveAuthLogin,
-  HBAuthLogin,
-  WIFLogin,
-  TransferDialog,
-  PowerUpDown,
-  DelegationCard,
-  CommentForm,
-  PostEditor,
-  WitnessVote,
-  Proposals,
-  CommunitiesList,
-  TradeHive,
-  AccountSettings,
+  HiveHBAuthLogin,
+  HiveWIFLogin,
+  HiveTransferDialog,
+  HivePowerUpDown,
+  HiveDelegationCard,
+  HiveCommentForm,
+  HivePostEditor,
+  HiveWitnessVote,
+  HiveProposals,
+  HiveCommunitiesList,
+  HiveTradeCard,
+  HiveAccountSettings,
 } from "@/components/hive";
 
 interface DemoSection {
@@ -103,7 +103,7 @@ export default function DemoPage() {
 
           {user ? (
             <div className="flex items-center gap-3">
-              <Avatar username={user.username} size="sm" />
+              <HiveAvatar username={user.username} size="sm" />
               <div className="text-sm">
                 <p className="font-medium">@{user.username}</p>
                 <p className="text-xs text-muted-foreground">via {user.loginMethod}</p>
@@ -163,7 +163,7 @@ export default function DemoPage() {
                 expanded={expandedAuth === "keychain"}
                 onToggle={() => setExpandedAuth(expandedAuth === "keychain" ? null : "keychain")}
               >
-                <KeychainLogin
+                <HiveKeychainLogin
                   onSuccess={(u) => handleLogin(u.username, "Keychain")}
                   onError={(e) => console.error(e)}
                 />
@@ -178,7 +178,7 @@ export default function DemoPage() {
                 expanded={expandedAuth === "peakvault"}
                 onToggle={() => setExpandedAuth(expandedAuth === "peakvault" ? null : "peakvault")}
               >
-                <PeakVaultLogin
+                <HivePeakVaultLogin
                   onSuccess={(u) => handleLogin(u.username, "PeakVault")}
                   onError={(e) => console.error(e)}
                 />
@@ -208,7 +208,7 @@ export default function DemoPage() {
                 expanded={expandedAuth === "hbauth"}
                 onToggle={() => setExpandedAuth(expandedAuth === "hbauth" ? null : "hbauth")}
               >
-                <HBAuthLogin
+                <HiveHBAuthLogin
                   onSuccess={(u) => handleLogin(u.username, "HB-Auth")}
                   onError={(e) => console.error(e)}
                 />
@@ -223,7 +223,7 @@ export default function DemoPage() {
                 expanded={expandedAuth === "wif"}
                 onToggle={() => setExpandedAuth(expandedAuth === "wif" ? null : "wif")}
               >
-                <WIFLogin
+                <HiveWIFLogin
                   onSuccess={(u) => handleLogin(u.username, "WIF")}
                   onError={(e) => console.error(e)}
                 />
@@ -245,26 +245,26 @@ export default function DemoPage() {
             <div className="grid gap-8 lg:grid-cols-2">
               <ComponentCard title="Avatar" icon={<User className="h-5 w-5 text-blue-500" />}>
                 <div className="flex flex-wrap items-end gap-4">
-                  <Avatar username={demoUser} size="sm" />
-                  <Avatar username={demoUser} size="md" />
-                  <Avatar username={demoUser} size="lg" />
-                  <Avatar username={demoUser} size="xl" showReputation reputation={75} />
+                  <HiveAvatar username={demoUser} size="sm" />
+                  <HiveAvatar username={demoUser} size="md" />
+                  <HiveAvatar username={demoUser} size="lg" />
+                  <HiveAvatar username={demoUser} size="xl" showReputation reputation={75} />
                 </div>
               </ComponentCard>
 
               <ComponentCard title="User Card" icon={<User className="h-5 w-5 text-blue-500" />}>
-                <UserCard username={demoUser} />
+                <HiveUserCard username={demoUser} />
               </ComponentCard>
 
               <ComponentCard title="Follow & Mute Buttons" icon={<Heart className="h-5 w-5 text-blue-500" />}>
                 <div className="flex flex-wrap gap-4">
-                  <FollowButton username={demoUser} />
-                  <MuteButton username={demoUser} />
+                  <HiveFollowButton username={demoUser} />
+                  <HiveMuteButton username={demoUser} />
                 </div>
               </ComponentCard>
 
               <ComponentCard title="Badge List" icon={<Award className="h-5 w-5 text-blue-500" />}>
-                <BadgeList
+                <HiveBadgeList
                   badges={[
                     { name: "Developer", color: "bg-green-500", icon: "💻" },
                     { name: "Active", color: "bg-blue-500", icon: "🔥" },
@@ -288,17 +288,17 @@ export default function DemoPage() {
 
             <div className="grid gap-8 lg:grid-cols-2">
               <ComponentCard title="Vote Button" icon={<ThumbsUp className="h-5 w-5 text-purple-500" />}>
-                <VoteButton initialVotes={42} />
+                <HiveVoteButton initialVotes={42} />
               </ComponentCard>
 
               <ComponentCard title="Reblog Button" icon={<Repeat className="h-5 w-5 text-purple-500" />}>
                 <div className="flex justify-center">
-                  <ReblogButton author={demoUser} permlink="demo-post" />
+                  <HiveReblogButton author={demoUser} permlink="demo-post" />
                 </div>
               </ComponentCard>
 
               <ComponentCard title="Comment Form" icon={<MessageSquare className="h-5 w-5 text-purple-500" />} fullWidth>
-                <CommentForm
+                <HiveCommentForm
                   parentAuthor={demoUser}
                   parentPermlink="demo-post"
                   username={demoUser}
@@ -307,7 +307,7 @@ export default function DemoPage() {
               </ComponentCard>
 
               <ComponentCard title="Post Editor" icon={<FileText className="h-5 w-5 text-purple-500" />} fullWidth>
-                <PostEditor
+                <HivePostEditor
                   username={demoUser}
                   onPublish={(data) => console.log("Post:", data)}
                 />
@@ -328,7 +328,7 @@ export default function DemoPage() {
 
             <div className="grid gap-8 lg:grid-cols-2 xl:grid-cols-3">
               <ComponentCard title="Balance Card" icon={<Wallet className="h-5 w-5 text-green-500" />}>
-                <BalanceCard username={demoUser} />
+                <HiveBalanceCard username={demoUser} />
               </ComponentCard>
 
               <ComponentCard title="Transfer" icon={<Send className="h-5 w-5 text-green-500" />}>
@@ -336,7 +336,7 @@ export default function DemoPage() {
                   <p className="text-sm text-muted-foreground text-center">
                     Send HIVE or HBD to another account
                   </p>
-                  <TransferDialog
+                  <HiveTransferDialog
                     username={demoUser}
                     onTransfer={(data) => console.log("Transfer:", data)}
                   />
@@ -344,7 +344,7 @@ export default function DemoPage() {
               </ComponentCard>
 
               <ComponentCard title="Power Up/Down" icon={<TrendingUp className="h-5 w-5 text-green-500" />}>
-                <PowerUpDown
+                <HivePowerUpDown
                   username={demoUser}
                   hiveBalance="1000.000"
                   vestingShares="50000.000000"
@@ -354,7 +354,7 @@ export default function DemoPage() {
               </ComponentCard>
 
               <ComponentCard title="Delegations" icon={<Users className="h-5 w-5 text-green-500" />}>
-                <DelegationCard
+                <HiveDelegationCard
                   username={demoUser}
                   availableHP="5000"
                   onDelegate={(to, amount) => console.log("Delegate:", to, amount)}
@@ -363,7 +363,7 @@ export default function DemoPage() {
               </ComponentCard>
 
               <ComponentCard title="Trade HIVE" icon={<ArrowUpDown className="h-5 w-5 text-green-500" />}>
-                <TradeHive
+                <HiveTradeCard
                   username={demoUser}
                   hiveBalance="1000.000"
                   hbdBalance="500.000"
@@ -386,21 +386,21 @@ export default function DemoPage() {
 
             <div className="grid gap-8 lg:grid-cols-2">
               <ComponentCard title="Witness Vote" icon={<Eye className="h-5 w-5 text-orange-500" />}>
-                <WitnessVote
+                <HiveWitnessVote
                   username={demoUser}
                   onVote={(witness, approve) => console.log("Vote witness:", witness, approve)}
                 />
               </ComponentCard>
 
               <ComponentCard title="DHF Proposals" icon={<FileText className="h-5 w-5 text-orange-500" />}>
-                <Proposals
+                <HiveProposals
                   username={demoUser}
                   onVote={(id, approve) => console.log("Vote proposal:", id, approve)}
                 />
               </ComponentCard>
 
               <ComponentCard title="Communities" icon={<Globe className="h-5 w-5 text-orange-500" />}>
-                <CommunitiesList
+                <HiveCommunitiesList
                   username={demoUser}
                   onSubscribe={(community, subscribed) =>
                     console.log("Subscribe:", community, subscribed)
@@ -409,7 +409,7 @@ export default function DemoPage() {
               </ComponentCard>
 
               <ComponentCard title="Account Settings" icon={<Settings className="h-5 w-5 text-orange-500" />}>
-                <AccountSettings
+                <HiveAccountSettings
                   username={demoUser}
                   onSave={(data) => console.log("Save settings:", data)}
                 />

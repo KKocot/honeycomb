@@ -12,7 +12,7 @@ interface ReblogButtonProps {
   className?: string;
 }
 
-export function ReblogButton({
+export function HiveReblogButton({
   author,
   permlink,
   initialReblogged = false,

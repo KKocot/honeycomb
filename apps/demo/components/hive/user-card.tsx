@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { MapPin, Calendar, Loader2 } from "lucide-react";
 import { useHive } from "@/contexts/hive-context";
-import { Avatar } from "./avatar";
-import { FollowButton } from "./follow-button";
+import { HiveAvatar } from "./avatar";
+import { HiveFollowButton } from "./follow-button";
 
 interface UserCardProps {
   username: string;
@@ -18,7 +18,7 @@ interface AccountData {
   created: string;
 }
 
-export function UserCard({ username, className = "" }: UserCardProps) {
+export function HiveUserCard({ username, className = "" }: UserCardProps) {
   const { chain } = useHive();
   const [account, setAccount] = useState<AccountData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -98,7 +98,7 @@ export function UserCard({ username, className = "" }: UserCardProps) {
       {/* Profile */}
       <div className="relative px-4 pb-4">
         <div className="absolute -top-8 left-4">
-          <Avatar username={username} size="xl" showReputation reputation={reputation} />
+          <HiveAvatar username={username} size="xl" showReputation reputation={reputation} />
         </div>
         <div className="pt-10">
           <div className="flex items-center justify-between">
@@ -106,7 +106,7 @@ export function UserCard({ username, className = "" }: UserCardProps) {
               <h3 className="font-bold">{metadata?.name || username}</h3>
               <p className="text-sm text-muted-foreground">@{username}</p>
             </div>
-            <FollowButton username={username} />
+            <HiveFollowButton username={username} />
           </div>
 
           {metadata?.about && (

@@ -18,7 +18,7 @@ interface Balances {
   savingsHbd: string;
 }
 
-export function BalanceCard({ username, className }: BalanceCardProps) {
+export function HiveBalanceCard({ username, className }: BalanceCardProps) {
   const { chain } = useHive();
   const [balances, setBalances] = useState<Balances | null>(null);
   const [isLoading, setIsLoading] = useState(true);

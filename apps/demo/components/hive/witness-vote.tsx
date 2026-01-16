@@ -27,7 +27,7 @@ const mockWitnesses: Witness[] = [
   { owner: "roelandp", votes: "100000000000", running_version: "1.27.5", url: "https://roelandp.nl/witness", is_disabled: false },
 ];
 
-export function WitnessVote({ username, onVote, className }: WitnessVoteProps) {
+export function HiveWitnessVote({ username, onVote, className }: WitnessVoteProps) {
   const { chain } = useHive();
   const [witnesses, setWitnesses] = useState<Witness[]>(mockWitnesses);
   const [votedWitnesses, setVotedWitnesses] = useState<string[]>([]);

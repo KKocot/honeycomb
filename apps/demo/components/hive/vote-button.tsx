@@ -11,7 +11,7 @@ interface VoteButtonProps {
   className?: string;
 }
 
-export function VoteButton({
+export function HiveVoteButton({
   initialVotes = 0,
   initialVote = null,
   onVote,

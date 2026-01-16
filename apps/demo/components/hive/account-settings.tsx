@@ -29,7 +29,7 @@ const defaultProfile: ProfileData = {
   profile_image: "",
 };
 
-export function AccountSettings({
+export function HiveAccountSettings({
   username,
   initialProfile = defaultProfile,
   onSave,

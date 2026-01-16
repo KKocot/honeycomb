@@ -20,7 +20,7 @@ const defaultBadges: Badge[] = [
   { name: "Curator", color: "bg-orange-500", icon: "✨" },
 ];
 
-export function BadgeList({ badges = defaultBadges, className }: BadgeListProps) {
+export function HiveBadgeList({ badges = defaultBadges, className }: BadgeListProps) {
   return (
     <div className={cn("flex flex-wrap gap-2", className)}>
       {badges.map((badge) => (

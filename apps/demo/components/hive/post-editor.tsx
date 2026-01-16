@@ -24,7 +24,7 @@ interface PostEditorProps {
   className?: string;
 }
 
-export function PostEditor({ username, onPublish, className }: PostEditorProps) {
+export function HivePostEditor({ username, onPublish, className }: PostEditorProps) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [tags, setTags] = useState("");

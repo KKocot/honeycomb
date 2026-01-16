@@ -23,7 +23,7 @@ const mockDelegations: Delegation[] = [
   { delegatee: "ecency", vesting_shares: "50000.000000 VESTS" },
 ];
 
-export function DelegationCard({
+export function HiveDelegationCard({
   username,
   delegations = mockDelegations,
   availableHP = "1000",

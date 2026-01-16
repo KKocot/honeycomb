@@ -1,32 +1,32 @@
 // Authentication
-export { KeychainLogin } from "./keychain-login";
-export { PeakVaultLogin } from "./peakvault-login";
+export { HiveKeychainLogin } from "./keychain-login";
+export { HivePeakVaultLogin } from "./peakvault-login";
 export { HiveAuthLogin } from "./hiveauth-login";
-export { HBAuthLogin } from "./hbauth-login";
-export { WIFLogin } from "./wif-login";
+export { HiveHBAuthLogin } from "./hbauth-login";
+export { HiveWIFLogin } from "./wif-login";
 
 // Social
-export { Avatar } from "./avatar";
-export { UserCard } from "./user-card";
-export { FollowButton } from "./follow-button";
-export { MuteButton } from "./mute-button";
-export { BadgeList } from "./badge-list";
+export { HiveAvatar } from "./avatar";
+export { HiveUserCard } from "./user-card";
+export { HiveFollowButton } from "./follow-button";
+export { HiveMuteButton } from "./mute-button";
+export { HiveBadgeList } from "./badge-list";
 
 // Content
-export { VoteButton } from "./vote-button";
-export { ReblogButton } from "./reblog-button";
-export { CommentForm } from "./comment-form";
-export { PostEditor } from "./post-editor";
+export { HiveVoteButton } from "./vote-button";
+export { HiveReblogButton } from "./reblog-button";
+export { HiveCommentForm } from "./comment-form";
+export { HivePostEditor } from "./post-editor";
 
 // Wallet
-export { BalanceCard } from "./balance-card";
-export { TransferDialog } from "./transfer-dialog";
-export { PowerUpDown } from "./power-up-down";
-export { DelegationCard } from "./delegation-card";
-export { TradeHive } from "./trade-hive";
+export { HiveBalanceCard } from "./balance-card";
+export { HiveTransferDialog } from "./transfer-dialog";
+export { HivePowerUpDown } from "./power-up-down";
+export { HiveDelegationCard } from "./delegation-card";
+export { HiveTradeCard } from "./trade-hive";
 
 // Community
-export { WitnessVote } from "./witness-vote";
-export { Proposals } from "./proposals";
-export { CommunitiesList } from "./communities-list";
-export { AccountSettings } from "./account-settings";
+export { HiveCommunitiesList } from "./communities-list";
+export { HiveWitnessVote } from "./witness-vote";
+export { HiveProposals } from "./proposals";
+export { HiveAccountSettings } from "./account-settings";

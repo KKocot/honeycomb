@@ -17,7 +17,7 @@ const sizeClasses = {
   xl: "w-16 h-16",
 };
 
-export function Avatar({
+export function HiveAvatar({
   username,
   size = "md",
   showReputation = false,

@@ -24,7 +24,7 @@ interface KeychainLoginProps {
   className?: string;
 }
 
-export function KeychainLogin({
+export function HiveKeychainLogin({
   onSuccess,
   onError,
   keyType = "posting",

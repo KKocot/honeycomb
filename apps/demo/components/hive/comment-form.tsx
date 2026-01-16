@@ -12,7 +12,7 @@ interface CommentFormProps {
   className?: string;
 }
 
-export function CommentForm({
+export function HiveCommentForm({
   parentAuthor,
   parentPermlink,
   username,

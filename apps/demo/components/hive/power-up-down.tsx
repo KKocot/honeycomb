@@ -13,7 +13,7 @@ interface PowerUpDownProps {
   className?: string;
 }
 
-export function PowerUpDown({
+export function HivePowerUpDown({
   username,
   hiveBalance = "0",
   vestingShares = "0",
