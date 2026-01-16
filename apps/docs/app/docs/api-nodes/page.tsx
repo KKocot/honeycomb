@@ -1,50 +1,24 @@
 import Link from "next/link";
-import { ArrowRight, Info, Zap } from "lucide-react";
+import { ArrowLeft, ArrowRight, Info, Zap } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 
 const PUBLIC_NODES = [
-  {
-    url: "api.syncad.com",
-    provider: "Syncad",
-    location: "Europe",
-    default: true,
-  },
-  {
-    url: "api.openhive.network",
-    provider: "OpenHive",
-    location: "Global",
-    default: true,
-  },
-  {
-    url: "api.hive.blog",
-    provider: "Hive",
-    location: "Global",
-    default: true,
-  },
-  {
-    url: "anyx.io",
-    provider: "Anyx",
-    location: "Canada",
-    default: false,
-  },
-  {
-    url: "rpc.ausbit.dev",
-    provider: "Ausbit",
-    location: "Australia",
-    default: false,
-  },
-  {
-    url: "hive-api.arcange.eu",
-    provider: "Arcange",
-    location: "Europe",
-    default: false,
-  },
+  { url: "api.hive.blog", provider: "@blocktrades", default: true },
+  { url: "api.openhive.network", provider: "@gtg", default: true },
+  { url: "api.syncad.com", provider: "@gtg", default: true },
+  { url: "anyx.io", provider: "@anyx", default: false },
+  { url: "rpc.ausbit.dev", provider: "@ausbitbank", default: false },
+  { url: "hive-api.arcange.eu", provider: "@arcange", default: false },
+  { url: "api.deathwing.me", provider: "@deathwing", default: false },
+  { url: "rpc.mahdiyari.info", provider: "@mahdiyari", default: false },
+  { url: "techcoderx.com", provider: "@techcoderx", default: false },
+  { url: "hive.roelandp.nl", provider: "@roelandp", default: false },
 ];
 
 const CODE = {
   default: `import { HiveProvider } from "@kkocot/hive-ui-react";
 
-// Uses default nodes: api.syncad.com, api.openhive.network, api.hive.blog
+// Uses default nodes: api.hive.blog, api.openhive.network, api.syncad.com
 <HiveProvider>
   {children}
 </HiveProvider>`,
@@ -60,13 +34,6 @@ const CODE = {
 >
   {children}
 </HiveProvider>`,
-  useEndpoint: `import { useApiEndpoint } from "@kkocot/hive-ui-react";
-
-function NodeInfo() {
-  const endpoint = useApiEndpoint();
-
-  return <p>Connected to: {endpoint}</p>;
-}`,
 };
 
 export default async function ApiNodesPage() {
@@ -102,7 +69,6 @@ export default async function ApiNodesPage() {
               <tr className="border-b border-border">
                 <th className="py-3 px-4 text-left font-semibold">Node</th>
                 <th className="py-3 px-4 text-left font-semibold">Provider</th>
-                <th className="py-3 px-4 text-left font-semibold">Location</th>
                 <th className="py-3 px-4 text-left font-semibold">Default</th>
               </tr>
             </thead>
@@ -112,8 +78,7 @@ export default async function ApiNodesPage() {
                   <td className="py-3 px-4">
                     <code className="text-hive-red">{node.url}</code>
                   </td>
-                  <td className="py-3 px-4">{node.provider}</td>
-                  <td className="py-3 px-4 text-muted-foreground">{node.location}</td>
+                  <td className="py-3 px-4 text-muted-foreground">{node.provider}</td>
                   <td className="py-3 px-4">
                     {node.default && (
                       <span className="rounded bg-green-500/10 px-1.5 py-0.5 text-xs text-green-500">
@@ -146,15 +111,6 @@ export default async function ApiNodesPage() {
         <CodeBlock code={CODE.custom} language="tsx" />
       </section>
 
-      {/* Get Current Endpoint */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Get Current Endpoint</h2>
-        <p className="text-muted-foreground mb-4">
-          Use <code>useApiEndpoint</code> hook to see which node is connected:
-        </p>
-        <CodeBlock code={CODE.useEndpoint} language="tsx" />
-      </section>
-
       {/* Info */}
       <section className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4">
         <div className="flex gap-3">
@@ -178,18 +134,22 @@ export default async function ApiNodesPage() {
         </div>
       </section>
 
-      {/* Next */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Next</h2>
-        <div className="flex gap-4">
-          <Link
-            href="/docs/theming"
-            className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
-          >
-            Theming
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
+      {/* Navigation */}
+      <section className="flex items-center justify-between">
+        <Link
+          href="/docs/hive-provider"
+          className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          HiveProvider
+        </Link>
+        <Link
+          href="/docs/theming"
+          className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
+        >
+          Theming
+          <ArrowRight className="h-4 w-4" />
+        </Link>
       </section>
     </article>
   );

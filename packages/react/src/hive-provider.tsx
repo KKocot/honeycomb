@@ -14,9 +14,9 @@ import { createHiveChain, type IHiveChainInterface } from "@hiveio/wax";
 // ============== Constants ==============
 
 export const DEFAULT_API_ENDPOINTS = [
-  "https://api.syncad.com",
-  "https://api.openhive.network",
   "https://api.hive.blog",
+  "https://api.openhive.network",
+  "https://api.syncad.com",
 ];
 
 // ============== Types ==============
