@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Package, Zap } from "lucide-react";
+import { ArrowLeft, ArrowRight, Package, Zap } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 import { UsageTabs } from "@/components/usage-tabs";
 
@@ -117,11 +117,7 @@ export default async function HiveProviderPage() {
                 <td className="py-3 px-4"><code>apiEndpoints</code></td>
                 <td className="py-3 px-4 text-muted-foreground"><code>string[]</code></td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  <div className="space-y-1">
-                    <code className="block">api.syncad.com</code>
-                    <code className="block">api.openhive.network</code>
-                    <code className="block">api.hive.blog</code>
-                  </div>
+                  <code>[&quot;api.hive.blog&quot;, &quot;api.openhive.network&quot;, &quot;api.syncad.com&quot;]</code>
                 </td>
               </tr>
               <tr>
@@ -146,18 +142,22 @@ export default async function HiveProviderPage() {
         </div>
       </section>
 
-      {/* Next Steps */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Next</h2>
-        <div className="flex gap-4">
-          <Link
-            href="/docs/api-nodes"
-            className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
-          >
-            API Nodes
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
+      {/* Navigation */}
+      <section className="flex items-center justify-between">
+        <Link
+          href="/docs/project-structure"
+          className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Project Structure
+        </Link>
+        <Link
+          href="/docs/api-nodes"
+          className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
+        >
+          API Nodes
+          <ArrowRight className="h-4 w-4" />
+        </Link>
       </section>
     </article>
   );
