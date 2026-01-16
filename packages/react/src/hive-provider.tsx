@@ -53,10 +53,12 @@ const HiveContext = createContext<HiveContextValue | null>(null);
 
 // ============== Provider ==============
 
+const DEFAULT_API_ENDPOINT = "https://api.syncad.com";
+
 export function HiveProvider({
   children,
   storageKey = "hive-ui-session",
-  apiEndpoint,
+  apiEndpoint = DEFAULT_API_ENDPOINT,
   onLogin,
   onLogout,
 }: HiveProviderProps) {

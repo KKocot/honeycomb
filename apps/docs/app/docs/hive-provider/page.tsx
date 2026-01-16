@@ -121,7 +121,7 @@ export default async function HiveProviderPage() {
               <tr>
                 <td className="py-3 px-4"><code>apiEndpoint</code></td>
                 <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
-                <td className="py-3 px-4 text-muted-foreground">default node</td>
+                <td className="py-3 px-4 text-muted-foreground"><code>"https://api.syncad.com"</code></td>
               </tr>
               <tr>
                 <td className="py-3 px-4"><code>onLogin</code></td>
