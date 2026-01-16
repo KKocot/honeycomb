@@ -1,308 +1,146 @@
 import Link from "next/link";
-import { ArrowRight, Info, Repeat, Loader2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Info, Repeat, Loader2, Check } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  component: `"use client";
+  install: `pnpm add @kkocot/hive-ui-react`,
+  basic: `import { HiveReblogButton } from "@kkocot/hive-ui-react";
 
-import { useState } from "react";
-import { Repeat, Loader2, Check } from "lucide-react";
-
-interface ReblogButtonProps {
-  author: string;
-  permlink: string;
-  reblogger?: string;
-  initialReblogged?: boolean;
-  onReblog?: (author: string, permlink: string) => Promise<void>;
-  variant?: "default" | "ghost" | "outline";
-  size?: "sm" | "md" | "lg";
-  showLabel?: boolean;
-  showConfirmation?: boolean;
-  className?: string;
-}
-
-export function ReblogButton({
-  author,
-  permlink,
-  reblogger,
-  initialReblogged = false,
-  onReblog,
-  variant = "ghost",
-  size = "md",
-  showLabel = false,
-  showConfirmation = true,
-  className = "",
-}: ReblogButtonProps) {
-  const [isReblogged, setIsReblogged] = useState(initialReblogged);
-  const [isLoading, setIsLoading] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
-
-  async function handleReblog() {
-    if (!reblogger || isReblogged) return;
-
-    if (showConfirmation && !showConfirm) {
-      setShowConfirm(true);
-      return;
-    }
-
-    setIsLoading(true);
-    setShowConfirm(false);
-
-    try {
-      await onReblog?.(author, permlink);
-      setIsReblogged(true);
-    } catch (error) {
-      console.error("Reblog failed:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  const sizeClasses = {
-    sm: showLabel ? "px-2 py-1 text-xs gap-1" : "p-1",
-    md: showLabel ? "px-3 py-1.5 text-sm gap-1.5" : "p-1.5",
-    lg: showLabel ? "px-4 py-2 text-base gap-2" : "p-2",
-  };
-
-  const variantClasses = {
-    default: isReblogged
-      ? "bg-green-500/10 text-green-500"
-      : "bg-muted hover:bg-green-500/10 hover:text-green-500",
-    ghost: isReblogged
-      ? "text-green-500"
-      : "text-muted-foreground hover:text-green-500",
-    outline: isReblogged
-      ? "border border-green-500 text-green-500"
-      : "border border-border hover:border-green-500 hover:text-green-500",
-  };
-
-  const iconSize = size === "sm" ? "h-3.5 w-3.5" : size === "lg" ? "h-5 w-5" : "h-4 w-4";
-
-  if (showConfirm) {
-    return (
-      <div className="flex items-center gap-2">
-        <span className="text-sm text-muted-foreground">Reblog this post?</span>
-        <button
-          onClick={handleReblog}
-          className="px-2 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600"
-        >
-          Yes
-        </button>
-        <button
-          onClick={() => setShowConfirm(false)}
-          className="px-2 py-1 text-xs rounded bg-muted hover:bg-muted/80"
-        >
-          No
-        </button>
-      </div>
-    );
-  }
-
+function PostActions() {
   return (
-    <button
-      onClick={handleReblog}
-      disabled={isLoading || isReblogged || !reblogger}
-      title={isReblogged ? "Reblogged" : "Reblog"}
-      className={\`inline-flex items-center justify-center rounded-lg transition-colors disabled:opacity-50 \${sizeClasses[size]} \${variantClasses[variant]} \${className}\`}
-    >
-      {isLoading ? (
-        <Loader2 className={\`\${iconSize} animate-spin\`} />
-      ) : isReblogged ? (
-        <Check className={iconSize} />
-      ) : (
-        <Repeat className={iconSize} />
-      )}
-      {showLabel && (isReblogged ? "Reblogged" : "Reblog")}
-    </button>
-  );
-}`,
-  basicUsage: `"use client";
-
-import { ReblogButton } from "@/components/hive/reblog-button";
-import { useHiveAuth } from "@/hooks/use-hive-auth";
-import { useReblog } from "@/hooks/use-reblog";
-
-interface PostActionsProps {
-  author: string;
-  permlink: string;
-  isReblogged: boolean;
-}
-
-export function PostActions({ author, permlink, isReblogged }: PostActionsProps) {
-  const { user } = useHiveAuth();
-  const { reblog } = useReblog();
-
-  return (
-    <ReblogButton
-      author={author}
-      permlink={permlink}
-      reblogger={user?.username}
-      initialReblogged={isReblogged}
-      onReblog={reblog}
+    <HiveReblogButton
+      author="barddev"
+      permlink="my-first-post"
     />
   );
 }`,
-  withLabel: `<ReblogButton
-  author={author}
-  permlink={permlink}
-  reblogger={user?.username}
-  showLabel
-  variant="outline"
-  onReblog={reblog}
+  withCallback: `// Optional callback after reblog
+<HiveReblogButton
+  author="barddev"
+  permlink="my-first-post"
+  onSuccess={() => console.log("Reblogged!")}
 />`,
-  inPostFooter: `"use client";
+  withLabel: `// Show text label
+<HiveReblogButton
+  author="barddev"
+  permlink="my-first-post"
+  showLabel
+/>`,
+  noConfirmation: `// Skip confirmation dialog
+<HiveReblogButton
+  author="barddev"
+  permlink="my-first-post"
+  showConfirmation={false}
+/>`,
+  variants: `// Default
+<HiveReblogButton author="barddev" permlink="post" variant="default" />
 
-import { VoteButton } from "@/components/hive/vote-button";
-import { ReblogButton } from "@/components/hive/reblog-button";
-import { MessageCircle, Share } from "lucide-react";
+// Ghost (default)
+<HiveReblogButton author="barddev" permlink="post" variant="ghost" />
 
-interface PostFooterProps {
-  author: string;
-  permlink: string;
-  voteCount: number;
-  commentCount: number;
-  isReblogged: boolean;
-}
-
-export function PostFooter({
-  author,
-  permlink,
-  voteCount,
-  commentCount,
-  isReblogged,
-}: PostFooterProps) {
-  return (
-    <div className="flex items-center gap-4 pt-3 border-t border-border">
-      <VoteButton
-        author={author}
-        permlink={permlink}
-        initialVoteCount={voteCount}
-      />
-
-      <button className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground">
-        <MessageCircle className="h-4 w-4" />
-        <span className="text-sm">{commentCount}</span>
-      </button>
-
-      <ReblogButton
-        author={author}
-        permlink={permlink}
-        initialReblogged={isReblogged}
-      />
-
-      <button className="p-1.5 text-muted-foreground hover:text-foreground ml-auto">
-        <Share className="h-4 w-4" />
-      </button>
-    </div>
-  );
-}`,
-  hook: `"use client";
-
-import { useCallback } from "react";
-import { useHiveChain } from "@/hooks/use-hive-chain";
-import { useHiveAuth } from "@/hooks/use-hive-auth";
-
-export function useReblog() {
-  const { chain } = useHiveChain();
-  const { user, signTransaction } = useHiveAuth();
-
-  const reblog = useCallback(async (author: string, permlink: string) => {
-    if (!user || !chain) return;
-
-    const tx = chain.createTransaction();
-    tx.pushOperation({
-      custom_json: {
-        required_auths: [],
-        required_posting_auths: [user.username],
-        id: "reblog",
-        json: JSON.stringify([
-          "reblog",
-          {
-            account: user.username,
-            author,
-            permlink,
-          },
-        ]),
-      },
-    });
-
-    await signTransaction(tx);
-  }, [user, chain, signTransaction]);
-
-  return { reblog };
-}`,
+// Outline
+<HiveReblogButton author="barddev" permlink="post" variant="outline" />`,
+  sizes: `<HiveReblogButton author="barddev" permlink="post" size="sm" />
+<HiveReblogButton author="barddev" permlink="post" size="md" />
+<HiveReblogButton author="barddev" permlink="post" size="lg" />`,
+  customStyle: `// Custom styling
+<HiveReblogButton
+  author="barddev"
+  permlink="my-first-post"
+  className="rounded-full"
+  style={{ minWidth: 40 }}
+/>`,
 };
 
 export default async function ReblogButtonPage() {
   return (
     <article className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Reblog Button</h1>
+        <h1 className="text-3xl font-bold tracking-tight">HiveReblogButton</h1>
         <p className="mt-2 text-lg text-muted-foreground">
           Share posts to your blog feed with a reblog action.
         </p>
       </div>
 
       {/* Info */}
-      <section className="rounded-lg border border-green-500/20 bg-green-500/5 p-4">
+      <section className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4">
         <div className="flex gap-3">
-          <Info className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
+          <Info className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
           <div>
-            <p className="font-medium text-green-500">Reblogging on Hive</p>
+            <p className="font-medium text-blue-500">Self-contained</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              Reblog uses custom_json with &quot;reblog&quot; id. Once reblogged, a post cannot
-              be un-reblogged. It appears on your blog feed with the original author credited.
+              Automatically checks reblog status and handles transactions.
+              Uses posting key from SmartSigner. Reblog is permanent and cannot be undone.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Preview */}
-      <section className="rounded-lg border border-border bg-card p-6">
-        <h2 className="text-xl font-semibold mb-4">Preview</h2>
-        <div className="flex flex-wrap items-center gap-6">
-          {/* Ghost (default) */}
-          <button className="p-1.5 rounded-lg text-muted-foreground hover:text-green-500">
-            <Repeat className="h-4 w-4" />
-          </button>
-
-          {/* Reblogged */}
-          <button className="p-1.5 rounded-lg text-green-500">
-            <Repeat className="h-4 w-4" />
-          </button>
-
-          {/* With label */}
-          <button className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border border-border text-muted-foreground hover:border-green-500 hover:text-green-500">
-            <Repeat className="h-4 w-4" />
-            Reblog
-          </button>
-
-          {/* Loading */}
-          <button className="p-1.5 rounded-lg text-muted-foreground" disabled>
-            <Loader2 className="h-4 w-4 animate-spin" />
-          </button>
-
-          {/* Confirmation */}
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">Reblog this post?</span>
-            <button className="px-2 py-1 text-xs rounded bg-green-500 text-white">
-              Yes
-            </button>
-            <button className="px-2 py-1 text-xs rounded bg-muted">
-              No
-            </button>
-          </div>
-        </div>
+      {/* Installation */}
+      <section>
+        <h2 className="text-xl font-semibold mb-4">Installation</h2>
+        <CodeBlock code={CODE.install} language="bash" />
       </section>
 
-      {/* Component Code */}
+      {/* Usage */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">Component</h2>
-        <CodeBlock
-          filename="components/hive/reblog-button.tsx"
-          code={CODE.component}
-          language="typescript"
-        />
+        <h2 className="text-xl font-semibold mb-4">Usage</h2>
+        <CodeBlock code={CODE.basic} language="tsx" />
+      </section>
+
+      {/* Preview */}
+      <section>
+        <h2 className="text-xl font-semibold mb-4">Preview</h2>
+        <div className="rounded-lg border border-border p-6">
+          <div className="flex flex-wrap items-center gap-6">
+            {/* Ghost (default) */}
+            <div className="text-center">
+              <button className="p-1.5 rounded-lg text-muted-foreground hover:text-green-500">
+                <Repeat className="h-4 w-4" />
+              </button>
+              <p className="text-xs text-muted-foreground mt-1">Default</p>
+            </div>
+
+            {/* Reblogged */}
+            <div className="text-center">
+              <button className="p-1.5 rounded-lg text-green-500">
+                <Check className="h-4 w-4" />
+              </button>
+              <p className="text-xs text-muted-foreground mt-1">Reblogged</p>
+            </div>
+
+            {/* With label */}
+            <div className="text-center">
+              <button className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border border-border text-muted-foreground hover:border-green-500 hover:text-green-500">
+                <Repeat className="h-4 w-4" />
+                Reblog
+              </button>
+              <p className="text-xs text-muted-foreground mt-1">With label</p>
+            </div>
+
+            {/* Loading */}
+            <div className="text-center">
+              <button className="p-1.5 rounded-lg text-muted-foreground" disabled>
+                <Loader2 className="h-4 w-4 animate-spin" />
+              </button>
+              <p className="text-xs text-muted-foreground mt-1">Loading</p>
+            </div>
+
+            {/* Confirmation */}
+            <div className="text-center">
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">Reblog?</span>
+                <button className="px-2 py-1 text-xs rounded bg-green-500 text-white">
+                  Yes
+                </button>
+                <button className="px-2 py-1 text-xs rounded bg-muted">
+                  No
+                </button>
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">Confirmation</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Props */}
@@ -315,7 +153,6 @@ export default async function ReblogButtonPage() {
                 <th className="py-3 px-4 text-left font-semibold">Prop</th>
                 <th className="py-3 px-4 text-left font-semibold">Type</th>
                 <th className="py-3 px-4 text-left font-semibold">Default</th>
-                <th className="py-3 px-4 text-left font-semibold">Description</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
@@ -323,71 +160,99 @@ export default async function ReblogButtonPage() {
                 <td className="py-3 px-4"><code>author</code></td>
                 <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
                 <td className="py-3 px-4 text-muted-foreground">required</td>
-                <td className="py-3 px-4 text-muted-foreground">Post author</td>
               </tr>
               <tr>
                 <td className="py-3 px-4"><code>permlink</code></td>
                 <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
                 <td className="py-3 px-4 text-muted-foreground">required</td>
-                <td className="py-3 px-4 text-muted-foreground">Post permlink</td>
+              </tr>
+              <tr>
+                <td className="py-3 px-4"><code>onSuccess</code></td>
+                <td className="py-3 px-4 text-muted-foreground"><code>() =&gt; void</code></td>
+                <td className="py-3 px-4 text-muted-foreground">-</td>
               </tr>
               <tr>
                 <td className="py-3 px-4"><code>showConfirmation</code></td>
                 <td className="py-3 px-4 text-muted-foreground"><code>boolean</code></td>
                 <td className="py-3 px-4 text-muted-foreground"><code>true</code></td>
-                <td className="py-3 px-4 text-muted-foreground">Show confirmation dialog</td>
               </tr>
               <tr>
                 <td className="py-3 px-4"><code>showLabel</code></td>
                 <td className="py-3 px-4 text-muted-foreground"><code>boolean</code></td>
                 <td className="py-3 px-4 text-muted-foreground"><code>false</code></td>
-                <td className="py-3 px-4 text-muted-foreground">Show text label</td>
+              </tr>
+              <tr>
+                <td className="py-3 px-4"><code>variant</code></td>
+                <td className="py-3 px-4 text-muted-foreground"><code>{`"default" | "ghost" | "outline"`}</code></td>
+                <td className="py-3 px-4 text-muted-foreground"><code>"ghost"</code></td>
+              </tr>
+              <tr>
+                <td className="py-3 px-4"><code>size</code></td>
+                <td className="py-3 px-4 text-muted-foreground"><code>{`"sm" | "md" | "lg"`}</code></td>
+                <td className="py-3 px-4 text-muted-foreground"><code>"md"</code></td>
+              </tr>
+              <tr>
+                <td className="py-3 px-4"><code>className</code></td>
+                <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
+                <td className="py-3 px-4 text-muted-foreground">-</td>
+              </tr>
+              <tr>
+                <td className="py-3 px-4"><code>style</code></td>
+                <td className="py-3 px-4 text-muted-foreground"><code>React.CSSProperties</code></td>
+                <td className="py-3 px-4 text-muted-foreground">-</td>
               </tr>
             </tbody>
           </table>
         </div>
       </section>
 
-      {/* Basic Usage */}
+      {/* Examples */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">Basic Usage</h2>
-        <CodeBlock code={CODE.basicUsage} language="typescript" />
-      </section>
-
-      {/* With Label */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">With Label</h2>
-        <CodeBlock code={CODE.withLabel} language="tsx" />
-      </section>
-
-      {/* In Post Footer */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">In Post Footer</h2>
-        <CodeBlock code={CODE.inPostFooter} language="typescript" />
-      </section>
-
-      {/* Hook */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">useReblog Hook</h2>
-        <CodeBlock
-          filename="hooks/use-reblog.ts"
-          code={CODE.hook}
-          language="typescript"
-        />
-      </section>
-
-      {/* Next Steps */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Next</h2>
-        <div className="flex gap-4">
-          <Link
-            href="/docs/components/transfer-dialog"
-            className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
-          >
-            Transfer Dialog
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+        <h2 className="text-xl font-semibold mb-4">Examples</h2>
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-sm font-medium mb-2">With callback</h3>
+            <CodeBlock code={CODE.withCallback} language="tsx" />
+          </div>
+          <div>
+            <h3 className="text-sm font-medium mb-2">With label</h3>
+            <CodeBlock code={CODE.withLabel} language="tsx" />
+          </div>
+          <div>
+            <h3 className="text-sm font-medium mb-2">Without confirmation</h3>
+            <CodeBlock code={CODE.noConfirmation} language="tsx" />
+          </div>
+          <div>
+            <h3 className="text-sm font-medium mb-2">Variants</h3>
+            <CodeBlock code={CODE.variants} language="tsx" />
+          </div>
+          <div>
+            <h3 className="text-sm font-medium mb-2">Sizes</h3>
+            <CodeBlock code={CODE.sizes} language="tsx" />
+          </div>
+          <div>
+            <h3 className="text-sm font-medium mb-2">Custom styling</h3>
+            <CodeBlock code={CODE.customStyle} language="tsx" />
+          </div>
         </div>
+      </section>
+
+      {/* Navigation */}
+      <section className="flex items-center justify-between">
+        <Link
+          href="/docs/components/post-card"
+          className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Post Card
+        </Link>
+        <Link
+          href="/docs/components/balance-card"
+          className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
+        >
+          Balance Card
+          <ArrowRight className="h-4 w-4" />
+        </Link>
       </section>
     </article>
   );

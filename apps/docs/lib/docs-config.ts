@@ -32,13 +32,7 @@ export const docsConfig: NavSection[] = [
   {
     title: "Authentication",
     items: [
-      { title: "Smart Signer", href: "/docs/components/smart-signer", label: "All-in-One" },
-      { title: "Keychain Login", href: "/docs/components/keychain-login" },
-      { title: "PeakVault Login", href: "/docs/components/peakvault-login" },
-      { title: "Hivesigner Login", href: "/docs/components/hivesigner-login" },
-      { title: "HiveAuth Login", href: "/docs/components/hiveauth-login" },
-      { title: "HB-Auth Login", href: "/docs/components/hbauth-login", label: "Safe Storage" },
-      { title: "WIF Login", href: "/docs/components/wif-login", label: "Direct Key" },
+      { title: "Smart Signer", href: "/docs/components/smart-signer" },
     ],
   },
   {
@@ -48,7 +42,6 @@ export const docsConfig: NavSection[] = [
       { title: "User Card", href: "/docs/components/user-card" },
       { title: "Follow Button", href: "/docs/components/follow-button" },
       { title: "Mute Button", href: "/docs/components/mute-button" },
-      { title: "Badge List", href: "/docs/components/badge-list" },
     ],
   },
   {
@@ -57,7 +50,7 @@ export const docsConfig: NavSection[] = [
       { title: "Vote Button", href: "/docs/components/vote-button" },
       { title: "Comment Form", href: "/docs/components/comment-form" },
       { title: "Post Editor", href: "/docs/components/post-editor" },
-      { title: "Post Summary", href: "/docs/components/post-summary" },
+      { title: "Post Card", href: "/docs/components/post-card" },
       { title: "Reblog Button", href: "/docs/components/reblog-button" },
     ],
   },
