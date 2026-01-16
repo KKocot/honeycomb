@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }`,
   withOptions: `<HiveProvider
   storageKey="my-app-session"
-  apiEndpoint="https://api.deathwing.me"
+  apiEndpoint="https://api.openhive.network"
   onLogin={(user) => console.log('Logged in:', user)}
   onLogout={() => console.log('Logged out')}
 >
