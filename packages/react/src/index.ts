@@ -6,6 +6,8 @@ export {
   useHiveUser,
   useIsLoggedIn,
   useHiveAuth,
+  useApiEndpoint,
+  DEFAULT_API_ENDPOINTS,
   type HiveUser,
   type HiveContextValue,
   type HiveProviderProps,

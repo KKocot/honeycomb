@@ -11,6 +11,14 @@ import {
 } from "react";
 import { createHiveChain, type IHiveChainInterface } from "@hiveio/wax";
 
+// ============== Constants ==============
+
+export const DEFAULT_API_ENDPOINTS = [
+  "https://api.syncad.com",
+  "https://api.openhive.network",
+  "https://api.hive.blog",
+];
+
 // ============== Types ==============
 
 export interface HiveUser {
@@ -33,18 +41,80 @@ export interface HiveContextValue {
   logout: () => void;
   /** Check if running on client */
   isClient: boolean;
+  /** Currently connected API endpoint */
+  apiEndpoint: string | null;
 }
 
 export interface HiveProviderProps {
   children: ReactNode;
   /** Storage key for persisting session */
   storageKey?: string;
-  /** API endpoint for Hive node */
-  apiEndpoint?: string;
+  /**
+   * List of API endpoints to try. Provider will test each endpoint
+   * and connect to the fastest responding one.
+   * @default ["https://api.syncad.com", "https://api.openhive.network", "https://api.hive.blog"]
+   */
+  apiEndpoints?: string[];
   /** Called when user logs in */
   onLogin?: (user: HiveUser) => void;
   /** Called when user logs out */
   onLogout?: () => void;
+}
+
+// ============== Helpers ==============
+
+interface EndpointHealth {
+  endpoint: string;
+  latency: number;
+}
+
+/**
+ * Test endpoint latency by making a simple API call
+ */
+async function testEndpoint(endpoint: string, timeout = 5000): Promise<EndpointHealth | null> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  const start = performance.now();
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        jsonrpc: "2.0",
+        method: "condenser_api.get_version",
+        params: [],
+        id: 1,
+      }),
+      signal: controller.signal,
+    });
+
+    if (!response.ok) return null;
+
+    await response.json();
+    const latency = performance.now() - start;
+
+    return { endpoint, latency };
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+/**
+ * Find the fastest responding endpoint from a list
+ */
+async function findFastestEndpoint(endpoints: string[]): Promise<string | null> {
+  const results = await Promise.all(endpoints.map((ep) => testEndpoint(ep)));
+  const validResults = results.filter((r): r is EndpointHealth => r !== null);
+
+  if (validResults.length === 0) return null;
+
+  // Sort by latency and return fastest
+  validResults.sort((a, b) => a.latency - b.latency);
+  return validResults[0].endpoint;
 }
 
 // ============== Context ==============
@@ -53,12 +123,10 @@ const HiveContext = createContext<HiveContextValue | null>(null);
 
 // ============== Provider ==============
 
-const DEFAULT_API_ENDPOINT = "https://api.syncad.com";
-
 export function HiveProvider({
   children,
   storageKey = "hive-ui-session",
-  apiEndpoint = DEFAULT_API_ENDPOINT,
+  apiEndpoints = DEFAULT_API_ENDPOINTS,
   onLogin,
   onLogout,
 }: HiveProviderProps) {
@@ -67,6 +135,7 @@ export function HiveProvider({
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<HiveUser | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const [connectedEndpoint, setConnectedEndpoint] = useState<string | null>(null);
 
   // Detect client-side
   useEffect(() => {
@@ -90,7 +159,7 @@ export function HiveProvider({
     }
   }, [isClient, storageKey]);
 
-  // Initialize Hive chain (client-side only)
+  // Initialize Hive chain with fastest endpoint (client-side only)
   useEffect(() => {
     if (!isClient) return;
 
@@ -98,11 +167,25 @@ export function HiveProvider({
 
     async function initChain() {
       try {
+        // Find fastest endpoint
+        const fastestEndpoint = await findFastestEndpoint(apiEndpoints);
+
+        if (cancelled) return;
+
+        if (!fastestEndpoint) {
+          setError("All API endpoints are unavailable");
+          setIsLoading(false);
+          return;
+        }
+
+        // Connect to fastest endpoint
         const hiveChain = await createHiveChain({
-          apiEndpoint,
+          apiEndpoint: fastestEndpoint,
         });
+
         if (!cancelled) {
           setChain(hiveChain);
+          setConnectedEndpoint(fastestEndpoint);
         }
       } catch (err) {
         if (!cancelled) {
@@ -120,7 +203,7 @@ export function HiveProvider({
     return () => {
       cancelled = true;
     };
-  }, [isClient, apiEndpoint]);
+  }, [isClient, apiEndpoints]);
 
   // Login function
   const login = useCallback(
@@ -166,8 +249,9 @@ export function HiveProvider({
       login,
       logout,
       isClient,
+      apiEndpoint: connectedEndpoint,
     }),
-    [chain, isLoading, error, user, login, logout, isClient]
+    [chain, isLoading, error, user, login, logout, isClient, connectedEndpoint]
   );
 
   return <HiveContext.Provider value={value}>{children}</HiveContext.Provider>;
@@ -218,4 +302,12 @@ export function useIsLoggedIn(): boolean {
 export function useHiveAuth() {
   const { user, login, logout, isLoading } = useHive();
   return { user, login, logout, isLoading };
+}
+
+/**
+ * Hook to get current API endpoint
+ */
+export function useApiEndpoint(): string | null {
+  const { apiEndpoint } = useHive();
+  return apiEndpoint;
 }

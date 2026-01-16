@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Package } from "lucide-react";
+import { ArrowRight, Package, Zap } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 import { UsageTabs } from "@/components/usage-tabs";
 
@@ -39,9 +39,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }`,
-  withOptions: `<HiveProvider
-  storageKey="my-app-session"
-  apiEndpoint="https://api.openhive.network"
+  customEndpoints: `<HiveProvider
+  apiEndpoints={[
+    "https://api.syncad.com",
+    "https://api.openhive.network",
+    "https://api.hive.blog",
+    "https://anyx.io",
+  ]}
+>
+  {children}
+</HiveProvider>`,
+  withCallbacks: `<HiveProvider
   onLogin={(user) => console.log('Logged in:', user)}
   onLogout={() => console.log('Logged out')}
 >
@@ -50,13 +58,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 };
 
 export default async function HiveProviderPage() {
-  const reactContent = (
-    <CodeBlock code={CODE.react} language="tsx" />
-  );
-
-  const nextjsContent = (
-    <CodeBlock code={CODE.nextjs} language="tsx" />
-  );
+  const reactContent = <CodeBlock code={CODE.react} language="tsx" />;
+  const nextjsContent = <CodeBlock code={CODE.nextjs} language="tsx" />;
 
   return (
     <article className="space-y-8">
@@ -75,6 +78,20 @@ export default async function HiveProviderPage() {
             <p className="font-medium text-hive-red">npm package</p>
             <p className="mt-1 text-sm text-muted-foreground">
               <code>@kkocot/hive-ui-react</code>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Auto Node Selection */}
+      <section className="rounded-lg border border-green-500/20 bg-green-500/5 p-4">
+        <div className="flex gap-3">
+          <Zap className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
+          <div>
+            <p className="font-medium text-green-500">Automatic Node Selection</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Provider automatically tests all endpoints and connects to the fastest one.
+              Default nodes: <code>api.syncad.com</code>, <code>api.openhive.network</code>, <code>api.hive.blog</code>
             </p>
           </div>
         </div>
@@ -114,14 +131,18 @@ export default async function HiveProviderPage() {
             </thead>
             <tbody className="divide-y divide-border">
               <tr>
-                <td className="py-3 px-4"><code>storageKey</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>"hive-ui-session"</code></td>
+                <td className="py-3 px-4"><code>apiEndpoints</code></td>
+                <td className="py-3 px-4 text-muted-foreground"><code>string[]</code></td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>[&quot;api.syncad.com&quot;, ...]</code>
+                </td>
               </tr>
               <tr>
-                <td className="py-3 px-4"><code>apiEndpoint</code></td>
+                <td className="py-3 px-4"><code>storageKey</code></td>
                 <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>"https://api.syncad.com"</code></td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>&quot;hive-ui-session&quot;</code>
+                </td>
               </tr>
               <tr>
                 <td className="py-3 px-4"><code>onLogin</code></td>
@@ -138,10 +159,19 @@ export default async function HiveProviderPage() {
         </div>
       </section>
 
-      {/* With Options */}
+      {/* Custom Endpoints */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">With Options</h2>
-        <CodeBlock code={CODE.withOptions} language="tsx" />
+        <h2 className="text-xl font-semibold mb-4">Custom Endpoints</h2>
+        <p className="text-muted-foreground mb-4">
+          Override default endpoints with your preferred nodes:
+        </p>
+        <CodeBlock code={CODE.customEndpoints} language="tsx" />
+      </section>
+
+      {/* With Callbacks */}
+      <section>
+        <h2 className="text-xl font-semibold mb-4">With Callbacks</h2>
+        <CodeBlock code={CODE.withCallbacks} language="tsx" />
       </section>
 
       {/* Next Steps */}
@@ -149,10 +179,10 @@ export default async function HiveProviderPage() {
         <h2 className="text-xl font-semibold mb-4">Next</h2>
         <div className="flex gap-4">
           <Link
-            href="/docs/hooks/use-hive"
+            href="/docs/api-nodes"
             className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
           >
-            useHive Hook
+            API Nodes
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

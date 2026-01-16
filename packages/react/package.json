@@ -1,6 +1,6 @@
 {
   "name": "@kkocot/hive-ui-react",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "React components for Hive Blockchain applications",
   "keywords": ["hive", "blockchain", "react", "components", "web3"],
   "repository": {
