@@ -39,22 +39,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }`,
-  customEndpoints: `<HiveProvider
-  apiEndpoints={[
-    "https://api.syncad.com",
-    "https://api.openhive.network",
-    "https://api.hive.blog",
-    "https://anyx.io",
-  ]}
->
-  {children}
-</HiveProvider>`,
-  withCallbacks: `<HiveProvider
-  onLogin={(user) => console.log('Logged in:', user)}
-  onLogout={() => console.log('Logged out')}
->
-  {children}
-</HiveProvider>`,
 };
 
 export default async function HiveProviderPage() {
@@ -91,7 +75,6 @@ export default async function HiveProviderPage() {
             <p className="font-medium text-green-500">Automatic Node Selection</p>
             <p className="mt-1 text-sm text-muted-foreground">
               Provider automatically tests all endpoints and connects to the fastest one.
-              Default nodes: <code>api.syncad.com</code>, <code>api.openhive.network</code>, <code>api.hive.blog</code>
             </p>
           </div>
         </div>
@@ -134,7 +117,11 @@ export default async function HiveProviderPage() {
                 <td className="py-3 px-4"><code>apiEndpoints</code></td>
                 <td className="py-3 px-4 text-muted-foreground"><code>string[]</code></td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  <code>[&quot;api.syncad.com&quot;, ...]</code>
+                  <div className="space-y-1">
+                    <code className="block">api.syncad.com</code>
+                    <code className="block">api.openhive.network</code>
+                    <code className="block">api.hive.blog</code>
+                  </div>
                 </td>
               </tr>
               <tr>
@@ -157,21 +144,6 @@ export default async function HiveProviderPage() {
             </tbody>
           </table>
         </div>
-      </section>
-
-      {/* Custom Endpoints */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Custom Endpoints</h2>
-        <p className="text-muted-foreground mb-4">
-          Override default endpoints with your preferred nodes:
-        </p>
-        <CodeBlock code={CODE.customEndpoints} language="tsx" />
-      </section>
-
-      {/* With Callbacks */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">With Callbacks</h2>
-        <CodeBlock code={CODE.withCallbacks} language="tsx" />
       </section>
 
       {/* Next Steps */}
