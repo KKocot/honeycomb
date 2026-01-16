@@ -140,6 +140,52 @@ Returns auth-related values:
 const { user, login, logout, isLoading } = useHiveAuth()
 ```
 
+## Auth Components
+
+### KeychainLogin
+
+Login form using Hive Keychain browser extension:
+
+```tsx
+'use client'
+
+import { KeychainLogin, hasKeychain } from '@kkocot/hive-ui-react'
+
+export function LoginPage() {
+  return (
+    <KeychainLogin
+      onSuccess={(username) => console.log('Logged in:', username)}
+      onError={(error) => console.error(error)}
+      keyType="Posting"  // or "Active"
+    />
+  )
+}
+
+// Check if Keychain is available
+if (hasKeychain()) {
+  console.log('Keychain is installed')
+}
+```
+
+### PeakVaultLogin
+
+Login form using PeakVault browser extension:
+
+```tsx
+'use client'
+
+import { PeakVaultLogin, hasPeakVault } from '@kkocot/hive-ui-react'
+
+export function LoginPage() {
+  return (
+    <PeakVaultLogin
+      onSuccess={(username) => console.log('Logged in:', username)}
+      onError={(error) => console.error(error)}
+    />
+  )
+}
+```
+
 ## SSR Compatibility
 
 The package is fully SSR-compatible:
@@ -148,6 +194,7 @@ The package is fully SSR-compatible:
 - `isClient` flag indicates client-side hydration
 - No localStorage access during SSR
 - Safe to use in Next.js App Router with `"use client"` components
+- Auth components render safely on server (functionality activates on client)
 
 ## Types
 
