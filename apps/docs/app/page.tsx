@@ -10,6 +10,7 @@ import {
   Zap,
 } from "lucide-react";
 import { HiveLogo } from "@/components/hive-logo";
+import { CodeBlock } from "@/components/code-block";
 
 const features = [
   {
@@ -187,15 +188,10 @@ export default function HomePage() {
             Initialize once, use everywhere
           </p>
 
-          <div className="mx-auto max-w-3xl">
-            <div className="rounded-xl border border-border bg-card overflow-hidden">
-              <div className="border-b border-border bg-muted/50 px-4 py-2">
-                <span className="text-sm text-muted-foreground">
-                  app/providers.tsx
-                </span>
-              </div>
-              <pre className="p-4 text-sm overflow-x-auto">
-                <code>{`import { HiveProvider } from '@/components/hive/hive-provider'
+          <div className="mx-auto max-w-3xl space-y-6">
+            <CodeBlock
+              filename="app/providers.tsx"
+              code={`import { HiveProvider } from '@/components/hive/hive-provider'
 
 export function Providers({ children }) {
   return (
@@ -203,18 +199,12 @@ export function Providers({ children }) {
       {children}
     </HiveProvider>
   )
-}`}</code>
-              </pre>
-            </div>
+}`}
+            />
 
-            <div className="mt-6 rounded-xl border border-border bg-card overflow-hidden">
-              <div className="border-b border-border bg-muted/50 px-4 py-2">
-                <span className="text-sm text-muted-foreground">
-                  app/page.tsx
-                </span>
-              </div>
-              <pre className="p-4 text-sm overflow-x-auto">
-                <code>{`import { KeychainLogin } from '@/components/hive/keychain-login'
+            <CodeBlock
+              filename="app/page.tsx"
+              code={`import { KeychainLogin } from '@/components/hive/keychain-login'
 import { UserCard } from '@/components/hive/user-card'
 import { VoteButton } from '@/components/hive/vote-button'
 
@@ -226,9 +216,8 @@ export default function Page() {
       <VoteButton author="alice" permlink="my-post" />
     </div>
   )
-}`}</code>
-              </pre>
-            </div>
+}`}
+            />
           </div>
         </div>
       </section>

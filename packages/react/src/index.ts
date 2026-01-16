@@ -1,8 +1,15 @@
-// Components
-export { HiveProvider, useHiveChain } from "./components/hive-provider";
+// Provider & Hooks
+export {
+  HiveProvider,
+  useHive,
+  useHiveChain,
+  useHiveUser,
+  useIsLoggedIn,
+  useHiveAuth,
+  type HiveUser,
+  type HiveContextValue,
+  type HiveProviderProps,
+} from "./hive-provider";
 
-// Types
-export type {
-  HiveContextValue,
-  HiveProviderProps,
-} from "./components/hive-provider";
+// Utils
+export { cn } from "./utils";

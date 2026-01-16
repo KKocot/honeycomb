@@ -1,0 +1,40 @@
+name: Publish React to GitHub Packages
+
+on:
+  push:
+    tags:
+      - 'react-v*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@kkocot'
+
+      - name: Install dependencies
+        run: pnpm install
+        working-directory: packages/react
+
+      - name: Build
+        run: pnpm build
+        working-directory: packages/react
+
+      - name: Publish
+        run: npm publish
+        working-directory: packages/react
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
