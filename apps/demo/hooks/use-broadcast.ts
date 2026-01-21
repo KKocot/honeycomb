@@ -238,11 +238,17 @@ export function useBroadcast(options: UseBroadcastOptions = {}): UseBroadcastRet
         const tx = await chain.createTransaction();
 
         // Add operations to transaction
+        // Note: Keychain uses ["operation_name", {...}] format
+        // but wax expects { operation_name_operation: {...} } format
         for (const [opType, opData] of operations) {
+          // Convert from Keychain format to wax format
+          // e.g., "custom_json" -> "custom_json_operation"
+          //       "vote" -> "vote_operation"
+          const waxOpKey = opType.endsWith("_operation") ? opType : `${opType}_operation`;
           const waxOp: Record<string, unknown> = {};
-          waxOp[opType] = opData;
+          waxOp[waxOpKey] = opData;
           tx.pushOperation(waxOp);
-          console.log("[useBroadcast:HBAuth] Added operation:", opType);
+          console.log("[useBroadcast:HBAuth] Added operation:", waxOpKey);
         }
 
         // Get the digest to sign
@@ -335,11 +341,14 @@ export function useBroadcast(options: UseBroadcastOptions = {}): UseBroadcastRet
         console.log("[useBroadcast:WIF] Step 3: Transaction created, adding operations...");
 
         // Convert operations to wax format and push them
+        // Note: Keychain uses ["operation_name", {...}] format
+        // but wax expects { operation_name_operation: {...} } format
         for (const [opType, opData] of operations) {
+          const waxOpKey = opType.endsWith("_operation") ? opType : `${opType}_operation`;
           const waxOp: Record<string, unknown> = {};
-          waxOp[opType] = opData;
+          waxOp[waxOpKey] = opData;
           tx.pushOperation(waxOp);
-          console.log("[useBroadcast:WIF] Added operation:", opType);
+          console.log("[useBroadcast:WIF] Added operation:", waxOpKey);
         }
 
         console.log("[useBroadcast:WIF] Step 4: Importing key and signing...");
