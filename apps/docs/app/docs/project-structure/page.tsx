@@ -1,6 +1,5 @@
 import { CodeBlock } from "@/components/code-block";
-import { FileTree } from "@/components/file-tree";
-import { Folder, File, FileCode, Settings, Box } from "lucide-react";
+import { Folder, FileCode, Box } from "lucide-react";
 
 export default function ProjectStructurePage() {
   return (

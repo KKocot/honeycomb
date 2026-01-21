@@ -8,6 +8,9 @@ import {
   User,
   Shield,
   Zap,
+  Globe,
+  FileText,
+  Key,
 } from "lucide-react";
 import { HiveLogo } from "@/components/hive-logo";
 import { CodeBlock } from "@/components/code-block";
@@ -27,9 +30,9 @@ const features = [
   },
   {
     icon: Shield,
-    title: "Keychain Integration",
+    title: "Multiple Auth Methods",
     description:
-      "Secure authentication with Hive Keychain. Keys never leave the browser extension.",
+      "Support for Keychain, PeakVault, HiveAuth, HB-Auth, and WIF. Choose what fits your app.",
   },
   {
     icon: Zap,
@@ -43,22 +46,58 @@ const componentCategories = [
   {
     icon: Shield,
     title: "Authentication",
-    items: ["SmartSigner", "KeychainLogin", "HivesignerLogin"],
+    items: [
+      { name: "Smart Signer", href: "/docs/components/smart-signer" },
+    ],
   },
   {
     icon: User,
     title: "Social",
-    items: ["Avatar", "UserCard", "FollowButton", "MuteButton", "BadgeList"],
+    items: [
+      { name: "Avatar", href: "/docs/components/avatar" },
+      { name: "User Card", href: "/docs/components/user-card" },
+      { name: "Follow Button", href: "/docs/components/follow-button" },
+      { name: "Mute Button", href: "/docs/components/mute-button" },
+    ],
   },
   {
-    icon: Vote,
+    icon: FileText,
     title: "Content",
-    items: ["VoteButton", "CommentForm", "PostEditor", "ReblogButton"],
+    items: [
+      { name: "Vote Button", href: "/docs/components/vote-button" },
+      { name: "Comment Form", href: "/docs/components/comment-form" },
+      { name: "Post Editor", href: "/docs/components/post-editor" },
+      { name: "Reblog Button", href: "/docs/components/reblog-button" },
+      { name: "Post Card", href: "/docs/components/post-card" },
+    ],
   },
   {
     icon: Wallet,
     title: "Wallet",
-    items: ["BalanceCard", "TransferDialog", "PowerUp/Down", "DelegationCard"],
+    items: [
+      { name: "Balance Card", href: "/docs/components/balance-card" },
+      { name: "Transfer Dialog", href: "/docs/components/transfer-dialog" },
+      { name: "Power Up/Down", href: "/docs/components/power-up-down" },
+      { name: "Delegation Card", href: "/docs/components/delegation-card" },
+      { name: "Trade Hive", href: "/docs/components/trade-hive" },
+    ],
+  },
+  {
+    icon: Globe,
+    title: "Community",
+    items: [
+      { name: "Communities List", href: "/docs/components/communities-list" },
+      { name: "Witness Vote", href: "/docs/components/witness-vote" },
+      { name: "Proposals", href: "/docs/components/proposals" },
+      { name: "Account Settings", href: "/docs/components/account-settings" },
+    ],
+  },
+  {
+    icon: Key,
+    title: "Account",
+    items: [
+      { name: "Authorities", href: "/docs/components/authorities" },
+    ],
   },
 ];
 
@@ -98,12 +137,14 @@ export default function HomePage() {
             Get Started
             <ArrowRight className="h-4 w-4" />
           </Link>
-          <Link
-            href="/examples"
+          <a
+            href="http://localhost:3032"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-6 py-3 font-medium transition-colors hover:bg-muted"
           >
-            Browse Components
-          </Link>
+            View Demo
+          </a>
         </div>
 
         {/* Quick Install */}
@@ -155,7 +196,7 @@ export default function HomePage() {
             Everything you need to build Hive dApps
           </p>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {componentCategories.map((category) => (
               <div
                 key={category.title}
@@ -165,10 +206,13 @@ export default function HomePage() {
                 <h3 className="mb-4 font-semibold">{category.title}</h3>
                 <ul className="space-y-2">
                   {category.items.map((item) => (
-                    <li key={item}>
-                      <code className="text-sm text-muted-foreground">
-                        {item}
-                      </code>
+                    <li key={item.name}>
+                      <Link
+                        href={item.href}
+                        className="text-sm text-muted-foreground hover:text-hive-red transition-colors"
+                      >
+                        {item.name}
+                      </Link>
                     </li>
                   ))}
                 </ul>

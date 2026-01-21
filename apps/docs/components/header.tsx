@@ -20,18 +20,14 @@ export function Header() {
           >
             Docs
           </Link>
-          <Link
-            href="/docs/components/smart-signer"
+          <a
+            href="http://localhost:3032"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            Components
-          </Link>
-          <Link
-            href="/examples"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Examples
-          </Link>
+            Demo
+          </a>
         </nav>
 
         <div className="ml-auto flex items-center gap-4">

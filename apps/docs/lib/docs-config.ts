@@ -9,6 +9,7 @@ export interface NavItem {
 export interface NavSection {
   title: string;
   items: NavItem[];
+  type?: "active" | "passive";
 }
 
 export const docsConfig: NavSection[] = [
@@ -29,35 +30,38 @@ export const docsConfig: NavSection[] = [
       { title: "Theming", href: "/docs/theming" },
     ],
   },
+  // ===========================================
+  // ACTIVE COMPONENTS - Blockchain Actions
+  // ===========================================
   {
     title: "Authentication",
+    type: "active",
     items: [
       { title: "Smart Signer", href: "/docs/components/smart-signer" },
     ],
   },
   {
-    title: "Social",
+    title: "Social Actions",
+    type: "active",
     items: [
-      { title: "Avatar", href: "/docs/components/avatar" },
-      { title: "User Card", href: "/docs/components/user-card" },
       { title: "Follow Button", href: "/docs/components/follow-button" },
       { title: "Mute Button", href: "/docs/components/mute-button" },
     ],
   },
   {
-    title: "Content",
+    title: "Content Actions",
+    type: "active",
     items: [
       { title: "Vote Button", href: "/docs/components/vote-button" },
       { title: "Comment Form", href: "/docs/components/comment-form" },
       { title: "Post Editor", href: "/docs/components/post-editor" },
-      { title: "Post Card", href: "/docs/components/post-card" },
       { title: "Reblog Button", href: "/docs/components/reblog-button" },
     ],
   },
   {
-    title: "Wallet",
+    title: "Wallet Actions",
+    type: "active",
     items: [
-      { title: "Balance Card", href: "/docs/components/balance-card" },
       { title: "Transfer Dialog", href: "/docs/components/transfer-dialog" },
       { title: "Power Up/Down", href: "/docs/components/power-up-down" },
       { title: "Delegation Card", href: "/docs/components/delegation-card" },
@@ -65,22 +69,58 @@ export const docsConfig: NavSection[] = [
     ],
   },
   {
-    title: "Community",
+    title: "Community Actions",
+    type: "active",
     items: [
       { title: "Communities List", href: "/docs/components/communities-list" },
       { title: "Witness Vote", href: "/docs/components/witness-vote" },
       { title: "Proposals", href: "/docs/components/proposals" },
-      { title: "Authorities", href: "/docs/components/authorities" },
-      { title: "Account Settings", href: "/docs/components/account-settings" },
+    ],
+  },
+  // ===========================================
+  // PASSIVE COMPONENTS - Display Only
+  // ===========================================
+  {
+    title: "User Display",
+    type: "passive",
+    items: [
+      { title: "Avatar", href: "/docs/components/avatar" },
+      { title: "User Card", href: "/docs/components/user-card" },
     ],
   },
   {
+    title: "Wallet Display",
+    type: "passive",
+    items: [
+      { title: "Balance Card", href: "/docs/components/balance-card" },
+      { title: "Manabar", href: "/docs/components/manabar" },
+    ],
+  },
+  {
+    title: "Post Display",
+    type: "passive",
+    items: [
+      { title: "Post Card", href: "/docs/components/post-card" },
+    ],
+  },
+  {
+    title: "Account Management",
+    type: "active",
+    items: [
+      { title: "Account Settings", href: "/docs/components/account-settings" },
+      { title: "Authorities", href: "/docs/components/authorities" },
+    ],
+  },
+  // ===========================================
+  // HOOKS
+  // ===========================================
+  {
     title: "Hooks",
     items: [
-      { title: "useHiveChain", href: "/docs/hooks/use-hive-chain" },
-      { title: "useHiveAuth", href: "/docs/hooks/use-hive-auth" },
-      { title: "useHiveAccount", href: "/docs/hooks/use-hive-account" },
-      { title: "useVote", href: "/docs/hooks/use-vote" },
+      { title: "useHiveChain", href: "/docs/hooks/use-hive-chain", disabled: true, label: "Coming Soon" },
+      { title: "useHiveAuth", href: "/docs/hooks/use-hive-auth", disabled: true, label: "Coming Soon" },
+      { title: "useHiveAccount", href: "/docs/hooks/use-hive-account", disabled: true, label: "Coming Soon" },
+      { title: "useVote", href: "/docs/hooks/use-vote", disabled: true, label: "Coming Soon" },
     ],
   },
 ];
