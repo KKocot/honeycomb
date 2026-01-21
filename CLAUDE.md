@@ -9,29 +9,12 @@ Hive UI is a shadcn/ui-style component library for Hive Blockchain applications.
 ## Development Commands
 
 ```bash
-# Install dependencies
-pnpm install
-
-# Run docs dev server (port 3030)
-pnpm dev:docs
-
-# Run demo app (port 3031)
-pnpm dev:demo
-
-# Build docs
-pnpm build:docs
-
-# Build demo
-pnpm build:demo
-
-# Lint
-pnpm lint
-
-# Run all apps in dev mode
-pnpm dev
-
-# Build all
-pnpm build
+pnpm install          # Install dependencies
+pnpm dev              # Run all apps in dev mode
+pnpm dev:docs         # Run docs dev server (port 3030)
+pnpm dev:demo         # Run demo app (port 3031)
+pnpm build            # Build all
+pnpm lint             # Lint all
 ```
 
 ## Architecture
@@ -43,34 +26,29 @@ pnpm build
 - `packages/react` - React components (placeholder)
 - `packages/cli` - CLI tool for adding components (placeholder)
 
+### Demo App (`apps/demo`)
+
+- `app/page.tsx` - Main demo page with all component demonstrations
+- `components/hive/` - All Hive UI components (prefixed with `Hive`, e.g., `HiveAvatar`, `HiveUserCard`)
+- `contexts/hive-context.tsx` - HiveProvider context using `@hiveio/wax` for blockchain interaction
+
+Components are organized into sections: auth, social, content, wallet, community.
+
 ### Docs App (`apps/docs`)
 
 **Key directories:**
 - `app/docs/` - Documentation pages (file-based routing)
-- `app/examples/` - Interactive component showcase with live demos
-- `components/` - Shared UI components for docs site
-- `lib/` - Utilities (highlighter, docs-config, cn helper)
-
-**Navigation structure defined in `lib/docs-config.ts`:**
-- Getting Started: Introduction, Installation, Project Structure
-- Configuration: Hive Provider, API Nodes, Theming
-- Authentication: Smart Signer (All-in-One), Keychain, PeakVault, Hivesigner, HiveAuth, HB-Auth, WIF
-- Social: Avatar, User Card, Follow Button, Mute Button, Badge List
-- Content: Vote Button, Comment Form, Post Editor, Post Summary, Reblog Button
-- Wallet: Balance Card, Transfer Dialog, Power Up/Down, Delegation Card, Trade Hive
-- Community: Communities List, Witness Vote, Proposals, Authorities, Account Settings
-- Hooks: useHiveChain, useHiveAuth, useHiveAccount, useVote
-
-### Code Highlighting
-
-Uses Shiki with singleton pattern (`lib/highlighter.ts`). The `CodeBlock` component wraps highlighted code with copy functionality.
+- `app/examples/page.tsx` - Interactive component showcase with live demos
+- `components/` - Shared UI components for docs site (CodeBlock, InstallationTabs, etc.)
+- `lib/docs-config.ts` - Navigation structure
+- `lib/highlighter.ts` - Shiki code highlighting (singleton pattern, theme: one-dark-pro)
 
 ### Styling
 
 - Tailwind CSS with custom Hive colors (`hive-red: #E31337`, `hive-dark: #1A1A1A`)
 - CSS variables for theming (border, background, foreground, muted, accent, card)
 - `@tailwindcss/typography` for prose content
-- `cn()` helper combining clsx + tailwind-merge
+- `cn()` helper in `lib/utils.ts` combining clsx + tailwind-merge
 
 ## Hive Blockchain Concepts
 
@@ -81,10 +59,9 @@ Components interact with Hive blockchain via `@hiveio/wax` library. Key concepts
 
 ## Authentication Methods
 
-The library provides 7 separate login components that can be used individually or combined via Smart Signer:
+The library provides login components that can be used individually:
 - **Keychain** - Hive Keychain browser extension
 - **PeakVault** - PeakD's browser extension
-- **Hivesigner** - OAuth-style redirect flow
 - **HiveAuth** - Mobile QR code authentication via WebSocket
 - **HB-Auth** - Encrypted local key storage with password (Safe Storage)
 - **WIF** - Direct private key entry (least secure, for development)
@@ -96,8 +73,8 @@ The library provides 7 separate login components that can be used individually o
 3. Use `CodeBlock` component for code examples
 4. Follow existing page structure (heading, description, preview, code, props table)
 
-## Adding Interactive Examples
+## Adding New Components to Demo
 
-1. Create demo component function in `app/examples/page.tsx`
-2. Add entry to `components` array with `demo` property
-3. Choose appropriate category: auth, social, content, wallet, community
+1. Create component in `apps/demo/components/hive/` with `Hive` prefix
+2. Export from `apps/demo/components/hive/index.ts`
+3. Add demo in `apps/demo/app/page.tsx` under appropriate section
