@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { HiveProvider } from "@/contexts/hive-context";
+import { KeyEscalationDialogWrapper } from "@/components/key-escalation-wrapper";
+import { ToastProvider } from "@/components/ui/toast";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,7 +17,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="min-h-screen antialiased">
-        <HiveProvider>{children}</HiveProvider>
+        <ToastProvider>
+          <HiveProvider>
+            {children}
+            <KeyEscalationDialogWrapper />
+          </HiveProvider>
+        </ToastProvider>
       </body>
     </html>
   );
