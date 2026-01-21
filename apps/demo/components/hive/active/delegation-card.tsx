@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { Users, Plus, Minus, Loader2, AlertCircle, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Users, Plus, Minus, Loader2, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Delegation {
   delegatee: string;
   vesting_shares: string;
+  hp?: string;
 }
 
 interface DelegationCardProps {
@@ -18,15 +19,10 @@ interface DelegationCardProps {
   className?: string;
 }
 
-const mockDelegations: Delegation[] = [
-  { delegatee: "actifit", vesting_shares: "100000.000000 VESTS" },
-  { delegatee: "ecency", vesting_shares: "50000.000000 VESTS" },
-];
-
 export function HiveDelegationCard({
   username,
-  delegations = mockDelegations,
-  availableHP = "1000",
+  delegations: propDelegations,
+  availableHP: propAvailableHP,
   onDelegate,
   onUndelegate,
   className,
@@ -36,6 +32,92 @@ export function HiveDelegationCard({
   const [amount, setAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [delegations, setDelegations] = useState<Delegation[]>(propDelegations || []);
+  const [availableHP, setAvailableHP] = useState(propAvailableHP || "0");
+  const [loadingData, setLoadingData] = useState(false);
+  const [vestsToHpRatio, setVestsToHpRatio] = useState(0);
+
+  // Fetch real delegation data
+  useEffect(() => {
+    async function fetchData() {
+      if (!username) return;
+      setLoadingData(true);
+      try {
+        // Fetch delegations, account info, and global props in parallel
+        const [delegationsRes, accountRes, propsRes] = await Promise.all([
+          fetch("https://api.hive.blog", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              jsonrpc: "2.0",
+              method: "condenser_api.get_vesting_delegations",
+              params: [username, "", 100],
+              id: 1,
+            }),
+          }),
+          fetch("https://api.hive.blog", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              jsonrpc: "2.0",
+              method: "condenser_api.get_accounts",
+              params: [[username]],
+              id: 2,
+            }),
+          }),
+          fetch("https://api.hive.blog", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              jsonrpc: "2.0",
+              method: "condenser_api.get_dynamic_global_properties",
+              params: [],
+              id: 3,
+            }),
+          }),
+        ]);
+
+        const delegationsData = await delegationsRes.json();
+        const accountData = await accountRes.json();
+        const propsData = await propsRes.json();
+
+        if (propsData.result) {
+          const props = propsData.result;
+          const totalVestingFund = parseFloat(props.total_vesting_fund_hive?.split(" ")[0] || "1");
+          const totalVestingShares = parseFloat(props.total_vesting_shares?.split(" ")[0] || "1");
+          const ratio = totalVestingFund / totalVestingShares;
+          setVestsToHpRatio(ratio);
+
+          if (delegationsData.result) {
+            const dels = delegationsData.result.map((d: { delegatee: string; vesting_shares: string }) => {
+              const vests = parseFloat(d.vesting_shares.split(" ")[0]);
+              return {
+                delegatee: d.delegatee,
+                vesting_shares: d.vesting_shares,
+                hp: (vests * ratio).toFixed(3),
+              };
+            });
+            setDelegations(dels);
+          }
+
+          if (accountData.result?.[0]) {
+            const account = accountData.result[0];
+            const vestingShares = parseFloat(account.vesting_shares?.split(" ")[0] || "0");
+            const delegatedVests = parseFloat(account.delegated_vesting_shares?.split(" ")[0] || "0");
+            const receivedVests = parseFloat(account.received_vesting_shares?.split(" ")[0] || "0");
+            const availableVests = vestingShares - delegatedVests;
+            const hp = (availableVests * ratio).toFixed(3);
+            setAvailableHP(hp);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch delegation data:", err);
+      } finally {
+        setLoadingData(false);
+      }
+    }
+    fetchData();
+  }, [username]);
 
   const handleDelegate = async () => {
     if (!delegatee.trim() || !amount.trim()) {
@@ -69,31 +151,23 @@ export function HiveDelegationCard({
     }
   };
 
-  const formatVests = (vests: string) => {
-    const num = parseFloat(vests.split(" ")[0]);
-    if (num >= 1000000) return `${(num / 1000000).toFixed(2)}M`;
-    if (num >= 1000) return `${(num / 1000).toFixed(2)}K`;
-    return num.toFixed(2);
-  };
-
   return (
-    <div className={cn("w-full max-w-md rounded-xl border border-border bg-card", className)}>
-      <div className="p-4 border-b border-border">
+    <div className={cn("w-full max-w-md", className)}>
+      <div className="pb-4 mb-4 border-b border-border">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Users className="h-5 w-5 text-blue-500" />
-            <h3 className="font-semibold">Delegations</h3>
+            {loadingData && <Loader2 className="h-4 w-4 animate-spin" />}
           </div>
           <button
             onClick={() => setShowForm(!showForm)}
             className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-500 text-white text-sm font-medium hover:bg-blue-600"
           >
             <Plus className="h-4 w-4" />
-            New
+            New Delegation
           </button>
         </div>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Available HP: <strong>{availableHP}</strong>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Available HP: <strong>{availableHP} HP</strong>
         </p>
       </div>
 
@@ -153,7 +227,11 @@ export function HiveDelegationCard({
 
       {/* Delegations List */}
       <div className="divide-y divide-border">
-        {delegations.length === 0 ? (
+        {loadingData ? (
+          <div className="p-4 text-center">
+            <Loader2 className="h-5 w-5 animate-spin mx-auto" />
+          </div>
+        ) : delegations.length === 0 ? (
           <div className="p-4 text-center text-sm text-muted-foreground">
             No active delegations
           </div>
@@ -169,7 +247,7 @@ export function HiveDelegationCard({
                 <div>
                   <p className="font-medium">@{d.delegatee}</p>
                   <p className="text-xs text-muted-foreground">
-                    {formatVests(d.vesting_shares)} VESTS
+                    {d.hp || "0"} HP
                   </p>
                 </div>
               </div>

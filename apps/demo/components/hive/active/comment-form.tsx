@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Send, Loader2, AlertCircle, Bold, Italic, Link, Image, Code } from "lucide-react";
+import { Send, Bold, Italic, Link, Image, Code, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface CommentFormProps {
   parentAuthor: string;
   parentPermlink: string;
   username: string;
+  disabled?: boolean;
   onSubmit?: (body: string) => void;
   className?: string;
 }
@@ -16,13 +17,11 @@ export function HiveCommentForm({
   parentAuthor,
   parentPermlink,
   username,
+  disabled = true,
   onSubmit,
   className,
 }: CommentFormProps) {
   const [body, setBody] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
 
   const insertMarkdown = (prefix: string, suffix: string = "") => {
     const textarea = document.getElementById("comment-body") as HTMLTextAreaElement;
@@ -41,25 +40,9 @@ export function HiveCommentForm({
   };
 
   const handleSubmit = async () => {
-    if (!body.trim()) {
-      setError("Please write something");
-      return;
-    }
-
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      await new Promise((r) => setTimeout(r, 1000));
-      onSubmit?.(body);
-      setSuccess(true);
-      setBody("");
-      setTimeout(() => setSuccess(false), 2000);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to post comment");
-    } finally {
-      setIsLoading(false);
-    }
+    if (disabled) return;
+    if (!body.trim()) return;
+    onSubmit?.(body);
   };
 
   return (
@@ -130,32 +113,30 @@ export function HiveCommentForm({
           </div>
 
           <div className="flex items-center gap-2">
-            {error && (
-              <span className="text-xs text-red-500 flex items-center gap-1">
-                <AlertCircle className="h-3 w-3" />
-                {error}
+            {disabled && (
+              <span className="text-xs text-amber-500 flex items-center gap-1">
+                <Lock className="h-3 w-3" />
+                Demo mode
               </span>
-            )}
-            {success && (
-              <span className="text-xs text-green-500">Comment posted!</span>
             )}
             <button
               onClick={handleSubmit}
-              disabled={isLoading || !body.trim()}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-hive-red text-white text-sm font-medium hover:bg-hive-red/90 disabled:opacity-50"
+              disabled={disabled || !body.trim()}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-hive-red text-white text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              title={disabled ? "Posting is disabled in demo mode" : "Reply"}
             >
-              {isLoading ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <>
-                  <Send className="h-4 w-4" />
-                  Reply
-                </>
-              )}
+              <Send className="h-4 w-4" />
+              Reply
             </button>
           </div>
         </div>
       </div>
+
+      {disabled && (
+        <p className="mt-2 text-xs text-muted-foreground text-center">
+          Posting is disabled in demo mode. The form UI is fully functional.
+        </p>
+      )}
     </div>
   );
 }

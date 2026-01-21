@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Zap, Wallet, TrendingUp, Loader2, RefreshCw } from "lucide-react";
 import { useHive } from "@/contexts/hive-context";
 import { cn } from "@/lib/utils";
+import type { NaiAsset } from "@hiveio/wax";
 
 interface BalanceCardProps {
   username: string;
@@ -18,6 +19,34 @@ interface Balances {
   savingsHbd: string;
 }
 
+// NAI symbol mapping
+const NAI_SYMBOLS: Record<string, string> = {
+  "@@000000021": "HIVE",
+  "@@000000013": "HBD",
+  "@@000000037": "VESTS",
+};
+
+// Format NaiAsset to human-readable string
+function formatNaiAsset(asset: NaiAsset, overrideSymbol?: string): string {
+  const amount = Number(asset.amount) / Math.pow(10, asset.precision);
+  const symbol = overrideSymbol || NAI_SYMBOLS[asset.nai] || "";
+  return `${amount.toFixed(asset.precision)} ${symbol}`.trim();
+}
+
+// Convert VESTS to HP using dynamic global properties
+function convertVestsToHP(
+  vests: NaiAsset,
+  totalVestingShares: NaiAsset,
+  totalVestingFundHive: NaiAsset
+): string {
+  const userVests = Number(vests.amount) / Math.pow(10, vests.precision);
+  const totalVests = Number(totalVestingShares.amount) / Math.pow(10, totalVestingShares.precision);
+  const totalHive = Number(totalVestingFundHive.amount) / Math.pow(10, totalVestingFundHive.precision);
+
+  const hp = (userVests / totalVests) * totalHive;
+  return `${hp.toFixed(3)} HP`;
+}
+
 export function HiveBalanceCard({ username, className }: BalanceCardProps) {
   const { chain } = useHive();
   const [balances, setBalances] = useState<Balances | null>(null);
@@ -27,17 +56,25 @@ export function HiveBalanceCard({ username, className }: BalanceCardProps) {
     if (!chain) return;
     setIsLoading(true);
     try {
-      const response = await chain.api.database_api.find_accounts({
-        accounts: [username],
-      });
-      if (response.accounts.length > 0) {
-        const acc = response.accounts[0];
+      // Fetch account data and dynamic global properties in parallel
+      const [accountResponse, dynamicProps] = await Promise.all([
+        chain.api.database_api.find_accounts({ accounts: [username] }),
+        chain.api.database_api.get_dynamic_global_properties({}),
+      ]);
+
+      if (accountResponse.accounts.length > 0) {
+        const acc = accountResponse.accounts[0];
+
         setBalances({
-          hive: String(acc.balance).replace(" HIVE", ""),
-          hbd: String(acc.hbd_balance).replace(" HBD", ""),
-          hp: String(acc.vesting_shares).split(" ")[0],
-          savingsHive: String(acc.savings_balance).replace(" HIVE", ""),
-          savingsHbd: String(acc.savings_hbd_balance).replace(" HBD", ""),
+          hive: formatNaiAsset(acc.balance),
+          hbd: formatNaiAsset(acc.hbd_balance),
+          hp: convertVestsToHP(
+            acc.vesting_shares,
+            dynamicProps.total_vesting_shares,
+            dynamicProps.total_vesting_fund_hive
+          ),
+          savingsHive: formatNaiAsset(acc.savings_balance),
+          savingsHbd: formatNaiAsset(acc.savings_hbd_balance),
         });
       }
     } catch (err) {
@@ -110,21 +147,17 @@ export function HiveBalanceCard({ username, className }: BalanceCardProps) {
             <div className="rounded-full bg-blue-500/10 p-2">
               <TrendingUp className="h-4 w-4 text-blue-500" />
             </div>
-            <span className="font-medium">VESTS</span>
+            <span className="font-medium">Hive Power</span>
           </div>
-          <span className="font-bold text-sm">{balances?.hp || "0"}</span>
+          <span className="font-bold">{balances?.hp || "0"}</span>
         </div>
       </div>
 
       <div className="mt-4 pt-3 border-t border-border">
         <p className="text-xs text-muted-foreground mb-2">Savings</p>
         <div className="flex gap-4 text-sm">
-          <span>
-            <strong>{balances?.savingsHive}</strong> HIVE
-          </span>
-          <span>
-            <strong>{balances?.savingsHbd}</strong> HBD
-          </span>
+          <span className="font-medium">{balances?.savingsHive || "0 HIVE"}</span>
+          <span className="font-medium">{balances?.savingsHbd || "0 HBD"}</span>
         </div>
       </div>
     </div>

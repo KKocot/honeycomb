@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { MapPin, Calendar, Loader2 } from "lucide-react";
 import { useHive } from "@/contexts/hive-context";
 import { HiveAvatar } from "./avatar";
-import { HiveFollowButton } from "./follow-button";
+import { HiveFollowButton } from "../active/follow-button";
 
 interface UserCardProps {
   username: string;

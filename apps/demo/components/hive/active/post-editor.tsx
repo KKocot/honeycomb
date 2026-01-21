@@ -4,8 +4,6 @@ import { useState } from "react";
 import {
   FileText,
   Send,
-  Loader2,
-  AlertCircle,
   Bold,
   Italic,
   Link,
@@ -15,22 +13,27 @@ import {
   Heading,
   Eye,
   Edit3,
+  Lock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface PostEditorProps {
   username: string;
+  disabled?: boolean;
   onPublish?: (data: { title: string; body: string; tags: string[] }) => void;
   className?: string;
 }
 
-export function HivePostEditor({ username, onPublish, className }: PostEditorProps) {
+export function HivePostEditor({
+  username,
+  disabled = true,
+  onPublish,
+  className,
+}: PostEditorProps) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [tags, setTags] = useState("");
   const [isPreview, setIsPreview] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const insertMarkdown = (prefix: string, suffix: string = "") => {
     const textarea = document.getElementById("post-body") as HTMLTextAreaElement;
@@ -49,31 +52,15 @@ export function HivePostEditor({ username, onPublish, className }: PostEditorPro
   };
 
   const handlePublish = async () => {
-    if (!title.trim()) {
-      setError("Please add a title");
-      return;
-    }
-    if (!body.trim()) {
-      setError("Please write some content");
-      return;
-    }
+    if (disabled) return;
+    if (!title.trim() || !body.trim()) return;
 
-    setIsLoading(true);
-    setError(null);
+    const tagList = tags
+      .split(/[\s,]+/)
+      .filter(Boolean)
+      .map((t) => t.toLowerCase().replace(/^#/, ""));
 
-    try {
-      await new Promise((r) => setTimeout(r, 1500));
-      const tagList = tags
-        .split(/[\s,]+/)
-        .filter(Boolean)
-        .map((t) => t.toLowerCase().replace(/^#/, ""));
-
-      onPublish?.({ title, body, tags: tagList });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to publish");
-    } finally {
-      setIsLoading(false);
-    }
+    onPublish?.({ title, body, tags: tagList });
   };
 
   return (
@@ -227,29 +214,30 @@ export function HivePostEditor({ username, onPublish, className }: PostEditorPro
           </div>
 
           <div className="flex items-center gap-2">
-            {error && (
-              <span className="text-xs text-red-500 flex items-center gap-1">
-                <AlertCircle className="h-3 w-3" />
-                {error}
+            {disabled && (
+              <span className="text-xs text-amber-500 flex items-center gap-1">
+                <Lock className="h-3 w-3" />
+                Demo mode
               </span>
             )}
             <button
               onClick={handlePublish}
-              disabled={isLoading || !title.trim() || !body.trim()}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500 text-white text-sm font-medium hover:bg-purple-600 disabled:opacity-50"
+              disabled={disabled || !title.trim() || !body.trim()}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500 text-white text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              title={disabled ? "Publishing is disabled in demo mode" : "Publish"}
             >
-              {isLoading ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <>
-                  <Send className="h-4 w-4" />
-                  Publish
-                </>
-              )}
+              <Send className="h-4 w-4" />
+              Publish
             </button>
           </div>
         </div>
       </div>
+
+      {disabled && (
+        <p className="mt-2 text-xs text-muted-foreground text-center">
+          Publishing is disabled in demo mode. The editor UI is fully functional.
+        </p>
+      )}
     </div>
   );
 }

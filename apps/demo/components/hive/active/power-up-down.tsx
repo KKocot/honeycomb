@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { TrendingUp, TrendingDown, Loader2, AlertCircle, Zap } from "lucide-react";
+import { useState, useEffect } from "react";
+import { TrendingUp, TrendingDown, Loader2, AlertCircle, Zap, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useRequireKey } from "@/hooks/use-require-key";
+import { useHive } from "@/contexts/hive-context";
 
 interface PowerUpDownProps {
   username: string;
@@ -13,19 +15,95 @@ interface PowerUpDownProps {
   className?: string;
 }
 
+interface AccountData {
+  hiveBalance: string;
+  vestingShares: string;
+  hivePower: string;
+}
+
 export function HivePowerUpDown({
   username,
-  hiveBalance = "0",
-  vestingShares = "0",
+  hiveBalance: propHiveBalance,
+  vestingShares: propVestingShares,
   onPowerUp,
   onPowerDown,
   className,
 }: PowerUpDownProps) {
+  const { user } = useHive();
+  const { requireKey, isPending: isEscalating, hasAccess } = useRequireKey({
+    requiredKeyType: "active",
+    reason: "Power up or power down HIVE",
+  });
+
   const [mode, setMode] = useState<"up" | "down">("up");
   const [amount, setAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [accountData, setAccountData] = useState<AccountData>({
+    hiveBalance: propHiveBalance || "0",
+    vestingShares: propVestingShares || "0",
+    hivePower: "0",
+  });
+  const [loadingData, setLoadingData] = useState(false);
+
+  // Fetch real account data
+  useEffect(() => {
+    async function fetchAccountData() {
+      if (!username) return;
+      setLoadingData(true);
+      try {
+        // Fetch account data and global properties in parallel
+        const [accountRes, propsRes] = await Promise.all([
+          fetch("https://api.hive.blog", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              jsonrpc: "2.0",
+              method: "condenser_api.get_accounts",
+              params: [[username]],
+              id: 1,
+            }),
+          }),
+          fetch("https://api.hive.blog", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              jsonrpc: "2.0",
+              method: "condenser_api.get_dynamic_global_properties",
+              params: [],
+              id: 2,
+            }),
+          }),
+        ]);
+
+        const accountData = await accountRes.json();
+        const propsData = await propsRes.json();
+
+        if (accountData.result?.[0] && propsData.result) {
+          const account = accountData.result[0];
+          const props = propsData.result;
+
+          const vestingShares = parseFloat(account.vesting_shares?.split(" ")[0] || "0");
+          const totalVestingFund = parseFloat(props.total_vesting_fund_hive?.split(" ")[0] || "1");
+          const totalVestingShares = parseFloat(props.total_vesting_shares?.split(" ")[0] || "1");
+
+          const hivePower = (vestingShares * totalVestingFund) / totalVestingShares;
+
+          setAccountData({
+            hiveBalance: account.balance?.split(" ")[0] || "0",
+            vestingShares: account.vesting_shares?.split(" ")[0] || "0",
+            hivePower: hivePower.toFixed(3),
+          });
+        }
+      } catch (err) {
+        console.error("Failed to fetch account data:", err);
+      } finally {
+        setLoadingData(false);
+      }
+    }
+    fetchAccountData();
+  }, [username]);
 
   const handleSubmit = async () => {
     if (!amount.trim()) {
@@ -36,6 +114,17 @@ export function HivePowerUpDown({
     const numAmount = parseFloat(amount);
     if (isNaN(numAmount) || numAmount <= 0) {
       setError("Please enter a valid amount");
+      return;
+    }
+
+    if (!user) {
+      setError("Please login first");
+      return;
+    }
+
+    // Request active key if needed
+    const canProceed = await requireKey();
+    if (!canProceed) {
       return;
     }
 
@@ -63,7 +152,7 @@ export function HivePowerUpDown({
   };
 
   return (
-    <div className={cn("w-full max-w-sm rounded-xl border border-border bg-card p-4", className)}>
+    <div className={cn("w-full max-w-sm", className)}>
       {/* Mode Toggle */}
       <div className="flex rounded-lg bg-muted p-1 mb-4">
         <button
@@ -98,15 +187,19 @@ export function HivePowerUpDown({
 
       {/* Balance Info */}
       <div className="mb-4 p-3 rounded-lg bg-muted/50">
-        {mode === "up" ? (
+        {loadingData ? (
+          <div className="flex items-center justify-center">
+            <Loader2 className="h-4 w-4 animate-spin" />
+          </div>
+        ) : mode === "up" ? (
           <div className="flex items-center justify-between">
             <span className="text-sm text-muted-foreground">Available HIVE</span>
-            <span className="font-bold">{hiveBalance} HIVE</span>
+            <span className="font-bold">{accountData.hiveBalance} HIVE</span>
           </div>
         ) : (
           <div className="flex items-center justify-between">
             <span className="text-sm text-muted-foreground">Staked HP</span>
-            <span className="font-bold">{vestingShares} VESTS</span>
+            <span className="font-bold">{accountData.hivePower} HP</span>
           </div>
         )}
       </div>
@@ -132,7 +225,7 @@ export function HivePowerUpDown({
         </div>
         {mode === "up" && (
           <button
-            onClick={() => setAmount(hiveBalance)}
+            onClick={() => setAmount(accountData.hiveBalance)}
             className="mt-1 text-xs text-hive-red hover:underline"
           >
             Use max
@@ -171,9 +264,17 @@ export function HivePowerUpDown({
         </div>
       )}
 
+      {/* Key requirement indicator */}
+      {!hasAccess && user && (
+        <div className="mb-4 flex items-center gap-2 text-sm text-orange-500 bg-orange-500/10 rounded-lg p-2">
+          <Shield className="h-4 w-4" />
+          <span>Requires Active key authorization</span>
+        </div>
+      )}
+
       <button
         onClick={handleSubmit}
-        disabled={isLoading || !amount.trim()}
+        disabled={isLoading || isEscalating || !amount.trim()}
         className={cn(
           "w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium disabled:opacity-50",
           mode === "up"

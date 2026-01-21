@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowUpDown, Loader2, AlertCircle, TrendingUp, TrendingDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -12,10 +12,15 @@ interface TradeHiveProps {
   className?: string;
 }
 
+interface BalanceData {
+  hive: string;
+  hbd: string;
+}
+
 export function HiveTradeCard({
   username,
-  hiveBalance = "1000.000",
-  hbdBalance = "500.000",
+  hiveBalance: propHiveBalance,
+  hbdBalance: propHbdBalance,
   onTrade,
   className,
 }: TradeHiveProps) {
@@ -25,10 +30,71 @@ export function HiveTradeCard({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [balance, setBalance] = useState<BalanceData>({
+    hive: propHiveBalance || "0.000",
+    hbd: propHbdBalance || "0.000",
+  });
+  const [loadingBalance, setLoadingBalance] = useState(false);
+  const [marketPrice, setMarketPrice] = useState(0.398);
+  const [change24h, setChange24h] = useState(0);
 
-  // Mock market data
-  const marketPrice = 0.398;
-  const change24h = 2.5;
+  // Fetch balance and market data
+  useEffect(() => {
+    async function fetchData() {
+      if (!username) return;
+      setLoadingBalance(true);
+      try {
+        // Fetch account balance and ticker in parallel
+        const [accountRes, tickerRes] = await Promise.all([
+          fetch("https://api.hive.blog", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              jsonrpc: "2.0",
+              method: "condenser_api.get_accounts",
+              params: [[username]],
+              id: 1,
+            }),
+          }),
+          fetch("https://api.hive.blog", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              jsonrpc: "2.0",
+              method: "condenser_api.get_ticker",
+              params: [],
+              id: 2,
+            }),
+          }),
+        ]);
+
+        const accountData = await accountRes.json();
+        const tickerData = await tickerRes.json();
+
+        if (accountData.result?.[0]) {
+          const account = accountData.result[0];
+          setBalance({
+            hive: account.balance?.split(" ")[0] || "0.000",
+            hbd: account.hbd_balance?.split(" ")[0] || "0.000",
+          });
+        }
+
+        if (tickerData.result) {
+          const ticker = tickerData.result;
+          const latestPrice = parseFloat(ticker.latest || "0.40");
+          const percentChange = parseFloat(ticker.percent_change || "0");
+          setMarketPrice(latestPrice);
+          setChange24h(percentChange);
+          setPrice(latestPrice.toFixed(4));
+        }
+      } catch (err) {
+        console.error("Failed to fetch data:", err);
+      } finally {
+        setLoadingBalance(false);
+      }
+    }
+    fetchData();
+  }, [username]);
 
   const total = parseFloat(amount || "0") * parseFloat(price || "0");
 
@@ -52,11 +118,11 @@ export function HiveTradeCard({
     }
 
     // Check balance
-    if (mode === "buy" && total > parseFloat(hbdBalance)) {
+    if (mode === "buy" && total > parseFloat(balance.hbd)) {
       setError("Insufficient HBD balance");
       return;
     }
-    if (mode === "sell" && numAmount > parseFloat(hiveBalance)) {
+    if (mode === "sell" && numAmount > parseFloat(balance.hive)) {
       setError("Insufficient HIVE balance");
       return;
     }
@@ -83,7 +149,7 @@ export function HiveTradeCard({
 
   return (
     <div className={cn("w-full max-w-sm", className)}>
-      <div className="rounded-xl border border-border bg-card overflow-hidden">
+      <div className="overflow-hidden">
         {/* Header with Market Info */}
         <div className="p-4 border-b border-border">
           <div className="flex items-center justify-between mb-2">
@@ -147,13 +213,17 @@ export function HiveTradeCard({
           {/* Balance */}
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">Available</span>
-            <span>
-              {mode === "buy" ? (
-                <>{hbdBalance} HBD</>
-              ) : (
-                <>{hiveBalance} HIVE</>
-              )}
-            </span>
+            {loadingBalance ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <span>
+                {mode === "buy" ? (
+                  <>{balance.hbd} HBD</>
+                ) : (
+                  <>{balance.hive} HIVE</>
+                )}
+              </span>
+            )}
           </div>
 
           {/* Amount */}
@@ -247,13 +317,6 @@ export function HiveTradeCard({
           </button>
         </div>
 
-        {/* Info */}
-        <div className="p-4 border-t border-border bg-muted/30">
-          <p className="text-xs text-muted-foreground">
-            Orders are placed on the internal Hive market. Trades execute when
-            matching orders are found.
-          </p>
-        </div>
       </div>
     </div>
   );
