@@ -4,6 +4,7 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import { useHive } from "@/contexts/hive-context";
 import { useToast } from "@/components/ui/toast";
 import { transactionService } from "@/services/transaction-service";
+import * as hbAuthService from "@/services/hbauth-service";
 
 export type BroadcastOperation = [string, Record<string, unknown>];
 
@@ -190,9 +191,10 @@ export function useBroadcast(options: UseBroadcastOptions = {}): UseBroadcastRet
   );
 
   // Broadcast using HB-Auth - uses stored encrypted key with password unlock
+  // IMPORTANT: Uses singleton service to ensure same client instance as login
   const broadcastViaHBAuth = useCallback(
     async (operations: BroadcastOperation[], password: string, shouldObserve: boolean): Promise<BroadcastResult> => {
-      console.log("[useBroadcast:HBAuth] Step 1: Checking chain and initializing HB-Auth...");
+      console.log("[useBroadcast:HBAuth] Step 1: Checking chain and getting singleton HB-Auth client...");
 
       if (!chain) {
         console.error("[useBroadcast:HBAuth] ERROR: Hive chain not initialized");
@@ -205,32 +207,41 @@ export function useBroadcast(options: UseBroadcastOptions = {}): UseBroadcastRet
         return { success: false, error: "User not logged in" };
       }
 
-      console.log("[useBroadcast:HBAuth] Step 2: Initializing HB-Auth client...");
-      toast.info("Step 1: Unlocking...", "Unlocking your stored key...");
+      const normalizedUsername = user.username.toLowerCase();
+      console.log("[useBroadcast:HBAuth] Step 2: Checking auth status for user:", normalizedUsername);
 
       try {
-        // Dynamic import of @hiveio/hb-auth
-        const { OnlineClient } = await import("@hiveio/hb-auth");
-
-        const client = new OnlineClient({
-          workerUrl: "/auth/worker.js",
-          node: "https://api.openhive.network",
-          chainId: "beeab0de00000000000000000000000000000000000000000000000000000000",
-        });
-        await client.initialize();
-        console.log("[useBroadcast:HBAuth] Step 3: HB-Auth client ready");
-
-        // Authenticate/unlock with password
-        console.log("[useBroadcast:HBAuth] Step 4: Authenticating with password...");
-        const authResult = await client.authenticate(user.username.toLowerCase(), password, keyType);
-
-        if (!authResult.ok) {
-          console.error("[useBroadcast:HBAuth] Step 4: Authentication FAILED");
-          toast.error("Wrong password", "Failed to unlock your key. Check your password.");
-          return { success: false, error: "Wrong password" };
+        // Check if user is already unlocked (e.g., after registration)
+        console.log("[useBroadcast:HBAuth] Step 3: Checking if user is already unlocked...");
+        let isUnlocked = false;
+        try {
+          isUnlocked = await hbAuthService.checkAuth(normalizedUsername, keyType);
+          console.log("[useBroadcast:HBAuth] Step 3: User unlocked status:", isUnlocked);
+        } catch (err) {
+          // User not registered
+          console.error("[useBroadcast:HBAuth] ERROR: User not registered:", err);
+          toast.error("No key found", `No ${keyType} key registered for @${normalizedUsername}. Please register first.`);
+          return { success: false, error: `No ${keyType} key registered. Please register first.` };
         }
-        console.log("[useBroadcast:HBAuth] Step 4: Authentication successful");
-        toast.success("Step 2: Unlocked!", "Key unlocked successfully");
+
+        // If not unlocked, authenticate with password
+        if (!isUnlocked) {
+          console.log("[useBroadcast:HBAuth] Step 4: User is locked, authenticating with password...");
+          toast.info("Unlocking...", "Unlocking your stored key...");
+
+          const authResult = await hbAuthService.authenticate(normalizedUsername, password, keyType);
+
+          if (!authResult.ok) {
+            console.error("[useBroadcast:HBAuth] Step 4: Authentication FAILED:", authResult.error);
+            toast.error("Wrong password", "Failed to unlock your key. Check your password.");
+            return { success: false, error: "Wrong password" };
+          }
+          console.log("[useBroadcast:HBAuth] Step 4: Authentication successful");
+          toast.success("Unlocked!", "Key unlocked successfully");
+        } else {
+          console.log("[useBroadcast:HBAuth] Step 4: User already unlocked, skipping password auth");
+          toast.info("Ready", "Using unlocked key...");
+        }
 
         // Create transaction with wax
         console.log("[useBroadcast:HBAuth] Step 5: Creating transaction...");
@@ -256,21 +267,21 @@ export function useBroadcast(options: UseBroadcastOptions = {}): UseBroadcastRet
         const digest = tx.sigDigest;
         console.log("[useBroadcast:HBAuth] Digest:", digest);
 
-        // Sign with HB-Auth
-        console.log("[useBroadcast:HBAuth] Step 7: Signing with HB-Auth...");
+        // Sign with HB-Auth using singleton service
+        console.log("[useBroadcast:HBAuth] Step 7: Signing with HB-Auth singleton...");
         toast.info("Step 4: Signing...", "Signing transaction...");
-        const signature = await client.sign(user.username.toLowerCase(), digest, keyType);
+        const signature = await hbAuthService.signDigest(normalizedUsername, digest, keyType);
         console.log("[useBroadcast:HBAuth] Signature:", signature.slice(0, 20) + "...");
 
-        // Add signature to transaction using wax's transaction builder
-        // Wax transaction has signatures property that can be manipulated
-        const txWithSig = tx as unknown as { signatures: string[] };
-        if (Array.isArray(txWithSig.signatures)) {
-          txWithSig.signatures.push(signature);
-          console.log("[useBroadcast:HBAuth] Signature added to transaction");
+        // Add signature to transaction using wax's addSignature method
+        // This is the correct way as per denser implementation
+        const txWithAddSig = tx as unknown as { addSignature: (sig: string) => void };
+        if (typeof txWithAddSig.addSignature === 'function') {
+          txWithAddSig.addSignature(signature);
+          console.log("[useBroadcast:HBAuth] Signature added via addSignature()");
         } else {
-          console.log("[useBroadcast:HBAuth] Warning: Could not find signatures array, attempting direct injection");
-          (tx as unknown as { signatures: string[] }).signatures = [signature];
+          console.error("[useBroadcast:HBAuth] ERROR: addSignature method not found on transaction");
+          throw new Error("Transaction builder missing addSignature method");
         }
 
         const transactionId = tx.id;
@@ -441,15 +452,34 @@ export function useBroadcast(options: UseBroadcastOptions = {}): UseBroadcastRet
         } else if (method === "peakvault") {
           result = await broadcastViaPeakVault(operations, observe);
         } else if (method === "hb-auth" || method === "hbauth") {
-          console.log("[useBroadcast] HB-Auth: Prompting for password to unlock stored key...");
-          // Don't show toast - the component will show HBAuthPasswordDialog instead
-          setPendingOperations(operations);
-          setNeedsHBAuthPassword(true);
-          setIsLoading(false);
+          console.log("[useBroadcast] HB-Auth: Checking if user is already unlocked...");
 
-          return new Promise((resolve) => {
-            resolvePromiseRef.current = resolve;
-          });
+          // First check if user is already unlocked (e.g., right after registration)
+          try {
+            const isUnlocked = await hbAuthService.checkAuth(user.username.toLowerCase(), keyType);
+            console.log("[useBroadcast] HB-Auth: User unlocked status:", isUnlocked);
+
+            if (isUnlocked) {
+              // User is already unlocked, can sign directly without password
+              console.log("[useBroadcast] HB-Auth: User is unlocked, signing directly...");
+              result = await broadcastViaHBAuth(operations, "", observe);
+            } else {
+              // User is locked, need password to unlock
+              console.log("[useBroadcast] HB-Auth: User is locked, prompting for password...");
+              setPendingOperations(operations);
+              setNeedsHBAuthPassword(true);
+              setIsLoading(false);
+
+              return new Promise((resolve) => {
+                resolvePromiseRef.current = resolve;
+              });
+            }
+          } catch (err) {
+            // User not registered
+            console.error("[useBroadcast] HB-Auth: User not registered:", err);
+            toast.error("No key found", `No ${keyType} key registered. Please register first.`);
+            result = { success: false, error: `No ${keyType} key registered. Please register first.` };
+          }
         } else if (method === "wif") {
           console.log("[useBroadcast] WIF: Prompting for private key via dialog...");
           // Don't show toast - the component will show WifKeyDialog instead

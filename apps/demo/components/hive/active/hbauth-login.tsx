@@ -6,13 +6,9 @@ import { cn } from "@/lib/utils";
 import { useHiveAuthOptional } from "@/providers/hive-auth-provider";
 import type { HiveHBAuthLoginProps, KeyType, HiveLoginResult } from "@/types/auth";
 import { createAuthError } from "@/types/auth";
+import * as hbAuthService from "@/services/hbauth-service";
 
 type HBAuthStatus = "idle" | "initializing" | "ready" | "registering" | "authenticating" | "success" | "error";
-
-// HB-Auth client instance (singleton)
-let hbAuthClient: any = null;
-let initPromise: Promise<any> | null = null;
-let initFailed = false;
 
 /**
  * HB-Auth Login Component
@@ -45,46 +41,25 @@ export function HiveHBAuthLogin({
 
   // Add debug log entry
   const log = useCallback((message: string) => {
-    console.log(`[HB-Auth] ${message}`);
+    console.log(`[HB-Auth Login] ${message}`);
     setDebugLog(prev => [...prev.slice(-29), `${new Date().toLocaleTimeString()}: ${message}`]);
   }, []);
 
-  // Initialize HB-Auth client
+  // Initialize HB-Auth client using singleton service
   const initClient = useCallback(async () => {
-    if (hbAuthClient) return hbAuthClient;
-    if (initFailed) throw new Error("HB-Auth initialization previously failed");
-    if (initPromise) return initPromise;
-
     setStatus("initializing");
-    log("Initializing HB-Auth...");
+    log("Getting singleton HB-Auth client...");
 
-    initPromise = (async () => {
-      try {
-        const { OnlineClient } = await import("@hiveio/hb-auth");
-        log("Creating client with api.openhive.network...");
-
-        const client = new OnlineClient({
-          workerUrl: "/auth/worker.js",
-          node: "https://api.openhive.network",
-          chainId: "beeab0de00000000000000000000000000000000000000000000000000000000",
-        });
-
-        await client.initialize();
-        log("Client ready");
-
-        hbAuthClient = client;
-        setStatus("ready");
-        return client;
-      } catch (err) {
-        initFailed = true;
-        initPromise = null;
-        const msg = err instanceof Error ? err.message : String(err);
-        log(`Init failed: ${msg}`);
-        throw err;
-      }
-    })();
-
-    return initPromise;
+    try {
+      const client = await hbAuthService.getOnlineClient();
+      log("Client ready");
+      setStatus("ready");
+      return client;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      log(`Init failed: ${msg}`);
+      throw err;
+    }
   }, [log]);
 
   // Check if user has registered keys (only once per user)
@@ -96,13 +71,14 @@ export function HiveHBAuthLogin({
     log(`Checking keys for @${normalizedUser}...`);
 
     try {
-      const client = await initClient();
-      const result = await client.getRegisteredUserByUsername(normalizedUser);
+      // Use singleton service
+      const result = await hbAuthService.getRegisteredUser(normalizedUser);
+      const registeredTypes = result?.registeredKeyTypes;
 
-      if (result?.registeredKeyTypes?.length > 0) {
-        log(`Found keys: ${result.registeredKeyTypes.join(", ")}`);
+      if (registeredTypes && registeredTypes.length > 0) {
+        log(`Found keys: ${registeredTypes.join(", ")}`);
         setHasRegisteredKeys(true);
-        setRegisteredKeyTypes(result.registeredKeyTypes as KeyType[]);
+        setRegisteredKeyTypes(registeredTypes as KeyType[]);
         setMode("login");
       } else {
         log("No saved keys found");
@@ -116,7 +92,7 @@ export function HiveHBAuthLogin({
       setHasRegisteredKeys(false);
       setRegisteredKeyTypes([]);
     }
-  }, [initClient, log]);
+  }, [log]);
 
   // Initialize on mount
   useEffect(() => {
@@ -156,9 +132,8 @@ export function HiveHBAuthLogin({
     log(`Registering ${keyType} key for @${username}...`);
 
     try {
-      const client = await initClient();
-
-      const registerResult = await client.register(
+      // Use singleton service for registration
+      const registerResult = await hbAuthService.registerKey(
         username.toLowerCase(),
         password,
         privateKey,
@@ -170,14 +145,16 @@ export function HiveHBAuthLogin({
         throw new Error(registerResult.error?.message || "Key verification failed");
       }
 
-      log("Authenticating...");
-      const authResult = await client.authenticate(username.toLowerCase(), password, keyType);
+      log("Authenticating after registration...");
+      // Use singleton service for authentication
+      const authResult = await hbAuthService.authenticate(username.toLowerCase(), password, keyType);
 
       if (!authResult.ok) {
         throw new Error("Authentication failed after registration");
       }
 
-      log("Success!");
+      log("Success! Setting status to success...");
+      console.log("[HB-Auth Login] Registration complete, setting status to success");
       setStatus("success");
       setHasRegisteredKeys(true);
       setRegisteredKeyTypes(prev => [...new Set([...prev, keyType])]);
@@ -191,8 +168,10 @@ export function HiveHBAuthLogin({
       setPassword("");
       setPrivateKey("");
 
+      console.log("[HB-Auth Login] Calling authContext.login and onSuccess");
       authContext?.login(result);
       onSuccess(result);
+      console.log("[HB-Auth Login] onSuccess called successfully");
 
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
@@ -223,8 +202,8 @@ export function HiveHBAuthLogin({
     log(`Unlocking @${username}...`);
 
     try {
-      const client = await initClient();
-      const authResult = await client.authenticate(username.toLowerCase(), password, keyType);
+      // Use singleton service for authentication
+      const authResult = await hbAuthService.authenticate(username.toLowerCase(), password, keyType);
 
       if (!authResult.ok) {
         throw new Error("Wrong password");
