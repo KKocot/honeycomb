@@ -23,6 +23,7 @@ import {
   Settings,
   Zap,
   X,
+  BookOpen,
 } from "lucide-react";
 import {
   HiveAvatar,
@@ -146,6 +147,16 @@ function DemoPageContent() {
               <span className="text-white font-bold">H</span>
             </div>
             <span className="font-bold text-xl">Hive UI Demo</span>
+            <a
+              href="http://localhost:3030"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              title="Documentation"
+            >
+              <BookOpen className="h-4 w-4" />
+              Docs
+            </a>
           </div>
 
           {user ? (
@@ -433,8 +444,7 @@ function DemoPageContent() {
                   author="barddev"
                   permlink="your-blog-your-rules"
                   variant="card"
-                  onVote={(w) => console.log("Vote:", w)}
-                  onReblog={() => console.log("Reblog")}
+                  interactive={false}
                 />
               </ComponentCard>
 
@@ -443,6 +453,7 @@ function DemoPageContent() {
                   author="barddev"
                   permlink="your-blog-your-rules"
                   variant="compact"
+                  interactive={false}
                 />
               </ComponentCard>
 
@@ -451,6 +462,7 @@ function DemoPageContent() {
                   author="barddev"
                   permlink="your-blog-your-rules"
                   variant="grid"
+                  interactive={false}
                 />
               </ComponentCard>
             </div>

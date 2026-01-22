@@ -19,6 +19,8 @@ interface HivePostCardProps {
   linkTarget?: string;
   onVote?: (weight: number) => void;
   onReblog?: () => void;
+  /** When false, vote/reblog icons are display-only (not clickable) */
+  interactive?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -78,6 +80,7 @@ export function HivePostCard({
   linkTarget = "https://blog.openhive.network",
   onVote,
   onReblog,
+  interactive = true,
   className,
   style,
 }: HivePostCardProps) {
@@ -202,15 +205,21 @@ export function HivePostCard({
           )}
           <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
             {!shouldHide("votes") && (
-              <button
-                onClick={handleVote}
-                className={cn(
-                  "flex items-center gap-1 transition-colors",
-                  hasVoted ? "text-hive-red" : "hover:text-hive-red"
-                )}
-              >
-                <ThumbsUp className="h-3.5 w-3.5" /> {post.votes + (hasVoted ? 1 : 0)}
-              </button>
+              interactive ? (
+                <button
+                  onClick={handleVote}
+                  className={cn(
+                    "flex items-center gap-1 transition-colors",
+                    hasVoted ? "text-hive-red" : "hover:text-hive-red"
+                  )}
+                >
+                  <ThumbsUp className="h-3.5 w-3.5" /> {post.votes + (hasVoted ? 1 : 0)}
+                </button>
+              ) : (
+                <span className="flex items-center gap-1">
+                  <ThumbsUp className="h-3.5 w-3.5" /> {post.votes}
+                </span>
+              )
             )}
             {!shouldHide("comments") && (
               <span className="flex items-center gap-1">
@@ -246,15 +255,21 @@ export function HivePostCard({
           <div className="flex items-center justify-between mt-3 pt-3 border-t border-border text-sm">
             <div className="flex items-center gap-3 text-muted-foreground">
               {!shouldHide("votes") && (
-                <button
-                  onClick={handleVote}
-                  className={cn(
-                    "flex items-center gap-1 transition-colors",
-                    hasVoted ? "text-hive-red" : "hover:text-hive-red"
-                  )}
-                >
-                  <ThumbsUp className="h-4 w-4" /> {post.votes + (hasVoted ? 1 : 0)}
-                </button>
+                interactive ? (
+                  <button
+                    onClick={handleVote}
+                    className={cn(
+                      "flex items-center gap-1 transition-colors",
+                      hasVoted ? "text-hive-red" : "hover:text-hive-red"
+                    )}
+                  >
+                    <ThumbsUp className="h-4 w-4" /> {post.votes + (hasVoted ? 1 : 0)}
+                  </button>
+                ) : (
+                  <span className="flex items-center gap-1">
+                    <ThumbsUp className="h-4 w-4" /> {post.votes}
+                  </span>
+                )
               )}
               {!shouldHide("comments") && (
                 <span className="flex items-center gap-1">
@@ -300,15 +315,21 @@ export function HivePostCard({
         <div className="flex items-center justify-between mt-4 pt-3 border-t border-border">
           <div className="flex items-center gap-4 text-muted-foreground">
             {!shouldHide("votes") && (
-              <button
-                onClick={handleVote}
-                className={cn(
-                  "flex items-center gap-1.5 transition-colors",
-                  hasVoted ? "text-hive-red" : "hover:text-hive-red"
-                )}
-              >
-                <ThumbsUp className="h-4 w-4" /> {post.votes + (hasVoted ? 1 : 0)}
-              </button>
+              interactive ? (
+                <button
+                  onClick={handleVote}
+                  className={cn(
+                    "flex items-center gap-1.5 transition-colors",
+                    hasVoted ? "text-hive-red" : "hover:text-hive-red"
+                  )}
+                >
+                  <ThumbsUp className="h-4 w-4" /> {post.votes + (hasVoted ? 1 : 0)}
+                </button>
+              ) : (
+                <span className="flex items-center gap-1.5">
+                  <ThumbsUp className="h-4 w-4" /> {post.votes}
+                </span>
+              )
             )}
             {!shouldHide("comments") && (
               <span className="flex items-center gap-1.5">
@@ -316,12 +337,18 @@ export function HivePostCard({
               </span>
             )}
             {!shouldHide("reblog") && (
-              <button
-                onClick={handleReblog}
-                className="hover:text-foreground transition-colors"
-              >
-                <Share className="h-4 w-4" />
-              </button>
+              interactive ? (
+                <button
+                  onClick={handleReblog}
+                  className="hover:text-foreground transition-colors"
+                >
+                  <Share className="h-4 w-4" />
+                </button>
+              ) : (
+                <span>
+                  <Share className="h-4 w-4" />
+                </span>
+              )
             )}
           </div>
           {!shouldHide("payout") && (
