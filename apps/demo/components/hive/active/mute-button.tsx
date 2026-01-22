@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { VolumeX, Volume2, Loader2, Circle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useHive } from "@/contexts/hive-context";
@@ -8,6 +8,8 @@ import { useToast } from "@/components/ui/toast";
 import { useBroadcast } from "@/hooks/use-broadcast";
 import { LoginPromptDialog } from "./login-prompt-dialog";
 import { ConfirmActionDialog } from "./confirm-action-dialog";
+import { WifKeyDialog } from "./wif-key-dialog";
+import { HBAuthPasswordDialog } from "./hbauth-password-dialog";
 
 interface MuteButtonProps {
   username: string;
@@ -25,7 +27,18 @@ export function HiveMuteButton({
 }: MuteButtonProps) {
   const { chain, user } = useHive();
   const toast = useToast();
-  const { broadcast, isLoading: isBroadcasting } = useBroadcast({ keyType: "posting", observe: true });
+  const {
+    broadcast,
+    isLoading: isBroadcasting,
+    needsWifKey,
+    setWifKey,
+    confirmWithWifKey,
+    cancelWifKeyPrompt,
+    needsHBAuthPassword,
+    setHBAuthPassword,
+    confirmWithHBAuthPassword,
+    cancelHBAuthPasswordPrompt,
+  } = useBroadcast({ keyType: "posting", observe: true });
 
   const [isMuted, setIsMuted] = useState<boolean | null>(null);
   const [checkingStatus, setCheckingStatus] = useState(false);
@@ -33,8 +46,12 @@ export function HiveMuteButton({
   const [showConfirmMute, setShowConfirmMute] = useState(false);
   const [showConfirmUnmute, setShowConfirmUnmute] = useState(false);
 
+  // Track when last successful transaction occurred to prevent API from overriding optimistic update
+  const lastSuccessfulTxTimeRef = useRef<number>(0);
+  const OPTIMISTIC_GRACE_PERIOD = 10000; // 10s grace period after successful tx
+
   // Check if logged user has muted target username
-  const checkMuteStatus = useCallback(async () => {
+  const checkMuteStatus = useCallback(async (force = false) => {
     if (!chain || !user) {
       setIsMuted(null);
       return;
@@ -46,31 +63,45 @@ export function HiveMuteButton({
       return;
     }
 
+    // Skip API check if within grace period after successful transaction (unless forced)
+    const timeSinceLastTx = Date.now() - lastSuccessfulTxTimeRef.current;
+    if (!force && timeSinceLastTx < OPTIMISTIC_GRACE_PERIOD) {
+      console.log("[MuteButton] Skipping API check - within grace period after tx");
+      return;
+    }
+
     setCheckingStatus(true);
     try {
-      // Check muted list (type: "ignore")
-      const response = await fetch("https://api.hive.blog", {
+      // Use bridge.get_relationship_between_accounts for accurate mute status
+      const response = await fetch("https://api.openhive.network", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           jsonrpc: "2.0",
-          method: "condenser_api.get_following",
-          params: [user.username, username, "ignore", 1],
+          method: "bridge.get_relationship_between_accounts",
+          params: [user.username, username],
           id: 1,
         }),
       });
 
       const data = await response.json();
-      const muted = data.result || [];
+      // Response: { follows: boolean, ignores: boolean, blacklists: boolean, follows_blacklists: boolean }
+      const isCurrentlyMuted = data.result?.ignores === true;
 
-      const isCurrentlyMuted = muted.some(
-        (f: { following: string }) => f.following === username
-      );
-      setIsMuted(isCurrentlyMuted);
+      // Only update if not within grace period
+      const currentTimeSinceTx = Date.now() - lastSuccessfulTxTimeRef.current;
+      if (currentTimeSinceTx >= OPTIMISTIC_GRACE_PERIOD) {
+        setIsMuted(isCurrentlyMuted);
+      } else {
+        console.log("[MuteButton] API returned but still in grace period, keeping optimistic state");
+      }
     } catch (error) {
       console.error("Failed to check mute status:", error);
       toast.error("Failed to check mute status", String(error));
-      setIsMuted(false);
+      // Only set to false if not in grace period
+      if (Date.now() - lastSuccessfulTxTimeRef.current >= OPTIMISTIC_GRACE_PERIOD) {
+        setIsMuted(false);
+      }
     } finally {
       setCheckingStatus(false);
     }
@@ -133,14 +164,15 @@ export function HiveMuteButton({
 
       if (result.success) {
         toast.success("Muted!", `You have muted @${username}${result.txId ? ` (tx: ${result.txId.slice(0, 8)}...)` : ""}`);
-        // Transaction confirmed on blockchain - update state immediately
+        // Transaction confirmed on blockchain - update state and set grace period
+        lastSuccessfulTxTimeRef.current = Date.now();
         setIsMuted(true);
         onMute?.(true);
 
-        // Refetch status from blockchain after delay to double-confirm
+        // Refetch status from blockchain after grace period to confirm
         setTimeout(async () => {
-          await checkMuteStatus();
-        }, 4000);
+          await checkMuteStatus(true); // force check after grace period
+        }, OPTIMISTIC_GRACE_PERIOD + 1000);
       } else {
         // Revert optimistic update on failure
         setIsMuted(previousState);
@@ -189,14 +221,15 @@ export function HiveMuteButton({
 
       if (result.success) {
         toast.success("Unmuted!", `You have unmuted @${username}${result.txId ? ` (tx: ${result.txId.slice(0, 8)}...)` : ""}`);
-        // Transaction confirmed on blockchain - update state immediately
+        // Transaction confirmed on blockchain - update state and set grace period
+        lastSuccessfulTxTimeRef.current = Date.now();
         setIsMuted(false);
         onMute?.(false);
 
-        // Refetch status from blockchain after delay to double-confirm
+        // Refetch status from blockchain after grace period to confirm
         setTimeout(async () => {
-          await checkMuteStatus();
-        }, 4000);
+          await checkMuteStatus(true); // force check after grace period
+        }, OPTIMISTIC_GRACE_PERIOD + 1000);
       } else {
         // Revert optimistic update on failure
         setIsMuted(previousState);
@@ -329,6 +362,40 @@ export function HiveMuteButton({
         ]}
         confirmLabel="Unmute"
         onConfirm={executeUnmute}
+      />
+
+      {/* WIF Key Dialog - shown when WIF login needs key */}
+      <WifKeyDialog
+        open={needsWifKey}
+        onOpenChange={(open) => {
+          if (!open) cancelWifKeyPrompt();
+        }}
+        username={user?.username || ""}
+        keyType="posting"
+        onSubmit={(wif) => {
+          console.log("[HiveMuteButton] WIF key submitted");
+          setWifKey(wif);
+          confirmWithWifKey();
+        }}
+        onCancel={cancelWifKeyPrompt}
+        isLoading={isBroadcasting}
+      />
+
+      {/* HB-Auth Password Dialog - shown when HB-Auth login needs password to unlock */}
+      <HBAuthPasswordDialog
+        open={needsHBAuthPassword}
+        onOpenChange={(open) => {
+          if (!open) cancelHBAuthPasswordPrompt();
+        }}
+        username={user?.username || ""}
+        keyType="posting"
+        onSubmit={(password) => {
+          console.log("[HiveMuteButton] HB-Auth password submitted");
+          setHBAuthPassword(password);
+          confirmWithHBAuthPassword();
+        }}
+        onCancel={cancelHBAuthPasswordPrompt}
+        isLoading={isBroadcasting}
       />
     </>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { UserPlus, UserMinus, Loader2, CheckCircle2, Circle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useHive } from "@/contexts/hive-context";
@@ -46,8 +46,12 @@ export function HiveFollowButton({
   const [showConfirmFollow, setShowConfirmFollow] = useState(false);
   const [showConfirmUnfollow, setShowConfirmUnfollow] = useState(false);
 
+  // Track when last successful transaction occurred to prevent API from overriding optimistic update
+  const lastSuccessfulTxTimeRef = useRef<number>(0);
+  const OPTIMISTIC_GRACE_PERIOD = 10000; // 10s grace period after successful tx
+
   // Check if logged user is following target username
-  const checkFollowStatus = useCallback(async () => {
+  const checkFollowStatus = useCallback(async (force = false) => {
     if (!chain || !user) {
       setIsFollowing(null);
       return;
@@ -59,30 +63,45 @@ export function HiveFollowButton({
       return;
     }
 
+    // Skip API check if within grace period after successful transaction (unless forced)
+    const timeSinceLastTx = Date.now() - lastSuccessfulTxTimeRef.current;
+    if (!force && timeSinceLastTx < OPTIMISTIC_GRACE_PERIOD) {
+      console.log("[FollowButton] Skipping API check - within grace period after tx");
+      return;
+    }
+
     setCheckingStatus(true);
     try {
-      const response = await fetch("https://api.hive.blog", {
+      // Use bridge.get_relationship_between_accounts for accurate follow status
+      const response = await fetch("https://api.openhive.network", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           jsonrpc: "2.0",
-          method: "condenser_api.get_following",
-          params: [user.username, username, "blog", 1],
+          method: "bridge.get_relationship_between_accounts",
+          params: [user.username, username],
           id: 1,
         }),
       });
 
       const data = await response.json();
-      const following = data.result || [];
+      // Response: { follows: boolean, ignores: boolean, blacklists: boolean, follows_blacklists: boolean }
+      const isCurrentlyFollowing = data.result?.follows === true;
 
-      const isCurrentlyFollowing = following.some(
-        (f: { following: string }) => f.following === username
-      );
-      setIsFollowing(isCurrentlyFollowing);
+      // Only update if not within grace period
+      const currentTimeSinceTx = Date.now() - lastSuccessfulTxTimeRef.current;
+      if (currentTimeSinceTx >= OPTIMISTIC_GRACE_PERIOD) {
+        setIsFollowing(isCurrentlyFollowing);
+      } else {
+        console.log("[FollowButton] API returned but still in grace period, keeping optimistic state");
+      }
     } catch (error) {
       console.error("Failed to check follow status:", error);
       toast.error("Failed to check follow status", String(error));
-      setIsFollowing(false);
+      // Only set to false if not in grace period
+      if (Date.now() - lastSuccessfulTxTimeRef.current >= OPTIMISTIC_GRACE_PERIOD) {
+        setIsFollowing(false);
+      }
     } finally {
       setCheckingStatus(false);
     }
@@ -145,14 +164,15 @@ export function HiveFollowButton({
 
       if (result.success) {
         toast.success("Followed!", `You are now following @${username}${result.txId ? ` (tx: ${result.txId.slice(0, 8)}...)` : ""}`);
-        // Transaction confirmed on blockchain - update state immediately
+        // Transaction confirmed on blockchain - update state and set grace period
+        lastSuccessfulTxTimeRef.current = Date.now();
         setIsFollowing(true);
         onFollow?.(true);
 
-        // Refetch status from blockchain after delay to double-confirm
+        // Refetch status from blockchain after grace period to confirm
         setTimeout(async () => {
-          await checkFollowStatus();
-        }, 4000);
+          await checkFollowStatus(true); // force check after grace period
+        }, OPTIMISTIC_GRACE_PERIOD + 1000);
       } else {
         // Revert optimistic update on failure
         setIsFollowing(previousState);
@@ -201,14 +221,15 @@ export function HiveFollowButton({
 
       if (result.success) {
         toast.success("Unfollowed!", `You unfollowed @${username}${result.txId ? ` (tx: ${result.txId.slice(0, 8)}...)` : ""}`);
-        // Transaction confirmed on blockchain - update state immediately
+        // Transaction confirmed on blockchain - update state and set grace period
+        lastSuccessfulTxTimeRef.current = Date.now();
         setIsFollowing(false);
         onFollow?.(false);
 
-        // Refetch status from blockchain after delay to double-confirm
+        // Refetch status from blockchain after grace period to confirm
         setTimeout(async () => {
-          await checkFollowStatus();
-        }, 4000);
+          await checkFollowStatus(true); // force check after grace period
+        }, OPTIMISTIC_GRACE_PERIOD + 1000);
       } else {
         // Revert optimistic update on failure
         setIsFollowing(previousState);
