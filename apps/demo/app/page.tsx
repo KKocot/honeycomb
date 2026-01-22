@@ -290,7 +290,7 @@ function DemoPageContent() {
                 />
               </ComponentCard>
 
-              <ComponentCard title="Comment" icon={<MessageSquare className="h-5 w-5 text-purple-500" />}>
+              <ComponentCard title="Comment" icon={<MessageSquare className="h-5 w-5 text-purple-500" />} comingSoon>
                 <HiveCommentForm
                   parentAuthor={DEMO_POST.author}
                   parentPermlink={DEMO_POST.permlink}
@@ -300,7 +300,7 @@ function DemoPageContent() {
               </ComponentCard>
             </div>
 
-            <ComponentCard title="Post Editor" icon={<FileText className="h-5 w-5 text-purple-500" />} fullWidth>
+            <ComponentCard title="Post Editor" icon={<FileText className="h-5 w-5 text-purple-500" />} fullWidth comingSoon>
               <HivePostEditor
                 username={user?.username || demoUser}
                 disabled
@@ -477,7 +477,7 @@ function DemoPageContent() {
             </div>
 
             <div className="grid gap-8 lg:grid-cols-2">
-              <ComponentCard title="Authorities" icon={<Key className="h-5 w-5 text-cyan-500" />}>
+              <ComponentCard title="Authorities" icon={<Key className="h-5 w-5 text-cyan-500" />} comingSoon>
                 <HiveAuthorities
                   username={demoUser}
                   editable
