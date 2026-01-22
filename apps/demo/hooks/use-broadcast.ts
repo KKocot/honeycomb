@@ -563,8 +563,14 @@ export function useBroadcast(options: UseBroadcastOptions = {}): UseBroadcastRet
   }, []);
 
   // HB-Auth password confirmation
-  const confirmWithHBAuthPassword = useCallback(async (): Promise<BroadcastResult> => {
-    if (!pendingOperations || !hbAuthPassword) {
+  // Note: password can be passed directly to avoid React state timing issues
+  const confirmWithHBAuthPassword = useCallback(async (passwordOverride?: string): Promise<BroadcastResult> => {
+    const passwordToUse = passwordOverride || hbAuthPassword;
+
+    if (!pendingOperations || !passwordToUse) {
+      console.error("[useBroadcast] confirmWithHBAuthPassword: Missing pending operations or password");
+      console.error("[useBroadcast] pendingOperations:", pendingOperations ? "present" : "null");
+      console.error("[useBroadcast] passwordToUse:", passwordToUse ? "present" : "empty");
       const result = { success: false, error: "No pending operations or password" };
       if (resolvePromiseRef.current) resolvePromiseRef.current(result);
       return result;
@@ -573,7 +579,7 @@ export function useBroadcast(options: UseBroadcastOptions = {}): UseBroadcastRet
     setIsLoading(true);
     setError(null);
 
-    const result = await broadcastViaHBAuth(pendingOperations, hbAuthPassword, observe);
+    const result = await broadcastViaHBAuth(pendingOperations, passwordToUse, observe);
 
     // Clean up
     setNeedsHBAuthPassword(false);

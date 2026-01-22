@@ -266,7 +266,7 @@ export function HiveReblogButton({
         onSubmit={(password) => {
           console.log("[HiveReblogButton] HB-Auth password submitted");
           setHBAuthPassword(password);
-          confirmWithHBAuthPassword();
+          confirmWithHBAuthPassword(password);
         }}
         onCancel={cancelHBAuthPasswordPrompt}
         isLoading={isBroadcasting}

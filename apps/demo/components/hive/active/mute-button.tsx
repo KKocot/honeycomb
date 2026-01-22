@@ -392,7 +392,7 @@ export function HiveMuteButton({
         onSubmit={(password) => {
           console.log("[HiveMuteButton] HB-Auth password submitted");
           setHBAuthPassword(password);
-          confirmWithHBAuthPassword();
+          confirmWithHBAuthPassword(password);
         }}
         onCancel={cancelHBAuthPasswordPrompt}
         isLoading={isBroadcasting}

@@ -392,7 +392,7 @@ export function HiveFollowButton({
         onSubmit={(password) => {
           console.log("[HiveFollowButton] HB-Auth password submitted");
           setHBAuthPassword(password);
-          confirmWithHBAuthPassword();
+          confirmWithHBAuthPassword(password);
         }}
         onCancel={cancelHBAuthPasswordPrompt}
         isLoading={isBroadcasting}
