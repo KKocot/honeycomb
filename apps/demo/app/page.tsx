@@ -19,6 +19,8 @@ import {
   ChevronRight,
   FileText,
   Eye,
+  Globe,
+  Settings,
   Zap,
   X,
 } from "lucide-react";
@@ -35,6 +37,10 @@ import {
   HiveAuthLogin,
   HiveHBAuthLogin,
   HiveWIFLogin,
+  HiveWitnessVote,
+  HiveProposals,
+  HiveCommunitiesList,
+  HiveAccountSettings,
   HivePostCard,
   HiveManabar,
 } from "@/components/hive";
@@ -63,8 +69,8 @@ const sections: DemoSection[] = [
   { id: "social-active", title: "Social Actions", icon: <Heart className="h-5 w-5" />, color: "text-blue-500", type: "active" },
   { id: "content-active", title: "Content Actions", icon: <ThumbsUp className="h-5 w-5" />, color: "text-purple-500", type: "active" },
   // wallet-active - hidden (Coming Soon)
-  // community-active - hidden (Coming Soon)
-  // account-active - hidden (Coming Soon)
+  { id: "community-active", title: "Community Actions", icon: <Globe className="h-5 w-5" />, color: "text-orange-500", type: "active" },
+  { id: "account-active", title: "Account Management", icon: <Settings className="h-5 w-5" />, color: "text-cyan-500", type: "active" },
   // PASSIVE - Display only
   { id: "user-display", title: "User Display", icon: <User className="h-5 w-5" />, color: "text-blue-500", type: "passive" },
   { id: "wallet-display", title: "Wallet Display", icon: <Wallet className="h-5 w-5" />, color: "text-green-500", type: "passive" },
@@ -272,6 +278,70 @@ function DemoPageContent() {
                   author={DEMO_POST.author}
                   permlink={DEMO_POST.permlink}
                   onReblog={(reblogged) => console.log("Reblog:", reblogged)}
+                />
+              </ComponentCard>
+            </div>
+          </div>
+        )}
+
+        {/* Community Actions Section */}
+        {activeSection === "community-active" && (
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
+                <Zap className="h-6 w-6 text-hive-red" />
+                Community Actions
+              </h2>
+              <p className="text-muted-foreground mb-8">
+                Witness voting, proposals, and communities.
+              </p>
+            </div>
+
+            <div className="grid gap-8 lg:grid-cols-2">
+              <ComponentCard title="Witness Vote" icon={<Eye className="h-5 w-5 text-orange-500" />}>
+                <HiveWitnessVote
+                  username={demoUser}
+                  onVote={(witness, approve) => console.log("Vote witness:", witness, approve)}
+                />
+              </ComponentCard>
+
+              <ComponentCard title="DHF Proposals" icon={<FileText className="h-5 w-5 text-orange-500" />}>
+                <HiveProposals
+                  username={demoUser}
+                  onVote={(id, approve) => console.log("Vote proposal:", id, approve)}
+                />
+              </ComponentCard>
+
+              <ComponentCard title="Communities" icon={<Globe className="h-5 w-5 text-orange-500" />}>
+                <HiveCommunitiesList
+                  username={demoUser}
+                  onSubscribe={(community, subscribed) =>
+                    console.log("Subscribe:", community, subscribed)
+                  }
+                />
+              </ComponentCard>
+            </div>
+          </div>
+        )}
+
+        {/* Account Management Section (ACTIVE) */}
+        {activeSection === "account-active" && (
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
+                <Zap className="h-6 w-6 text-hive-red" />
+                Account Management
+              </h2>
+              <p className="text-muted-foreground mb-8">
+                Manage your profile settings. Using @{demoUser} as demo user.
+              </p>
+            </div>
+
+            <div className="grid gap-8 lg:grid-cols-2">
+              <ComponentCard title="Profile Settings" icon={<Settings className="h-5 w-5 text-cyan-500" />}>
+                <HiveAccountSettings
+                  username={demoUser}
+                  onSave={(data) => console.log("Save settings:", data)}
                 />
               </ComponentCard>
             </div>
