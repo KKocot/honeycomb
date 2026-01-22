@@ -17,18 +17,10 @@ import {
   Loader2,
   ChevronDown,
   ChevronRight,
-  Send,
-  TrendingUp,
-  Users,
-  MessageSquare,
   FileText,
   Eye,
-  Globe,
-  Settings,
-  ArrowUpDown,
   Zap,
   X,
-  KeyRound,
 } from "lucide-react";
 import {
   HiveAvatar,
@@ -43,14 +35,7 @@ import {
   HiveAuthLogin,
   HiveHBAuthLogin,
   HiveWIFLogin,
-  HiveCommentForm,
-  HivePostEditor,
-  HiveWitnessVote,
-  HiveProposals,
-  HiveCommunitiesList,
-  HiveAccountSettings,
   HivePostCard,
-  HiveAuthorities,
   HiveManabar,
 } from "@/components/hive";
 import { PostPreviewCard } from "@/components/hive/post-preview-card";
@@ -77,9 +62,9 @@ const sections: DemoSection[] = [
   { id: "auth", title: "Authentication", icon: <Key className="h-5 w-5" />, color: "text-hive-red", type: "active" },
   { id: "social-active", title: "Social Actions", icon: <Heart className="h-5 w-5" />, color: "text-blue-500", type: "active" },
   { id: "content-active", title: "Content Actions", icon: <ThumbsUp className="h-5 w-5" />, color: "text-purple-500", type: "active" },
-  { id: "wallet-active", title: "Wallet Actions", icon: <Wallet className="h-5 w-5" />, color: "text-green-500", type: "active" },
-  { id: "community-active", title: "Community Actions", icon: <Globe className="h-5 w-5" />, color: "text-orange-500", type: "active" },
-  { id: "account-active", title: "Account Management", icon: <Settings className="h-5 w-5" />, color: "text-cyan-500", type: "active" },
+  // wallet-active - hidden (Coming Soon)
+  // community-active - hidden (Coming Soon)
+  // account-active - hidden (Coming Soon)
   // PASSIVE - Display only
   { id: "user-display", title: "User Display", icon: <User className="h-5 w-5" />, color: "text-blue-500", type: "passive" },
   { id: "wallet-display", title: "Wallet Display", icon: <Wallet className="h-5 w-5" />, color: "text-green-500", type: "passive" },
@@ -273,7 +258,7 @@ function DemoPageContent() {
             </div>
 
             {/* Actions */}
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2">
               <ComponentCard title="Vote" icon={<ThumbsUp className="h-5 w-5 text-purple-500" />}>
                 <HiveVoteButton
                   author={DEMO_POST.author}
@@ -287,67 +272,6 @@ function DemoPageContent() {
                   author={DEMO_POST.author}
                   permlink={DEMO_POST.permlink}
                   onReblog={(reblogged) => console.log("Reblog:", reblogged)}
-                />
-              </ComponentCard>
-
-              <ComponentCard title="Comment" icon={<MessageSquare className="h-5 w-5 text-purple-500" />} comingSoon>
-                <HiveCommentForm
-                  parentAuthor={DEMO_POST.author}
-                  parentPermlink={DEMO_POST.permlink}
-                  username={user?.username || demoUser}
-                  disabled
-                />
-              </ComponentCard>
-            </div>
-
-            <ComponentCard title="Post Editor" icon={<FileText className="h-5 w-5 text-purple-500" />} fullWidth comingSoon>
-              <HivePostEditor
-                username={user?.username || demoUser}
-                disabled
-              />
-            </ComponentCard>
-          </div>
-        )}
-
-        {/* Wallet Actions Section */}
-        {activeSection === "wallet-active" && (
-          <WalletActionsSection demoUser={demoUser} />
-        )}
-
-        {/* Community Actions Section */}
-        {activeSection === "community-active" && (
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
-                <Zap className="h-6 w-6 text-hive-red" />
-                Community Actions
-              </h2>
-              <p className="text-muted-foreground mb-8">
-                Witness voting, proposals, communities, and account settings.
-              </p>
-            </div>
-
-            <div className="grid gap-8 lg:grid-cols-2">
-              <ComponentCard title="Witness Vote" icon={<Eye className="h-5 w-5 text-orange-500" />}>
-                <HiveWitnessVote
-                  username={demoUser}
-                  onVote={(witness, approve) => console.log("Vote witness:", witness, approve)}
-                />
-              </ComponentCard>
-
-              <ComponentCard title="DHF Proposals" icon={<FileText className="h-5 w-5 text-orange-500" />}>
-                <HiveProposals
-                  username={demoUser}
-                  onVote={(id, approve) => console.log("Vote proposal:", id, approve)}
-                />
-              </ComponentCard>
-
-              <ComponentCard title="Communities" icon={<Globe className="h-5 w-5 text-orange-500" />}>
-                <HiveCommunitiesList
-                  username={demoUser}
-                  onSubscribe={(community, subscribed) =>
-                    console.log("Subscribe:", community, subscribed)
-                  }
                 />
               </ComponentCard>
             </div>
@@ -463,41 +387,6 @@ function DemoPageContent() {
           </div>
         )}
 
-        {/* Account Management Section (ACTIVE) */}
-        {activeSection === "account-active" && (
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
-                <Zap className="h-6 w-6 text-hive-red" />
-                Account Management
-              </h2>
-              <p className="text-muted-foreground mb-8">
-                Manage account keys and authorities. Using @{demoUser} as demo user.
-              </p>
-            </div>
-
-            <div className="grid gap-8 lg:grid-cols-2">
-              <ComponentCard title="Authorities" icon={<Key className="h-5 w-5 text-cyan-500" />} comingSoon>
-                <HiveAuthorities
-                  username={demoUser}
-                  editable
-                  onCopy={(keyType) => console.log("Copied:", keyType)}
-                  onSave={async (level, data) => {
-                    console.log("Save authority:", level, data);
-                    // In a real app, this would broadcast to the blockchain
-                  }}
-                />
-              </ComponentCard>
-
-              <ComponentCard title="Profile Settings" icon={<Settings className="h-5 w-5 text-cyan-500" />}>
-                <HiveAccountSettings
-                  username={demoUser}
-                  onSave={(data) => console.log("Save settings:", data)}
-                />
-              </ComponentCard>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Footer */}
@@ -825,94 +714,6 @@ function SocialActionsSection({ user }: { user: { username: string; loginMethod:
             />
           </div>
         </ComponentCard>
-      </div>
-    </div>
-  );
-}
-
-// Wallet Actions Section - Coming Soon
-function WalletActionsSection({ demoUser }: { demoUser: string }) {
-  return (
-    <div className="space-y-8">
-      <div>
-        <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
-          <Zap className="h-6 w-6 text-hive-red" />
-          Wallet Actions
-        </h2>
-        <p className="text-muted-foreground mb-4">
-          Transfers, staking, delegations, and trading. Using @{demoUser} data.
-        </p>
-      </div>
-
-      {/* Coming Soon Notice */}
-      <div className="flex items-center gap-3 p-4 rounded-xl border border-hive-red/30 bg-hive-red/5">
-        <span className="h-3 w-3 rounded-full bg-hive-red animate-pulse" />
-        <p className="text-sm text-muted-foreground">
-          <span className="font-semibold text-hive-red">Coming Soon:</span> Wallet actions require Active key authentication which is currently under development.
-        </p>
-      </div>
-
-      {/* Action Cards - Disabled */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        {/* Transfer Card */}
-        <div className="relative flex flex-col items-start p-4 rounded-xl border border-border bg-card opacity-60 cursor-not-allowed overflow-hidden">
-          <div className="p-2 rounded-lg bg-hive-red/10 mb-3">
-            <Send className="h-5 w-5 text-hive-red" />
-          </div>
-          <h3 className="font-semibold mb-1">Transfer</h3>
-          <p className="text-xs text-muted-foreground">Send HIVE or HBD to another account</p>
-          <div className="absolute top-2 right-2">
-            <span className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">Soon</span>
-          </div>
-        </div>
-
-        {/* Power Up/Down Card */}
-        <div className="relative flex flex-col items-start p-4 rounded-xl border border-border bg-card opacity-60 cursor-not-allowed overflow-hidden">
-          <div className="p-2 rounded-lg bg-green-500/10 mb-3">
-            <TrendingUp className="h-5 w-5 text-green-500" />
-          </div>
-          <h3 className="font-semibold mb-1">Power Up/Down</h3>
-          <p className="text-xs text-muted-foreground">Stake or unstake your HIVE tokens</p>
-          <div className="absolute top-2 right-2">
-            <span className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">Soon</span>
-          </div>
-        </div>
-
-        {/* Delegate Card */}
-        <div className="relative flex flex-col items-start p-4 rounded-xl border border-border bg-card opacity-60 cursor-not-allowed overflow-hidden">
-          <div className="p-2 rounded-lg bg-blue-500/10 mb-3">
-            <Users className="h-5 w-5 text-blue-500" />
-          </div>
-          <h3 className="font-semibold mb-1">Delegate</h3>
-          <p className="text-xs text-muted-foreground">Delegate your HP to other accounts</p>
-          <div className="absolute top-2 right-2">
-            <span className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">Soon</span>
-          </div>
-        </div>
-
-        {/* Trade Card */}
-        <div className="relative flex flex-col items-start p-4 rounded-xl border border-border bg-card opacity-60 cursor-not-allowed overflow-hidden">
-          <div className="p-2 rounded-lg bg-yellow-500/10 mb-3">
-            <ArrowUpDown className="h-5 w-5 text-yellow-500" />
-          </div>
-          <h3 className="font-semibold mb-1">Trade</h3>
-          <p className="text-xs text-muted-foreground">Trade HIVE and HBD on internal market</p>
-          <div className="absolute top-2 right-2">
-            <span className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">Soon</span>
-          </div>
-        </div>
-
-        {/* Encrypt/Decrypt Card */}
-        <div className="relative flex flex-col items-start p-4 rounded-xl border border-border bg-card opacity-60 cursor-not-allowed overflow-hidden">
-          <div className="p-2 rounded-lg bg-purple-500/10 mb-3">
-            <KeyRound className="h-5 w-5 text-purple-500" />
-          </div>
-          <h3 className="font-semibold mb-1">Encrypt/Decrypt</h3>
-          <p className="text-xs text-muted-foreground">Encrypt or decrypt private memo messages</p>
-          <div className="absolute top-2 right-2">
-            <span className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">Soon</span>
-          </div>
-        </div>
       </div>
     </div>
   );
