@@ -207,9 +207,9 @@ export function HiveVoteButton({
 
   return (
     <>
-      <div className={cn("flex flex-col items-center gap-3", className)}>
+      <div className={cn("flex flex-col items-center gap-3", className)} data-testid="vote-button-container">
         <div className="flex items-center gap-2">
-          {/* Upvote Button */}
+          {/* Upvote Button - clickable when voted to remove vote */}
           <button
             onClick={() => handleVoteClick("up")}
             onContextMenu={(e) => {
@@ -221,6 +221,7 @@ export function HiveVoteButton({
               }
             }}
             disabled={isDisabled}
+            data-testid="upvote-btn"
             className={cn(
               "flex items-center gap-1.5 rounded-lg px-4 py-2 transition-colors",
               voted === "up"
@@ -237,10 +238,11 @@ export function HiveVoteButton({
             <span className="font-medium">{votes}</span>
           </button>
 
-          {/* Downvote Button */}
+          {/* Downvote Button - clickable when voted to remove vote */}
           <button
             onClick={() => handleVoteClick("down")}
             disabled={isDisabled}
+            data-testid="downvote-btn"
             className={cn(
               "rounded-lg p-2 transition-colors",
               voted === "down"

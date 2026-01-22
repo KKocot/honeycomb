@@ -185,10 +185,11 @@ export function HiveReblogButton({
 
   return (
     <>
-      <div className={cn("flex flex-col items-center gap-3", className)}>
+      <div className={cn("flex flex-col items-center gap-3", className)} data-testid="reblog-button-container">
         <button
           onClick={handleReblogClick}
           disabled={isDisabled}
+          data-testid="reblog-btn"
           className={cn(
             "flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
             reblogged
@@ -208,7 +209,7 @@ export function HiveReblogButton({
           )}
         </button>
 
-        <p className="text-xs text-muted-foreground text-center">
+        <p className="text-xs text-muted-foreground text-center" data-testid="reblog-status">
           {reblogged ? (
             <span className="text-green-500">You reblogged this post</span>
           ) : (
