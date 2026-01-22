@@ -17,10 +17,11 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  webServer: {
-    command: 'pnpm dev',
-    url: 'http://localhost:3031',
-    reuseExistingServer: true,
-    timeout: 120 * 1000,
-  },
+  // webServer disabled - use existing server on port 3031
+  // webServer: {
+  //   command: 'pnpm dev',
+  //   url: 'http://localhost:3031',
+  //   reuseExistingServer: !process.env.CI,
+  //   timeout: 120 * 1000,
+  // },
 });
