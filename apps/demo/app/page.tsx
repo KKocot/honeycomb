@@ -43,19 +43,14 @@ import {
   HiveAuthLogin,
   HiveHBAuthLogin,
   HiveWIFLogin,
-  HiveTransferDialog,
-  HivePowerUpDown,
-  HiveDelegationCard,
   HiveCommentForm,
   HivePostEditor,
   HiveWitnessVote,
   HiveProposals,
   HiveCommunitiesList,
-  HiveTradeCard,
   HiveAccountSettings,
   HivePostCard,
   HiveAuthorities,
-  HiveMemoCrypto,
   HiveManabar,
 } from "@/components/hive";
 import { PostPreviewCard } from "@/components/hive/post-preview-card";
@@ -835,10 +830,8 @@ function SocialActionsSection({ user }: { user: { username: string; loginMethod:
   );
 }
 
-// Wallet Actions Section with dialogs
+// Wallet Actions Section - Coming Soon
 function WalletActionsSection({ demoUser }: { demoUser: string }) {
-  const [openDialog, setOpenDialog] = useState<"transfer" | "power" | "delegate" | "trade" | "encrypt" | null>(null);
-
   return (
     <div className="space-y-8">
       <div>
@@ -851,134 +844,76 @@ function WalletActionsSection({ demoUser }: { demoUser: string }) {
         </p>
       </div>
 
-      {/* Action Cards */}
+      {/* Coming Soon Notice */}
+      <div className="flex items-center gap-3 p-4 rounded-xl border border-hive-red/30 bg-hive-red/5">
+        <span className="h-3 w-3 rounded-full bg-hive-red animate-pulse" />
+        <p className="text-sm text-muted-foreground">
+          <span className="font-semibold text-hive-red">Coming Soon:</span> Wallet actions require Active key authentication which is currently under development.
+        </p>
+      </div>
+
+      {/* Action Cards - Disabled */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         {/* Transfer Card */}
-        <button
-          onClick={() => setOpenDialog("transfer")}
-          className="flex flex-col items-start p-4 rounded-xl border border-border bg-card hover:border-hive-red/50 hover:bg-hive-red/5 transition-colors text-left"
-        >
+        <div className="relative flex flex-col items-start p-4 rounded-xl border border-border bg-card opacity-60 cursor-not-allowed overflow-hidden">
           <div className="p-2 rounded-lg bg-hive-red/10 mb-3">
             <Send className="h-5 w-5 text-hive-red" />
           </div>
           <h3 className="font-semibold mb-1">Transfer</h3>
           <p className="text-xs text-muted-foreground">Send HIVE or HBD to another account</p>
-        </button>
+          <div className="absolute top-2 right-2">
+            <span className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">Soon</span>
+          </div>
+        </div>
 
         {/* Power Up/Down Card */}
-        <button
-          onClick={() => setOpenDialog("power")}
-          className="flex flex-col items-start p-4 rounded-xl border border-border bg-card hover:border-green-500/50 hover:bg-green-500/5 transition-colors text-left"
-        >
+        <div className="relative flex flex-col items-start p-4 rounded-xl border border-border bg-card opacity-60 cursor-not-allowed overflow-hidden">
           <div className="p-2 rounded-lg bg-green-500/10 mb-3">
             <TrendingUp className="h-5 w-5 text-green-500" />
           </div>
           <h3 className="font-semibold mb-1">Power Up/Down</h3>
           <p className="text-xs text-muted-foreground">Stake or unstake your HIVE tokens</p>
-        </button>
+          <div className="absolute top-2 right-2">
+            <span className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">Soon</span>
+          </div>
+        </div>
 
         {/* Delegate Card */}
-        <button
-          onClick={() => setOpenDialog("delegate")}
-          className="flex flex-col items-start p-4 rounded-xl border border-border bg-card hover:border-blue-500/50 hover:bg-blue-500/5 transition-colors text-left"
-        >
+        <div className="relative flex flex-col items-start p-4 rounded-xl border border-border bg-card opacity-60 cursor-not-allowed overflow-hidden">
           <div className="p-2 rounded-lg bg-blue-500/10 mb-3">
             <Users className="h-5 w-5 text-blue-500" />
           </div>
           <h3 className="font-semibold mb-1">Delegate</h3>
           <p className="text-xs text-muted-foreground">Delegate your HP to other accounts</p>
-        </button>
+          <div className="absolute top-2 right-2">
+            <span className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">Soon</span>
+          </div>
+        </div>
 
         {/* Trade Card */}
-        <button
-          onClick={() => setOpenDialog("trade")}
-          className="flex flex-col items-start p-4 rounded-xl border border-border bg-card hover:border-yellow-500/50 hover:bg-yellow-500/5 transition-colors text-left"
-        >
+        <div className="relative flex flex-col items-start p-4 rounded-xl border border-border bg-card opacity-60 cursor-not-allowed overflow-hidden">
           <div className="p-2 rounded-lg bg-yellow-500/10 mb-3">
             <ArrowUpDown className="h-5 w-5 text-yellow-500" />
           </div>
           <h3 className="font-semibold mb-1">Trade</h3>
           <p className="text-xs text-muted-foreground">Trade HIVE and HBD on internal market</p>
-        </button>
+          <div className="absolute top-2 right-2">
+            <span className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">Soon</span>
+          </div>
+        </div>
 
         {/* Encrypt/Decrypt Card */}
-        <button
-          onClick={() => setOpenDialog("encrypt")}
-          className="flex flex-col items-start p-4 rounded-xl border border-border bg-card hover:border-purple-500/50 hover:bg-purple-500/5 transition-colors text-left"
-        >
+        <div className="relative flex flex-col items-start p-4 rounded-xl border border-border bg-card opacity-60 cursor-not-allowed overflow-hidden">
           <div className="p-2 rounded-lg bg-purple-500/10 mb-3">
             <KeyRound className="h-5 w-5 text-purple-500" />
           </div>
           <h3 className="font-semibold mb-1">Encrypt/Decrypt</h3>
           <p className="text-xs text-muted-foreground">Encrypt or decrypt private memo messages</p>
-        </button>
-      </div>
-
-      {/* Dialog Overlay */}
-      {openDialog && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-          onClick={() => setOpenDialog(null)}
-        >
-          <div
-            className="relative bg-card rounded-2xl shadow-2xl border border-border overflow-hidden max-w-md w-full max-h-[90vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Dialog Header */}
-            <div className="sticky top-0 z-10 flex items-center justify-between p-4 border-b border-border bg-card">
-              <h2 className="text-lg font-bold flex items-center gap-2">
-                {openDialog === "transfer" && <><Send className="h-5 w-5 text-hive-red" /> Transfer</>}
-                {openDialog === "power" && <><TrendingUp className="h-5 w-5 text-green-500" /> Power Up/Down</>}
-                {openDialog === "delegate" && <><Users className="h-5 w-5 text-blue-500" /> Delegations</>}
-                {openDialog === "trade" && <><ArrowUpDown className="h-5 w-5 text-yellow-500" /> Trade HIVE</>}
-                {openDialog === "encrypt" && <><KeyRound className="h-5 w-5 text-purple-500" /> Encrypt/Decrypt Memo</>}
-              </h2>
-              <button
-                onClick={() => setOpenDialog(null)}
-                className="p-2 rounded-lg hover:bg-muted transition-colors"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-
-            {/* Dialog Content */}
-            <div className="p-4">
-              {openDialog === "transfer" && (
-                <HiveTransferDialog
-                  username={demoUser}
-                  embedded
-                  onTransfer={(data) => console.log("Transfer:", data)}
-                />
-              )}
-              {openDialog === "power" && (
-                <HivePowerUpDown
-                  username={demoUser}
-                  onPowerUp={(amount) => console.log("Power up:", amount)}
-                  onPowerDown={(amount) => console.log("Power down:", amount)}
-                />
-              )}
-              {openDialog === "delegate" && (
-                <HiveDelegationCard
-                  username={demoUser}
-                  onDelegate={(to, amount) => console.log("Delegate:", to, amount)}
-                  onUndelegate={(to) => console.log("Undelegate:", to)}
-                />
-              )}
-              {openDialog === "trade" && (
-                <HiveTradeCard
-                  username={demoUser}
-                  onTrade={(data) => console.log("Trade:", data)}
-                />
-              )}
-              {openDialog === "encrypt" && (
-                <HiveMemoCrypto
-                  username={demoUser}
-                />
-              )}
-            </div>
+          <div className="absolute top-2 right-2">
+            <span className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">Soon</span>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
