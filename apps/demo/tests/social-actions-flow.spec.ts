@@ -9,11 +9,17 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
  * Social Actions Flow Test
  *
  * Tests the complete flow with HB-Auth:
- * 1. Register/Login with HB-Auth
- * 2. Follow -> wait for button state change -> Unfollow
- * 3. Mute -> wait for button state change -> Unmute
  *
- * Timeout: max 5s for button state changes
+ * Test 1: Fresh registration flow
+ * 1. Register/Login with HB-Auth (Save Key)
+ * 2. Follow -> wait for toast success -> Unfollow
+ * 3. Mute -> wait for toast success -> Unmute
+ *
+ * Test 2: F5 refresh + Unlock flow
+ * 1. Register with HB-Auth
+ * 2. Press F5 (page refresh)
+ * 3. Unlock Safe Storage with password
+ * 4. Follow -> Unfollow -> Mute -> Unmute
  *
  * Required env vars (see .env.example):
  * - TEST_USERNAME
@@ -211,10 +217,11 @@ test.describe('Social Actions Flow with HB-Auth', () => {
     console.log('ALL TESTS PASSED - Full flow verified!');
   });
 
-  test('Mute button shows HBAuth password dialog when locked', async ({ page }) => {
-    // This test verifies the fix - MuteButton now has HBAuthPasswordDialog
-
-    // First login with HB-Auth
+  test('F5 refresh -> Unlock Safe Storage -> Follow -> Unfollow -> Mute -> Unmute', async ({ page }) => {
+    // =============================================
+    // PHASE 1: Initial Register with HB-Auth
+    // =============================================
+    console.log('PHASE 1: Initial registration...');
     await page.goto('/?tab=auth');
     await page.waitForLoadState('networkidle');
 
@@ -227,7 +234,7 @@ test.describe('Social Actions Flow with HB-Auth', () => {
     await hbAuthButton.click();
     await page.waitForTimeout(2000);
 
-    // Fill and submit
+    // Fill registration form
     await page.locator('input[placeholder="your-username"]').fill(TEST_USERNAME);
     await page.locator('input[placeholder="your-username"]').blur();
     await page.waitForTimeout(1000);
@@ -242,22 +249,19 @@ test.describe('Social Actions Flow with HB-Auth', () => {
     await page.locator('button:has-text("Save Key")').click();
 
     await expect(page.locator(`text=@${TEST_USERNAME}`).first()).toBeVisible({ timeout: 30000 });
+    console.log('Initial registration successful!');
 
-    // Navigate to social actions
-    await page.locator('button:has-text("Social Actions")').click();
-    await page.waitForTimeout(1000);
-
-    // Clear the session to simulate "locked" state (key registered but not authenticated)
-    await page.evaluate(() => {
-      // Remove session but keep IndexedDB (keys are still there)
-      localStorage.removeItem('hive-ui-demo-session');
-    });
-
-    // Reload page - this will keep keys in IndexedDB but user will need to re-authenticate
+    // =============================================
+    // PHASE 2: F5 Refresh (simulate browser refresh)
+    // =============================================
+    console.log('PHASE 2: Pressing F5 (page refresh)...');
     await page.reload();
     await page.waitForLoadState('networkidle');
 
-    // Re-login via Unlock mode (not Register)
+    // =============================================
+    // PHASE 3: Unlock Safe Storage
+    // =============================================
+    console.log('PHASE 3: Unlocking Safe Storage...');
     await page.goto('/?tab=auth');
     await page.waitForFunction(() => {
       const text = document.body.innerText;
@@ -271,33 +275,83 @@ test.describe('Social Actions Flow with HB-Auth', () => {
     await page.locator('input[placeholder="your-username"]').blur();
     await page.waitForTimeout(2000);
 
-    // Should show Unlock mode (keys already registered)
-    // Use more specific selector - the tab button in the mode switcher
+    // Should show Unlock mode (keys already registered in IndexedDB)
     const unlockTab = page.locator('button:has-text("Unlock")').first();
     if (await unlockTab.isVisible()) {
       await unlockTab.click();
     }
 
     await page.locator('input[placeholder*="password"]').first().fill(TEST_PASSWORD);
-    // Click the submit button (last Unlock button)
     await page.locator('button').filter({ hasText: /^Unlock$/ }).last().click();
 
     await expect(page.locator(`text=@${TEST_USERNAME}`).first()).toBeVisible({ timeout: 30000 });
+    console.log('Unlock successful!');
 
-    // Go to social actions
+    // =============================================
+    // PHASE 4: Navigate to Social Actions
+    // =============================================
+    console.log('PHASE 4: Navigating to Social Actions...');
     await page.locator('button:has-text("Social Actions")').click();
     await page.waitForTimeout(1000);
 
-    // Click Mute - should work now with the fix
-    const muteBtn = page.locator('[data-testid="mute-btn"]').first();
-    const isMuteDisabled = await muteBtn.isDisabled();
+    // =============================================
+    // PHASE 5: Follow action (after unlock)
+    // =============================================
+    console.log('PHASE 5: Testing Follow after unlock...');
+    const followBtn = page.locator('[data-testid="follow-btn"]').first();
+    const unfollowBtn = page.locator('[data-testid="unfollow-btn"]').first();
 
+    const isFollowDisabled = await followBtn.isDisabled();
+    if (!isFollowDisabled) {
+      await followBtn.click();
+      await expect(page.locator('text=Confirm Follow')).toBeVisible({ timeout: 5000 });
+      await page.locator('button:has-text("Follow")').last().click();
+      await expect(page.locator('[data-testid="toast-success"]').filter({ hasText: 'Followed!' })).toBeVisible({ timeout: 15000 });
+      console.log('Follow after unlock successful!');
+    } else {
+      console.log('Already following, skipping Follow');
+    }
+
+    // =============================================
+    // PHASE 6: Unfollow action (after unlock)
+    // =============================================
+    console.log('PHASE 6: Testing Unfollow after unlock...');
+    await expect(unfollowBtn).toBeEnabled({ timeout: 5000 });
+    await unfollowBtn.click();
+    await expect(page.locator('text=Confirm Unfollow')).toBeVisible({ timeout: 5000 });
+    await page.locator('button:has-text("Unfollow")').last().click();
+    await expect(page.locator('[data-testid="toast-success"]').filter({ hasText: 'Unfollowed!' })).toBeVisible({ timeout: 15000 });
+    console.log('Unfollow after unlock successful!');
+
+    // =============================================
+    // PHASE 7: Mute action (after unlock)
+    // =============================================
+    console.log('PHASE 7: Testing Mute after unlock...');
+    const muteBtn = page.locator('[data-testid="mute-btn"]').first();
+    const unmuteBtn = page.locator('[data-testid="unmute-btn"]').first();
+
+    const isMuteDisabled = await muteBtn.isDisabled();
     if (!isMuteDisabled) {
       await muteBtn.click();
       await expect(page.locator('text=Confirm Mute')).toBeVisible({ timeout: 5000 });
-      console.log('Mute confirmation dialog appeared - HBAuthPasswordDialog fix verified!');
+      await page.locator('button:has-text("Mute")').last().click();
+      await expect(page.locator('[data-testid="toast-success"]').filter({ hasText: 'Muted!' })).toBeVisible({ timeout: 15000 });
+      console.log('Mute after unlock successful!');
     } else {
-      console.log('Mute button disabled (user already muted target)');
+      console.log('User already muted, skipping Mute');
     }
+
+    // =============================================
+    // PHASE 8: Unmute action (after unlock)
+    // =============================================
+    console.log('PHASE 8: Testing Unmute after unlock...');
+    await expect(unmuteBtn).toBeEnabled({ timeout: 5000 });
+    await unmuteBtn.click();
+    await expect(page.locator('text=Confirm Unmute')).toBeVisible({ timeout: 5000 });
+    await page.locator('button:has-text("Unmute")').last().click();
+    await expect(page.locator('[data-testid="toast-success"]').filter({ hasText: 'Unmuted!' })).toBeVisible({ timeout: 15000 });
+    console.log('Unmute after unlock successful!');
+
+    console.log('ALL TESTS PASSED - F5 + Unlock flow verified!');
   });
 });
