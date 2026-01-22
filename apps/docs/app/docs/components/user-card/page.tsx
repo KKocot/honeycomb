@@ -3,8 +3,7 @@ import { ArrowLeft, ArrowRight, Info } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HiveUserCard } from "@kkocot/hive-ui-react";
+  basic: `import { HiveUserCard } from "@/components/hive";
 
 function ProfilePage() {
   return (
@@ -59,12 +58,6 @@ export default async function UserCardPage() {
             </p>
           </div>
         </div>
-      </section>
-
-      {/* Installation */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Installation</h2>
-        <CodeBlock code={CODE.install} language="bash" />
       </section>
 
       {/* Usage */}
@@ -191,10 +184,10 @@ export default async function UserCardPage() {
           Avatar
         </Link>
         <Link
-          href="/docs/components/follow-button"
+          href="/docs/components/balance-card"
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
         >
-          Follow Button
+          Balance Card
           <ArrowRight className="h-4 w-4" />
         </Link>
       </section>

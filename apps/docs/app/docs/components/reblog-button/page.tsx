@@ -1,55 +1,26 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Info, Repeat, Loader2, Check } from "lucide-react";
+import { ArrowLeft, ArrowRight, Info, Repeat } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HiveReblogButton } from "@kkocot/hive-ui-react";
+  basic: `import { HiveReblogButton } from "@/components/hive";
 
-function PostActions() {
+function PostFooter() {
   return (
     <HiveReblogButton
       author="barddev"
       permlink="my-first-post"
+      onReblog={(reblogged) => {
+        console.log(reblogged ? "Post reblogged" : "Reblog cancelled");
+      }}
     />
   );
 }`,
-  withCallback: `// Optional callback after reblog
-<HiveReblogButton
-  author="barddev"
-  permlink="my-first-post"
-  onSuccess={() => console.log("Reblogged!")}
-/>`,
-  withLabel: `// Show text label
-<HiveReblogButton
-  author="barddev"
-  permlink="my-first-post"
-  showLabel
-/>`,
-  noConfirmation: `// Skip confirmation dialog
-<HiveReblogButton
-  author="barddev"
-  permlink="my-first-post"
-  showConfirmation={false}
-/>`,
-  variants: `// Default
-<HiveReblogButton author="barddev" permlink="post" variant="default" />
-
-// Ghost (default)
-<HiveReblogButton author="barddev" permlink="post" variant="ghost" />
-
-// Outline
-<HiveReblogButton author="barddev" permlink="post" variant="outline" />`,
-  sizes: `<HiveReblogButton author="barddev" permlink="post" size="sm" />
-<HiveReblogButton author="barddev" permlink="post" size="md" />
-<HiveReblogButton author="barddev" permlink="post" size="lg" />`,
-  customStyle: `// Custom styling
-<HiveReblogButton
-  author="barddev"
-  permlink="my-first-post"
-  className="rounded-full"
-  style={{ minWidth: 40 }}
-/>`,
+  inCard: `// Used inside a post card footer
+<div className="flex items-center gap-4 mt-4">
+  <HiveVoteButton author={author} permlink={permlink} />
+  <HiveReblogButton author={author} permlink={permlink} />
+</div>`,
 };
 
 export default async function ReblogButtonPage() {
@@ -58,7 +29,7 @@ export default async function ReblogButtonPage() {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">HiveReblogButton</h1>
         <p className="mt-2 text-lg text-muted-foreground">
-          Share posts to your blog feed with a reblog action.
+          Share posts to your blog feed with a single click.
         </p>
       </div>
 
@@ -67,19 +38,13 @@ export default async function ReblogButtonPage() {
         <div className="flex gap-3">
           <Info className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
           <div>
-            <p className="font-medium text-blue-500">Self-contained</p>
+            <p className="font-medium text-blue-500">Permanent Action</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              Automatically checks reblog status and handles transactions.
-              Uses posting key from SmartSigner. Reblog is permanent and cannot be undone.
+              Reblogs cannot be undone on the blockchain. The post will appear
+              on your blog feed. Uses posting key.
             </p>
           </div>
         </div>
-      </section>
-
-      {/* Installation */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Installation</h2>
-        <CodeBlock code={CODE.install} language="bash" />
       </section>
 
       {/* Usage */}
@@ -92,55 +57,44 @@ export default async function ReblogButtonPage() {
       <section>
         <h2 className="text-xl font-semibold mb-4">Preview</h2>
         <div className="rounded-lg border border-border p-6">
-          <div className="flex flex-wrap items-center gap-6">
-            {/* Ghost (default) */}
-            <div className="text-center">
-              <button className="p-1.5 rounded-lg text-muted-foreground hover:text-green-500">
-                <Repeat className="h-4 w-4" />
-              </button>
-              <p className="text-xs text-muted-foreground mt-1">Default</p>
-            </div>
-
-            {/* Reblogged */}
-            <div className="text-center">
-              <button className="p-1.5 rounded-lg text-green-500">
-                <Check className="h-4 w-4" />
-              </button>
-              <p className="text-xs text-muted-foreground mt-1">Reblogged</p>
-            </div>
-
-            {/* With label */}
-            <div className="text-center">
-              <button className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg border border-border text-muted-foreground hover:border-green-500 hover:text-green-500">
+          <div className="flex flex-col items-center gap-6">
+            {/* Not reblogged */}
+            <div className="flex flex-col items-center gap-3">
+              <button className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium bg-muted text-muted-foreground hover:bg-green-500/20 hover:text-green-500 transition-colors">
                 <Repeat className="h-4 w-4" />
                 Reblog
               </button>
-              <p className="text-xs text-muted-foreground mt-1">With label</p>
+              <p className="text-xs text-muted-foreground">
+                Share to your blog
+              </p>
             </div>
 
-            {/* Loading */}
-            <div className="text-center">
-              <button className="p-1.5 rounded-lg text-muted-foreground" disabled>
-                <Loader2 className="h-4 w-4 animate-spin" />
+            {/* Reblogged */}
+            <div className="pt-6 border-t border-border w-full flex flex-col items-center gap-3">
+              <p className="text-sm text-muted-foreground mb-2">After reblogging:</p>
+              <button className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium bg-green-500/10 text-green-500 cursor-not-allowed">
+                <Repeat className="h-4 w-4 fill-current" />
+                Reblogged
               </button>
-              <p className="text-xs text-muted-foreground mt-1">Loading</p>
-            </div>
-
-            {/* Confirmation */}
-            <div className="text-center">
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">Reblog?</span>
-                <button className="px-2 py-1 text-xs rounded bg-green-500 text-white">
-                  Yes
-                </button>
-                <button className="px-2 py-1 text-xs rounded bg-muted">
-                  No
-                </button>
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">Confirmation</p>
+              <p className="text-xs text-green-500">
+                You reblogged this post
+              </p>
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Features */}
+      <section>
+        <h2 className="text-xl font-semibold mb-4">Features</h2>
+        <ul className="space-y-2 text-muted-foreground">
+          <li>• Checks reblog status from blockchain</li>
+          <li>• Disabled after reblogging (cannot undo)</li>
+          <li>• Disabled for own posts</li>
+          <li>• Confirmation dialog before broadcasting</li>
+          <li>• Optimistic UI updates</li>
+          <li>• Login prompt if not authenticated</li>
+        </ul>
       </section>
 
       {/* Props */}
@@ -167,38 +121,13 @@ export default async function ReblogButtonPage() {
                 <td className="py-3 px-4 text-muted-foreground">required</td>
               </tr>
               <tr>
-                <td className="py-3 px-4"><code>onSuccess</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>() =&gt; void</code></td>
+                <td className="py-3 px-4"><code>onReblog</code></td>
+                <td className="py-3 px-4 text-muted-foreground"><code>(reblogged: boolean) =&gt; void</code></td>
                 <td className="py-3 px-4 text-muted-foreground">-</td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4"><code>showConfirmation</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>boolean</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>true</code></td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4"><code>showLabel</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>boolean</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>false</code></td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4"><code>variant</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>{`"default" | "ghost" | "outline"`}</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>"ghost"</code></td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4"><code>size</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>{`"sm" | "md" | "lg"`}</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>"md"</code></td>
               </tr>
               <tr>
                 <td className="py-3 px-4"><code>className</code></td>
                 <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
-                <td className="py-3 px-4 text-muted-foreground">-</td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4"><code>style</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>React.CSSProperties</code></td>
                 <td className="py-3 px-4 text-muted-foreground">-</td>
               </tr>
             </tbody>
@@ -211,28 +140,8 @@ export default async function ReblogButtonPage() {
         <h2 className="text-xl font-semibold mb-4">Examples</h2>
         <div className="space-y-6">
           <div>
-            <h3 className="text-sm font-medium mb-2">With callback</h3>
-            <CodeBlock code={CODE.withCallback} language="tsx" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">With label</h3>
-            <CodeBlock code={CODE.withLabel} language="tsx" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Without confirmation</h3>
-            <CodeBlock code={CODE.noConfirmation} language="tsx" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Variants</h3>
-            <CodeBlock code={CODE.variants} language="tsx" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Sizes</h3>
-            <CodeBlock code={CODE.sizes} language="tsx" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Custom styling</h3>
-            <CodeBlock code={CODE.customStyle} language="tsx" />
+            <h3 className="text-sm font-medium mb-2">With vote button</h3>
+            <CodeBlock code={CODE.inCard} language="tsx" />
           </div>
         </div>
       </section>
@@ -240,17 +149,17 @@ export default async function ReblogButtonPage() {
       {/* Navigation */}
       <section className="flex items-center justify-between">
         <Link
-          href="/docs/components/post-card"
+          href="/docs/components/vote-button"
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
         >
           <ArrowLeft className="h-4 w-4" />
-          Post Card
+          Vote Button
         </Link>
         <Link
-          href="/docs/components/balance-card"
+          href="/docs/components/witness-vote"
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
         >
-          Balance Card
+          Witness Vote
           <ArrowRight className="h-4 w-4" />
         </Link>
       </section>

@@ -1,36 +1,35 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Info, UserPlus, UserMinus } from "lucide-react";
+import { ArrowLeft, ArrowRight, Info, UserPlus, UserMinus, CheckCircle2, Circle } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HiveFollowButton } from "@kkocot/hive-ui-react";
+  basic: `import { HiveFollowButton } from "@/components/hive";
 
 function UserProfile() {
-  return <HiveFollowButton username="barddev" />;
+  return (
+    <HiveFollowButton
+      username="barddev"
+      onFollow={(following) => {
+        console.log(following ? "Now following" : "Unfollowed");
+      }}
+    />
+  );
 }`,
-  withCallback: `// Optional callback after action
+  withoutStatus: `// Hide the status indicator
 <HiveFollowButton
   username="barddev"
-  onSuccess={(action) => console.log(action)} // "followed" | "unfollowed"
+  showStatus={false}
 />`,
-  variants: `// Default - filled button
-<HiveFollowButton username="barddev" variant="default" />
+  withProvider: `import { HiveProvider } from "@/contexts/hive-context";
+import { HiveFollowButton } from "@/components/hive";
 
-// Outline - bordered button
-<HiveFollowButton username="barddev" variant="outline" />
-
-// Ghost - text only
-<HiveFollowButton username="barddev" variant="ghost" />`,
-  sizes: `<HiveFollowButton username="barddev" size="sm" />
-<HiveFollowButton username="barddev" size="md" />
-<HiveFollowButton username="barddev" size="lg" />`,
-  customStyle: `// Custom styling
-<HiveFollowButton
-  username="barddev"
-  className="rounded-full px-6"
-  style={{ minWidth: 120 }}
-/>`,
+function App() {
+  return (
+    <HiveProvider>
+      <HiveFollowButton username="gtg" />
+    </HiveProvider>
+  );
+}`,
 };
 
 export default async function FollowButtonPage() {
@@ -39,7 +38,7 @@ export default async function FollowButtonPage() {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">HiveFollowButton</h1>
         <p className="mt-2 text-lg text-muted-foreground">
-          Follow and unfollow Hive users with optimistic UI updates.
+          Follow and unfollow Hive users with optimistic UI updates and status tracking.
         </p>
       </div>
 
@@ -48,19 +47,13 @@ export default async function FollowButtonPage() {
         <div className="flex gap-3">
           <Info className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
           <div>
-            <p className="font-medium text-blue-500">Self-contained</p>
+            <p className="font-medium text-blue-500">Self-contained Component</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              Automatically checks follow status and handles transactions.
-              Uses posting key from SmartSigner.
+              Automatically checks follow status via blockchain API, handles transactions
+              with optimistic updates, and shows confirmation dialogs. Uses posting key.
             </p>
           </div>
         </div>
-      </section>
-
-      {/* Installation */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Installation</h2>
-        <CodeBlock code={CODE.install} language="bash" />
       </section>
 
       {/* Usage */}
@@ -72,27 +65,57 @@ export default async function FollowButtonPage() {
       {/* Preview */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Preview</h2>
-        <div className="rounded-lg border border-border p-6">
-          <div className="flex flex-wrap gap-4">
-            {/* Not following */}
-            <button className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-hive-red text-white">
-              <UserPlus className="h-4 w-4" />
-              Follow
-            </button>
+        <div className="rounded-lg border border-border p-6 space-y-6">
+          {/* Not following state */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-sm">
+              <Circle className="h-4 w-4 text-muted-foreground" />
+              <span className="text-muted-foreground">Not following @barddev</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <button className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium bg-hive-red text-white">
+                <UserPlus className="h-4 w-4" />
+                Follow
+              </button>
+              <button className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium bg-muted text-muted-foreground opacity-50 cursor-not-allowed">
+                <UserMinus className="h-4 w-4" />
+                Unfollow
+              </button>
+            </div>
+          </div>
 
-            {/* Following */}
-            <button className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-muted text-foreground">
-              <UserMinus className="h-4 w-4" />
-              Following
-            </button>
-
-            {/* Outline */}
-            <button className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium border border-hive-red text-hive-red">
-              <UserPlus className="h-4 w-4" />
-              Follow
-            </button>
+          {/* Following state */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-sm">
+              <CheckCircle2 className="h-4 w-4 text-green-500" />
+              <span className="text-green-500">You follow @barddev</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <button className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium bg-muted text-muted-foreground opacity-50 cursor-not-allowed">
+                <UserPlus className="h-4 w-4" />
+                Follow
+              </button>
+              <button className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium bg-muted text-foreground hover:bg-red-500/10 hover:text-red-500">
+                <UserMinus className="h-4 w-4" />
+                Unfollow
+              </button>
+            </div>
           </div>
         </div>
+      </section>
+
+      {/* Features */}
+      <section>
+        <h2 className="text-xl font-semibold mb-4">Features</h2>
+        <ul className="space-y-2 text-muted-foreground">
+          <li>• Auto-fetches follow status from blockchain on mount</li>
+          <li>• Optimistic UI updates with 10s grace period</li>
+          <li>• Confirmation dialog before broadcasting</li>
+          <li>• Status indicator showing current relationship</li>
+          <li>• Login prompt if user not authenticated</li>
+          <li>• WIF/HB-Auth password dialogs when needed</li>
+          <li>• Hidden when viewing own profile</li>
+        </ul>
       </section>
 
       {/* Props */}
@@ -114,32 +137,18 @@ export default async function FollowButtonPage() {
                 <td className="py-3 px-4 text-muted-foreground">required</td>
               </tr>
               <tr>
-                <td className="py-3 px-4"><code>onSuccess</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>(action: &quot;followed&quot; | &quot;unfollowed&quot;) =&gt; void</code></td>
+                <td className="py-3 px-4"><code>onFollow</code></td>
+                <td className="py-3 px-4 text-muted-foreground"><code>(following: boolean) =&gt; void</code></td>
                 <td className="py-3 px-4 text-muted-foreground">-</td>
               </tr>
               <tr>
-                <td className="py-3 px-4"><code>variant</code></td>
-                <td className="py-3 px-4 text-muted-foreground">
-                  <code>&quot;default&quot; | &quot;outline&quot; | &quot;ghost&quot;</code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground"><code>&quot;default&quot;</code></td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4"><code>size</code></td>
-                <td className="py-3 px-4 text-muted-foreground">
-                  <code>&quot;sm&quot; | &quot;md&quot; | &quot;lg&quot;</code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground"><code>&quot;md&quot;</code></td>
+                <td className="py-3 px-4"><code>showStatus</code></td>
+                <td className="py-3 px-4 text-muted-foreground"><code>boolean</code></td>
+                <td className="py-3 px-4 text-muted-foreground"><code>true</code></td>
               </tr>
               <tr>
                 <td className="py-3 px-4"><code>className</code></td>
                 <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
-                <td className="py-3 px-4 text-muted-foreground">-</td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4"><code>style</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>React.CSSProperties</code></td>
                 <td className="py-3 px-4 text-muted-foreground">-</td>
               </tr>
             </tbody>
@@ -152,20 +161,12 @@ export default async function FollowButtonPage() {
         <h2 className="text-xl font-semibold mb-4">Examples</h2>
         <div className="space-y-6">
           <div>
-            <h3 className="text-sm font-medium mb-2">With callback</h3>
-            <CodeBlock code={CODE.withCallback} language="tsx" />
+            <h3 className="text-sm font-medium mb-2">Without status indicator</h3>
+            <CodeBlock code={CODE.withoutStatus} language="tsx" />
           </div>
           <div>
-            <h3 className="text-sm font-medium mb-2">Variants</h3>
-            <CodeBlock code={CODE.variants} language="tsx" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Sizes</h3>
-            <CodeBlock code={CODE.sizes} language="tsx" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Custom styling</h3>
-            <CodeBlock code={CODE.customStyle} language="tsx" />
+            <h3 className="text-sm font-medium mb-2">With HiveProvider</h3>
+            <CodeBlock code={CODE.withProvider} language="tsx" />
           </div>
         </div>
       </section>
@@ -173,11 +174,11 @@ export default async function FollowButtonPage() {
       {/* Navigation */}
       <section className="flex items-center justify-between">
         <Link
-          href="/docs/components/user-card"
+          href="/docs/components/wif-login"
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
         >
           <ArrowLeft className="h-4 w-4" />
-          User Card
+          WIF Login
         </Link>
         <Link
           href="/docs/components/mute-button"

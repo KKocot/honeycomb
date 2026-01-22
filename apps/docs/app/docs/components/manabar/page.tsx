@@ -3,8 +3,7 @@ import { ArrowLeft, ArrowRight, Info } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HiveManabar } from "@kkocot/hive-ui-react";
+  basic: `import { HiveManabar } from "@/components/hive";
 
 function UserStats() {
   return (
@@ -63,12 +62,6 @@ export default async function ManabarPage() {
             </p>
           </div>
         </div>
-      </section>
-
-      {/* Installation */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Installation</h2>
-        <CodeBlock code={CODE.install} language="bash" />
       </section>
 
       {/* Usage */}

@@ -3,8 +3,7 @@ import { ArrowLeft, ArrowRight, Info, MessageCircle, ThumbsUp, Clock, Share, Use
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HivePostCard } from "@kkocot/hive-ui-react";
+  basic: `import { HivePostCard } from "@/components/hive";
 
 function PostFeed() {
   return (
@@ -82,12 +81,6 @@ export default async function PostCardPage() {
             </p>
           </div>
         </div>
-      </section>
-
-      {/* Installation */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Installation</h2>
-        <CodeBlock code={CODE.install} language="bash" />
       </section>
 
       {/* Usage */}
@@ -276,17 +269,17 @@ export default async function PostCardPage() {
       {/* Navigation */}
       <section className="flex items-center justify-between">
         <Link
-          href="/docs/components/post-editor"
+          href="/docs/components/manabar"
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
         >
           <ArrowLeft className="h-4 w-4" />
-          Post Editor
+          Manabar
         </Link>
         <Link
-          href="/docs/components/reblog-button"
+          href="/docs"
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
         >
-          Reblog Button
+          Back to Docs
           <ArrowRight className="h-4 w-4" />
         </Link>
       </section>

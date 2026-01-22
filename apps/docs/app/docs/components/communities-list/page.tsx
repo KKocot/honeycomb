@@ -3,37 +3,13 @@ import { ArrowLeft, ArrowRight, Info, Globe, Users, Star, Search } from "lucide-
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HiveCommunitiesList } from "@kkocot/hive-ui-react";
+  basic: `import { HiveCommunitiesList } from "@/components/hive";
 
 function ExplorePage() {
   return <HiveCommunitiesList />;
 }`,
-  variants: `// Grid (default)
-<HiveCommunitiesList variant="grid" />
-
-// List
-<HiveCommunitiesList variant="list" />`,
-  withQuery: `// Pre-filter communities
-<HiveCommunitiesList initialQuery="photography" />`,
-  withCallback: `// Callback after subscribe/unsubscribe
-<HiveCommunitiesList
-  onSuccess={(action, community) => {
-    console.log(\`\${action} \${community}\`);
-    refetchSubscriptions();
-  }}
-/>`,
-  hideElements: `// Hide specific elements
-<HiveCommunitiesList
-  hide={["search", "stats"]}
-/>
-
-// Available options: "search" | "stats" | "description"`,
-  customStyle: `// Custom styling
-<HiveCommunitiesList
-  className="max-w-4xl"
-  style={{ gap: 24 }}
-/>`,
+  withLimit: `// Show specific number of communities
+<HiveCommunitiesList limit={6} />`,
 };
 
 export default async function CommunitiesListPage() {
@@ -47,23 +23,17 @@ export default async function CommunitiesListPage() {
       </div>
 
       {/* Info */}
-      <section className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4">
+      <section className="rounded-lg border border-green-500/20 bg-green-500/5 p-4">
         <div className="flex gap-3">
-          <Info className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+          <Info className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
           <div>
-            <p className="font-medium text-blue-500">Self-contained</p>
+            <p className="font-medium text-green-500">Topic-based Communities</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              Fetches communities automatically. Handles subscribe/unsubscribe using posting key from SmartSigner.
-              Community names start with "hive-" followed by a number.
+              Communities organize content by topic. Subscribe to see posts in your feed.
+              Uses posting key for subscribe/unsubscribe.
             </p>
           </div>
         </div>
-      </section>
-
-      {/* Installation */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Installation</h2>
-        <CodeBlock code={CODE.install} language="bash" />
       </section>
 
       {/* Usage */}
@@ -134,12 +104,25 @@ export default async function CommunitiesListPage() {
                   <Star className="h-4 w-4" /> 567 active
                 </span>
               </div>
-              <button className="w-full mt-4 py-2 rounded-lg text-sm font-medium bg-muted text-foreground">
+              <button className="w-full mt-4 py-2 rounded-lg text-sm font-medium bg-green-500/10 text-green-500">
                 Subscribed
               </button>
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Features */}
+      <section>
+        <h2 className="text-xl font-semibold mb-4">Features</h2>
+        <ul className="space-y-2 text-muted-foreground">
+          <li>• Fetches ranked communities from blockchain</li>
+          <li>• Search/filter communities</li>
+          <li>• Shows subscriber count and activity</li>
+          <li>• Subscribe/unsubscribe with confirmation</li>
+          <li>• Links to community on PeakD</li>
+          <li>• Login prompt if not authenticated</li>
+        </ul>
       </section>
 
       {/* Props */}
@@ -156,33 +139,13 @@ export default async function CommunitiesListPage() {
             </thead>
             <tbody className="divide-y divide-border">
               <tr>
-                <td className="py-3 px-4"><code>variant</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>{`"grid" | "list"`}</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>"grid"</code></td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4"><code>initialQuery</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>""</code></td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4"><code>hide</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>{`("search" | "stats" | "description")[]`}</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>[]</code></td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4"><code>onSuccess</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>(action, community) =&gt; void</code></td>
-                <td className="py-3 px-4 text-muted-foreground">-</td>
+                <td className="py-3 px-4"><code>limit</code></td>
+                <td className="py-3 px-4 text-muted-foreground"><code>number</code></td>
+                <td className="py-3 px-4 text-muted-foreground"><code>12</code></td>
               </tr>
               <tr>
                 <td className="py-3 px-4"><code>className</code></td>
                 <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
-                <td className="py-3 px-4 text-muted-foreground">-</td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4"><code>style</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>React.CSSProperties</code></td>
                 <td className="py-3 px-4 text-muted-foreground">-</td>
               </tr>
             </tbody>
@@ -195,24 +158,8 @@ export default async function CommunitiesListPage() {
         <h2 className="text-xl font-semibold mb-4">Examples</h2>
         <div className="space-y-6">
           <div>
-            <h3 className="text-sm font-medium mb-2">Variants</h3>
-            <CodeBlock code={CODE.variants} language="tsx" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Pre-filter</h3>
-            <CodeBlock code={CODE.withQuery} language="tsx" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">With callback</h3>
-            <CodeBlock code={CODE.withCallback} language="tsx" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Hide elements</h3>
-            <CodeBlock code={CODE.hideElements} language="tsx" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Custom styling</h3>
-            <CodeBlock code={CODE.customStyle} language="tsx" />
+            <h3 className="text-sm font-medium mb-2">With limit</h3>
+            <CodeBlock code={CODE.withLimit} language="tsx" />
           </div>
         </div>
       </section>
@@ -220,17 +167,17 @@ export default async function CommunitiesListPage() {
       {/* Navigation */}
       <section className="flex items-center justify-between">
         <Link
-          href="/docs/components/trade-hive"
+          href="/docs/components/proposals"
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
         >
           <ArrowLeft className="h-4 w-4" />
-          Trade Hive
+          Proposals
         </Link>
         <Link
-          href="/docs/components/witness-vote"
+          href="/docs/components/account-settings"
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
         >
-          Witness Vote
+          Account Settings
           <ArrowRight className="h-4 w-4" />
         </Link>
       </section>

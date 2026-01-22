@@ -3,8 +3,7 @@ import { ArrowLeft, ArrowRight, Info, Wallet, TrendingUp, Lock, Coins } from "lu
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HiveBalanceCard } from "@kkocot/hive-ui-react";
+  basic: `import { HiveBalanceCard } from "@/components/hive";
 
 function WalletPage() {
   return <HiveBalanceCard username="barddev" />;
@@ -60,12 +59,6 @@ export default async function BalanceCardPage() {
             </p>
           </div>
         </div>
-      </section>
-
-      {/* Installation */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Installation</h2>
-        <CodeBlock code={CODE.install} language="bash" />
       </section>
 
       {/* Usage */}
@@ -262,17 +255,17 @@ export default async function BalanceCardPage() {
       {/* Navigation */}
       <section className="flex items-center justify-between">
         <Link
-          href="/docs/components/reblog-button"
+          href="/docs/components/user-card"
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
         >
           <ArrowLeft className="h-4 w-4" />
-          Reblog Button
+          User Card
         </Link>
         <Link
-          href="/docs/components/transfer-dialog"
+          href="/docs/components/manabar"
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
         >
-          Transfer Dialog
+          Manabar
           <ArrowRight className="h-4 w-4" />
         </Link>
       </section>

@@ -3,8 +3,7 @@ import { ArrowLeft, ArrowRight, Info } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HiveAvatar } from "@kkocot/hive-ui-react";
+  basic: `import { HiveAvatar } from "@/components/hive";
 
 function UserProfile() {
   return (
@@ -64,12 +63,6 @@ export default async function AvatarPage() {
             </p>
           </div>
         </div>
-      </section>
-
-      {/* Installation */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Installation</h2>
-        <CodeBlock code={CODE.install} language="bash" />
       </section>
 
       {/* Usage */}
@@ -174,11 +167,11 @@ export default async function AvatarPage() {
       {/* Navigation */}
       <section className="flex items-center justify-between">
         <Link
-          href="/docs/components/smart-signer"
+          href="/docs/components/account-settings"
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
         >
           <ArrowLeft className="h-4 w-4" />
-          SmartSigner
+          Account Settings
         </Link>
         <Link
           href="/docs/components/user-card"
