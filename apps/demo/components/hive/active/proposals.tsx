@@ -39,7 +39,7 @@ export function HiveProposals({ username, onVote, className }: ProposalsProps) {
       setLoadingData(true);
       try {
         // Fetch active proposals
-        const proposalsRes = await fetch("https://api.hive.blog", {
+        const proposalsRes = await fetch("https://api.openhive.network", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -66,7 +66,7 @@ export function HiveProposals({ username, onVote, className }: ProposalsProps) {
 
         // Fetch user's voted proposals
         if (username) {
-          const votesRes = await fetch("https://api.hive.blog", {
+          const votesRes = await fetch("https://api.openhive.network", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

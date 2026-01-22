@@ -37,7 +37,7 @@ export function HiveWitnessVote({ username, onVote, className }: WitnessVoteProp
       setLoadingData(true);
       try {
         // Fetch top witnesses by vote
-        const witnessesRes = await fetch("https://api.hive.blog", {
+        const witnessesRes = await fetch("https://api.openhive.network", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -62,7 +62,7 @@ export function HiveWitnessVote({ username, onVote, className }: WitnessVoteProp
 
         // Fetch user's witness votes if username is provided
         if (username) {
-          const accountRes = await fetch("https://api.hive.blog", {
+          const accountRes = await fetch("https://api.openhive.network", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

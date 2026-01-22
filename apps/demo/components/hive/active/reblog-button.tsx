@@ -54,7 +54,7 @@ export function HiveReblogButton({
     console.log("[HiveReblogButton] Checking reblog status for:", author, permlink);
     setCheckingStatus(true);
     try {
-      const blogResponse = await fetch("https://api.hive.blog", {
+      const blogResponse = await fetch("https://api.openhive.network", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

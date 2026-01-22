@@ -46,7 +46,7 @@ export function HiveTradeCard({
       try {
         // Fetch account balance and ticker in parallel
         const [accountRes, tickerRes] = await Promise.all([
-          fetch("https://api.hive.blog", {
+          fetch("https://api.openhive.network", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -56,7 +56,7 @@ export function HiveTradeCard({
               id: 1,
             }),
           }),
-          fetch("https://api.hive.blog", {
+          fetch("https://api.openhive.network", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

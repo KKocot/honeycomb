@@ -55,7 +55,7 @@ export function HivePowerUpDown({
       try {
         // Fetch account data and global properties in parallel
         const [accountRes, propsRes] = await Promise.all([
-          fetch("https://api.hive.blog", {
+          fetch("https://api.openhive.network", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -65,7 +65,7 @@ export function HivePowerUpDown({
               id: 1,
             }),
           }),
-          fetch("https://api.hive.blog", {
+          fetch("https://api.openhive.network", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

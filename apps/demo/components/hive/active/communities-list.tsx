@@ -38,7 +38,7 @@ export function HiveCommunitiesList({ username, onSubscribe, className }: Commun
       setLoadingData(true);
       try {
         // Fetch ranked communities
-        const communitiesRes = await fetch("https://api.hive.blog", {
+        const communitiesRes = await fetch("https://api.openhive.network", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -64,7 +64,7 @@ export function HiveCommunitiesList({ username, onSubscribe, className }: Commun
 
         // Fetch user subscriptions if username is provided
         if (username) {
-          const subsRes = await fetch("https://api.hive.blog", {
+          const subsRes = await fetch("https://api.openhive.network", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

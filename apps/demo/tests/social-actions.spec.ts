@@ -148,7 +148,7 @@ test.describe('API Interactions', () => {
     // Intercept API calls
     const apiCalls: string[] = [];
 
-    await page.route('**/api.hive.blog', async (route) => {
+    await page.route('**/api.openhive.network', async (route) => {
       const postData = route.request().postData();
       if (postData) {
         apiCalls.push(postData);
@@ -175,7 +175,7 @@ test.describe('API Interactions', () => {
 
   test('should handle API errors gracefully', async ({ page }) => {
     // Intercept API calls and return error
-    await page.route('**/api.hive.blog', async (route) => {
+    await page.route('**/api.openhive.network', async (route) => {
       await route.fulfill({
         status: 500,
         contentType: 'application/json',

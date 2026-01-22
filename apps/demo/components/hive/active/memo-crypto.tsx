@@ -28,7 +28,7 @@ export function HiveMemoCrypto({ username, className }: MemoCryptoProps) {
     setFetchingKey(true);
     setError(null);
     try {
-      const response = await fetch("https://api.hive.blog", {
+      const response = await fetch("https://api.openhive.network", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
