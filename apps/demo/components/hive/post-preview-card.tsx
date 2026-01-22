@@ -29,7 +29,7 @@ export function PostPreviewCard({ author, permlink, className }: PostPreviewCard
     async function fetchPost() {
       setLoading(true);
       try {
-        const response = await fetch("https://api.hive.blog", {
+        const response = await fetch("https://api.openhive.network", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

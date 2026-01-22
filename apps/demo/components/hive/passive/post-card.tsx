@@ -92,7 +92,7 @@ export function HivePostCard({
       setIsLoading(true);
       try {
         // Use fetch directly since wax doesn't expose condenser_api
-        const response = await fetch("https://api.hive.blog", {
+        const response = await fetch("https://api.openhive.network", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
