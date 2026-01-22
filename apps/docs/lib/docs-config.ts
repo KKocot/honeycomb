@@ -37,7 +37,11 @@ export const docsConfig: NavSection[] = [
     title: "Authentication",
     type: "active",
     items: [
-      { title: "Smart Signer", href: "/docs/components/smart-signer" },
+      { title: "Keychain Login", href: "/docs/components/keychain-login" },
+      { title: "PeakVault Login", href: "/docs/components/peakvault-login" },
+      { title: "HiveAuth Login", href: "/docs/components/hiveauth-login" },
+      { title: "HB-Auth Login", href: "/docs/components/hbauth-login" },
+      { title: "WIF Login", href: "/docs/components/wif-login" },
     ],
   },
   {
@@ -53,28 +57,23 @@ export const docsConfig: NavSection[] = [
     type: "active",
     items: [
       { title: "Vote Button", href: "/docs/components/vote-button" },
-      { title: "Comment Form", href: "/docs/components/comment-form" },
-      { title: "Post Editor", href: "/docs/components/post-editor" },
       { title: "Reblog Button", href: "/docs/components/reblog-button" },
-    ],
-  },
-  {
-    title: "Wallet Actions",
-    type: "active",
-    items: [
-      { title: "Transfer Dialog", href: "/docs/components/transfer-dialog" },
-      { title: "Power Up/Down", href: "/docs/components/power-up-down" },
-      { title: "Delegation Card", href: "/docs/components/delegation-card" },
-      { title: "Trade Hive", href: "/docs/components/trade-hive" },
     ],
   },
   {
     title: "Community Actions",
     type: "active",
     items: [
-      { title: "Communities List", href: "/docs/components/communities-list" },
       { title: "Witness Vote", href: "/docs/components/witness-vote" },
       { title: "Proposals", href: "/docs/components/proposals" },
+      { title: "Communities List", href: "/docs/components/communities-list" },
+    ],
+  },
+  {
+    title: "Account Management",
+    type: "active",
+    items: [
+      { title: "Account Settings", href: "/docs/components/account-settings" },
     ],
   },
   // ===========================================
@@ -101,26 +100,6 @@ export const docsConfig: NavSection[] = [
     type: "passive",
     items: [
       { title: "Post Card", href: "/docs/components/post-card" },
-    ],
-  },
-  {
-    title: "Account Management",
-    type: "active",
-    items: [
-      { title: "Account Settings", href: "/docs/components/account-settings" },
-      { title: "Authorities", href: "/docs/components/authorities" },
-    ],
-  },
-  // ===========================================
-  // HOOKS
-  // ===========================================
-  {
-    title: "Hooks",
-    items: [
-      { title: "useHiveChain", href: "/docs/hooks/use-hive-chain", disabled: true, label: "Coming Soon" },
-      { title: "useHiveAuth", href: "/docs/hooks/use-hive-auth", disabled: true, label: "Coming Soon" },
-      { title: "useHiveAccount", href: "/docs/hooks/use-hive-account", disabled: true, label: "Coming Soon" },
-      { title: "useVote", href: "/docs/hooks/use-vote", disabled: true, label: "Coming Soon" },
     ],
   },
 ];
