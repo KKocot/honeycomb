@@ -10,6 +10,16 @@
   --border: 0 0% 90%;
   --muted: 0 0% 96%;
   --muted-foreground: 0 0% 45%;
+  --primary: 348 83% 47%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 93%;
+  --secondary-foreground: 0 0% 10%;
+  --accent: 348 100% 95%;
+  --accent-foreground: 348 83% 38%;
+  --destructive: 348 83% 47%;
+  --input: 0 0% 75%;
+  --ring: 348 83% 47%;
+  --radius: 0.625rem;
 }
 
 .dark {
@@ -20,9 +30,150 @@
   --border: 0 0% 20%;
   --muted: 0 0% 15%;
   --muted-foreground: 0 0% 60%;
+  --primary: 348 83% 47%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 21%;
+  --secondary-foreground: 0 0% 93%;
+  --accent: 349 77% 11%;
+  --accent-foreground: 348 100% 60%;
+  --destructive: 348 100% 60%;
+  --input: 0 0% 21%;
+  --ring: 348 83% 47%;
 }
 
 body {
   background: hsl(var(--background));
   color: hsl(var(--foreground));
+}
+
+/* Content Renderer Styles */
+.twitter-tweet,
+.instagram-embed {
+  display: flex;
+  justify-content: center;
+}
+
+#twitter-widget-0 {
+  border-radius: 15px;
+}
+
+.pull-left {
+  float: left;
+  padding-right: 1rem;
+  max-width: 50%;
+}
+
+.pull-right {
+  float: right;
+  padding-left: 1rem;
+  max-width: 50%;
+}
+
+.prose .videoWrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+}
+
+.prose .videoWrapper iframe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 75vw;
+}
+
+/* Flexible markers (highlight colors) */
+.flexible-marker {
+  padding: 2px 4px;
+  border-radius: 3px;
+  opacity: 0.8;
+}
+
+.flexible-marker-yellow {
+  background-color: rgb(255, 255, 0);
+  color: rgb(0, 0, 0);
+}
+
+.flexible-marker-red {
+  background-color: rgb(255, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.flexible-marker-green {
+  background-color: rgb(0, 128, 0);
+  color: rgb(255, 255, 255);
+}
+
+.flexible-marker-blue {
+  background-color: rgb(0, 0, 255);
+  color: rgb(255, 255, 255);
+}
+
+.dark .flexible-marker-yellow {
+  background-color: rgb(153, 153, 0);
+  color: rgb(255, 255, 255);
+}
+
+.dark .flexible-marker-red {
+  background-color: rgb(153, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.dark .flexible-marker-green {
+  background-color: rgb(0, 77, 0);
+  color: rgb(255, 255, 255);
+}
+
+.dark .flexible-marker-blue {
+  background-color: rgb(0, 0, 153);
+  color: rgb(255, 255, 255);
+}
+
+/* MdEditor styles */
+.md-editor-toolbar-left {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.md-editor {
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.md-editor-content {
+  flex: 1;
+  min-height: 0;
+}
+
+.md-editor-input-wrapper {
+  height: 100% !important;
+}
+
+.md-editor-input-wrapper .inputWrapper {
+  height: 100% !important;
+}
+
+.md-editor-input-wrapper textarea {
+  height: 100% !important;
+}
+
+.emojis li {
+  height: auto;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+}
+
+.md-editor-modal-mask {
+  z-index: 9 !important;
+}
+
+.md-editor-modal {
+  z-index: 10 !important;
 }
