@@ -21,11 +21,26 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=common_proxy_network"
-      # HTTP router (for Cloudflare proxy)
+      # Redirect middleware: / -> /docs
+      - "traefik.http.middlewares.honeycomb-redirect.redirectregex.regex=^https?://[^/]+/?$$"
+      - "traefik.http.middlewares.honeycomb-redirect.redirectregex.replacement=/docs"
+      - "traefik.http.middlewares.honeycomb-redirect.redirectregex.permanent=true"
+      # HTTP router for root redirect
+      - "traefik.http.routers.honeycomb-root.rule=Host(`${DOMAIN}`) && Path(`/`)"
+      - "traefik.http.routers.honeycomb-root.entrypoints=web"
+      - "traefik.http.routers.honeycomb-root.middlewares=honeycomb-redirect"
+      - "traefik.http.routers.honeycomb-root.service=honeycomb-docs"
+      # HTTPS router for root redirect
+      - "traefik.http.routers.honeycomb-root-secure.rule=Host(`${DOMAIN}`) && Path(`/`)"
+      - "traefik.http.routers.honeycomb-root-secure.tls=true"
+      - "traefik.http.routers.honeycomb-root-secure.entrypoints=websecure"
+      - "traefik.http.routers.honeycomb-root-secure.middlewares=honeycomb-redirect"
+      - "traefik.http.routers.honeycomb-root-secure.service=honeycomb-docs"
+      # HTTP router for /docs
       - "traefik.http.routers.honeycomb-docs.rule=Host(`${DOMAIN}`) && PathPrefix(`/docs`)"
       - "traefik.http.routers.honeycomb-docs.entrypoints=web"
       - "traefik.http.routers.honeycomb-docs.service=honeycomb-docs"
-      # HTTPS router
+      # HTTPS router for /docs
       - "traefik.http.routers.honeycomb-docs-secure.rule=Host(`${DOMAIN}`) && PathPrefix(`/docs`)"
       - "traefik.http.routers.honeycomb-docs-secure.tls=true"
       - "traefik.http.routers.honeycomb-docs-secure.entrypoints=websecure"
