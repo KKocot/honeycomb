@@ -21,10 +21,15 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=common_proxy_network"
+      # HTTP router (for Cloudflare proxy)
       - "traefik.http.routers.honeycomb-docs.rule=Host(`${DOMAIN}`) && PathPrefix(`/docs`)"
-      - "traefik.http.routers.honeycomb-docs.tls=true"
-      - "traefik.http.routers.honeycomb-docs.entrypoints=websecure"
+      - "traefik.http.routers.honeycomb-docs.entrypoints=web"
       - "traefik.http.routers.honeycomb-docs.service=honeycomb-docs"
+      # HTTPS router
+      - "traefik.http.routers.honeycomb-docs-secure.rule=Host(`${DOMAIN}`) && PathPrefix(`/docs`)"
+      - "traefik.http.routers.honeycomb-docs-secure.tls=true"
+      - "traefik.http.routers.honeycomb-docs-secure.entrypoints=websecure"
+      - "traefik.http.routers.honeycomb-docs-secure.service=honeycomb-docs"
       - "traefik.http.services.honeycomb-docs.loadbalancer.server.port=3030"
 
   demo:
@@ -51,10 +56,15 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=common_proxy_network"
+      # HTTP router (for Cloudflare proxy)
       - "traefik.http.routers.honeycomb-demo.rule=Host(`${DOMAIN}`) && PathPrefix(`/demo`)"
-      - "traefik.http.routers.honeycomb-demo.tls=true"
-      - "traefik.http.routers.honeycomb-demo.entrypoints=websecure"
+      - "traefik.http.routers.honeycomb-demo.entrypoints=web"
       - "traefik.http.routers.honeycomb-demo.service=honeycomb-demo"
+      # HTTPS router
+      - "traefik.http.routers.honeycomb-demo-secure.rule=Host(`${DOMAIN}`) && PathPrefix(`/demo`)"
+      - "traefik.http.routers.honeycomb-demo-secure.tls=true"
+      - "traefik.http.routers.honeycomb-demo-secure.entrypoints=websecure"
+      - "traefik.http.routers.honeycomb-demo-secure.service=honeycomb-demo"
       - "traefik.http.services.honeycomb-demo.loadbalancer.server.port=3031"
 
 networks:
