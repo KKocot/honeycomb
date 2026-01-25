@@ -3,8 +3,8 @@ import { ArrowLeft, ArrowRight, Info, Send } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HiveCommentForm } from "@kkocot/hive-ui-react";
+  install: `pnpm add @kkocot/honeycomb-react`,
+  basic: `import { HiveCommentForm } from "@kkocot/honeycomb-react";
 
 function CommentSection() {
   return (

@@ -9,17 +9,17 @@ import { components, allComponents, componentsByCategory } from "./registry.js";
 const program = new Command();
 
 program
-  .name("hive-ui")
-  .description("CLI for adding Hive blockchain UI components to your project")
+  .name("honeycomb")
+  .description("CLI for adding Honeycomb (Hive blockchain UI) components to your project")
   .version("0.1.0");
 
 // Init command
 program
   .command("init")
-  .description("Initialize hive-ui in your project")
+  .description("Initialize Honeycomb in your project")
   .option("-y, --yes", "Skip confirmation prompt")
   .action(async (options) => {
-    console.log(chalk.bold("\n🐝 Welcome to Hive UI!\n"));
+    console.log(chalk.bold("\n🍯 Welcome to Honeycomb!\n"));
 
     const cwd = process.cwd();
 
@@ -34,7 +34,7 @@ program
       const response = await prompts({
         type: "confirm",
         name: "proceed",
-        message: "This will set up hive-ui in your project. Continue?",
+        message: "This will set up Honeycomb in your project. Continue?",
         initial: true,
       });
 
@@ -44,7 +44,7 @@ program
       }
     }
 
-    const spinner = ora("Setting up hive-ui...").start();
+    const spinner = ora("Setting up Honeycomb...").start();
 
     try {
       // Create directories
@@ -66,7 +66,7 @@ program
         spinner.text = "Created contexts/hive-context.tsx";
       }
 
-      spinner.succeed(chalk.green("hive-ui initialized!"));
+      spinner.succeed(chalk.green("Honeycomb initialized!"));
 
       console.log("\n" + chalk.bold("Next steps:"));
       console.log(chalk.dim("  1. Install dependencies:"));
@@ -74,8 +74,8 @@ program
       console.log(chalk.dim("  2. Wrap your app with HiveProvider:"));
       console.log(chalk.cyan('     import { HiveProvider } from "@/contexts/hive-context"'));
       console.log(chalk.dim("  3. Add components:"));
-      console.log(chalk.cyan("     npx hive-ui add avatar"));
-      console.log(chalk.cyan("     npx hive-ui add keychain-login"));
+      console.log(chalk.cyan("     npx honeycomb add avatar"));
+      console.log(chalk.cyan("     npx honeycomb add keychain-login"));
       console.log();
     } catch (error) {
       spinner.fail(chalk.red("Failed to initialize"));
@@ -98,7 +98,7 @@ program
     // Check if project is initialized
     const utilsPath = path.join(cwd, "lib/utils.ts");
     if (!(await fs.pathExists(utilsPath))) {
-      console.log(chalk.yellow("⚠ Project not initialized. Run 'npx hive-ui init' first."));
+      console.log(chalk.yellow("⚠ Project not initialized. Run 'npx honeycomb init' first."));
       const response = await prompts({
         type: "confirm",
         name: "init",
@@ -113,7 +113,7 @@ program
         await fs.writeFile(utilsPath, components.utils.files[0].content);
         const contextPath = path.join(cwd, "contexts/hive-context.tsx");
         await fs.writeFile(contextPath, components["hive-provider"].files[0].content);
-        console.log(chalk.green("✓ Initialized hive-ui"));
+        console.log(chalk.green("✓ Initialized Honeycomb"));
       } else {
         process.exit(0);
       }
@@ -247,7 +247,7 @@ program
   .command("list")
   .description("List all available components")
   .action(() => {
-    console.log(chalk.bold("\n🐝 Hive UI Components\n"));
+    console.log(chalk.bold("\n🍯 Honeycomb Components\n"));
 
     Object.entries(componentsByCategory).forEach(([category, comps]) => {
       if (category === "core") return;

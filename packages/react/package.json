@@ -1,11 +1,11 @@
 {
-  "name": "@kkocot/hive-ui-react",
+  "name": "@kkocot/honeycomb-react",
   "version": "0.4.0",
   "description": "React components for Hive Blockchain applications",
-  "keywords": ["hive", "blockchain", "react", "components", "web3"],
+  "keywords": ["hive", "blockchain", "react", "components", "web3", "honeycomb"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/KKocot/hive-ui"
+    "url": "https://github.com/KKocot/honeycomb"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

@@ -3,8 +3,8 @@ import { ArrowLeft, ArrowRight, Info } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { useHiveAuth } from "@kkocot/hive-ui-react";
+  install: `pnpm add @kkocot/honeycomb-react`,
+  basic: `import { useHiveAuth } from "@kkocot/honeycomb-react";
 
 function MyComponent() {
   const { user, isAuthenticated, logout } = useHiveAuth();

@@ -16,13 +16,13 @@ const PUBLIC_NODES = [
 ];
 
 const CODE = {
-  default: `import { HiveProvider } from "@kkocot/hive-ui-react";
+  default: `import { HiveProvider } from "@kkocot/honeycomb-react";
 
 // Uses default nodes: api.hive.blog, api.openhive.network, api.syncad.com
 <HiveProvider>
   {children}
 </HiveProvider>`,
-  custom: `import { HiveProvider } from "@kkocot/hive-ui-react";
+  custom: `import { HiveProvider } from "@kkocot/honeycomb-react";
 
 <HiveProvider
   apiEndpoints={[

@@ -1,11 +1,11 @@
 {
-  "name": "@kkocot/hive-ui",
+  "name": "@kkocot/honeycomb",
   "version": "0.1.1",
-  "description": "CLI for adding Hive blockchain UI components to your project",
-  "keywords": ["hive", "blockchain", "ui", "components", "react", "cli"],
+  "description": "CLI for adding Honeycomb (Hive blockchain UI) components to your project",
+  "keywords": ["hive", "blockchain", "ui", "components", "react", "cli", "honeycomb"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/KKocot/hive-ui"
+    "url": "https://github.com/KKocot/honeycomb"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -15,7 +15,7 @@
   "type": "module",
   "exports": "./dist/index.js",
   "bin": {
-    "hive-ui": "./dist/index.js"
+    "honeycomb": "./dist/index.js"
   },
   "files": ["dist", "README.md"],
   "scripts": {

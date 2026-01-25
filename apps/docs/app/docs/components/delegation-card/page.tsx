@@ -3,8 +3,8 @@ import { ArrowLeft, ArrowRight, Info, Users, Plus, Minus } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HiveDelegationCard } from "@kkocot/hive-ui-react";
+  install: `pnpm add @kkocot/honeycomb-react`,
+  basic: `import { HiveDelegationCard } from "@kkocot/honeycomb-react";
 
 function DelegationsPage() {
   return <HiveDelegationCard username="barddev" />;

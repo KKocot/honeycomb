@@ -3,8 +3,8 @@ import { ArrowLeft, ArrowRight, Info, Key, Shield, Copy, AlertTriangle, Pencil, 
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HiveAuthorities } from "@kkocot/hive-ui-react";
+  install: `pnpm add @kkocot/honeycomb-react`,
+  basic: `import { HiveAuthorities } from "@kkocot/honeycomb-react";
 
 function KeysPage() {
   return <HiveAuthorities username="barddev" />;

@@ -1,6 +1,6 @@
-# @kkocot/hive-ui
+# @kkocot/honeycomb
 
-CLI for adding Hive blockchain UI components to your React project. Works like shadcn/ui - components are copied directly into your project, not installed as dependencies.
+CLI for adding Honeycomb (Hive blockchain UI) components to your React project. Works like shadcn/ui - components are copied directly into your project, not installed as dependencies.
 
 ## Setup
 
@@ -25,7 +25,7 @@ Use your GitHub username and a Personal Access Token with `read:packages` scope.
 ### Initialize project
 
 ```bash
-npx @kkocot/hive-ui init
+npx @kkocot/honeycomb init
 ```
 
 This creates:
@@ -37,19 +37,19 @@ This creates:
 
 ```bash
 # Add specific components
-npx @kkocot/hive-ui add avatar keychain-login balance-card
+npx @kkocot/honeycomb add avatar keychain-login balance-card
 
 # Add all components
-npx @kkocot/hive-ui add --all
+npx @kkocot/honeycomb add --all
 
 # Interactive picker
-npx @kkocot/hive-ui add
+npx @kkocot/honeycomb add
 ```
 
 ### List available components
 
 ```bash
-npx @kkocot/hive-ui list
+npx @kkocot/honeycomb list
 ```
 
 ## Components

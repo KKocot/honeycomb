@@ -1,0 +1,503 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography" {
+  classname: wysiwyg;
+}
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: #ffffff;
+  --foreground: #17181c;
+  --card: #ffffff;
+  --card-foreground: #17181c;
+  --popover: #ffffff;
+  --popover-foreground: #17181c;
+  --primary: #e31337;
+  --primary-foreground: #ffffff;
+  --secondary: #eceef2;
+  --secondary-foreground: #17181c;
+  --muted: #eceef2;
+  --muted-foreground: #545861;
+  --accent: #ffe5e9;
+  --accent-foreground: #b30f2c;
+  --destructive: #e31337;
+  --border: #c0c2c7;
+  --input: #c0c2c7;
+  --ring: #e31337;
+  --chart-1: #e31337;
+  --chart-2: #ff1744;
+  --chart-3: #888b96;
+  --chart-4: #545861;
+  --chart-5: #353841;
+  --sidebar: #eceef2;
+  --sidebar-foreground: #17181c;
+  --sidebar-primary: #e31337;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ffe5e9;
+  --sidebar-accent-foreground: #b30f2c;
+  --sidebar-border: #c0c2c7;
+  --sidebar-ring: #e31337;
+}
+
+.dark {
+  --background: #17181c;
+  --foreground: #eceef2;
+  --card: #24272f;
+  --card-foreground: #eceef2;
+  --popover: #24272f;
+  --popover-foreground: #eceef2;
+  --primary: #e31337;
+  --primary-foreground: #ffffff;
+  --secondary: #353841;
+  --secondary-foreground: #eceef2;
+  --muted: #353841;
+  --muted-foreground: #888b96;
+  --accent: #e8102e20;
+  --accent-foreground: #ff1744;
+  --destructive: #ff1744;
+  --border: #353841;
+  --input: #353841;
+  --ring: #e31337;
+  --chart-1: #e31337;
+  --chart-2: #ff1744;
+  --chart-3: #888b96;
+  --chart-4: #545861;
+  --chart-5: #353841;
+  --sidebar: #24272f;
+  --sidebar-foreground: #eceef2;
+  --sidebar-primary: #e31337;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e8102e20;
+  --sidebar-accent-foreground: #ff1744;
+  --sidebar-border: #353841;
+  --sidebar-ring: #e31337;
+}
+
+@layer base {
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"] {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield !important;
+  }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+.prose
+  :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)):after,
+.prose
+  :where(code):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  ):before {
+  content: none;
+}
+
+.twitter-tweet,
+.instagram-embed {
+  display: flex;
+  justify-content: center;
+}
+
+#twitter-widget-0 {
+  border-radius: 15px;
+}
+.pull-left {
+  float: left;
+  padding-right: 1rem;
+  max-width: 50%;
+}
+
+.pull-right {
+  float: right;
+  padding-left: 1rem;
+  max-width: 50%;
+}
+
+.preview-description,
+.preview-rules {
+  @apply text-xs;
+}
+.preview-description p,
+.preview-rules p {
+  margin: 0;
+  padding: 0 0 1rem 0;
+}
+.preview-description ul,
+.preview-rules ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: "-";
+}
+
+.preview-description ul li,
+.preview-rules ul li {
+  margin: 0;
+}
+
+.preview-description ul > li,
+.preview-rules ul > li {
+  @apply py-1;
+}
+.prose a.link-external,
+.prose a {
+  position: relative;
+  display: inline-block;
+}
+
+.prose .phishy {
+  display: inline;
+  color: red;
+}
+
+#articleBody .videoWrapper,
+.prose .videoWrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+}
+
+#articleBody .videoWrapper iframe,
+.prose .videoWrapper iframe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 75vw;
+}
+
+.markdown-view {
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: none;
+}
+
+.dark .w-md-editor-text .token.title {
+  color: #fff !important;
+}
+
+details {
+  padding: 10px 10px;
+  outline-offset: 2px;
+  background-color: #f8f8f8;
+  outline: dotted 1px #f8f8f8;
+  margin: 10px 0;
+}
+
+.dark details {
+  background-color: #2c2c2c;
+  outline: dotted 1px #2c2c2c;
+}
+summary {
+  text-align: right;
+  cursor: pointer;
+}
+
+.flexible-marker {
+  padding: 2px 4px;
+  border-radius: 3px;
+  opacity: 0.8;
+}
+
+.flexible-marker-amber {
+  background-color: rgb(255, 191, 0);
+  color: rgb(0, 0, 0);
+}
+.flexible-marker-blue {
+  background-color: rgb(0, 0, 255);
+  color: rgb(255, 255, 255);
+}
+.flexible-marker-cyan {
+  background-color: rgb(0, 255, 255);
+  color: rgb(0, 0, 0);
+}
+.flexible-marker-brown {
+  background-color: rgb(165, 42, 42);
+  color: rgb(255, 255, 255);
+}
+.flexible-marker-espresso {
+  background-color: rgb(99, 57, 33);
+  color: rgb(255, 255, 255);
+}
+.flexible-marker-fuchsia {
+  background-color: rgb(255, 0, 255);
+  color: rgb(255, 255, 255);
+}
+.flexible-marker-green {
+  background-color: rgb(0, 128, 0);
+  color: rgb(255, 255, 255);
+}
+.flexible-marker-hotpink {
+  background-color: rgb(255, 105, 180);
+  color: rgb(0, 0, 0);
+}
+.flexible-marker-indigo {
+  background-color: rgb(75, 0, 130);
+  color: rgb(255, 255, 255);
+}
+.flexible-marker-jade {
+  background-color: rgb(0, 168, 107);
+  color: rgb(0, 0, 0);
+}
+.flexible-marker-kiwi {
+  background-color: rgb(142, 229, 63);
+  color: rgb(0, 0, 0);
+}
+.flexible-marker-lime {
+  background-color: rgb(0, 255, 0);
+  color: rgb(0, 0, 0);
+}
+.flexible-marker-magenta {
+  background-color: rgb(255, 0, 255);
+  color: rgb(255, 255, 255);
+}
+.flexible-marker-navyblue {
+  background-color: rgb(0, 0, 128);
+  color: rgb(255, 255, 255);
+}
+.flexible-marker-orange {
+  background-color: rgb(255, 165, 0);
+  color: rgb(0, 0, 0);
+}
+.flexible-marker-purple {
+  background-color: rgb(128, 0, 128);
+  color: rgb(255, 255, 255);
+}
+.flexible-marker-pink {
+  background-color: rgb(255, 192, 203);
+  color: rgb(0, 0, 0);
+}
+.flexible-marker-red {
+  background-color: rgb(255, 0, 0);
+  color: rgb(255, 255, 255);
+}
+.flexible-marker-silver {
+  background-color: rgb(192, 192, 192);
+  color: rgb(0, 0, 0);
+}
+.flexible-marker-teal {
+  background-color: rgb(0, 128, 128);
+  color: rgb(255, 255, 255);
+}
+.flexible-marker-umber {
+  background-color: rgb(99, 81, 71);
+  color: rgb(255, 255, 255);
+}
+.flexible-marker-violet {
+  background-color: rgb(238, 130, 238);
+  color: rgb(0, 0, 0);
+}
+.flexible-marker-white {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+.flexible-marker-gray {
+  background-color: rgb(128, 128, 128);
+  color: rgb(255, 255, 255);
+}
+.flexible-marker-yellow {
+  background-color: rgb(255, 255, 0);
+  color: rgb(0, 0, 0);
+}
+.flexible-marker-black {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.dark .flexible-marker-amber {
+  background-color: rgb(153, 115, 0);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-blue {
+  background-color: rgb(0, 0, 153);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-cyan {
+  background-color: rgb(0, 153, 153);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-brown {
+  background-color: rgb(102, 26, 26);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-espresso {
+  background-color: rgb(61, 35, 20);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-fuchsia {
+  background-color: rgb(153, 0, 153);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-green {
+  background-color: rgb(0, 77, 0);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-hotpink {
+  background-color: rgb(153, 63, 108);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-indigo {
+  background-color: rgb(45, 0, 78);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-jade {
+  background-color: rgb(0, 101, 64);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-kiwi {
+  background-color: rgb(85, 137, 38);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-lime {
+  background-color: rgb(0, 153, 0);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-magenta {
+  background-color: rgb(153, 0, 153);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-navyblue {
+  background-color: rgb(0, 0, 77);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-orange {
+  background-color: rgb(153, 99, 0);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-purple {
+  background-color: rgb(77, 0, 77);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-pink {
+  background-color: rgb(153, 115, 122);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-red {
+  background-color: rgb(153, 0, 0);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-silver {
+  background-color: rgb(115, 115, 115);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-teal {
+  background-color: rgb(0, 77, 77);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-umber {
+  background-color: rgb(59, 49, 43);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-violet {
+  background-color: rgb(143, 78, 143);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-white {
+  background-color: rgb(153, 153, 153);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-gray {
+  background-color: rgb(77, 77, 77);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-yellow {
+  background-color: rgb(153, 153, 0);
+  color: rgb(255, 255, 255);
+}
+.dark .flexible-marker-black {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+
+.md-editor-toolbar-left {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* MdEditor full height */
+.md-editor {
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.md-editor-content {
+  flex: 1;
+  min-height: 0;
+}
+
+.md-editor-input-wrapper {
+  height: 100% !important;
+}
+
+.md-editor-input-wrapper .inputWrapper {
+  height: 100% !important;
+}
+
+.md-editor-input-wrapper textarea {
+  height: 100% !important;
+}
+
+.emojis li {
+  height: auto;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+}
+.md-editor-modal-mask {
+  z-index: 9 !important;
+}
+.md-editor-modal {
+  z-index: 10 !important;
+}

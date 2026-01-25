@@ -3,8 +3,8 @@ import { ArrowLeft, ArrowRight, Info, Bold, Italic, Link2, Image, List, Quote, C
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HivePostEditor } from "@kkocot/hive-ui-react";
+  install: `pnpm add @kkocot/honeycomb-react`,
+  basic: `import { HivePostEditor } from "@kkocot/honeycomb-react";
 
 function CreatePost() {
   return <HivePostEditor />;

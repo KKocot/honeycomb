@@ -4,12 +4,12 @@ import { CodeBlock } from "@/components/code-block";
 import { UsageTabs } from "@/components/usage-tabs";
 
 const CODE = {
-  install: `npm install @kkocot/hive-ui-react
+  install: `npm install @kkocot/honeycomb-react
 # or
-pnpm add @kkocot/hive-ui-react`,
+pnpm add @kkocot/honeycomb-react`,
   npmrc: `# Add to ~/.npmrc (one-time setup)
 @kkocot:registry=https://npm.pkg.github.com`,
-  react: `import { HiveProvider } from "@kkocot/hive-ui-react";
+  react: `import { HiveProvider } from "@kkocot/honeycomb-react";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
   nextjs: `// app/providers.tsx
 "use client";
 
-import { HiveProvider } from "@kkocot/hive-ui-react";
+import { HiveProvider } from "@kkocot/honeycomb-react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return <HiveProvider>{children}</HiveProvider>;
@@ -61,7 +61,7 @@ export default async function HiveProviderPage() {
           <div>
             <p className="font-medium text-hive-red">npm package</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              <code>@kkocot/hive-ui-react</code>
+              <code>@kkocot/honeycomb-react</code>
             </p>
           </div>
         </div>

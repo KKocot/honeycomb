@@ -152,7 +152,7 @@ export default function HomePage() {
           <div className="rounded-lg border border-border bg-muted/30 p-4">
             <div className="flex items-center justify-between">
               <code className="text-sm text-muted-foreground">
-                npx hive-ui init
+                npx honeycomb init
               </code>
               <button
                 className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
@@ -169,7 +169,7 @@ export default function HomePage() {
       <section className="border-t border-border bg-muted/20 py-20">
         <div className="container mx-auto px-4">
           <h2 className="mb-12 text-center text-3xl font-bold">
-            Why Hive UI?
+            Why Honeycomb?
           </h2>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {features.map((feature) => (

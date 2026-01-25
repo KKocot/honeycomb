@@ -3,8 +3,8 @@ import { ArrowLeft, ArrowRight, Info } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { useVote } from "@kkocot/hive-ui-react";
+  install: `pnpm add @kkocot/honeycomb-react`,
+  basic: `import { useVote } from "@kkocot/honeycomb-react";
 
 function VoteButton({ author, permlink }) {
   const { vote, isVoting } = useVote();

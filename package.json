@@ -1,8 +1,8 @@
 {
-  "name": "hive-ui",
+  "name": "honeycomb",
   "version": "0.0.1",
   "private": true,
-  "description": "Hive Blockchain UI Components - shadcn/ui style",
+  "description": "Honeycomb - Hive Blockchain UI Components",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -14,7 +14,9 @@
     "dev:docs": "pnpm --filter docs dev",
     "build:docs": "pnpm --filter docs build",
     "dev:demo": "pnpm --filter demo dev",
-    "build:demo": "pnpm --filter demo build"
+    "build:demo": "pnpm --filter demo build",
+    "dev:renderer": "pnpm --filter renderer dev",
+    "build:renderer": "pnpm --filter renderer build"
   },
   "devDependencies": {
     "turbo": "^2.3.0"

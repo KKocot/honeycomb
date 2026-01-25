@@ -3,8 +3,8 @@ import { ArrowLeft, ArrowRight, Info, Send, ArrowUpDown, PiggyBank, Users } from
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HiveTransferDialog } from "@kkocot/hive-ui-react";
+  install: `pnpm add @kkocot/honeycomb-react`,
+  basic: `import { HiveTransferDialog } from "@kkocot/honeycomb-react";
 
 function WalletPage() {
   const [isOpen, setIsOpen] = useState(false);

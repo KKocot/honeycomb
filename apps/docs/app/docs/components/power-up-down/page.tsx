@@ -3,8 +3,8 @@ import { ArrowLeft, ArrowRight, Info, ArrowUp, ArrowDown, Zap } from "lucide-rea
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HivePowerUpDown } from "@kkocot/hive-ui-react";
+  install: `pnpm add @kkocot/honeycomb-react`,
+  basic: `import { HivePowerUpDown } from "@kkocot/honeycomb-react";
 
 function StakingPage() {
   return <HivePowerUpDown />;

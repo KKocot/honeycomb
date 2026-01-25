@@ -3,8 +3,8 @@ import { ArrowLeft, ArrowRight, Info, TrendingUp } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { HiveTradeCard } from "@kkocot/hive-ui-react";
+  install: `pnpm add @kkocot/honeycomb-react`,
+  basic: `import { HiveTradeCard } from "@kkocot/honeycomb-react";
 
 function MarketPage() {
   return <HiveTradeCard />;

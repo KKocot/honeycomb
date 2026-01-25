@@ -12,8 +12,8 @@ const LOGIN_METHODS = [
 ];
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { SmartSigner } from "@kkocot/hive-ui-react";
+  install: `pnpm add @kkocot/honeycomb-react`,
+  basic: `import { SmartSigner } from "@kkocot/honeycomb-react";
 
 function LoginPage() {
   return (

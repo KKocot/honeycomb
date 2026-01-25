@@ -3,8 +3,8 @@ import { ArrowLeft, ArrowRight, Info } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 
 const CODE = {
-  install: `pnpm add @kkocot/hive-ui-react`,
-  basic: `import { useHiveAccount } from "@kkocot/hive-ui-react";
+  install: `pnpm add @kkocot/honeycomb-react`,
+  basic: `import { useHiveAccount } from "@kkocot/honeycomb-react";
 
 function Profile() {
   const { account, isLoading, error } = useHiveAccount("barddev");
