@@ -32,7 +32,7 @@ export interface UseBroadcastReturn {
   // For HB-Auth: need to show password dialog
   needsHBAuthPassword: boolean;
   setHBAuthPassword: (password: string) => void;
-  confirmWithHBAuthPassword: () => Promise<BroadcastResult>;
+  confirmWithHBAuthPassword: (passwordOverride?: string) => Promise<BroadcastResult>;
   cancelHBAuthPasswordPrompt: () => void;
 }
 
