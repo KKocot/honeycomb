@@ -102,4 +102,12 @@ export const docsConfig: NavSection[] = [
       { title: "Post Card", href: "/docs/components/post-card" },
     ],
   },
+  {
+    title: "Content",
+    type: "passive",
+    items: [
+      { title: "Content Renderer", href: "/docs/components/content-renderer" },
+      { title: "Markdown Editor", href: "/docs/components/markdown-editor" },
+    ],
+  },
 ];
