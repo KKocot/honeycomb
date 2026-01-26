@@ -19,7 +19,7 @@
     "build:renderer": "pnpm --filter renderer build"
   },
   "devDependencies": {
-    "turbo": "^2.3.0"
+    "turbo": "^2.7.6"
   },
   "packageManager": "pnpm@9.15.0",
   "engines": {
