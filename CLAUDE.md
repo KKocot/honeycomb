@@ -2,6 +2,16 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Location in Projects
+
+```
+projects/hive/honeycomb/   <-- JESTEŚ TUTAJ
+```
+
+**Inne projekty Hive w repozytorium:**
+- `../denser/` - frontend Hive (blog/wallet)
+- `../my-honey-pot/` - blog na Hive blockchain
+
 ## Project Overview
 
 Hive UI is a shadcn/ui-style component library for Hive Blockchain applications. Components are meant to be copied into user projects, not installed as npm packages.
