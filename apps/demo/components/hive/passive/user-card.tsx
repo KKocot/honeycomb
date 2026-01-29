@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { MapPin, Calendar, Loader2 } from "lucide-react";
 import { useHive } from "@/contexts/hive-context";
 import { HiveAvatar } from "./avatar";
-import { HiveFollowButton } from "../active/follow-button";
 
 interface UserCardProps {
   username: string;
@@ -101,12 +100,9 @@ export function HiveUserCard({ username, className = "" }: UserCardProps) {
           <HiveAvatar username={username} size="xl" showReputation reputation={reputation} />
         </div>
         <div className="pt-10">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="font-bold">{metadata?.name || username}</h3>
-              <p className="text-sm text-muted-foreground">@{username}</p>
-            </div>
-            <HiveFollowButton username={username} />
+          <div>
+            <h3 className="font-bold">{metadata?.name || username}</h3>
+            <p className="text-sm text-muted-foreground">@{username}</p>
           </div>
 
           {metadata?.about && (

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { HiveProvider } from "@/contexts/hive-context";
-import { KeyEscalationDialogWrapper } from "@/components/key-escalation-wrapper";
 import { ToastProvider } from "@/components/ui/toast";
 import "./globals.css";
 
@@ -20,7 +19,6 @@ export default function RootLayout({
         <ToastProvider>
           <HiveProvider>
             {children}
-            <KeyEscalationDialogWrapper />
           </HiveProvider>
         </ToastProvider>
       </body>
