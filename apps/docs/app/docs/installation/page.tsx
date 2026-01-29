@@ -9,7 +9,7 @@ const CODE = {
   nextjs: {
     create: `npx create-next-app@latest my-hive-app --typescript --tailwind --eslint --app`,
     install: `cd my-hive-app
-pnpm add @hiveio/wax @hiveio/beekeeper
+pnpm add @hiveio/wax
 pnpm add class-variance-authority clsx tailwind-merge lucide-react`,
     tsconfig: `{
   "compilerOptions": {
@@ -127,7 +127,7 @@ export default function RootLayout({
 cd my-hive-app`,
     tailwind: `pnpm add -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p`,
-    install: `pnpm add @hiveio/wax @hiveio/beekeeper
+    install: `pnpm add @hiveio/wax
 pnpm add class-variance-authority clsx tailwind-merge lucide-react`,
     tailwindConfig: `/** @type {import('tailwindcss').Config} */
 export default {
@@ -146,7 +146,7 @@ export default {
 cd my-hive-app`,
     tailwind: `pnpm add -D tailwindcss
 npx tailwindcss init --ts`,
-    install: `pnpm add @hiveio/wax @hiveio/beekeeper
+    install: `pnpm add @hiveio/wax
 pnpm add class-variance-authority clsx tailwind-merge lucide-react`,
   },
 };

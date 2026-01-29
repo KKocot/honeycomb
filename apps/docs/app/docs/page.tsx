@@ -24,8 +24,8 @@ export default function DocsPage() {
           <Blocks className="mb-2 h-8 w-8 text-hive-red" />
           <h3 className="font-semibold">Built on @hiveio/wax</h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            Uses the official Hive protocol library for type-safe transactions,
-            operations, and blockchain interactions.
+            Uses the official Hive protocol library for type-safe blockchain data
+            retrieval and interactions.
           </p>
         </div>
       </div>
@@ -62,24 +62,12 @@ export default function DocsPage() {
         Hive blockchain concepts:
       </p>
 
-      <h3>Keys</h3>
+      <h3>Accounts</h3>
 
-      <p>Hive uses a hierarchical key system:</p>
-
-      <ul>
-        <li>
-          <strong>Posting Key</strong> - For social actions (posting, voting, following)
-        </li>
-        <li>
-          <strong>Active Key</strong> - For financial operations (transfers, staking)
-        </li>
-        <li>
-          <strong>Memo Key</strong> - For encrypting/decrypting messages
-        </li>
-        <li>
-          <strong>Owner Key</strong> - Master key for account recovery (keep offline!)
-        </li>
-      </ul>
+      <p>
+        Hive uses a hierarchical key system for securing accounts. For read-only
+        components (displaying user data, posts, balances), no keys are required.
+      </p>
 
       <h3>Tokens</h3>
 
@@ -99,9 +87,8 @@ export default function DocsPage() {
       <h3>Resource Credits (RC)</h3>
 
       <p>
-        Instead of transaction fees, Hive uses Resource Credits. RC is generated
-        by your Hive Power and regenerates over ~5 days. Every blockchain operation
-        costs RC.
+        Hive uses Resource Credits instead of transaction fees. RC is used for
+        write operations on the blockchain and regenerates over time.
       </p>
 
       <div className="not-prose my-8 flex gap-4">

@@ -79,11 +79,7 @@ export default function ProjectStructurePage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <FileCode className="h-4 w-4" />
-                  <span>use-hive-auth.ts</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <FileCode className="h-4 w-4" />
-                  <span>use-vote.ts</span>
+                  <span>use-hive-chain.ts</span>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -236,7 +232,7 @@ export default function ProjectStructurePage() {
                   <code>useRC(username)</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  Resource Credits status
+                  Get Resource Credits status and percentage
                 </td>
               </tr>
             </tbody>
@@ -382,6 +378,7 @@ import { formatReputation } from "@/lib/hive-utils";`}
 │   │   └── ...
 │   └── header.tsx
 ├── hooks/
+│   ├── use-hive-chain.ts
 │   ├── use-hive-account.ts
 │   ├── use-balance.ts
 │   └── use-rc.ts

@@ -26,7 +26,7 @@ const features = [
     icon: Blocks,
     title: "Built on @hiveio/wax",
     description:
-      "Uses the official Hive protocol library. Type-safe transactions and operations.",
+      "Uses the official Hive protocol library. Type-safe blockchain data retrieval.",
   },
   {
     icon: Shield,

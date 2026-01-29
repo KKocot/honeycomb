@@ -127,16 +127,6 @@ export default async function HiveProviderPage() {
                   <code>&quot;hive-ui-session&quot;</code>
                 </td>
               </tr>
-              <tr>
-                <td className="py-3 px-4"><code>onLogin</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>(user) =&gt; void</code></td>
-                <td className="py-3 px-4 text-muted-foreground">-</td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4"><code>onLogout</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>() =&gt; void</code></td>
-                <td className="py-3 px-4 text-muted-foreground">-</td>
-              </tr>
             </tbody>
           </table>
         </div>
