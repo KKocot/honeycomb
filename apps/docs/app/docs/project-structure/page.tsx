@@ -43,10 +43,6 @@ export default function ProjectStructurePage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <FileCode className="h-4 w-4" />
-                    <span>keychain-login.tsx</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <FileCode className="h-4 w-4" />
                     <span>avatar.tsx</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -55,7 +51,11 @@ export default function ProjectStructurePage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <FileCode className="h-4 w-4" />
-                    <span>vote-button.tsx</span>
+                    <span>balance-card.tsx</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FileCode className="h-4 w-4" />
+                    <span>post-card.tsx</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <FileCode className="h-4 w-4" />
@@ -136,22 +136,7 @@ export default function ProjectStructurePage() {
           <div className="rounded-lg border border-border p-4">
             <div className="flex items-center gap-3 mb-2">
               <Box className="h-5 w-5 text-hive-red" />
-              <h3 className="font-semibold">Auth Components</h3>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Components for user authentication with Hive Keychain or Hivesigner.
-            </p>
-            <ul className="mt-2 text-sm text-muted-foreground list-disc list-inside">
-              <li><code>keychain-login.tsx</code> - Login via Hive Keychain extension</li>
-              <li><code>hivesigner-login.tsx</code> - OAuth-style login via Hivesigner</li>
-              <li><code>login-modal.tsx</code> - Combined modal with multiple options</li>
-            </ul>
-          </div>
-
-          <div className="rounded-lg border border-border p-4">
-            <div className="flex items-center gap-3 mb-2">
-              <Box className="h-5 w-5 text-hive-red" />
-              <h3 className="font-semibold">Profile Components</h3>
+              <h3 className="font-semibold">User Display Components</h3>
             </div>
             <p className="text-sm text-muted-foreground">
               Components for displaying user information.
@@ -159,39 +144,47 @@ export default function ProjectStructurePage() {
             <ul className="mt-2 text-sm text-muted-foreground list-disc list-inside">
               <li><code>avatar.tsx</code> - User profile picture</li>
               <li><code>user-card.tsx</code> - Compact user info card</li>
-              <li><code>reputation-badge.tsx</code> - Formatted reputation score</li>
-              <li><code>profile-header.tsx</code> - Full profile display</li>
             </ul>
           </div>
 
           <div className="rounded-lg border border-border p-4">
             <div className="flex items-center gap-3 mb-2">
               <Box className="h-5 w-5 text-hive-red" />
-              <h3 className="font-semibold">Wallet Components</h3>
+              <h3 className="font-semibold">Wallet Display Components</h3>
             </div>
             <p className="text-sm text-muted-foreground">
-              Components for displaying and managing tokens.
+              Components for displaying wallet balances and resources.
             </p>
             <ul className="mt-2 text-sm text-muted-foreground list-disc list-inside">
               <li><code>balance-card.tsx</code> - HIVE/HBD/HP balances</li>
-              <li><code>transfer-modal.tsx</code> - Send tokens</li>
-              <li><code>power-up-modal.tsx</code> - Stake HIVE to HP</li>
-              <li><code>claim-rewards.tsx</code> - Claim pending rewards</li>
+              <li><code>manabar.tsx</code> - Resource Credits / Voting Mana</li>
             </ul>
           </div>
 
           <div className="rounded-lg border border-border p-4">
             <div className="flex items-center gap-3 mb-2">
               <Box className="h-5 w-5 text-hive-red" />
-              <h3 className="font-semibold">Voting Components</h3>
+              <h3 className="font-semibold">Post Display Components</h3>
             </div>
             <p className="text-sm text-muted-foreground">
-              Components for content voting and rewards.
+              Components for displaying post content.
             </p>
             <ul className="mt-2 text-sm text-muted-foreground list-disc list-inside">
-              <li><code>vote-button.tsx</code> - Upvote/downvote with weight slider</li>
-              <li><code>voting-power-bar.tsx</code> - Current voting mana</li>
-              <li><code>payout-display.tsx</code> - Pending rewards</li>
+              <li><code>post-card.tsx</code> - Display post with metadata</li>
+            </ul>
+          </div>
+
+          <div className="rounded-lg border border-border p-4">
+            <div className="flex items-center gap-3 mb-2">
+              <Box className="h-5 w-5 text-hive-red" />
+              <h3 className="font-semibold">Content Components</h3>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Components for rendering and editing content.
+            </p>
+            <ul className="mt-2 text-sm text-muted-foreground list-disc list-inside">
+              <li><code>content-renderer.tsx</code> - Render Hive markdown content</li>
+              <li><code>markdown-editor.tsx</code> - Markdown editor with preview</li>
             </ul>
           </div>
         </div>
@@ -224,14 +217,6 @@ export default function ProjectStructurePage() {
               </tr>
               <tr>
                 <td className="py-3 px-4">
-                  <code>useHiveAuth()</code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground">
-                  Authentication state and methods
-                </td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4">
                   <code>useHiveAccount(username)</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
@@ -248,26 +233,10 @@ export default function ProjectStructurePage() {
               </tr>
               <tr>
                 <td className="py-3 px-4">
-                  <code>useVote(author, permlink)</code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground">
-                  Vote on content
-                </td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4">
                   <code>useRC(username)</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   Resource Credits status
-                </td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4">
-                  <code>useKeychain()</code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground">
-                  Hive Keychain integration
                 </td>
               </tr>
             </tbody>
@@ -400,13 +369,13 @@ import { formatReputation } from "@/lib/hive-utils";`}
 ├── components/
 │   ├── hive/
 │   │   ├── hive-provider.tsx
-│   │   ├── keychain-login.tsx
-│   │   ├── hivesigner-login.tsx
 │   │   ├── avatar.tsx
 │   │   ├── user-card.tsx
 │   │   ├── balance-card.tsx
-│   │   ├── vote-button.tsx
-│   │   └── transfer-modal.tsx
+│   │   ├── manabar.tsx
+│   │   ├── post-card.tsx
+│   │   ├── content-renderer.tsx
+│   │   └── markdown-editor.tsx
 │   ├── ui/
 │   │   ├── button.tsx
 │   │   ├── dialog.tsx
@@ -414,9 +383,8 @@ import { formatReputation } from "@/lib/hive-utils";`}
 │   └── header.tsx
 ├── hooks/
 │   ├── use-hive-account.ts
-│   ├── use-hive-auth.ts
-│   ├── use-vote.ts
-│   └── use-keychain.ts
+│   ├── use-balance.ts
+│   └── use-rc.ts
 ├── lib/
 │   ├── utils.ts
 │   └── hive-utils.ts

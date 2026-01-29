@@ -165,14 +165,7 @@ export default async function AvatarPage() {
       </section>
 
       {/* Navigation */}
-      <section className="flex items-center justify-between">
-        <Link
-          href="/docs/components/account-settings"
-          className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Account Settings
-        </Link>
+      <section className="flex items-center justify-end">
         <Link
           href="/docs/components/user-card"
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"

@@ -30,9 +30,9 @@ const features = [
   },
   {
     icon: Shield,
-    title: "Multiple Auth Methods",
+    title: "Passive Components",
     description:
-      "Support for Keychain, PeakVault, HiveAuth, HB-Auth, and WIF. Choose what fits your app.",
+      "Display-only components for avatars, user cards, balances, and content rendering.",
   },
   {
     icon: Zap,
@@ -44,59 +44,34 @@ const features = [
 
 const componentCategories = [
   {
-    icon: Shield,
-    title: "Authentication",
-    items: [
-      { name: "Smart Signer", href: "/docs/components/smart-signer" },
-    ],
-  },
-  {
     icon: User,
-    title: "Social",
+    title: "User Display",
     items: [
       { name: "Avatar", href: "/docs/components/avatar" },
       { name: "User Card", href: "/docs/components/user-card" },
-      { name: "Follow Button", href: "/docs/components/follow-button" },
-      { name: "Mute Button", href: "/docs/components/mute-button" },
-    ],
-  },
-  {
-    icon: FileText,
-    title: "Content",
-    items: [
-      { name: "Vote Button", href: "/docs/components/vote-button" },
-      { name: "Comment Form", href: "/docs/components/comment-form" },
-      { name: "Post Editor", href: "/docs/components/post-editor" },
-      { name: "Reblog Button", href: "/docs/components/reblog-button" },
-      { name: "Post Card", href: "/docs/components/post-card" },
     ],
   },
   {
     icon: Wallet,
-    title: "Wallet",
+    title: "Wallet Display",
     items: [
       { name: "Balance Card", href: "/docs/components/balance-card" },
-      { name: "Transfer Dialog", href: "/docs/components/transfer-dialog" },
-      { name: "Power Up/Down", href: "/docs/components/power-up-down" },
-      { name: "Delegation Card", href: "/docs/components/delegation-card" },
-      { name: "Trade Hive", href: "/docs/components/trade-hive" },
+      { name: "Manabar", href: "/docs/components/manabar" },
+    ],
+  },
+  {
+    icon: FileText,
+    title: "Post Display",
+    items: [
+      { name: "Post Card", href: "/docs/components/post-card" },
     ],
   },
   {
     icon: Globe,
-    title: "Community",
+    title: "Content",
     items: [
-      { name: "Communities List", href: "/docs/components/communities-list" },
-      { name: "Witness Vote", href: "/docs/components/witness-vote" },
-      { name: "Proposals", href: "/docs/components/proposals" },
-      { name: "Account Settings", href: "/docs/components/account-settings" },
-    ],
-  },
-  {
-    icon: Key,
-    title: "Account",
-    items: [
-      { name: "Authorities", href: "/docs/components/authorities" },
+      { name: "Content Renderer", href: "/docs/components/content-renderer" },
+      { name: "Markdown Editor", href: "/docs/components/markdown-editor" },
     ],
   },
 ];
@@ -248,16 +223,16 @@ export function Providers({ children }) {
 
             <CodeBlock
               filename="app/page.tsx"
-              code={`import { KeychainLogin } from '@/components/hive/keychain-login'
-import { UserCard } from '@/components/hive/user-card'
-import { VoteButton } from '@/components/hive/vote-button'
+              code={`import { HiveAvatar } from '@/components/hive/avatar'
+import { HiveUserCard } from '@/components/hive/user-card'
+import { HiveBalanceCard } from '@/components/hive/balance-card'
 
 export default function Page() {
   return (
     <div>
-      <KeychainLogin />
-      <UserCard username="hiveio" />
-      <VoteButton author="alice" permlink="my-post" />
+      <HiveAvatar username="hiveio" />
+      <HiveUserCard username="hiveio" />
+      <HiveBalanceCard username="hiveio" />
     </div>
   )
 }`}

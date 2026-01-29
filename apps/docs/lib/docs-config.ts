@@ -31,52 +31,6 @@ export const docsConfig: NavSection[] = [
     ],
   },
   // ===========================================
-  // ACTIVE COMPONENTS - Blockchain Actions
-  // ===========================================
-  {
-    title: "Authentication",
-    type: "active",
-    items: [
-      { title: "Keychain Login", href: "/docs/components/keychain-login" },
-      { title: "PeakVault Login", href: "/docs/components/peakvault-login" },
-      { title: "HiveAuth Login", href: "/docs/components/hiveauth-login" },
-      { title: "HB-Auth Login", href: "/docs/components/hbauth-login" },
-      { title: "WIF Login", href: "/docs/components/wif-login" },
-    ],
-  },
-  {
-    title: "Social Actions",
-    type: "active",
-    items: [
-      { title: "Follow Button", href: "/docs/components/follow-button" },
-      { title: "Mute Button", href: "/docs/components/mute-button" },
-    ],
-  },
-  {
-    title: "Content Actions",
-    type: "active",
-    items: [
-      { title: "Vote Button", href: "/docs/components/vote-button" },
-      { title: "Reblog Button", href: "/docs/components/reblog-button" },
-    ],
-  },
-  {
-    title: "Community Actions",
-    type: "active",
-    items: [
-      { title: "Witness Vote", href: "/docs/components/witness-vote" },
-      { title: "Proposals", href: "/docs/components/proposals" },
-      { title: "Communities List", href: "/docs/components/communities-list" },
-    ],
-  },
-  {
-    title: "Account Management",
-    type: "active",
-    items: [
-      { title: "Account Settings", href: "/docs/components/account-settings" },
-    ],
-  },
-  // ===========================================
   // PASSIVE COMPONENTS - Display Only
   // ===========================================
   {

@@ -328,10 +328,10 @@ export default async function InstallationPage() {
 
         <div className="flex gap-4">
           <Link
-            href="/docs/components/keychain-login"
+            href="/docs/components/avatar"
             className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
           >
-            Add Keychain Login
+            Browse Components
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link

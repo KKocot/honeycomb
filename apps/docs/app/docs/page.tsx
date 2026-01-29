@@ -113,7 +113,7 @@ export default function DocsPage() {
           <ArrowRight className="h-4 w-4" />
         </Link>
         <Link
-          href="/docs/components/keychain-login"
+          href="/docs/components/avatar"
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
         >
           Browse Components

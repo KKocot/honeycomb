@@ -128,20 +128,13 @@ export default async function UseHiveChainPage() {
       </section>
 
       {/* Navigation */}
-      <section className="flex items-center justify-between">
+      <section className="flex items-center justify-start">
         <Link
-          href="/docs/components/account-settings"
+          href="/docs/theming"
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
         >
           <ArrowLeft className="h-4 w-4" />
-          Account Settings
-        </Link>
-        <Link
-          href="/docs/hooks/use-hive-auth"
-          className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
-        >
-          useHiveAuth
-          <ArrowRight className="h-4 w-4" />
+          Theming
         </Link>
       </section>
     </article>
