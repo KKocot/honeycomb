@@ -1,15 +1,7 @@
 /**
  * Hive UI Hooks
  *
- * Re-exports all hooks for easy importing
+ * Passive components only - no authentication or broadcasting hooks
  */
 
-// Authentication hooks
-export * from "./auth";
-
-// Broadcasting hooks
-export { useBroadcast } from "./use-broadcast";
-export type { BroadcastOperation, BroadcastResult, UseBroadcastOptions, UseBroadcastReturn } from "./use-broadcast";
-
-// Key requirement hooks
-export { useRequireKey, KEY_REQUIREMENTS, getRequiredKeyType } from "./use-require-key";
+// No hooks exported - passive components use chain directly from HiveProvider
