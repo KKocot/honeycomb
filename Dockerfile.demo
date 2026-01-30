@@ -13,6 +13,9 @@ RUN pnpm install --frozen-lockfile
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Run CI checks before build
+RUN pnpm lint
+
 # Build
 RUN pnpm --filter demo build
 
