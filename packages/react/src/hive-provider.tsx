@@ -5,26 +5,23 @@ import {
   useContext,
   useState,
   useEffect,
-  useCallback,
   useMemo,
+  useRef,
   type ReactNode,
 } from "react";
-import { createHiveChain, type IHiveChainInterface } from "@hiveio/wax";
+import type { IHiveChainInterface } from "@hiveio/wax";
+import {
+  HiveClient,
+  DEFAULT_API_ENDPOINTS,
+  type HiveClientState,
+  type ConnectionStatus,
+  type EndpointStatus,
+} from "@kkocot/honeycomb-core";
 
-// ============== Constants ==============
-
-export const DEFAULT_API_ENDPOINTS = [
-  "https://api.hive.blog",
-  "https://api.openhive.network",
-  "https://api.syncad.com",
-];
+// Re-export for backward compatibility
+export { DEFAULT_API_ENDPOINTS };
 
 // ============== Types ==============
-
-export interface HiveUser {
-  username: string;
-  loginMethod: string;
-}
 
 export interface HiveContextValue {
   /** Hive chain instance - null during SSR and initial load */
@@ -33,88 +30,37 @@ export interface HiveContextValue {
   isLoading: boolean;
   /** Error message if chain initialization failed */
   error: string | null;
-  /** Currently logged in user */
-  user: HiveUser | null;
-  /** Login function */
-  login: (username: string, method: string) => void;
-  /** Logout function */
-  logout: () => void;
   /** Check if running on client */
   isClient: boolean;
   /** Currently connected API endpoint */
   apiEndpoint: string | null;
+  /** Connection status */
+  status: ConnectionStatus;
+  /** Status of all endpoints */
+  endpoints: EndpointStatus[];
 }
 
 export interface HiveProviderProps {
   children: ReactNode;
-  /** Storage key for persisting session */
-  storageKey?: string;
   /**
-   * List of API endpoints to try. Provider will test each endpoint
-   * and connect to the fastest responding one.
-   * @default ["https://api.syncad.com", "https://api.openhive.network", "https://api.hive.blog"]
+   * List of API endpoints to try in priority order.
+   * @default DEFAULT_API_ENDPOINTS
    */
   apiEndpoints?: string[];
-  /** Called when user logs in */
-  onLogin?: (user: HiveUser) => void;
-  /** Called when user logs out */
-  onLogout?: () => void;
-}
-
-// ============== Helpers ==============
-
-interface EndpointHealth {
-  endpoint: string;
-  latency: number;
-}
-
-/**
- * Test endpoint latency by making a simple API call
- */
-async function testEndpoint(endpoint: string, timeout = 5000): Promise<EndpointHealth | null> {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeout);
-
-  const start = performance.now();
-
-  try {
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        jsonrpc: "2.0",
-        method: "condenser_api.get_version",
-        params: [],
-        id: 1,
-      }),
-      signal: controller.signal,
-    });
-
-    if (!response.ok) return null;
-
-    await response.json();
-    const latency = performance.now() - start;
-
-    return { endpoint, latency };
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(timeoutId);
-  }
-}
-
-/**
- * Find the fastest responding endpoint from a list
- */
-async function findFastestEndpoint(endpoints: string[]): Promise<string | null> {
-  const results = await Promise.all(endpoints.map((ep) => testEndpoint(ep)));
-  const validResults = results.filter((r): r is EndpointHealth => r !== null);
-
-  if (validResults.length === 0) return null;
-
-  // Sort by latency and return fastest
-  validResults.sort((a, b) => a.latency - b.latency);
-  return validResults[0].endpoint;
+  /**
+   * Timeout for single request in milliseconds
+   * @default 5000
+   */
+  timeout?: number;
+  /**
+   * Health check interval in milliseconds (0 = disabled)
+   * @default 30000
+   */
+  healthCheckInterval?: number;
+  /**
+   * Callback fired when endpoint changes
+   */
+  onEndpointChange?: (endpoint: string) => void;
 }
 
 // ============== Context ==============
@@ -123,135 +69,85 @@ const HiveContext = createContext<HiveContextValue | null>(null);
 
 // ============== Provider ==============
 
+/**
+ * HiveProvider Component
+ *
+ * Provides Hive blockchain connectivity for passive (read-only) operations.
+ * Automatically manages endpoint fallback and health monitoring using HiveClient.
+ * SSR-compatible - safely handles server-side rendering.
+ *
+ * @example
+ * ```tsx
+ * <HiveProvider>
+ *   <App />
+ * </HiveProvider>
+ * ```
+ */
 export function HiveProvider({
   children,
-  storageKey = "hive-ui-session",
   apiEndpoints = DEFAULT_API_ENDPOINTS,
-  onLogin,
-  onLogout,
+  timeout = 5000,
+  healthCheckInterval = 30000,
+  onEndpointChange,
 }: HiveProviderProps) {
-  const [chain, setChain] = useState<IHiveChainInterface | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useState<HiveUser | null>(null);
+  const [state, setState] = useState<HiveClientState>({
+    status: 'disconnected',
+    currentEndpoint: null,
+    endpoints: [],
+    error: null,
+  });
   const [isClient, setIsClient] = useState(false);
-  const [connectedEndpoint, setConnectedEndpoint] = useState<string | null>(null);
+  const client_ref = useRef<HiveClient | null>(null);
 
   // Detect client-side
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // Restore session from localStorage (client-side only)
+  // Initialize HiveClient and connect (client-side only)
   useEffect(() => {
     if (!isClient) return;
 
-    try {
-      const saved = localStorage.getItem(storageKey);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.username && parsed.loginMethod) {
-          setUser(parsed);
-        }
-      }
-    } catch {
-      // Ignore localStorage errors
-    }
-  }, [isClient, storageKey]);
+    // Create client instance
+    const client = new HiveClient({
+      endpoints: apiEndpoints,
+      timeout,
+      healthCheckInterval,
+      onEndpointChange,
+    });
 
-  // Initialize Hive chain with fastest endpoint (client-side only)
-  useEffect(() => {
-    if (!isClient) return;
+    client_ref.current = client;
 
-    let cancelled = false;
+    // Subscribe to state changes
+    const unsubscribe = client.subscribe((new_state) => {
+      setState(new_state);
+    });
 
-    async function initChain() {
-      try {
-        // Find fastest endpoint
-        const fastestEndpoint = await findFastestEndpoint(apiEndpoints);
+    // Connect to Hive blockchain
+    client.connect().catch((err) => {
+      console.error("Failed to connect to Hive:", err);
+    });
 
-        if (cancelled) return;
-
-        if (!fastestEndpoint) {
-          setError("All API endpoints are unavailable");
-          setIsLoading(false);
-          return;
-        }
-
-        // Connect to fastest endpoint
-        const hiveChain = await createHiveChain({
-          apiEndpoint: fastestEndpoint,
-        });
-
-        if (!cancelled) {
-          setChain(hiveChain);
-          setConnectedEndpoint(fastestEndpoint);
-        }
-      } catch (err) {
-        if (!cancelled) {
-          setError(err instanceof Error ? err.message : "Failed to connect to Hive");
-        }
-      } finally {
-        if (!cancelled) {
-          setIsLoading(false);
-        }
-      }
-    }
-
-    initChain();
-
+    // Cleanup on unmount
     return () => {
-      cancelled = true;
+      unsubscribe();
+      client.disconnect();
+      client_ref.current = null;
     };
-  }, [isClient, apiEndpoints]);
-
-  // Login function
-  const login = useCallback(
-    (username: string, method: string) => {
-      const userData: HiveUser = { username, loginMethod: method };
-      setUser(userData);
-
-      if (isClient) {
-        try {
-          localStorage.setItem(storageKey, JSON.stringify(userData));
-        } catch {
-          // Ignore localStorage errors
-        }
-      }
-
-      onLogin?.(userData);
-    },
-    [isClient, storageKey, onLogin]
-  );
-
-  // Logout function
-  const logout = useCallback(() => {
-    setUser(null);
-
-    if (isClient) {
-      try {
-        localStorage.removeItem(storageKey);
-      } catch {
-        // Ignore localStorage errors
-      }
-    }
-
-    onLogout?.();
-  }, [isClient, storageKey, onLogout]);
+  }, [isClient, apiEndpoints, timeout, healthCheckInterval, onEndpointChange]);
 
   // Memoize context value
   const value = useMemo<HiveContextValue>(
     () => ({
-      chain,
-      isLoading,
-      error,
-      user,
-      login,
-      logout,
+      chain: client_ref.current?.chain ?? null,
+      isLoading: state.status === 'connecting' || state.status === 'reconnecting',
+      error: state.error,
       isClient,
-      apiEndpoint: connectedEndpoint,
+      apiEndpoint: state.currentEndpoint,
+      status: state.status,
+      endpoints: state.endpoints,
     }),
-    [chain, isLoading, error, user, login, logout, isClient, connectedEndpoint]
+    [state, isClient]
   );
 
   return <HiveContext.Provider value={value}>{children}</HiveContext.Provider>;
@@ -260,7 +156,7 @@ export function HiveProvider({
 // ============== Hooks ==============
 
 /**
- * Hook to access Hive context
+ * Hook to access full Hive context
  * @throws Error if used outside of HiveProvider
  */
 export function useHive(): HiveContextValue {
@@ -273,7 +169,7 @@ export function useHive(): HiveContextValue {
 
 /**
  * Hook to access Hive chain instance
- * Returns null during SSR
+ * Returns null during SSR and when not connected
  */
 export function useHiveChain(): IHiveChainInterface | null {
   const { chain } = useHive();
@@ -281,33 +177,22 @@ export function useHiveChain(): IHiveChainInterface | null {
 }
 
 /**
- * Hook to access current user
- */
-export function useHiveUser(): HiveUser | null {
-  const { user } = useHive();
-  return user;
-}
-
-/**
- * Hook to check if user is logged in
- */
-export function useIsLoggedIn(): boolean {
-  const { user } = useHive();
-  return user !== null;
-}
-
-/**
- * Hook for auth actions
- */
-export function useHiveAuth() {
-  const { user, login, logout, isLoading } = useHive();
-  return { user, login, logout, isLoading };
-}
-
-/**
  * Hook to get current API endpoint
+ * Returns null when not connected
  */
 export function useApiEndpoint(): string | null {
   const { apiEndpoint } = useHive();
   return apiEndpoint;
+}
+
+/**
+ * Hook to get connection status and endpoint health
+ * Returns status, error, and endpoints array
+ */
+export function useHiveStatus(): {
+  status: ConnectionStatus;
+  endpoints: EndpointStatus[];
+} {
+  const { status, endpoints } = useHive();
+  return { status, endpoints };
 }

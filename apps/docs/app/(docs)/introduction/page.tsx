@@ -1,0 +1,115 @@
+import Link from "next/link";
+import { ArrowRight, Blocks, Package, Zap, Activity } from "lucide-react";
+
+export default function DocsPage() {
+  return (
+    <article className="prose prose-invert max-w-none">
+      <h1 className="text-3xl font-bold tracking-tight">Introduction</h1>
+
+      <p className="text-lg text-muted-foreground">
+        Hive UI is a component library for building applications on the Hive
+        Blockchain. Install from npm, wrap your app, and start building.
+      </p>
+
+      <div className="not-prose my-8 grid gap-4 sm:grid-cols-2">
+        <div className="rounded-lg border border-border bg-card p-4">
+          <Blocks className="mb-2 h-8 w-8 text-hive-red" />
+          <h3 className="font-semibold">Built on @hiveio/wax</h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Uses the official Hive protocol library for type-safe blockchain data
+            retrieval and interactions.
+          </p>
+        </div>
+        <div className="rounded-lg border border-border bg-card p-4">
+          <Package className="mb-2 h-8 w-8 text-hive-red" />
+          <h3 className="font-semibold">Multi-Framework</h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Built on <code>@kkocot/honeycomb-core</code> with bindings for React,
+            Solid.js, and Vue 3. Pick your framework and install.
+          </p>
+        </div>
+      </div>
+
+      {/* Feature callouts */}
+      <div className="not-prose my-8 space-y-4">
+        <div className="rounded-lg border border-green-500/20 bg-green-500/5 p-4">
+          <div className="flex gap-3">
+            <Zap className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="font-medium text-green-500">Sequential Endpoint Fallback</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Tries endpoints in priority order (#1 → #2 → #3). If timeout or error occurs,
+                automatically switches to the next available endpoint. Configurable list and order.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4">
+          <div className="flex gap-3">
+            <Activity className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="font-medium text-blue-500">Auto-Reconnect & Health Monitoring</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Periodic health checks monitor endpoint health.
+                Automatically switches to healthier endpoints at runtime without page refresh.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Hive Blockchain Concepts</h2>
+
+      <p>
+        Before diving into the components, it&apos;s helpful to understand some
+        Hive blockchain concepts:
+      </p>
+
+      <h3>Accounts</h3>
+
+      <p>
+        Hive uses a hierarchical key system for securing accounts. For read-only
+        components (displaying user data, posts, balances), no keys are required.
+      </p>
+
+      <h3>Tokens</h3>
+
+      <ul>
+        <li>
+          <strong>HIVE</strong> - The native cryptocurrency
+        </li>
+        <li>
+          <strong>HBD</strong> - Hive Backed Dollar, a stablecoin pegged to ~$1 USD
+        </li>
+        <li>
+          <strong>HP (Hive Power)</strong> - Staked HIVE that gives voting power and
+          Resource Credits
+        </li>
+      </ul>
+
+      <h3>Resource Credits (RC)</h3>
+
+      <p>
+        Hive uses Resource Credits instead of transaction fees. RC is used for
+        write operations on the blockchain and regenerates over time.
+      </p>
+
+      <div className="not-prose my-8 flex gap-4">
+        <Link
+          href="/installation"
+          className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
+        >
+          Installation
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+        <Link
+          href="/components/avatar"
+          className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
+        >
+          Browse Components
+        </Link>
+      </div>
+    </article>
+  );
+}

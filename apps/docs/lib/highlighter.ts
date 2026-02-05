@@ -24,6 +24,7 @@ export async function getHighlighter(): Promise<Highlighter> {
         "markdown",
         "css",
         "html",
+        "vue",
       ],
     });
   }

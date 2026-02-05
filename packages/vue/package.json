@@ -1,8 +1,8 @@
 {
-  "name": "@kkocot/honeycomb-react",
-  "version": "0.4.0",
-  "description": "React components for Hive Blockchain applications",
-  "keywords": ["hive", "blockchain", "react", "components", "web3", "honeycomb"],
+  "name": "@kkocot/honeycomb-vue",
+  "version": "0.1.0",
+  "description": "Vue 3 composables for Hive Blockchain applications",
+  "keywords": ["hive", "blockchain", "vue", "vue3", "composables", "web3", "honeycomb"],
   "repository": {
     "type": "git",
     "url": "https://github.com/KKocot/honeycomb"
@@ -23,33 +23,23 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "README.md"],
-  "sideEffects": ["*.css"],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "pnpm build"
+    "clean": "rm -rf dist"
   },
   "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "vue": ">=3.3.0",
+    "@hiveio/wax": ">=1.28.0"
   },
   "dependencies": {
-    "@kkocot/honeycomb-core": "workspace:*",
-    "@hiveio/wax": "^1.28.4-rc0",
-    "clsx": "^2.1.0",
-    "tailwind-merge": "^2.2.0"
+    "@kkocot/honeycomb-core": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^20.11.0",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "autoprefixer": "^10.4.17",
-    "postcss": "^8.4.33",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tailwindcss": "^3.4.1",
+    "vue": "^3.5.0",
+    "@hiveio/wax": "^1.28.4-rc0",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   },

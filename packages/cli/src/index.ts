@@ -75,7 +75,7 @@ program
       console.log(chalk.cyan('     import { HiveProvider } from "@/contexts/hive-context"'));
       console.log(chalk.dim("  3. Add components:"));
       console.log(chalk.cyan("     npx honeycomb add avatar"));
-      console.log(chalk.cyan("     npx honeycomb add keychain-login"));
+      console.log(chalk.cyan("     npx honeycomb add user-card"));
       console.log();
     } catch (error) {
       spinner.fail(chalk.red("Failed to initialize"));

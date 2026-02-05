@@ -1,32 +1,23 @@
-// Provider & Hooks
+// Provider & Hooks (Passive-only)
 export {
   HiveProvider,
   useHive,
   useHiveChain,
-  useHiveUser,
-  useIsLoggedIn,
-  useHiveAuth,
   useApiEndpoint,
+  useHiveStatus,
   DEFAULT_API_ENDPOINTS,
-  type HiveUser,
   type HiveContextValue,
   type HiveProviderProps,
 } from "./hive-provider";
 
-// Auth Components
-export {
-  KeychainLogin,
-  hasKeychain,
-  type KeychainLoginProps,
-} from "./keychain-login";
+// Re-export core types for convenience
+export type {
+  ConnectionStatus,
+  EndpointStatus,
+  HiveClientState,
+} from "@kkocot/honeycomb-core";
 
-export {
-  PeakVaultLogin,
-  hasPeakVault,
-  type PeakVaultLoginProps,
-} from "./peakvault-login";
-
-// Social Components
+// Display Components
 export {
   HiveAvatar,
   type HiveAvatarProps,
@@ -39,21 +30,12 @@ export {
   type UserCardVariant,
 } from "./user-card";
 
-// Hooks
+// Data Hooks
 export {
   useHiveAccount,
   type HiveAccount,
   type UseHiveAccountResult,
 } from "./use-hive-account";
-
-// Types
-export type {
-  LoginProps,
-  HiveKeychain,
-  HiveKeychainResponse,
-  PeakVault,
-  PeakVaultResponse,
-} from "./types";
 
 // Utils
 export { cn } from "./utils";

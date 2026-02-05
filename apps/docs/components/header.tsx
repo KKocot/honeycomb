@@ -15,19 +15,11 @@ export function Header() {
 
         <nav className="ml-8 hidden items-center gap-6 text-sm md:flex">
           <Link
-            href="/docs"
+            href="/introduction"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Docs
           </Link>
-          <a
-            href="http://localhost:3032"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Demo
-          </a>
         </nav>
 
         <div className="ml-auto flex items-center gap-4">

@@ -1,296 +1,109 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  Copy,
-  Blocks,
-  Wallet,
-  Vote,
-  User,
-  Shield,
-  Zap,
-  Globe,
-  FileText,
-  Key,
-} from "lucide-react";
-import { HiveLogo } from "@/components/hive-logo";
-import { CodeBlock } from "@/components/code-block";
+import { ArrowRight, Code2, Puzzle, Zap } from "lucide-react";
 
-const features = [
-  {
-    icon: Copy,
-    title: "Copy & Paste",
-    description:
-      "Not a package. Copy components directly into your project. Full ownership and control.",
-  },
-  {
-    icon: Blocks,
-    title: "Built on @hiveio/wax",
-    description:
-      "Uses the official Hive protocol library. Type-safe blockchain data retrieval.",
-  },
-  {
-    icon: Shield,
-    title: "Passive Components",
-    description:
-      "Display-only components for avatars, user cards, balances, and content rendering.",
-  },
-  {
-    icon: Zap,
-    title: "Lazy Chain Init",
-    description:
-      "Chain initialization happens once. Singleton pattern for optimal performance.",
-  },
-];
-
-const componentCategories = [
-  {
-    icon: User,
-    title: "User Display",
-    items: [
-      { name: "Avatar", href: "/docs/components/avatar" },
-      { name: "User Card", href: "/docs/components/user-card" },
-    ],
-  },
-  {
-    icon: Wallet,
-    title: "Wallet Display",
-    items: [
-      { name: "Balance Card", href: "/docs/components/balance-card" },
-      { name: "Manabar", href: "/docs/components/manabar" },
-    ],
-  },
-  {
-    icon: FileText,
-    title: "Post Display",
-    items: [
-      { name: "Post Card", href: "/docs/components/post-card" },
-    ],
-  },
-  {
-    icon: Globe,
-    title: "Content",
-    items: [
-      { name: "Content Renderer", href: "/docs/components/content-renderer" },
-      { name: "Markdown Editor", href: "/docs/components/markdown-editor" },
-    ],
-  },
-];
-
-export default function HomePage() {
+export default function LandingPage() {
   return (
-    <main className="flex min-h-[calc(100vh-3.5rem)] flex-col">
+    <div className="container mx-auto max-w-6xl px-4 py-16 md:py-24">
       {/* Hero Section */}
-      <section className="container mx-auto flex flex-col items-center px-4 pt-24 pb-16 text-center">
-        <div className="mb-6 flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-1.5 text-sm text-muted-foreground">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-hive-red opacity-75"></span>
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-hive-red"></span>
-          </span>
-          Currently in development
-        </div>
-
-        <HiveLogo className="mb-8 h-20 w-20" />
-
-        <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+      <div className="flex flex-col items-center text-center">
+        <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
           Build Hive Apps
-          <br />
-          <span className="text-hive-red">Faster</span>
+          <span className="block text-hive-red">Faster</span>
         </h1>
-
-        <p className="mb-8 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-          Beautiful, accessible components for Hive Blockchain. Copy and paste
-          into your apps. Built with{" "}
-          <code className="text-hive-red">@hiveio/wax</code>, Radix UI, and
-          Tailwind CSS.
+        <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
+          A component library for building applications on the Hive Blockchain.
+          Install from npm, wrap your app, and start building with type-safe,
+          production-ready components.
         </p>
-
-        <div className="flex flex-col gap-4 sm:flex-row">
+        <div className="mt-10 flex flex-col gap-4 sm:flex-row">
           <Link
-            href="/docs"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-hive-red px-6 py-3 font-medium text-white transition-colors hover:bg-hive-red/90"
+            href="/introduction"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-hive-red px-6 py-3 text-base font-medium text-white transition-colors hover:bg-hive-red/90"
           >
             Get Started
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-5 w-5" />
           </Link>
-          <a
-            href="http://localhost:3032"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-6 py-3 font-medium transition-colors hover:bg-muted"
+          <Link
+            href="/components/avatar"
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-6 py-3 text-base font-medium transition-colors hover:bg-muted"
           >
-            View Demo
-          </a>
+            Browse Components
+          </Link>
         </div>
+      </div>
 
-        {/* Quick Install */}
-        <div className="mt-12 w-full max-w-lg">
-          <div className="rounded-lg border border-border bg-muted/30 p-4">
-            <div className="flex items-center justify-between">
-              <code className="text-sm text-muted-foreground">
-                npx honeycomb init
-              </code>
-              <button
-                className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                title="Copy to clipboard"
-              >
-                <Copy className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="border-t border-border bg-muted/20 py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-12 text-center text-3xl font-bold">
-            Why Honeycomb?
-          </h2>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className="rounded-xl border border-border bg-card p-6"
-              >
-                <feature.icon className="mb-4 h-10 w-10 text-hive-red" />
-                <h3 className="mb-2 font-semibold">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Components Preview */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-4 text-center text-3xl font-bold">Components</h2>
-          <p className="mb-12 text-center text-muted-foreground">
-            Everything you need to build Hive dApps
+      {/* Features Grid */}
+      <div className="mt-24 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="rounded-lg border border-border bg-card p-6">
+          <Code2 className="mb-4 h-10 w-10 text-hive-red" />
+          <h3 className="mb-2 text-xl font-semibold">Type-Safe</h3>
+          <p className="text-muted-foreground">
+            Built with TypeScript and @hiveio/wax. Full type safety from
+            blockchain to UI.
           </p>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {componentCategories.map((category) => (
-              <div
-                key={category.title}
-                className="rounded-xl border border-border bg-card p-6"
-              >
-                <category.icon className="mb-4 h-8 w-8 text-hive-red" />
-                <h3 className="mb-4 font-semibold">{category.title}</h3>
-                <ul className="space-y-2">
-                  {category.items.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className="text-sm text-muted-foreground hover:text-hive-red transition-colors"
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
         </div>
-      </section>
+
+        <div className="rounded-lg border border-border bg-card p-6">
+          <Puzzle className="mb-4 h-10 w-10 text-hive-red" />
+          <h3 className="mb-2 text-xl font-semibold">Multi-Framework</h3>
+          <p className="text-muted-foreground">
+            Built on @kkocot/honeycomb-core with bindings for React, Solid.js,
+            and Vue 3. Pick your framework.
+          </p>
+        </div>
+
+        <div className="rounded-lg border border-border bg-card p-6">
+          <Zap className="mb-4 h-10 w-10 text-hive-red" />
+          <h3 className="mb-2 text-xl font-semibold">Production Ready</h3>
+          <p className="text-muted-foreground">
+            Auto-reconnect, health monitoring, sequential endpoint fallback.
+            Handles network failures gracefully.
+          </p>
+        </div>
+      </div>
 
       {/* Code Example */}
-      <section className="border-t border-border bg-muted/20 py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-4 text-center text-3xl font-bold">
-            Simple to Use
-          </h2>
-          <p className="mb-12 text-center text-muted-foreground">
-            Initialize once, use everywhere
-          </p>
+      <div className="mt-24">
+        <h2 className="mb-6 text-center text-3xl font-bold">
+          Simple to Use
+        </h2>
+        <div className="overflow-hidden rounded-lg border border-border bg-card">
+          <div className="border-b border-border bg-muted px-4 py-2">
+            <span className="font-mono text-sm text-muted-foreground">
+              App.tsx
+            </span>
+          </div>
+          <pre className="overflow-x-auto p-6">
+            <code className="text-sm">
+{`import { HiveProvider, HiveAvatar } from '@kkocot/honeycomb-react'
 
-          <div className="mx-auto max-w-3xl space-y-6">
-            <CodeBlock
-              filename="app/providers.tsx"
-              code={`import { HiveProvider } from '@/components/hive/hive-provider'
-
-export function Providers({ children }) {
+export default function App() {
   return (
-    <HiveProvider apiEndpoint="https://api.hive.blog">
-      {children}
+    <HiveProvider>
+      <HiveAvatar username="hiveio" size="lg" />
     </HiveProvider>
   )
 }`}
-            />
+            </code>
+          </pre>
+        </div>
+      </div>
 
-            <CodeBlock
-              filename="app/page.tsx"
-              code={`import { HiveAvatar } from '@/components/hive/avatar'
-import { HiveUserCard } from '@/components/hive/user-card'
-import { HiveBalanceCard } from '@/components/hive/balance-card'
-
-export default function Page() {
-  return (
-    <div>
-      <HiveAvatar username="hiveio" />
-      <HiveUserCard username="hiveio" />
-      <HiveBalanceCard username="hiveio" />
+      {/* CTA Section */}
+      <div className="mt-24 rounded-lg border border-hive-red/20 bg-hive-red/5 p-8 text-center">
+        <h2 className="mb-4 text-2xl font-bold">Ready to build?</h2>
+        <p className="mb-6 text-muted-foreground">
+          Install the package and start building your Hive application in
+          minutes.
+        </p>
+        <Link
+          href="/installation"
+          className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-6 py-3 font-medium text-white transition-colors hover:bg-hive-red/90"
+        >
+          View Installation Guide
+          <ArrowRight className="h-5 w-5" />
+        </Link>
+      </div>
     </div>
-  )
-}`}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* API Nodes */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-4 text-center text-3xl font-bold">
-            Flexible API Configuration
-          </h2>
-          <p className="mb-12 text-center text-muted-foreground">
-            Use any Hive API node. Configure globally or per-component.
-          </p>
-
-          <div className="mx-auto max-w-2xl rounded-xl border border-border bg-card p-6">
-            <h3 className="mb-4 font-semibold">Supported Nodes</h3>
-            <div className="grid gap-2 sm:grid-cols-2">
-              {[
-                "api.hive.blog",
-                "api.deathwing.me",
-                "anyx.io",
-                "api.openhive.network",
-                "rpc.ausbit.dev",
-                "hive-api.arcange.eu",
-              ].map((node) => (
-                <code
-                  key={node}
-                  className="rounded bg-muted px-3 py-2 text-sm"
-                >
-                  {node}
-                </code>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="mt-auto border-t border-border py-8">
-        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>
-            Built for the{" "}
-            <a
-              href="https://hive.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-hive-red hover:underline"
-            >
-              Hive
-            </a>{" "}
-            community. Open source and free to use.
-          </p>
-        </div>
-      </footer>
-    </main>
   );
 }

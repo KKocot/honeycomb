@@ -16,18 +16,17 @@ export const docsConfig: NavSection[] = [
   {
     title: "Getting Started",
     items: [
-      { title: "Introduction", href: "/docs" },
-      { title: "Installation", href: "/docs/installation" },
-      { title: "Project Structure", href: "/docs/project-structure" },
-      { title: "Changelog", href: "/docs/changelog", disabled: true },
+      { title: "Introduction", href: "/introduction" },
+      { title: "Installation", href: "/installation" },
+      { title: "Project Structure", href: "/project-structure" },
     ],
   },
   {
     title: "Configuration",
     items: [
-      { title: "Hive Provider", href: "/docs/hive-provider" },
-      { title: "API Nodes", href: "/docs/api-nodes" },
-      { title: "Theming", href: "/docs/theming" },
+      { title: "Hive Provider", href: "/hive-provider" },
+      { title: "API Nodes", href: "/api-nodes" },
+      { title: "Theming", href: "/theming" },
     ],
   },
   // ===========================================
@@ -37,31 +36,31 @@ export const docsConfig: NavSection[] = [
     title: "User Display",
     type: "passive",
     items: [
-      { title: "Avatar", href: "/docs/components/avatar" },
-      { title: "User Card", href: "/docs/components/user-card" },
+      { title: "Avatar", href: "/components/avatar" },
+      { title: "User Card", href: "/components/user-card" },
     ],
   },
   {
     title: "Wallet Display",
     type: "passive",
     items: [
-      { title: "Balance Card", href: "/docs/components/balance-card" },
-      { title: "Manabar", href: "/docs/components/manabar" },
+      { title: "Balance Card", href: "/components/balance-card" },
+      { title: "Manabar", href: "/components/manabar" },
     ],
   },
   {
     title: "Post Display",
     type: "passive",
     items: [
-      { title: "Post Card", href: "/docs/components/post-card" },
+      { title: "Post Card", href: "/components/post-card" },
     ],
   },
   {
     title: "Content",
     type: "passive",
     items: [
-      { title: "Content Renderer", href: "/docs/components/content-renderer" },
-      { title: "Markdown Editor", href: "/docs/components/markdown-editor" },
+      { title: "Content Renderer", href: "/components/content-renderer" },
+      { title: "Markdown Editor", href: "/components/markdown-editor" },
     ],
   },
 ];

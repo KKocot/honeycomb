@@ -14,9 +14,7 @@
     "dev:docs": "pnpm --filter docs dev",
     "build:docs": "pnpm --filter docs build",
     "dev:demo": "pnpm --filter demo dev",
-    "build:demo": "pnpm --filter demo build",
-    "dev:renderer": "pnpm --filter renderer dev",
-    "build:renderer": "pnpm --filter renderer build"
+    "build:demo": "pnpm --filter demo build"
   },
   "devDependencies": {
     "turbo": "^2.7.6"
