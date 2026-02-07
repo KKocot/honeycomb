@@ -19,12 +19,12 @@ test.describe('Social Actions', () => {
       const applyButton = page.getByRole('button', { name: 'Apply' });
 
       // Change to different user
-      await input.fill('gtg');
+      await input.fill('barddev');
       await applyButton.click();
 
       // Wait for components to re-render with new user
-      // Check in the Follow Button card which shows "Target user: @gtg"
-      await expect(page.locator('text=Target user: @gtg').first()).toBeVisible();
+      // Check in the Follow Button card which shows "Target user: @barddev"
+      await expect(page.locator('text=Target user: @barddev').first()).toBeVisible();
     });
 
     test('should sanitize username input (lowercase, valid chars only)', async ({ page }) => {

@@ -53,7 +53,7 @@ export default function DemoPage() {
 }
 
 function DemoPageContent() {
-  const { chain, isLoading } = useHive();
+  const { chain, is_loading } = useHive();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -80,7 +80,7 @@ function DemoPageContent() {
     }
   }, [tabFromUrl]);
 
-  if (isLoading) {
+  if (is_loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">

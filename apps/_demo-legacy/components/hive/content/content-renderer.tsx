@@ -235,13 +235,13 @@ const LinkComponent = ({
   ...props
 }: LinkComponentProps) => {
   const url = href ?? "";
-  const [isClient, setIsClient] = useState(false);
+  const [is_client, set_is_client] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    set_is_client(true);
   }, []);
 
-  if (!isClient) {
+  if (!is_client) {
     return (
       <Link href={url} {...props}>
         {children}
