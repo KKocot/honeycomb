@@ -78,7 +78,7 @@ export function UserCard({
   showStats = true,
   className,
 }: UserCardProps) {
-  const { account, isLoading, error } = useHiveAccount(username);
+  const { account, is_loading, error } = useHiveAccount(username);
 
   const metadata = useMemo<ProfileMetadata | null>(
     () => parseMetadata(account),
@@ -86,7 +86,7 @@ export function UserCard({
   );
 
   // Loading state
-  if (isLoading) {
+  if (is_loading) {
     return (
       <div
         className={cn(

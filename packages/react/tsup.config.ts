@@ -8,7 +8,5 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   external: ["react", "react-dom"],
-  banner: {
-    js: '"use client";',
-  },
+  banner: { js: '"use client";' },
 });

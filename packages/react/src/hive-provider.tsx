@@ -27,17 +27,19 @@ export interface HiveContextValue {
   /** Hive chain instance - null during SSR and initial load */
   chain: IHiveChainInterface | null;
   /** True while chain is initializing */
-  isLoading: boolean;
+  is_loading: boolean;
   /** Error message if chain initialization failed */
   error: string | null;
   /** Check if running on client */
-  isClient: boolean;
+  is_client: boolean;
   /** Currently connected API endpoint */
-  apiEndpoint: string | null;
+  api_endpoint: string | null;
   /** Connection status */
   status: ConnectionStatus;
   /** Status of all endpoints */
   endpoints: EndpointStatus[];
+  /** Refresh all endpoints health status */
+  refresh_endpoints: () => Promise<void>;
 }
 
 export interface HiveProviderProps {
@@ -96,24 +98,35 @@ export function HiveProvider({
     endpoints: [],
     error: null,
   });
-  const [isClient, setIsClient] = useState(false);
+  const [is_client, set_is_client] = useState(false);
+  const [chain_instance, set_chain_instance] = useState<IHiveChainInterface | null>(null);
   const client_ref = useRef<HiveClient | null>(null);
+  const on_endpoint_change_ref = useRef(onEndpointChange);
+
+  // Update callback ref when prop changes
+  useEffect(() => {
+    on_endpoint_change_ref.current = onEndpointChange;
+  }, [onEndpointChange]);
 
   // Detect client-side
   useEffect(() => {
-    setIsClient(true);
+    set_is_client(true);
   }, []);
 
   // Initialize HiveClient and connect (client-side only)
   useEffect(() => {
-    if (!isClient) return;
+    if (!is_client) return;
 
     // Create client instance
     const client = new HiveClient({
       endpoints: apiEndpoints,
       timeout,
       healthCheckInterval,
-      onEndpointChange,
+      onEndpointChange: (endpoint) => {
+        if (on_endpoint_change_ref.current) {
+          on_endpoint_change_ref.current(endpoint);
+        }
+      },
     });
 
     client_ref.current = client;
@@ -121,11 +134,12 @@ export function HiveProvider({
     // Subscribe to state changes
     const unsubscribe = client.subscribe((new_state) => {
       setState(new_state);
+      set_chain_instance(client.chain);
     });
 
     // Connect to Hive blockchain
-    client.connect().catch((err) => {
-      console.error("Failed to connect to Hive:", err);
+    client.connect().catch(() => {
+      // Error already in state.error - no console.error needed
     });
 
     // Cleanup on unmount
@@ -133,21 +147,30 @@ export function HiveProvider({
       unsubscribe();
       client.disconnect();
       client_ref.current = null;
+      set_chain_instance(null);
     };
-  }, [isClient, apiEndpoints, timeout, healthCheckInterval, onEndpointChange]);
+  }, [is_client, apiEndpoints, timeout, healthCheckInterval]);
+
+  // Refresh endpoints function
+  const refresh_endpoints = async () => {
+    if (client_ref.current) {
+      await client_ref.current.refreshEndpoints();
+    }
+  };
 
   // Memoize context value
   const value = useMemo<HiveContextValue>(
     () => ({
-      chain: client_ref.current?.chain ?? null,
-      isLoading: state.status === 'connecting' || state.status === 'reconnecting',
+      chain: chain_instance,
+      is_loading: state.status === 'connecting' || state.status === 'reconnecting',
       error: state.error,
-      isClient,
-      apiEndpoint: state.currentEndpoint,
+      is_client,
+      api_endpoint: state.currentEndpoint,
       status: state.status,
       endpoints: state.endpoints,
+      refresh_endpoints,
     }),
-    [state, isClient]
+    [state, is_client, chain_instance]
   );
 
   return <HiveContext.Provider value={value}>{children}</HiveContext.Provider>;
@@ -181,8 +204,8 @@ export function useHiveChain(): IHiveChainInterface | null {
  * Returns null when not connected
  */
 export function useApiEndpoint(): string | null {
-  const { apiEndpoint } = useHive();
-  return apiEndpoint;
+  const { api_endpoint } = useHive();
+  return api_endpoint;
 }
 
 /**

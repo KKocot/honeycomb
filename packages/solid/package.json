@@ -15,6 +15,7 @@
   "type": "module",
   "exports": {
     ".": {
+      "solid": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
@@ -35,7 +36,8 @@
     "@hiveio/wax": ">=1.28.0"
   },
   "dependencies": {
-    "@kkocot/honeycomb-core": "workspace:*"
+    "@kkocot/honeycomb-core": "workspace:*",
+    "@kobalte/core": "^0.13.0"
   },
   "devDependencies": {
     "solid-js": "^1.9.0",

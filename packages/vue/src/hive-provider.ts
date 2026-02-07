@@ -39,6 +39,8 @@ export interface HiveContextValue {
   status: Ref<ConnectionStatus>;
   /** Status of all endpoints */
   endpoints: Ref<HiveClientState["endpoints"]>;
+  /** Refresh all endpoints health status */
+  refreshEndpoints: () => Promise<void>;
 }
 
 /**
@@ -151,6 +153,15 @@ export const HiveProvider = defineComponent({
       client = null;
     });
 
+    /**
+     * Refresh all endpoints health status
+     */
+    const refresh_endpoints = async () => {
+      if (client) {
+        await client.refreshEndpoints();
+      }
+    };
+
     // Provide context to children
     provide(HIVE_INJECTION_KEY, {
       chain,
@@ -159,6 +170,7 @@ export const HiveProvider = defineComponent({
       apiEndpoint: api_endpoint,
       status,
       endpoints: endpoint_statuses,
+      refreshEndpoints: refresh_endpoints,
     });
 
     // Renderless component - just render default slot

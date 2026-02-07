@@ -233,6 +233,18 @@ export class HiveClient {
   }
 
   /**
+   * Test all endpoints in parallel and update state
+   * Works even when client is not connected (useful before connection)
+   */
+  async refreshEndpoints(): Promise<void> {
+    const updated_endpoints = await this.endpoint_manager.refreshAllEndpoints();
+
+    this.update_state({
+      endpoints: updated_endpoints.map(ep => ({ ...ep })),
+    });
+  }
+
+  /**
    * Update state and notify listeners
    * @param partial_state - Partial state to merge
    */

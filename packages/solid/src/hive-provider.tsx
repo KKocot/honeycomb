@@ -40,6 +40,8 @@ export interface HiveContextValue {
   status: () => ConnectionStatus;
   /** Endpoints status getter - status of all endpoints */
   endpoints: () => EndpointStatus[];
+  /** Refresh all endpoints health status */
+  refreshEndpoints: () => Promise<void>;
 }
 
 /**
@@ -107,6 +109,13 @@ export const HiveProvider: ParentComponent<HiveProviderProps> = (props) => {
     set_is_client(true);
   });
 
+  // Function to refresh endpoints
+  const refresh_endpoints = async () => {
+    if (client_instance) {
+      await client_instance.refreshEndpoints();
+    }
+  };
+
   // Initialize HiveClient when on client-side
   createEffect(() => {
     if (!is_client()) return;
@@ -149,6 +158,7 @@ export const HiveProvider: ParentComponent<HiveProviderProps> = (props) => {
     apiEndpoint: () => client_state().currentEndpoint,
     status: () => client_state().status,
     endpoints: () => client_state().endpoints,
+    refreshEndpoints: refresh_endpoints,
   }));
 
   return <HiveContext.Provider value={value()}>{props.children}</HiveContext.Provider>;

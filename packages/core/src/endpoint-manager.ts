@@ -211,6 +211,22 @@ export class EndpointManager {
   }
 
   /**
+   * Test all endpoints in parallel and update their statuses
+   * Unlike findWorkingEndpoint (sequential), this tests all endpoints simultaneously
+   * @returns Array of updated endpoint statuses
+   */
+  async refreshAllEndpoints(): Promise<EndpointStatus[]> {
+    // Test all endpoints in parallel
+    const test_promises = this.endpoints.map(url => this.testEndpoint(url));
+
+    // Wait for all tests to complete (regardless of success/failure)
+    await Promise.allSettled(test_promises);
+
+    // Return updated statuses
+    return this.getEndpointsStatus();
+  }
+
+  /**
    * Update endpoints list
    * @param endpoints - New endpoints list
    */

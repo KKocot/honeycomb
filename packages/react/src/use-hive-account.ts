@@ -39,7 +39,7 @@ export interface UseHiveAccountResult {
   /** Account data */
   account: HiveAccount | null;
   /** Loading state */
-  isLoading: boolean;
+  is_loading: boolean;
   /** Error if any */
   error: Error | null;
   /** Refetch account data */
@@ -51,9 +51,9 @@ export interface UseHiveAccountResult {
  *
  * @example
  * ```tsx
- * const { account, isLoading, error } = useHiveAccount("blocktrades");
+ * const { account, is_loading, error } = useHiveAccount("blocktrades");
  *
- * if (isLoading) return <div>Loading...</div>;
+ * if (is_loading) return <div>Loading...</div>;
  * if (error) return <div>Error: {error.message}</div>;
  *
  * return <div>Balance: {account?.balance}</div>;
@@ -62,21 +62,21 @@ export interface UseHiveAccountResult {
 export function useHiveAccount(username: string): UseHiveAccountResult {
   const chain = useHiveChain();
   const [account, setAccount] = useState<HiveAccount | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [is_loading, set_is_loading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  const [refetchCounter, setRefetchCounter] = useState(0);
+  const [refetch_counter, set_refetch_counter] = useState(0);
 
   useEffect(() => {
     if (!chain || !username) {
-      setIsLoading(false);
+      set_is_loading(false);
       return;
     }
 
     let cancelled = false;
-    setIsLoading(true);
+    set_is_loading(true);
     setError(null);
 
-    async function fetchAccount() {
+    async function fetch_account() {
       try {
         const response = await chain!.api.database_api.find_accounts({
           accounts: [username.toLowerCase()],
@@ -85,6 +85,7 @@ export function useHiveAccount(username: string): UseHiveAccountResult {
         if (cancelled) return;
 
         if (response.accounts && response.accounts.length > 0) {
+          if (cancelled) return;
           const acc = response.accounts[0] as unknown as Record<string, unknown>;
           const reputation = acc.reputation as string | number | undefined;
           setAccount({
@@ -111,21 +112,21 @@ export function useHiveAccount(username: string): UseHiveAccountResult {
         }
       } finally {
         if (!cancelled) {
-          setIsLoading(false);
+          set_is_loading(false);
         }
       }
     }
 
-    fetchAccount();
+    fetch_account();
 
     return () => {
       cancelled = true;
     };
-  }, [chain, username, refetchCounter]);
+  }, [chain, username, refetch_counter]);
 
   const refetch = () => {
-    setRefetchCounter((c) => c + 1);
+    set_refetch_counter((c) => c + 1);
   };
 
-  return { account, isLoading, error, refetch };
+  return { account, is_loading, error, refetch };
 }
