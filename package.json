@@ -13,8 +13,12 @@
     "lint": "turbo lint",
     "dev:docs": "pnpm --filter docs dev",
     "build:docs": "pnpm --filter docs build",
-    "dev:demo": "pnpm --filter demo dev",
-    "build:demo": "pnpm --filter demo build"
+    "dev:demo-react": "pnpm --filter demo-react dev",
+    "build:demo-react": "pnpm --filter demo-react build",
+    "dev:demo-solid": "pnpm --filter demo-solid dev",
+    "build:demo-solid": "pnpm --filter demo-solid build",
+    "dev:demo-vue": "pnpm --filter demo-vue dev",
+    "build:demo-vue": "pnpm --filter demo-vue build"
   },
   "devDependencies": {
     "turbo": "^2.7.6"
