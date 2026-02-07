@@ -1,6 +1,29 @@
 import Link from "next/link";
 import { ArrowRight, Blocks, Package, Zap, Activity } from "lucide-react";
 
+const SUPPORTED_TECH = [
+  {
+    icon: Package,
+    title: "UI Frameworks",
+    items: ["React ≥19", "Solid.js", "Vue 3"],
+  },
+  {
+    icon: Blocks,
+    title: "Meta-frameworks",
+    items: ["Next.js", "Astro", "Nuxt", "SolidStart"],
+  },
+  {
+    icon: Zap,
+    title: "Bundlers",
+    items: ["Vite", "webpack", "Turbopack"],
+  },
+  {
+    icon: Activity,
+    title: "Requirements",
+    items: ["Node.js ≥18", "TypeScript (recommended)"],
+  },
+] as const;
+
 export default function DocsPage() {
   return (
     <article className="prose prose-invert max-w-none">
@@ -10,6 +33,8 @@ export default function DocsPage() {
         Hive UI is a component library for building applications on the Hive
         Blockchain. Install from npm, wrap your app, and start building.
       </p>
+
+      <h2>Features</h2>
 
       <div className="not-prose my-8 grid gap-4 sm:grid-cols-2">
         <div className="rounded-lg border border-border bg-card p-4">
@@ -27,6 +52,26 @@ export default function DocsPage() {
             Built on <code>@kkocot/honeycomb-core</code> with bindings for React,
             Solid.js, and Vue 3. Pick your framework and install.
           </p>
+        </div>
+      </div>
+
+      {/* Supported Technologies */}
+      <div className="not-prose my-8">
+        <h2 className="mb-4 text-2xl font-bold tracking-tight">Supported Technologies</h2>
+        <p className="mb-6 text-muted-foreground">
+          Hive UI works with modern JavaScript frameworks and build tools. Choose your stack and start building.
+        </p>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {SUPPORTED_TECH.map(({ icon: Icon, title, items }) => (
+            <div key={title} className="rounded-lg border border-border bg-card p-4">
+              <Icon className="mb-2 h-6 w-6 text-hive-red" />
+              <h3 className="text-sm font-semibold">{title}</h3>
+              <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
+                {items.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -97,7 +142,7 @@ export default function DocsPage() {
 
       <div className="not-prose my-8 flex gap-4">
         <Link
-          href="/installation"
+          href="/react/installation"
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
         >
           Installation

@@ -23,10 +23,10 @@ function ProfilePage() {
   withoutStats: `// Hide post count and balances
 <HiveUserCard username="barddev" showStats={false} />`,
   userList: `// List of users with compact variant
-const witnesses = ["blocktrades", "gtg", "good-karma"];
+const users = ["barddev", "barddev", "barddev"];
 
-{witnesses.map((username) => (
-  <HiveUserCard key={username} username={username} variant="compact" />
+{users.map((username, index) => (
+  <HiveUserCard key={index} username={username} variant="compact" />
 ))}`,
   customStyle: `// Custom styling with className and style
 <HiveUserCard

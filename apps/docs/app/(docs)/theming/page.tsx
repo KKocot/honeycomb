@@ -185,11 +185,11 @@ export default async function ThemingPage() {
       {/* Navigation */}
       <section className="flex items-center justify-between">
         <Link
-          href="/api-nodes"
+          href="/components/api-tracker"
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
         >
           <ArrowLeft className="h-4 w-4" />
-          API Nodes
+          API Tracker
         </Link>
         <Link
           href="/components/avatar"

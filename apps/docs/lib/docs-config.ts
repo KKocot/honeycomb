@@ -17,16 +17,15 @@ export const docsConfig: NavSection[] = [
     title: "Getting Started",
     items: [
       { title: "Introduction", href: "/introduction" },
-      { title: "Installation", href: "/installation" },
-      { title: "Project Structure", href: "/project-structure" },
+      { title: "Installation", href: "/react/installation" },
     ],
   },
   {
     title: "Configuration",
     items: [
-      { title: "Hive Provider", href: "/hive-provider" },
-      { title: "API Nodes", href: "/api-nodes" },
+      { title: "Hive Provider", href: "/react/hive-provider" },
       { title: "Theming", href: "/theming" },
+      { title: "API Tracker", href: "/components/api-tracker" },
     ],
   },
   // ===========================================

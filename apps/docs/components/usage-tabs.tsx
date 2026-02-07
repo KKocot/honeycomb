@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 interface UsageTabsProps {
@@ -13,6 +13,15 @@ interface UsageTabsProps {
 
 export function UsageTabs({ tabs }: UsageTabsProps) {
   const [activeTab, setActiveTab] = useState(tabs[0]?.id || "");
+
+  useEffect(() => {
+    const tab_ids = tabs.map((t) => t.id);
+    if (!tab_ids.includes(activeTab)) {
+      const current_label = activeTab.split("-").pop();
+      const matching_tab = tabs.find((t) => t.id.endsWith(`-${current_label}`));
+      setActiveTab(matching_tab?.id || tabs[0]?.id || "");
+    }
+  }, [tabs, activeTab]);
 
   return (
     <div className="space-y-4">

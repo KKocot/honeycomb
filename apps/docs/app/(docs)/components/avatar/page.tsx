@@ -36,8 +36,8 @@ function UserProfile() {
 // Overlapping avatars
 <div className="flex -space-x-2">
   <HiveAvatar username="barddev" className="border-2 border-background" />
-  <HiveAvatar username="gtg" className="border-2 border-background" />
-  <HiveAvatar username="blocktrades" className="border-2 border-background" />
+  <HiveAvatar username="barddev" className="border-2 border-background" />
+  <HiveAvatar username="barddev" className="border-2 border-background" />
 </div>`,
 };
 

@@ -6,10 +6,16 @@ import { usePathname } from "next/navigation";
 import { Zap, Eye, Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { docsConfig } from "@/lib/docs-config";
+import { parseFramework, type Framework } from "@/lib/framework";
 
 export function DocsSidebar() {
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Detect active framework from pathname (e.g., /react/hive-provider -> react)
+  const path_segments = pathname.split("/").filter(Boolean);
+  const potential_framework = path_segments[0];
+  const activeFramework: Framework = parseFramework(potential_framework);
 
   // Filter items based on search query
   const filteredConfig = useMemo(() => {
@@ -39,28 +45,36 @@ export function DocsSidebar() {
         {section.title}
       </h4>
       <ul className="space-y-1">
-        {section.items.map((item) => (
-          <li key={item.href}>
-            <Link
-              href={item.disabled ? "#" : item.href}
-              className={cn(
-                "block rounded-md px-2 py-1.5 text-sm transition-colors",
-                pathname === item.href
-                  ? "bg-muted font-medium text-foreground"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground",
-                item.disabled &&
-                  "pointer-events-none opacity-50"
-              )}
-            >
-              {item.title}
-              {item.label && (
-                <span className="ml-2 rounded bg-hive-red/10 px-1.5 py-0.5 text-xs text-hive-red">
-                  {item.label}
-                </span>
-              )}
-            </Link>
-          </li>
-        ))}
+        {section.items.map((item) => {
+          // Replace /react/ in href with active framework
+          let href = item.href;
+          if (href.startsWith("/react/")) {
+            href = href.replace("/react/", `/${activeFramework}/`);
+          }
+
+          return (
+            <li key={item.href}>
+              <Link
+                href={item.disabled ? "#" : href}
+                className={cn(
+                  "block rounded-md px-2 py-1.5 text-sm transition-colors",
+                  pathname === href
+                    ? "bg-muted font-medium text-foreground"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                  item.disabled &&
+                    "pointer-events-none opacity-50"
+                )}
+              >
+                {item.title}
+                {item.label && (
+                  <span className="ml-2 rounded bg-hive-red/10 px-1.5 py-0.5 text-xs text-hive-red">
+                    {item.label}
+                  </span>
+                )}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

@@ -80,7 +80,7 @@ export default function LandingPage() {
 export default function App() {
   return (
     <HiveProvider>
-      <HiveAvatar username="hiveio" size="lg" />
+      <HiveAvatar username="barddev" size="lg" />
     </HiveProvider>
   )
 }`}
@@ -97,7 +97,7 @@ export default function App() {
           minutes.
         </p>
         <Link
-          href="/installation"
+          href="/react/installation"
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-6 py-3 font-medium text-white transition-colors hover:bg-hive-red/90"
         >
           View Installation Guide

@@ -1,10 +1,8 @@
-import { Suspense } from "react";
 import Link from "next/link";
 import { ArrowRight, AlertTriangle } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 import { Steps, Step } from "@/components/steps";
 import { UsageTabs } from "@/components/usage-tabs";
-import { FrameworkSelector } from "@/components/framework-selector";
 import { parseFramework } from "@/lib/framework";
 
 const PACKAGES = {
@@ -47,9 +45,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     usage: `import { useHive } from "@kkocot/honeycomb-react";
 
 function MyComponent() {
-  const { chain, isLoading, error } = useHive();
+  const { chain, is_loading, error } = useHive();
 
-  if (isLoading) return <p>Connecting...</p>;
+  if (is_loading) return <p>Connecting...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return <p>Connected!</p>;
@@ -68,11 +66,11 @@ function App() {
     usage: `import { useHive } from "@kkocot/honeycomb-solid";
 
 function MyComponent() {
-  const { chain, isLoading, error } = useHive();
+  const { chain, is_loading, error } = useHive();
 
   return (
     <div>
-      {isLoading() ? "Connecting..." : "Connected!"}
+      {is_loading() ? "Connecting..." : "Connected!"}
       {error() && <p>Error: {error()}</p>}
     </div>
   );
@@ -90,7 +88,7 @@ import { HiveProvider } from "@kkocot/honeycomb-vue";
 </script>`,
     usage: `<template>
   <div>
-    <p v-if="isLoading">Connecting...</p>
+    <p v-if="is_loading">Connecting...</p>
     <p v-else-if="error">Error: {{ error }}</p>
     <p v-else>Connected!</p>
   </div>
@@ -99,18 +97,18 @@ import { HiveProvider } from "@kkocot/honeycomb-vue";
 <script setup lang="ts">
 import { useHive } from "@kkocot/honeycomb-vue";
 
-const { chain, isLoading, error } = useHive();
+const { chain, is_loading, error } = useHive();
 </script>`,
   },
 };
 
 interface PageProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: Promise<{ framework: string }>;
 }
 
-export default async function InstallationPage({ searchParams }: PageProps) {
-  const params = await searchParams;
-  const framework = parseFramework(params.framework);
+export default async function InstallationPage({ params }: PageProps) {
+  const { framework: raw_framework } = await params;
+  const framework = parseFramework(raw_framework);
 
   const pkg = PACKAGES[framework];
 
@@ -122,13 +120,6 @@ export default async function InstallationPage({ searchParams }: PageProps) {
           How to install and set up Hive UI in your project.
         </p>
       </div>
-
-      {/* Framework Selector */}
-      <section>
-        <Suspense>
-          <FrameworkSelector activeFramework={framework} />
-        </Suspense>
-      </section>
 
       {/* Steps */}
       <section>
@@ -194,12 +185,12 @@ export default async function InstallationPage({ searchParams }: PageProps) {
         <p className="text-muted-foreground mb-4">
           By default, HiveProvider connects to public Hive API nodes with automatic
           fallback. You can customize the endpoint list — see{" "}
-          <Link href="/hive-provider" className="text-hive-red hover:underline">
+          <Link href={`/${framework}/hive-provider`} className="text-hive-red hover:underline">
             HiveProvider
           </Link>{" "}
           and{" "}
-          <Link href="/api-nodes" className="text-hive-red hover:underline">
-            API Nodes
+          <Link href="/components/api-tracker" className="text-hive-red hover:underline">
+            API Tracker
           </Link>{" "}
           for details.
         </p>
@@ -232,7 +223,7 @@ export default async function InstallationPage({ searchParams }: PageProps) {
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
-            href="/hive-provider"
+            href={`/${framework}/hive-provider`}
             className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
           >
             HiveProvider docs
