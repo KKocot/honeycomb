@@ -15,6 +15,9 @@ export {
   type HiveProviderProps,
 } from "./hive-provider";
 
+// Display Components
+export { ApiTracker, type ApiTrackerProps } from "./api-tracker";
+
 // Re-export core types
 export type {
   HiveClientConfig,

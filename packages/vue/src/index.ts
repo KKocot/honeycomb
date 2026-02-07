@@ -14,6 +14,9 @@ export {
   type HiveContextValue,
 } from "./hive-provider.js";
 
+// Components
+export { ApiTracker, type ApiTrackerProps } from "./api-tracker.js";
+
 // Re-export core types
 export type {
   HiveClientConfig,

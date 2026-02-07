@@ -30,6 +30,11 @@ export {
   type UserCardVariant,
 } from "./user-card";
 
+export {
+  ApiTracker,
+  type ApiTrackerProps,
+} from "./api-tracker";
+
 // Data Hooks
 export {
   useHiveAccount,
