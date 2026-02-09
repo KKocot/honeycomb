@@ -2,6 +2,9 @@ import type { Config } from "tailwindcss";
 import animate from "tailwindcss-animate";
 
 const config: Config = {
+  darkMode: "class",
+  // Preserve .dark class - not detected by JIT (no dark:* utilities used)
+  safelist: ["dark"],
   content: [
     "./src/**/*.{ts,tsx}",
     "../../packages/solid/src/**/*.{ts,tsx}",

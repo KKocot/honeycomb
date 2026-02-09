@@ -13,9 +13,9 @@
   },
   "dependencies": {
     "@kkocot/honeycomb-react": "workspace:*",
-    "next": "^15.5.9",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "next": "^15.5.12",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",

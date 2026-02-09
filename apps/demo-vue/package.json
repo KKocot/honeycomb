@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@kkocot/honeycomb-vue": "workspace:*",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "vue": "^3.5.0"
   },
   "devDependencies": {
