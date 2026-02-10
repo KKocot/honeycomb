@@ -7,6 +7,7 @@ const config: Config = {
   safelist: ["dark"],
   content: [
     "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
     "../../packages/react/src/**/*.{ts,tsx}",
   ],
   theme: {
