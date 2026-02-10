@@ -24,6 +24,7 @@ export const docsConfig: NavSection[] = [
     title: "Configuration",
     items: [
       { title: "Hive Provider", href: "/react/hive-provider" },
+      { title: "Hooks", href: "/react/hooks" },
       { title: "Theming", href: "/theming" },
       { title: "API Tracker", href: "/components/api-tracker" },
     ],

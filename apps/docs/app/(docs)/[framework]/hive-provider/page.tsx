@@ -372,10 +372,10 @@ export default async function HiveProviderPage({ params }: PageProps) {
           Installation
         </Link>
         <Link
-          href="/theming"
+          href={`/${framework}/hooks`}
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
         >
-          Theming
+          Hooks
           <ArrowRight className="h-4 w-4" />
         </Link>
       </section>
