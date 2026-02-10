@@ -8,6 +8,7 @@ import {
   provide,
   inject,
   ref,
+  shallowRef,
   onMounted,
   onUnmounted,
   type InjectionKey,
@@ -104,7 +105,7 @@ export const HiveProvider = defineComponent({
   },
   setup(props, { slots }) {
     // Reactive state
-    const chain = ref<IHiveChainInterface | null>(null);
+    const chain = shallowRef<IHiveChainInterface | null>(null);
     const is_loading = ref(true);
     const error = ref<string | null>(null);
     const api_endpoint = ref<string | null>(null);

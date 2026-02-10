@@ -101,6 +101,11 @@ export const HiveProvider: ParentComponent<HiveProviderProps> = (props) => {
     error: null,
   });
 
+  // Reactive chain reference
+  const [chain_ref, set_chain_ref] = createSignal<IHiveChainInterface | null>(
+    null
+  );
+
   // Store HiveClient instance reference
   let client_instance: HiveClient | null = null;
 
@@ -131,24 +136,31 @@ export const HiveProvider: ParentComponent<HiveProviderProps> = (props) => {
     // Subscribe to state changes
     const unsubscribe = client_instance.subscribe((state) => {
       set_client_state(state);
+      set_chain_ref(client_instance?.chain ?? null);
     });
 
     // Connect to Hive blockchain
-    client_instance.connect().catch(() => {
-      // Errors are handled via state subscription
-    });
+    client_instance
+      .connect()
+      .then(() => {
+        set_chain_ref(client_instance?.chain ?? null);
+      })
+      .catch(() => {
+        // Errors are handled via state subscription
+      });
 
     // Cleanup on unmount
     onCleanup(() => {
       unsubscribe();
       client_instance?.disconnect();
       client_instance = null;
+      set_chain_ref(null);
     });
   });
 
   // Memoize context value with signal getters
   const value = createMemo<HiveContextValue>(() => ({
-    chain: () => client_instance?.chain || null,
+    chain: () => chain_ref(),
     isLoading: () => {
       const state = client_state();
       return state.status === "connecting" || state.status === "reconnecting";

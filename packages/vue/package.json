@@ -31,12 +31,14 @@
     "clean": "rm -rf dist"
   },
   "peerDependencies": {
-    "vue": ">=3.3.0",
+    "vue": ">=3.5.0",
     "@hiveio/wax": ">=1.28.0"
   },
   "dependencies": {
     "@kkocot/honeycomb-core": "workspace:*",
-    "radix-vue": "^1.9.0"
+    "radix-vue": "^1.9.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "vue": "^3.5.0",

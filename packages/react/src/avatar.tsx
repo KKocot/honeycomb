@@ -64,11 +64,12 @@ export function HiveAvatar({
   showBorder = false,
   fallbackColor,
 }: HiveAvatarProps) {
+  const safe_username = username || "?";
   const [hasError, setHasError] = useState(false);
 
-  const initials = username.slice(0, 2).toUpperCase();
-  const imageUrl = `https://images.hive.blog/u/${username}/avatar`;
-  const backgroundColor = fallbackColor || generateColorFromUsername(username);
+  const initials = safe_username.slice(0, 2).toUpperCase();
+  const imageUrl = `https://images.hive.blog/u/${safe_username}/avatar`;
+  const backgroundColor = fallbackColor || generateColorFromUsername(safe_username);
 
   const baseClasses = cn(
     sizeClasses[size],
@@ -85,7 +86,9 @@ export function HiveAvatar({
           "flex items-center justify-center text-white font-medium"
         )}
         style={{ backgroundColor }}
-        title={`@${username}`}
+        title={`@${safe_username}`}
+        role="img"
+        aria-label={`Avatar of @${safe_username}`}
       >
         <span className={textSizeClasses[size]}>{initials}</span>
       </div>
@@ -95,8 +98,8 @@ export function HiveAvatar({
   return (
     <img
       src={imageUrl}
-      alt={`@${username}`}
-      title={`@${username}`}
+      alt={`@${safe_username}`}
+      title={`@${safe_username}`}
       onError={() => setHasError(true)}
       className={cn(baseClasses, "object-cover")}
     />

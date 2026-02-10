@@ -14,8 +14,20 @@ export {
   type HiveContextValue,
 } from "./hive-provider.js";
 
+// Account composable
+export {
+  useHiveAccount,
+  type HiveAccount,
+  type UseHiveAccountResult,
+} from "./use-hive-account.js";
+
 // Components
 export { ApiTracker, type ApiTrackerProps } from "./api-tracker.js";
+export {
+  HiveAvatar,
+  type HiveAvatarProps,
+  type AvatarSize,
+} from "./avatar.js";
 
 // Re-export core types
 export type {

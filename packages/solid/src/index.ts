@@ -15,8 +15,20 @@ export {
   type HiveProviderProps,
 } from "./hive-provider";
 
+// Account Hook
+export {
+  useHiveAccount,
+  type HiveAccount,
+  type UseHiveAccountResult,
+} from "./use-hive-account";
+
 // Display Components
 export { ApiTracker, type ApiTrackerProps } from "./api-tracker";
+export {
+  HiveAvatar,
+  type HiveAvatarProps,
+  type AvatarSize,
+} from "./avatar";
 
 // Re-export core types
 export type {
