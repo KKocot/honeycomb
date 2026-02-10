@@ -21,15 +21,15 @@ export interface ApiTrackerProps {
 function get_status_color(s: string): string {
   switch (s) {
     case "connected":
-      return "bg-green-500";
+      return "bg-hive-success";
     case "connecting":
     case "reconnecting":
-      return "bg-yellow-500 animate-pulse";
+      return "bg-hive-warning animate-pulse";
     case "error":
     case "disconnected":
-      return "bg-red-500";
+      return "bg-hive-destructive";
     default:
-      return "bg-gray-500";
+      return "bg-hive-muted-foreground";
   }
 }
 
@@ -89,7 +89,7 @@ export const ApiTracker = defineComponent({
 
       const status_text = h(
         "span",
-        { class: "text-sm text-foreground capitalize" },
+        { class: "text-sm text-hive-foreground capitalize" },
         ctx.status.value
       );
 
@@ -97,7 +97,7 @@ export const ApiTracker = defineComponent({
         props.showUrl && ctx.apiEndpoint.value
           ? h(
               "span",
-              { class: "text-xs text-muted-foreground font-mono truncate max-w-[200px]" },
+              { class: "text-xs text-hive-muted-foreground font-mono truncate max-w-[200px]" },
               format_url(ctx.apiEndpoint.value)
             )
           : null;
@@ -121,7 +121,7 @@ export const ApiTracker = defineComponent({
               h("h3", { class: "text-sm font-semibold" }, "API Endpoints"),
               h(
                 "p",
-                { class: "text-xs text-muted-foreground" },
+                { class: "text-xs text-hive-muted-foreground" },
                 `${healthy_count}/${ctx.endpoints.value.length} healthy`
               ),
             ]),
@@ -132,7 +132,7 @@ export const ApiTracker = defineComponent({
                 onClick: handle_refresh,
                 disabled: is_refreshing.value,
                 class:
-                  "text-xs text-muted-foreground hover:text-foreground disabled:opacity-50 cursor-pointer",
+                  "text-xs text-hive-muted-foreground hover:text-hive-foreground disabled:opacity-50 cursor-pointer",
               },
               is_refreshing.value ? "Checking..." : "Refresh"
             ),
@@ -147,7 +147,7 @@ export const ApiTracker = defineComponent({
                 h(
                   "p",
                   {
-                    class: "text-xs text-muted-foreground text-center py-4",
+                    class: "text-xs text-hive-muted-foreground text-center py-4",
                   },
                   "No endpoints configured"
                 ),
@@ -157,7 +157,7 @@ export const ApiTracker = defineComponent({
                   "div",
                   {
                     class:
-                      "flex items-start justify-between gap-2 py-2 border-b border-border last:border-0",
+                      "flex items-start justify-between gap-2 py-2 border-b border-hive-border last:border-0",
                   },
                   [
                     h(
@@ -165,7 +165,7 @@ export const ApiTracker = defineComponent({
                       { class: "flex items-start gap-2 flex-1 min-w-0" },
                       [
                         h("div", {
-                          class: `w-2 h-2 rounded-full mt-1 ${endpoint.healthy ? "bg-green-500" : "bg-red-500"}`,
+                          class: `w-2 h-2 rounded-full mt-1 ${endpoint.healthy ? "bg-hive-success" : "bg-hive-destructive"}`,
                         }),
                         h("div", { class: "flex-1 min-w-0" }, [
                           h(
@@ -175,13 +175,13 @@ export const ApiTracker = defineComponent({
                           ),
                           h(
                             "p",
-                            { class: "text-xs text-muted-foreground mt-0.5" },
+                            { class: "text-xs text-hive-muted-foreground mt-0.5" },
                             `Last check: ${format_time(endpoint.lastCheck)}`
                           ),
                           endpoint.lastError
                             ? h(
                                 "p",
-                                { class: "text-xs text-red-500 mt-0.5 truncate" },
+                                { class: "text-xs text-hive-destructive mt-0.5 truncate" },
                                 endpoint.lastError
                               )
                             : null,
@@ -194,8 +194,8 @@ export const ApiTracker = defineComponent({
                       {
                         class: `text-xs px-2 py-0.5 rounded shrink-0 ${
                           endpoint.healthy
-                            ? "bg-green-500/10 text-green-500"
-                            : "bg-red-500/10 text-red-500"
+                            ? "bg-hive-success/10 text-hive-success"
+                            : "bg-hive-destructive/10 text-hive-destructive"
                         }`,
                       },
                       endpoint.healthy ? "Healthy" : "Unhealthy"
@@ -218,7 +218,7 @@ export const ApiTracker = defineComponent({
               {
                 asChild: false,
                 class:
-                  "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card cursor-pointer hover:bg-muted/50 transition-colors",
+                  "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-hive-border bg-hive-card cursor-pointer hover:bg-hive-muted/50 transition-colors",
               },
               { default: () => trigger_content }
             ),
@@ -231,7 +231,7 @@ export const ApiTracker = defineComponent({
                     sideOffset: 8,
                     align: "start",
                     class:
-                      "z-50 w-80 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",
+                      "z-50 w-80 rounded-md border bg-hive-popover p-4 text-hive-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",
                   },
                   { default: () => tooltip_content }
                 ),

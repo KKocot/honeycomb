@@ -12,15 +12,15 @@ export interface ApiTrackerProps {
 const get_status_color = (s: ConnectionStatus): string => {
   switch (s) {
     case "connected":
-      return "bg-green-500";
+      return "bg-hive-success";
     case "connecting":
     case "reconnecting":
-      return "bg-yellow-500 animate-pulse";
+      return "bg-hive-warning animate-pulse";
     case "error":
     case "disconnected":
-      return "bg-red-500";
+      return "bg-hive-destructive";
     default:
-      return "bg-gray-500";
+      return "bg-hive-muted-foreground";
   }
 };
 
@@ -76,7 +76,7 @@ export const ApiTracker: Component<ApiTrackerProps> = (props) => {
       onOpenChange={handle_open_change}
     >
       <Popover.Trigger
-        class={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card cursor-pointer hover:bg-muted/50 transition-colors ${props.class || ""}`}
+        class={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-hive-border bg-hive-card cursor-pointer hover:bg-hive-muted/50 transition-colors ${props.class || ""}`}
       >
         <div
           classList={{
@@ -85,21 +85,21 @@ export const ApiTracker: Component<ApiTrackerProps> = (props) => {
           }}
         />
 
-        <span class="text-sm text-foreground capitalize">{hive.status()}</span>
+        <span class="text-sm text-hive-foreground capitalize">{hive.status()}</span>
 
         <Show when={current_endpoint()}>
-          <span class="text-xs text-muted-foreground font-mono truncate max-w-[200px]">
+          <span class="text-xs text-hive-muted-foreground font-mono truncate max-w-[200px]">
             {current_endpoint()}
           </span>
         </Show>
       </Popover.Trigger>
 
       <Popover.Portal>
-        <Popover.Content class="z-50 w-80 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[expanded]:animate-in data-[expanded]:fade-in-0 data-[expanded]:zoom-in-95">
+        <Popover.Content class="z-50 w-80 rounded-md border bg-hive-popover p-4 text-hive-popover-foreground shadow-md outline-none data-[expanded]:animate-in data-[expanded]:fade-in-0 data-[expanded]:zoom-in-95">
           <div class="flex items-center justify-between mb-3">
             <div>
               <h3 class="text-sm font-semibold">API Endpoints</h3>
-              <p class="text-xs text-muted-foreground">
+              <p class="text-xs text-hive-muted-foreground">
                 {healthy_count()}/{hive.endpoints().length} healthy
               </p>
             </div>
@@ -107,7 +107,7 @@ export const ApiTracker: Component<ApiTrackerProps> = (props) => {
               type="button"
               onClick={handle_refresh}
               disabled={is_refreshing()}
-              class="text-xs text-muted-foreground hover:text-foreground disabled:opacity-50 cursor-pointer"
+              class="text-xs text-hive-muted-foreground hover:text-hive-foreground disabled:opacity-50 cursor-pointer"
             >
               <Show when={is_refreshing()} fallback="Refresh">
                 Checking...
@@ -118,24 +118,24 @@ export const ApiTracker: Component<ApiTrackerProps> = (props) => {
           <div class="space-y-0">
             <For each={hive.endpoints()}>
               {(endpoint) => (
-                <div class="flex items-start justify-between gap-2 py-2 border-b border-border last:border-0">
+                <div class="flex items-start justify-between gap-2 py-2 border-b border-hive-border last:border-0">
                   <div class="flex items-start gap-2 flex-1 min-w-0">
                     <div
                       classList={{
                         "w-2 h-2 rounded-full mt-1": true,
-                        "bg-green-500": endpoint.healthy,
-                        "bg-red-500": !endpoint.healthy,
+                        "bg-hive-success": endpoint.healthy,
+                        "bg-hive-destructive": !endpoint.healthy,
                       }}
                     />
                     <div class="flex-1 min-w-0">
                       <div class="text-xs font-mono truncate">
                         {format_url(endpoint.url)}
                       </div>
-                      <p class="text-xs text-muted-foreground mt-0.5">
+                      <p class="text-xs text-hive-muted-foreground mt-0.5">
                         Last check: {format_time(endpoint.lastCheck)}
                       </p>
                       <Show when={endpoint.lastError}>
-                        <p class="text-xs text-red-500 mt-0.5 truncate">
+                        <p class="text-xs text-hive-destructive mt-0.5 truncate">
                           {endpoint.lastError}
                         </p>
                       </Show>
@@ -144,8 +144,8 @@ export const ApiTracker: Component<ApiTrackerProps> = (props) => {
                   <span
                     classList={{
                       "text-xs px-2 py-0.5 rounded shrink-0": true,
-                      "bg-green-500/10 text-green-500": endpoint.healthy,
-                      "bg-red-500/10 text-red-500": !endpoint.healthy,
+                      "bg-hive-success/10 text-hive-success": endpoint.healthy,
+                      "bg-hive-destructive/10 text-hive-destructive": !endpoint.healthy,
                     }}
                   >
                     {endpoint.healthy ? "Healthy" : "Unhealthy"}
@@ -154,7 +154,7 @@ export const ApiTracker: Component<ApiTrackerProps> = (props) => {
               )}
             </For>
             <Show when={hive.endpoints().length === 0}>
-              <p class="text-xs text-muted-foreground text-center py-4">
+              <p class="text-xs text-hive-muted-foreground text-center py-4">
                 No endpoints configured
               </p>
             </Show>

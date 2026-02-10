@@ -15,15 +15,15 @@ export interface ApiTrackerProps {
 const get_status_color = (s: ConnectionStatus): string => {
   switch (s) {
     case "connected":
-      return "bg-green-500";
+      return "bg-hive-success";
     case "connecting":
     case "reconnecting":
-      return "bg-yellow-500 animate-pulse";
+      return "bg-hive-warning animate-pulse";
     case "error":
     case "disconnected":
-      return "bg-red-500";
+      return "bg-hive-destructive";
     default:
-      return "bg-gray-500";
+      return "bg-hive-muted-foreground";
   }
 };
 
@@ -81,15 +81,15 @@ export function ApiTracker({
     <Popover.Root onOpenChange={handle_open_change}>
       <Popover.Trigger
         className={cn(
-          "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card cursor-pointer hover:bg-muted/50 transition-colors",
+          "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-hive-border bg-hive-card cursor-pointer hover:bg-hive-muted/50 transition-colors",
           className
         )}
         type="button"
       >
         <span className={cn("w-2.5 h-2.5 rounded-full", get_status_color(status))} />
-        <span className="text-sm text-foreground capitalize">{status}</span>
+        <span className="text-sm text-hive-foreground capitalize">{status}</span>
         {showUrl && api_endpoint && (
-          <span className="text-xs text-muted-foreground font-mono truncate max-w-[200px]">
+          <span className="text-xs text-hive-muted-foreground font-mono truncate max-w-[200px]">
             {format_url(api_endpoint)}
           </span>
         )}
@@ -101,7 +101,7 @@ export function ApiTracker({
           sideOffset={8}
           align="start"
           className={cn(
-            "z-50 w-80 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none",
+            "z-50 w-80 rounded-md border bg-hive-popover p-4 text-hive-popover-foreground shadow-md outline-none",
             "data-[state=open]:animate-in data-[state=closed]:animate-out",
             "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
             "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
@@ -111,14 +111,14 @@ export function ApiTracker({
           <div className="flex items-center justify-between mb-3">
             <div>
               <h3 className="text-sm font-semibold">API Endpoints</h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-hive-muted-foreground">
                 {healthy_count}/{endpoints.length} healthy
               </p>
             </div>
             <button
               onClick={handle_refresh}
               disabled={is_refreshing}
-              className="text-xs text-muted-foreground hover:text-foreground cursor-pointer disabled:opacity-50"
+              className="text-xs text-hive-muted-foreground hover:text-hive-foreground cursor-pointer disabled:opacity-50"
               type="button"
             >
               {is_refreshing ? "Checking..." : "Refresh"}
@@ -129,24 +129,24 @@ export function ApiTracker({
             {endpoints.map((endpoint) => (
               <div
                 key={endpoint.url}
-                className="flex items-start justify-between gap-2 py-2 border-b border-border last:border-0"
+                className="flex items-start justify-between gap-2 py-2 border-b border-hive-border last:border-0"
               >
                 <div className="flex items-start gap-2 flex-1 min-w-0">
                   <span
                     className={cn(
                       "w-2 h-2 rounded-full mt-1",
-                      endpoint.healthy ? "bg-green-500" : "bg-red-500"
+                      endpoint.healthy ? "bg-hive-success" : "bg-hive-destructive"
                     )}
                   />
                   <div className="flex-1 min-w-0">
                     <div className="text-xs font-mono truncate">
                       {format_url(endpoint.url)}
                     </div>
-                    <p className="text-xs text-muted-foreground mt-0.5">
+                    <p className="text-xs text-hive-muted-foreground mt-0.5">
                       Last check: {format_time(endpoint.lastCheck)}
                     </p>
                     {endpoint.lastError && (
-                      <p className="text-xs text-red-500 mt-0.5 truncate">
+                      <p className="text-xs text-hive-destructive mt-0.5 truncate">
                         {endpoint.lastError}
                       </p>
                     )}
@@ -156,8 +156,8 @@ export function ApiTracker({
                   className={cn(
                     "text-xs px-2 py-0.5 rounded shrink-0",
                     endpoint.healthy
-                      ? "bg-green-500/10 text-green-500"
-                      : "bg-red-500/10 text-red-500"
+                      ? "bg-hive-success/10 text-hive-success"
+                      : "bg-hive-destructive/10 text-hive-destructive"
                   )}
                 >
                   {endpoint.healthy ? "Healthy" : "Unhealthy"}
@@ -167,7 +167,7 @@ export function ApiTracker({
           </div>
 
           {endpoints.length === 0 && (
-            <p className="text-xs text-muted-foreground text-center py-4">
+            <p className="text-xs text-hive-muted-foreground text-center py-4">
               No endpoints configured
             </p>
           )}
