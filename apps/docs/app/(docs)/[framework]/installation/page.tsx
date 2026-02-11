@@ -189,7 +189,7 @@ export default async function InstallationPage({ params }: PageProps) {
             HiveProvider
           </Link>{" "}
           and{" "}
-          <Link href="/components/api-tracker" className="text-hive-red hover:underline">
+          <Link href={`/${framework}/api-tracker`} className="text-hive-red hover:underline">
             API Tracker
           </Link>{" "}
           for details.
@@ -216,7 +216,7 @@ export default async function InstallationPage({ params }: PageProps) {
 
         <div className="flex gap-4">
           <Link
-            href="/components/avatar"
+            href={`/${framework}/avatar`}
             className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
           >
             Browse Components

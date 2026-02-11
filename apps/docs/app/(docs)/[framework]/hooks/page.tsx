@@ -366,7 +366,7 @@ export default async function HooksPage({ params }: PageProps) {
           Hive Provider
         </Link>
         <Link
-          href="/theming"
+          href={`/${framework}/theming`}
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
         >
           Theming

@@ -17,14 +17,14 @@ export default function LandingPage() {
         </p>
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
           <Link
-            href="/introduction"
+            href="/react/introduction"
             className="inline-flex items-center justify-center gap-2 rounded-lg bg-hive-red px-6 py-3 text-base font-medium text-white transition-colors hover:bg-hive-red/90"
           >
             Get Started
             <ArrowRight className="h-5 w-5" />
           </Link>
           <Link
-            href="/components/avatar"
+            href="/react/avatar"
             className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-6 py-3 text-base font-medium transition-colors hover:bg-muted"
           >
             Browse Components

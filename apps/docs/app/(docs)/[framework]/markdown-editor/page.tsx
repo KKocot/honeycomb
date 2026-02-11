@@ -1,69 +1,35 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Info, Smile, Highlighter, Table, Image, Code, List } from "lucide-react";
+import {
+  ArrowLeft,
+  Info,
+  Smile,
+  Highlighter,
+  Table,
+  Image,
+  Code,
+  List,
+} from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
+import { parseFramework } from "@/lib/framework";
+import { CODE } from "./markdown_editor_data";
 
-const CODE = {
-  install: `pnpm add md-editor-rt @vavt/rt-extension @vavt/cm-extension lucide-react`,
-  basic: `import { HiveMarkdownEditor } from "@/components/hive/content";
-import { useState } from "react";
+interface PageProps {
+  params: Promise<{ framework: string }>;
+}
 
-function Editor() {
-  const [content, setContent] = useState("");
+export default async function MarkdownEditorPage({ params }: PageProps) {
+  const { framework: raw_framework } = await params;
+  const framework = parseFramework(raw_framework);
 
-  return (
-    <HiveMarkdownEditor
-      value={content}
-      onChange={setContent}
-    />
-  );
-}`,
-  withTheme: `// Sync with your app's theme
-import { useTheme } from "next-themes";
-
-function ThemedEditor() {
-  const [content, setContent] = useState("");
-  const { resolvedTheme } = useTheme();
-
-  return (
-    <HiveMarkdownEditor
-      value={content}
-      onChange={setContent}
-      theme={resolvedTheme === "dark" ? "dark" : "light"}
-    />
-  );
-}`,
-  fullHeight: `// Full height editor
-<div className="h-[500px]">
-  <HiveMarkdownEditor
-    value={content}
-    onChange={setContent}
-    className="!h-full"
-  />
-</div>`,
-  withRenderer: `// Editor with live preview using ContentRenderer
-import { HiveMarkdownEditor, HiveContentRenderer } from "@/components/hive/content";
-
-function EditorWithPreview() {
-  const [content, setContent] = useState("");
-
-  return (
-    <div className="grid grid-cols-2 gap-4 h-[600px]">
-      <HiveMarkdownEditor value={content} onChange={setContent} />
-      <div className="overflow-auto border rounded-lg p-4">
-        <HiveContentRenderer content={content} />
-      </div>
-    </div>
-  );
-}`,
-};
-
-export default async function MarkdownEditorPage() {
   return (
     <article className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">HiveMarkdownEditor</h1>
+        <h1 className="text-3xl font-bold tracking-tight">
+          HiveMarkdownEditor
+        </h1>
         <p className="mt-2 text-lg text-muted-foreground">
-          Full-featured Markdown editor with emoji picker, highlighter, and Hive-specific toolbars.
+          Full-featured Markdown editor with emoji picker, highlighter, and
+          Hive-specific toolbars.
         </p>
       </div>
 
@@ -72,32 +38,44 @@ export default async function MarkdownEditorPage() {
         <div className="rounded-lg border border-border p-4">
           <Smile className="h-5 w-5 text-hive-red mb-2" />
           <h3 className="font-medium">Emoji Picker</h3>
-          <p className="text-sm text-muted-foreground">Built-in emoji support</p>
+          <p className="text-sm text-muted-foreground">
+            Built-in emoji support
+          </p>
         </div>
         <div className="rounded-lg border border-border p-4">
           <Highlighter className="h-5 w-5 text-hive-red mb-2" />
           <h3 className="font-medium">Text Highlighting</h3>
-          <p className="text-sm text-muted-foreground">Mark text with colors</p>
+          <p className="text-sm text-muted-foreground">
+            Mark text with colors
+          </p>
         </div>
         <div className="rounded-lg border border-border p-4">
           <Table className="h-5 w-5 text-hive-red mb-2" />
           <h3 className="font-medium">Tables</h3>
-          <p className="text-sm text-muted-foreground">Easy table insertion</p>
+          <p className="text-sm text-muted-foreground">
+            Easy table insertion
+          </p>
         </div>
         <div className="rounded-lg border border-border p-4">
           <Image className="h-5 w-5 text-hive-red mb-2" />
           <h3 className="font-medium">Images</h3>
-          <p className="text-sm text-muted-foreground">Image & link insertion</p>
+          <p className="text-sm text-muted-foreground">
+            Image & link insertion
+          </p>
         </div>
         <div className="rounded-lg border border-border p-4">
           <Code className="h-5 w-5 text-hive-red mb-2" />
           <h3 className="font-medium">Code Blocks</h3>
-          <p className="text-sm text-muted-foreground">Syntax highlighted code</p>
+          <p className="text-sm text-muted-foreground">
+            Syntax highlighted code
+          </p>
         </div>
         <div className="rounded-lg border border-border p-4">
           <List className="h-5 w-5 text-hive-red mb-2" />
           <h3 className="font-medium">Full Toolbar</h3>
-          <p className="text-sm text-muted-foreground">All formatting options</p>
+          <p className="text-sm text-muted-foreground">
+            All formatting options
+          </p>
         </div>
       </section>
 
@@ -109,7 +87,8 @@ export default async function MarkdownEditorPage() {
             <p className="font-medium text-blue-500">Based on md-editor-rt</p>
             <p className="mt-1 text-sm text-muted-foreground">
               Uses md-editor-rt under the hood - a React markdown editor with
-              rich toolbar support, preview mode, and extensive customization options.
+              rich toolbar support, preview mode, and extensive customization
+              options.
             </p>
           </div>
         </div>
@@ -124,7 +103,10 @@ export default async function MarkdownEditorPage() {
       {/* Usage */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Usage</h2>
-        <CodeBlock code={CODE.basic} language="tsx" />
+        <CodeBlock
+          code={CODE.basic[framework]}
+          language={framework === "vue" ? "vue" : "tsx"}
+        />
       </section>
 
       {/* Preview */}
@@ -134,13 +116,32 @@ export default async function MarkdownEditorPage() {
           <div className="rounded-lg border border-border overflow-hidden">
             {/* Toolbar Preview */}
             <div className="flex items-center gap-1 px-2 py-2 border-b border-border bg-muted/30 flex-wrap">
-              {["H", "B", "U", "I", "—", "S", "sub", "sup", "❝", "•", "1.", "☐", "◇"].map((item, i) => (
-                <button key={i} className="p-2 rounded hover:bg-muted text-muted-foreground text-xs font-mono">
+              {[
+                "H",
+                "B",
+                "U",
+                "I",
+                "---",
+                "S",
+                "sub",
+                "sup",
+                "\"",
+                "o",
+                "1.",
+                "x",
+                "<>",
+              ].map((item, i) => (
+                <button
+                  key={i}
+                  className="p-2 rounded hover:bg-muted text-muted-foreground text-xs font-mono"
+                >
                   {item}
                 </button>
               ))}
               <div className="w-px h-5 bg-border mx-1" />
-              <button className="p-2 rounded hover:bg-muted text-muted-foreground">😀</button>
+              <button className="p-2 rounded hover:bg-muted text-muted-foreground">
+                :)
+              </button>
               <button className="p-2 rounded hover:bg-muted text-muted-foreground">
                 <Highlighter className="h-4 w-4" />
               </button>
@@ -168,23 +169,49 @@ export default async function MarkdownEditorPage() {
             </thead>
             <tbody className="divide-y divide-border">
               <tr>
-                <td className="py-3 px-4"><code>value</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>&quot;&quot;</code></td>
+                <td className="py-3 px-4">
+                  <code>
+                    {framework === "vue" ? "v-model / modelValue" : "value"}
+                  </code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>string</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>&quot;&quot;</code>
+                </td>
+              </tr>
+              {framework !== "vue" && (
+                <tr>
+                  <td className="py-3 px-4">
+                    <code>onChange</code>
+                  </td>
+                  <td className="py-3 px-4 text-muted-foreground">
+                    <code>(value: string) =&gt; void</code>
+                  </td>
+                  <td className="py-3 px-4 text-muted-foreground">-</td>
+                </tr>
+              )}
+              <tr>
+                <td className="py-3 px-4">
+                  <code>theme</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>&quot;light&quot; | &quot;dark&quot;</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>&quot;dark&quot;</code>
+                </td>
               </tr>
               <tr>
-                <td className="py-3 px-4"><code>onChange</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>(value: string) =&gt; void</code></td>
-                <td className="py-3 px-4 text-muted-foreground">-</td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4"><code>theme</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>&quot;light&quot; | &quot;dark&quot;</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>&quot;dark&quot;</code></td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4"><code>className</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
+                <td className="py-3 px-4">
+                  <code>
+                    {framework === "react" ? "className" : "class"}
+                  </code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>string</code>
+                </td>
                 <td className="py-3 px-4 text-muted-foreground">-</td>
               </tr>
             </tbody>
@@ -194,7 +221,9 @@ export default async function MarkdownEditorPage() {
 
       {/* Toolbar */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">Available Toolbar Items</h2>
+        <h2 className="text-xl font-semibold mb-4">
+          Available Toolbar Items
+        </h2>
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {[
             "title - Heading levels",
@@ -235,15 +264,26 @@ export default async function MarkdownEditorPage() {
         <div className="space-y-6">
           <div>
             <h3 className="text-sm font-medium mb-2">With theme support</h3>
-            <CodeBlock code={CODE.withTheme} language="tsx" />
+            <CodeBlock
+              code={CODE.withTheme[framework]}
+              language={framework === "vue" ? "vue" : "tsx"}
+            />
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Full height editor</h3>
-            <CodeBlock code={CODE.fullHeight} language="tsx" />
+            <CodeBlock
+              code={CODE.fullHeight[framework]}
+              language={framework === "vue" ? "vue" : "tsx"}
+            />
           </div>
           <div>
-            <h3 className="text-sm font-medium mb-2">Editor with live preview</h3>
-            <CodeBlock code={CODE.withRenderer} language="tsx" />
+            <h3 className="text-sm font-medium mb-2">
+              Editor with live preview
+            </h3>
+            <CodeBlock
+              code={CODE.withRenderer[framework]}
+              language={framework === "vue" ? "vue" : "tsx"}
+            />
           </div>
         </div>
       </section>
@@ -252,8 +292,8 @@ export default async function MarkdownEditorPage() {
       <section>
         <h2 className="text-xl font-semibold mb-4">CSS Requirements</h2>
         <p className="text-sm text-muted-foreground mb-4">
-          The editor requires CSS imports for proper styling. These are automatically
-          included when you import the component.
+          The editor requires CSS imports for proper styling. These are
+          automatically included when you import the component.
         </p>
         <CodeBlock
           code={`// These are imported automatically by HiveMarkdownEditor
@@ -267,7 +307,7 @@ import "@vavt/rt-extension/lib/asset/Mark.css";`}
       {/* Navigation */}
       <section className="flex items-center justify-between">
         <Link
-          href="/components/content-renderer"
+          href={`/${framework}/content-renderer`}
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
         >
           <ArrowLeft className="h-4 w-4" />

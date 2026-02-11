@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Info } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
+import { parseFramework } from "@/lib/framework";
 
 const CODE = {
-  react: `import { ApiTracker } from "@kkocot/honeycomb-react";
+  basic: {
+    react: `import { ApiTracker } from "@kkocot/honeycomb-react";
 
 function App() {
   return (
@@ -12,8 +14,7 @@ function App() {
     </div>
   );
 }`,
-  reactShowUrl: `<ApiTracker showUrl side="bottom" />`,
-  solid: `import { ApiTracker } from "@kkocot/honeycomb-solid";
+    solid: `import { ApiTracker } from "@kkocot/honeycomb-solid";
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
     </div>
   );
 }`,
-  vue: `<template>
+    vue: `<template>
   <div>
     <ApiTracker />
   </div>
@@ -31,10 +32,22 @@ function App() {
 <script setup lang="ts">
 import { ApiTracker } from "@kkocot/honeycomb-vue";
 </script>`,
-  vueProps: `<ApiTracker :show-url="true" side="bottom" />`,
+  },
+  showUrl: {
+    react: `<ApiTracker showUrl side="bottom" />`,
+    solid: `<ApiTracker showUrl side="bottom" />`,
+    vue: `<ApiTracker :show-url="true" side="bottom" />`,
+  },
 };
 
-export default async function ApiTrackerPage() {
+interface PageProps {
+  params: Promise<{ framework: string }>;
+}
+
+export default async function ApiTrackerPage({ params }: PageProps) {
+  const { framework: raw_framework } = await params;
+  const framework = parseFramework(raw_framework);
+
   return (
     <article className="space-y-8">
       <div>
@@ -90,20 +103,15 @@ export default async function ApiTrackerPage() {
       {/* Usage */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Usage</h2>
-        <div className="space-y-6">
-          <div>
-            <h3 className="text-sm font-medium mb-2">React</h3>
-            <CodeBlock code={CODE.react} language="tsx" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Solid.js</h3>
-            <CodeBlock code={CODE.solid} language="tsx" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Vue 3</h3>
-            <CodeBlock code={CODE.vue} language="vue" />
-          </div>
-        </div>
+        {framework === "react" && (
+          <CodeBlock code={CODE.basic.react} language="tsx" />
+        )}
+        {framework === "solid" && (
+          <CodeBlock code={CODE.basic.solid} language="tsx" />
+        )}
+        {framework === "vue" && (
+          <CodeBlock code={CODE.basic.vue} language="vue" />
+        )}
       </section>
 
       {/* Props */}
@@ -116,7 +124,9 @@ export default async function ApiTrackerPage() {
                 <th className="py-3 px-4 text-left font-semibold">Prop</th>
                 <th className="py-3 px-4 text-left font-semibold">Type</th>
                 <th className="py-3 px-4 text-left font-semibold">Default</th>
-                <th className="py-3 px-4 text-left font-semibold">Description</th>
+                <th className="py-3 px-4 text-left font-semibold">
+                  Description
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
@@ -165,21 +175,23 @@ export default async function ApiTrackerPage() {
         </div>
       </section>
 
-      {/* With URL Example */}
+      {/* Examples */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Examples</h2>
         <div className="space-y-6">
           <div>
             <h3 className="text-sm font-medium mb-2">
-              Show endpoint URL in pill (React)
+              Show endpoint URL in pill
             </h3>
-            <CodeBlock code={CODE.reactShowUrl} language="tsx" />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">
-              Vue prop syntax
-            </h3>
-            <CodeBlock code={CODE.vueProps} language="vue" />
+            {framework === "react" && (
+              <CodeBlock code={CODE.showUrl.react} language="tsx" />
+            )}
+            {framework === "solid" && (
+              <CodeBlock code={CODE.showUrl.solid} language="tsx" />
+            )}
+            {framework === "vue" && (
+              <CodeBlock code={CODE.showUrl.vue} language="vue" />
+            )}
           </div>
         </div>
       </section>
@@ -187,14 +199,14 @@ export default async function ApiTrackerPage() {
       {/* Navigation */}
       <section className="flex items-center justify-between">
         <Link
-          href="/theming"
+          href={`/${framework}/theming`}
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
         >
           <ArrowLeft className="h-4 w-4" />
           Theming
         </Link>
         <Link
-          href="/components/avatar"
+          href={`/${framework}/avatar`}
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
         >
           Avatar

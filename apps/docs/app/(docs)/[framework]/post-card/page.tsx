@@ -1,64 +1,33 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Info, MessageCircle, ThumbsUp, Clock, Share, User } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Info,
+  MessageCircle,
+  ThumbsUp,
+  Clock,
+  Share,
+  User,
+} from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
+import { parseFramework } from "@/lib/framework";
+import { CODE } from "./post_card_data";
 
-const CODE = {
-  basic: `import { HivePostCard } from "@/components/hive";
+interface PageProps {
+  params: Promise<{ framework: string }>;
+}
 
-function PostFeed() {
-  return (
-    <HivePostCard
-      author="barddev"
-      permlink="my-first-post"
-    />
-  );
-}`,
-  variants: `// Card (default)
-<HivePostCard author="barddev" permlink="post" variant="card" />
+export default async function PostCardPage({ params }: PageProps) {
+  const { framework: raw_framework } = await params;
+  const framework = parseFramework(raw_framework);
 
-// Compact
-<HivePostCard author="barddev" permlink="post" variant="compact" />
-
-// Grid
-<HivePostCard author="barddev" permlink="post" variant="grid" />`,
-  hideElements: `// Hide specific elements
-<HivePostCard
-  author="barddev"
-  permlink="my-post"
-  hide={["author", "thumbnail", "payout"]}
-/>
-
-// Available options: "author" | "thumbnail" | "payout" | "votes" | "comments" | "time"`,
-  customStyle: `// Custom styling
-<HivePostCard
-  author="barddev"
-  permlink="my-post"
-  className="max-w-xl shadow-lg"
-  style={{ borderRadius: 16 }}
-/>`,
-  postList: `// Render a list of posts
-function PostList({ posts }) {
-  return (
-    <div className="space-y-4">
-      {posts.map((post) => (
-        <HivePostCard
-          key={\`\${post.author}/\${post.permlink}\`}
-          author={post.author}
-          permlink={post.permlink}
-        />
-      ))}
-    </div>
-  );
-}`,
-};
-
-export default async function PostCardPage() {
   return (
     <article className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">HivePostCard</h1>
         <p className="mt-2 text-lg text-muted-foreground">
-          Display Hive posts with title, author, content preview, stats, and metadata.
+          Display Hive posts with title, author, content preview, stats, and
+          metadata.
         </p>
       </div>
 
@@ -67,10 +36,12 @@ export default async function PostCardPage() {
         <div className="flex gap-3">
           <Info className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
           <div>
-            <p className="font-medium text-blue-500">Display-only component</p>
+            <p className="font-medium text-blue-500">
+              Display-only component
+            </p>
             <p className="mt-1 text-sm text-muted-foreground">
-              Fetches post data automatically. Displays post content, author, stats, and metadata.
-              Does not perform any blockchain transactions.
+              Fetches post data automatically. Displays post content, author,
+              stats, and metadata. Does not perform any blockchain transactions.
             </p>
           </div>
         </div>
@@ -79,7 +50,10 @@ export default async function PostCardPage() {
       {/* Usage */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Usage</h2>
-        <CodeBlock code={CODE.basic} language="tsx" />
+        <CodeBlock
+          code={CODE.basic[framework]}
+          language={framework === "vue" ? "vue" : "tsx"}
+        />
       </section>
 
       {/* Preview */}
@@ -89,7 +63,9 @@ export default async function PostCardPage() {
           <div className="space-y-6">
             {/* Card variant */}
             <div>
-              <p className="text-sm font-medium text-muted-foreground mb-2">Card (default)</p>
+              <p className="text-sm font-medium text-muted-foreground mb-2">
+                Card (default)
+              </p>
               <div className="rounded-lg border border-border p-4 max-w-lg">
                 <div className="flex items-center gap-3 mb-3">
                   <img
@@ -104,9 +80,12 @@ export default async function PostCardPage() {
                     </p>
                   </div>
                 </div>
-                <h2 className="text-lg font-bold">Building Components for Hive</h2>
+                <h2 className="text-lg font-bold">
+                  Building Components for Hive
+                </h2>
                 <p className="mt-2 text-muted-foreground text-sm line-clamp-2">
-                  Learn how to create reusable React components that interact with the Hive blockchain...
+                  Learn how to create reusable React components that interact
+                  with the Hive blockchain...
                 </p>
                 <div className="flex items-center justify-between mt-4 pt-3 border-t border-border">
                   <div className="flex items-center gap-4 text-muted-foreground">
@@ -118,21 +97,29 @@ export default async function PostCardPage() {
                     </span>
                     <Share className="h-4 w-4 cursor-pointer hover:text-foreground" />
                   </div>
-                  <span className="text-sm font-medium text-green-500">$8.45</span>
+                  <span className="text-sm font-medium text-green-500">
+                    $8.45
+                  </span>
                 </div>
               </div>
             </div>
 
             {/* Compact variant */}
             <div>
-              <p className="text-sm font-medium text-muted-foreground mb-2">Compact</p>
+              <p className="text-sm font-medium text-muted-foreground mb-2">
+                Compact
+              </p>
               <div className="flex gap-4 p-4 rounded-lg border border-border max-w-lg">
                 <div className="w-20 h-20 rounded bg-muted shrink-0 flex items-center justify-center text-2xl">
                   <User className="h-8 w-8 text-muted-foreground" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold truncate">Quick Update on Development Progress</h3>
-                  <p className="text-sm text-muted-foreground">@barddev · 5h ago</p>
+                  <h3 className="font-semibold truncate">
+                    Quick Update on Development Progress
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    @barddev · 5h ago
+                  </p>
                   <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
                     <span className="flex items-center gap-1">
                       <ThumbsUp className="h-3.5 w-3.5" /> 56
@@ -148,14 +135,20 @@ export default async function PostCardPage() {
 
             {/* Grid variant */}
             <div>
-              <p className="text-sm font-medium text-muted-foreground mb-2">Grid</p>
+              <p className="text-sm font-medium text-muted-foreground mb-2">
+                Grid
+              </p>
               <div className="rounded-lg border border-border overflow-hidden max-w-xs">
                 <div className="aspect-video bg-muted flex items-center justify-center">
                   <User className="h-12 w-12 text-muted-foreground" />
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold line-clamp-2">Hive UI Components Tutorial</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">@barddev · 1d ago</p>
+                  <h3 className="font-semibold line-clamp-2">
+                    Hive UI Components Tutorial
+                  </h3>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    @barddev · 1d ago
+                  </p>
                   <div className="flex items-center justify-between mt-3 pt-3 border-t border-border text-sm">
                     <div className="flex items-center gap-3 text-muted-foreground">
                       <span className="flex items-center gap-1">
@@ -188,33 +181,69 @@ export default async function PostCardPage() {
             </thead>
             <tbody className="divide-y divide-border">
               <tr>
-                <td className="py-3 px-4"><code>author</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
+                <td className="py-3 px-4">
+                  <code>author</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>string</code>
+                </td>
                 <td className="py-3 px-4 text-muted-foreground">required</td>
               </tr>
               <tr>
-                <td className="py-3 px-4"><code>permlink</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
+                <td className="py-3 px-4">
+                  <code>permlink</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>string</code>
+                </td>
                 <td className="py-3 px-4 text-muted-foreground">required</td>
               </tr>
               <tr>
-                <td className="py-3 px-4"><code>variant</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>{`"card" | "compact" | "grid"`}</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>"card"</code></td>
+                <td className="py-3 px-4">
+                  <code>variant</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>{`"card" | "compact" | "grid"`}</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>"card"</code>
+                </td>
               </tr>
               <tr>
-                <td className="py-3 px-4"><code>hide</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>{`("author" | "thumbnail" | "payout" | "votes" | "comments" | "time")[]`}</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>[]</code></td>
+                <td className="py-3 px-4">
+                  <code>hide</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>{`("author" | "thumbnail" | "payout" | "votes" | "comments" | "time")[]`}</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>[]</code>
+                </td>
               </tr>
               <tr>
-                <td className="py-3 px-4"><code>className</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>string</code></td>
+                <td className="py-3 px-4">
+                  <code>
+                    {framework === "react" ? "className" : "class"}
+                  </code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>string</code>
+                </td>
                 <td className="py-3 px-4 text-muted-foreground">-</td>
               </tr>
               <tr>
-                <td className="py-3 px-4"><code>style</code></td>
-                <td className="py-3 px-4 text-muted-foreground"><code>React.CSSProperties</code></td>
+                <td className="py-3 px-4">
+                  <code>style</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>
+                    {framework === "react"
+                      ? "React.CSSProperties"
+                      : framework === "solid"
+                        ? 'JSX.CSSProperties'
+                        : "StyleValue"}
+                  </code>
+                </td>
                 <td className="py-3 px-4 text-muted-foreground">-</td>
               </tr>
             </tbody>
@@ -228,19 +257,31 @@ export default async function PostCardPage() {
         <div className="space-y-6">
           <div>
             <h3 className="text-sm font-medium mb-2">Variants</h3>
-            <CodeBlock code={CODE.variants} language="tsx" />
+            <CodeBlock
+              code={CODE.variants[framework]}
+              language={framework === "vue" ? "vue" : "tsx"}
+            />
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Hide elements</h3>
-            <CodeBlock code={CODE.hideElements} language="tsx" />
+            <CodeBlock
+              code={CODE.hideElements[framework]}
+              language={framework === "vue" ? "vue" : "tsx"}
+            />
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Custom styling</h3>
-            <CodeBlock code={CODE.customStyle} language="tsx" />
+            <CodeBlock
+              code={CODE.customStyle[framework]}
+              language={framework === "vue" ? "vue" : "tsx"}
+            />
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Render post list</h3>
-            <CodeBlock code={CODE.postList} language="tsx" />
+            <CodeBlock
+              code={CODE.postList[framework]}
+              language={framework === "vue" ? "vue" : "tsx"}
+            />
           </div>
         </div>
       </section>
@@ -248,17 +289,17 @@ export default async function PostCardPage() {
       {/* Navigation */}
       <section className="flex items-center justify-between">
         <Link
-          href="/components/manabar"
+          href={`/${framework}/manabar`}
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
         >
           <ArrowLeft className="h-4 w-4" />
           Manabar
         </Link>
         <Link
-          href="/introduction"
+          href={`/${framework}/content-renderer`}
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
         >
-          Back to Docs
+          Content Renderer
           <ArrowRight className="h-4 w-4" />
         </Link>
       </section>

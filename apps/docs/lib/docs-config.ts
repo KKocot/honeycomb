@@ -16,7 +16,7 @@ export const docsConfig: NavSection[] = [
   {
     title: "Getting Started",
     items: [
-      { title: "Introduction", href: "/introduction" },
+      { title: "Introduction", href: "/react/introduction" },
       { title: "Installation", href: "/react/installation" },
     ],
   },
@@ -25,8 +25,8 @@ export const docsConfig: NavSection[] = [
     items: [
       { title: "Hive Provider", href: "/react/hive-provider" },
       { title: "Hooks", href: "/react/hooks" },
-      { title: "Theming", href: "/theming" },
-      { title: "API Tracker", href: "/components/api-tracker" },
+      { title: "Theming", href: "/react/theming" },
+      { title: "API Tracker", href: "/react/api-tracker" },
     ],
   },
   // ===========================================
@@ -36,31 +36,31 @@ export const docsConfig: NavSection[] = [
     title: "User Display",
     type: "passive",
     items: [
-      { title: "Avatar", href: "/components/avatar" },
-      { title: "User Card", href: "/components/user-card" },
+      { title: "Avatar", href: "/react/avatar" },
+      { title: "User Card", href: "/react/user-card" },
     ],
   },
   {
     title: "Wallet Display",
     type: "passive",
     items: [
-      { title: "Balance Card", href: "/components/balance-card" },
-      { title: "Manabar", href: "/components/manabar" },
+      { title: "Balance Card", href: "/react/balance-card" },
+      { title: "Manabar", href: "/react/manabar" },
     ],
   },
   {
     title: "Post Display",
     type: "passive",
     items: [
-      { title: "Post Card", href: "/components/post-card" },
+      { title: "Post Card", href: "/react/post-card" },
     ],
   },
   {
     title: "Content",
     type: "passive",
     items: [
-      { title: "Content Renderer", href: "/components/content-renderer" },
-      { title: "Markdown Editor", href: "/components/markdown-editor" },
+      { title: "Content Renderer", href: "/react/content-renderer" },
+      { title: "Markdown Editor", href: "/react/markdown-editor" },
     ],
   },
 ];

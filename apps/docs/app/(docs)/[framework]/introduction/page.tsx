@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, Blocks, Package, Zap, Activity } from "lucide-react";
+import { parseFramework } from "@/lib/framework";
 
 const SUPPORTED_TECH = [
   {
     icon: Package,
     title: "UI Frameworks",
-    items: ["React ≥19", "Solid.js", "Vue 3"],
+    items: ["React >=19", "Solid.js", "Vue 3"],
   },
   {
     icon: Blocks,
@@ -20,11 +21,18 @@ const SUPPORTED_TECH = [
   {
     icon: Activity,
     title: "Requirements",
-    items: ["Node.js ≥18", "TypeScript (recommended)"],
+    items: ["Node.js >=18", "TypeScript (recommended)"],
   },
 ] as const;
 
-export default function DocsPage() {
+interface PageProps {
+  params: Promise<{ framework: string }>;
+}
+
+export default async function IntroductionPage({ params }: PageProps) {
+  const { framework: raw_framework } = await params;
+  const framework = parseFramework(raw_framework);
+
   return (
     <article className="prose prose-invert max-w-none">
       <h1 className="text-3xl font-bold tracking-tight">Introduction</h1>
@@ -41,34 +49,42 @@ export default function DocsPage() {
           <Blocks className="mb-2 h-8 w-8 text-hive-red" />
           <h3 className="font-semibold">Built on @hiveio/wax</h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            Uses the official Hive protocol library for type-safe blockchain data
-            retrieval and interactions.
+            Uses the official Hive protocol library for type-safe blockchain
+            data retrieval and interactions.
           </p>
         </div>
         <div className="rounded-lg border border-border bg-card p-4">
           <Package className="mb-2 h-8 w-8 text-hive-red" />
           <h3 className="font-semibold">Multi-Framework</h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            Built on <code>@kkocot/honeycomb-core</code> with bindings for React,
-            Solid.js, and Vue 3. Pick your framework and install.
+            Built on <code>@kkocot/honeycomb-core</code> with bindings for
+            React, Solid.js, and Vue 3. Pick your framework and install.
           </p>
         </div>
       </div>
 
       {/* Supported Technologies */}
       <div className="not-prose my-8">
-        <h2 className="mb-4 text-2xl font-bold tracking-tight">Supported Technologies</h2>
+        <h2 className="mb-4 text-2xl font-bold tracking-tight">
+          Supported Technologies
+        </h2>
         <p className="mb-6 text-muted-foreground">
-          Hive UI works with modern JavaScript frameworks and build tools. Choose your stack and start building.
+          Hive UI works with modern JavaScript frameworks and build tools.
+          Choose your stack and start building.
         </p>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {SUPPORTED_TECH.map(({ icon: Icon, title, items }) => (
-            <div key={title} className="rounded-lg border border-border bg-card p-4">
+            <div
+              key={title}
+              className="rounded-lg border border-border bg-card p-4"
+            >
               <Icon className="mb-2 h-6 w-6 text-hive-red" />
               <h3 className="text-sm font-semibold">{title}</h3>
               <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
-                {items.map((item) => <li key={item}>{item}</li>)}
+                {items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
               </ul>
             </div>
           ))}
@@ -81,10 +97,13 @@ export default function DocsPage() {
           <div className="flex gap-3">
             <Zap className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
             <div>
-              <p className="font-medium text-green-500">Sequential Endpoint Fallback</p>
+              <p className="font-medium text-green-500">
+                Sequential Endpoint Fallback
+              </p>
               <p className="mt-1 text-sm text-muted-foreground">
-                Tries endpoints in priority order (#1 → #2 → #3). If timeout or error occurs,
-                automatically switches to the next available endpoint. Configurable list and order.
+                Tries endpoints in priority order (#1 → #2 → #3). If timeout or
+                error occurs, automatically switches to the next available
+                endpoint. Configurable list and order.
               </p>
             </div>
           </div>
@@ -94,10 +113,12 @@ export default function DocsPage() {
           <div className="flex gap-3">
             <Activity className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
             <div>
-              <p className="font-medium text-blue-500">Auto-Reconnect & Health Monitoring</p>
+              <p className="font-medium text-blue-500">
+                Auto-Reconnect & Health Monitoring
+              </p>
               <p className="mt-1 text-sm text-muted-foreground">
-                Periodic health checks monitor endpoint health.
-                Automatically switches to healthier endpoints at runtime without page refresh.
+                Periodic health checks monitor endpoint health. Automatically
+                switches to healthier endpoints at runtime without page refresh.
               </p>
             </div>
           </div>
@@ -115,7 +136,8 @@ export default function DocsPage() {
 
       <p>
         Hive uses a hierarchical key system for securing accounts. For read-only
-        components (displaying user data, posts, balances), no keys are required.
+        components (displaying user data, posts, balances), no keys are
+        required.
       </p>
 
       <h3>Tokens</h3>
@@ -125,11 +147,12 @@ export default function DocsPage() {
           <strong>HIVE</strong> - The native cryptocurrency
         </li>
         <li>
-          <strong>HBD</strong> - Hive Backed Dollar, a stablecoin pegged to ~$1 USD
+          <strong>HBD</strong> - Hive Backed Dollar, a stablecoin pegged to ~$1
+          USD
         </li>
         <li>
-          <strong>HP (Hive Power)</strong> - Staked HIVE that gives voting power and
-          Resource Credits
+          <strong>HP (Hive Power)</strong> - Staked HIVE that gives voting power
+          and Resource Credits
         </li>
       </ul>
 
@@ -142,14 +165,14 @@ export default function DocsPage() {
 
       <div className="not-prose my-8 flex gap-4">
         <Link
-          href="/react/installation"
+          href={`/${framework}/installation`}
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
         >
           Installation
           <ArrowRight className="h-4 w-4" />
         </Link>
         <Link
-          href="/components/avatar"
+          href={`/${framework}/avatar`}
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
         >
           Browse Components

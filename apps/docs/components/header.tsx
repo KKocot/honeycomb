@@ -89,7 +89,7 @@ export function Header() {
 
         <nav className="ml-8 hidden items-center gap-6 text-sm md:flex">
           <Link
-            href="/introduction"
+            href="/react/introduction"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Docs
