@@ -32,6 +32,9 @@
       <ApiTrackerTab v-if="active_tab === 'api-tracker'" />
       <HooksTab v-else-if="active_tab === 'hooks'" />
       <AvatarTab v-else-if="active_tab === 'avatar'" />
+      <UserCardTab v-else-if="active_tab === 'user-card'" />
+      <BalanceCardTab v-else-if="active_tab === 'balance-card'" />
+      <ManabarTab v-else-if="active_tab === 'manabar'" />
     </div>
   </main>
 </template>
@@ -41,13 +44,19 @@ import { ref } from "vue";
 import ApiTrackerTab from "./ApiTrackerTab.vue";
 import HooksTab from "./HooksTab.vue";
 import AvatarTab from "./AvatarTab.vue";
+import UserCardTab from "./UserCardTab.vue";
+import BalanceCardTab from "./BalanceCardTab.vue";
+import ManabarTab from "./ManabarTab.vue";
 
-type TabId = "api-tracker" | "hooks" | "avatar";
+type TabId = "api-tracker" | "hooks" | "avatar" | "user-card" | "balance-card" | "manabar";
 
 const TABS: readonly { id: TabId; label: string }[] = [
   { id: "api-tracker", label: "API Tracker" },
   { id: "hooks", label: "Hooks" },
   { id: "avatar", label: "Avatar" },
+  { id: "user-card", label: "User Card" },
+  { id: "balance-card", label: "Balance Card" },
+  { id: "manabar", label: "Manabar" },
 ];
 
 const active_tab = ref<TabId>("api-tracker");

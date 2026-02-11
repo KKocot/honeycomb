@@ -4,13 +4,25 @@ import { useState } from "react";
 import ApiTrackerTab from "../components/ApiTrackerTab";
 import HooksTab from "../components/HooksTab";
 import AvatarTab from "../components/AvatarTab";
+import UserCardTab from "../components/UserCardTab";
+import BalanceCardTab from "../components/BalanceCardTab";
+import ManabarTab from "../components/ManabarTab";
 
-type TabId = "api-tracker" | "hooks" | "avatar";
+type TabId =
+  | "api-tracker"
+  | "hooks"
+  | "avatar"
+  | "user-card"
+  | "balance-card"
+  | "manabar";
 
 const TABS: readonly { id: TabId; label: string }[] = [
   { id: "api-tracker", label: "API Tracker" },
   { id: "hooks", label: "Hooks" },
   { id: "avatar", label: "Avatar" },
+  { id: "user-card", label: "User Card" },
+  { id: "balance-card", label: "Balance Card" },
+  { id: "manabar", label: "Manabar" },
 ];
 
 export default function HomePage() {
@@ -50,6 +62,9 @@ export default function HomePage() {
         {active_tab === "api-tracker" && <ApiTrackerTab />}
         {active_tab === "hooks" && <HooksTab />}
         {active_tab === "avatar" && <AvatarTab />}
+        {active_tab === "user-card" && <UserCardTab />}
+        {active_tab === "balance-card" && <BalanceCardTab />}
+        {active_tab === "manabar" && <ManabarTab />}
       </div>
     </main>
   );

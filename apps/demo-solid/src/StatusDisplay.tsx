@@ -2,9 +2,25 @@ import { createSignal, Switch, Match, For } from "solid-js";
 import ApiTrackerTab from "./components/ApiTrackerTab";
 import HooksTab from "./components/HooksTab";
 import AvatarTab from "./components/AvatarTab";
+import UserCardTab from "./components/UserCardTab";
+import BalanceCardTab from "./components/BalanceCardTab";
+import ManabarTab from "./components/ManabarTab";
 
-type Tab = "API Tracker" | "Hooks" | "Avatar";
-const TABS: readonly Tab[] = ["API Tracker", "Hooks", "Avatar"];
+type Tab =
+  | "API Tracker"
+  | "Hooks"
+  | "Avatar"
+  | "User Card"
+  | "Balance Card"
+  | "Manabar";
+const TABS: readonly Tab[] = [
+  "API Tracker",
+  "Hooks",
+  "Avatar",
+  "User Card",
+  "Balance Card",
+  "Manabar",
+];
 
 function tab_id(tab: Tab): string {
   return tab.toLowerCase().replace(/\s+/g, "-");
@@ -54,6 +70,15 @@ export default function StatusDisplay() {
           </Match>
           <Match when={active_tab() === "Avatar"}>
             <AvatarTab />
+          </Match>
+          <Match when={active_tab() === "User Card"}>
+            <UserCardTab />
+          </Match>
+          <Match when={active_tab() === "Balance Card"}>
+            <BalanceCardTab />
+          </Match>
+          <Match when={active_tab() === "Manabar"}>
+            <ManabarTab />
           </Match>
         </Switch>
       </div>
