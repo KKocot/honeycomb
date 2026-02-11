@@ -22,6 +22,13 @@ export {
   type UseHiveAccountResult,
 } from "./use-hive-account";
 
+// Post Hook
+export {
+  useHivePost,
+  type HivePost,
+  type UseHivePostResult,
+} from "./use-hive-post";
+
 // Display Components
 export { ApiTracker, type ApiTrackerProps } from "./api-tracker";
 export {
@@ -44,6 +51,12 @@ export {
   type HiveManabarProps,
   type ManabarVariant,
 } from "./manabar";
+export {
+  HivePostCard,
+  type HivePostCardProps,
+  type PostVariant,
+  type PostHideOption,
+} from "./post-card";
 
 // Re-export core types
 export type {

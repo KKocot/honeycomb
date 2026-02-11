@@ -5,6 +5,7 @@ import AvatarTab from "./components/AvatarTab";
 import UserCardTab from "./components/UserCardTab";
 import BalanceCardTab from "./components/BalanceCardTab";
 import ManabarTab from "./components/ManabarTab";
+import PostCardTab from "./components/PostCardTab";
 
 type Tab =
   | "API Tracker"
@@ -12,7 +13,8 @@ type Tab =
   | "Avatar"
   | "User Card"
   | "Balance Card"
-  | "Manabar";
+  | "Manabar"
+  | "Post Card";
 const TABS: readonly Tab[] = [
   "API Tracker",
   "Hooks",
@@ -20,6 +22,7 @@ const TABS: readonly Tab[] = [
   "User Card",
   "Balance Card",
   "Manabar",
+  "Post Card",
 ];
 
 function tab_id(tab: Tab): string {
@@ -79,6 +82,9 @@ export default function StatusDisplay() {
           </Match>
           <Match when={active_tab() === "Manabar"}>
             <ManabarTab />
+          </Match>
+          <Match when={active_tab() === "Post Card"}>
+            <PostCardTab />
           </Match>
         </Switch>
       </div>

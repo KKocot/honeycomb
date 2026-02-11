@@ -7,6 +7,7 @@ import AvatarTab from "../components/AvatarTab";
 import UserCardTab from "../components/UserCardTab";
 import BalanceCardTab from "../components/BalanceCardTab";
 import ManabarTab from "../components/ManabarTab";
+import PostCardTab from "../components/PostCardTab";
 
 type TabId =
   | "api-tracker"
@@ -14,7 +15,8 @@ type TabId =
   | "avatar"
   | "user-card"
   | "balance-card"
-  | "manabar";
+  | "manabar"
+  | "post-card";
 
 const TABS: readonly { id: TabId; label: string }[] = [
   { id: "api-tracker", label: "API Tracker" },
@@ -23,6 +25,7 @@ const TABS: readonly { id: TabId; label: string }[] = [
   { id: "user-card", label: "User Card" },
   { id: "balance-card", label: "Balance Card" },
   { id: "manabar", label: "Manabar" },
+  { id: "post-card", label: "Post Card" },
 ];
 
 export default function HomePage() {
@@ -65,6 +68,7 @@ export default function HomePage() {
         {active_tab === "user-card" && <UserCardTab />}
         {active_tab === "balance-card" && <BalanceCardTab />}
         {active_tab === "manabar" && <ManabarTab />}
+        {active_tab === "post-card" && <PostCardTab />}
       </div>
     </main>
   );

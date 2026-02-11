@@ -214,3 +214,59 @@ export function format_cooldown(seconds: number): string {
   if (hours > 0) return `${hours}h ${minutes}m`;
   return `${minutes}m`;
 }
+
+// Post helpers
+
+/**
+ * Format a blockchain date string into a human-readable "time ago" string.
+ * Hive dates are UTC without timezone suffix, so "Z" is appended.
+ */
+export function format_time_ago(date_string: string): string {
+  const date = new Date(date_string + "Z");
+  if (isNaN(date.getTime())) return "unknown";
+  const now = new Date();
+  const diff_ms = now.getTime() - date.getTime();
+  const diff_mins = Math.floor(diff_ms / 60000);
+  const diff_hours = Math.floor(diff_mins / 60);
+  const diff_days = Math.floor(diff_hours / 24);
+
+  if (diff_mins < 60) return `${diff_mins}m ago`;
+  if (diff_hours < 24) return `${diff_hours}h ago`;
+  if (diff_days < 30) return `${diff_days}d ago`;
+  return date.toLocaleDateString();
+}
+
+function is_safe_image_url(url: string): boolean {
+  return url.startsWith("https://") || url.startsWith("http://");
+}
+
+function is_image_metadata(
+  meta: unknown,
+): meta is { image: string[] } {
+  if (typeof meta !== "object" || meta === null) return false;
+  if (!("image" in meta)) return false;
+
+  const obj = meta as Record<string, unknown>;
+  return (
+    Array.isArray(obj.image) &&
+    obj.image.length > 0 &&
+    typeof obj.image[0] === "string"
+  );
+}
+
+/**
+ * Extract the first image URL from a post's json_metadata string.
+ * Returns null if no image found or metadata is invalid.
+ */
+export function extract_thumbnail(json_metadata: string): string | null {
+  try {
+    const meta: unknown = JSON.parse(json_metadata);
+    if (is_image_metadata(meta)) {
+      const url = meta.image[0];
+      if (is_safe_image_url(url)) return url;
+    }
+  } catch {
+    // ignore parse errors
+  }
+  return null;
+}

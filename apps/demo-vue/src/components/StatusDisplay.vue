@@ -35,6 +35,7 @@
       <UserCardTab v-else-if="active_tab === 'user-card'" />
       <BalanceCardTab v-else-if="active_tab === 'balance-card'" />
       <ManabarTab v-else-if="active_tab === 'manabar'" />
+      <PostCardTab v-else-if="active_tab === 'post-card'" />
     </div>
   </main>
 </template>
@@ -47,8 +48,9 @@ import AvatarTab from "./AvatarTab.vue";
 import UserCardTab from "./UserCardTab.vue";
 import BalanceCardTab from "./BalanceCardTab.vue";
 import ManabarTab from "./ManabarTab.vue";
+import PostCardTab from "./PostCardTab.vue";
 
-type TabId = "api-tracker" | "hooks" | "avatar" | "user-card" | "balance-card" | "manabar";
+type TabId = "api-tracker" | "hooks" | "avatar" | "user-card" | "balance-card" | "manabar" | "post-card";
 
 const TABS: readonly { id: TabId; label: string }[] = [
   { id: "api-tracker", label: "API Tracker" },
@@ -57,6 +59,7 @@ const TABS: readonly { id: TabId; label: string }[] = [
   { id: "user-card", label: "User Card" },
   { id: "balance-card", label: "Balance Card" },
   { id: "manabar", label: "Manabar" },
+  { id: "post-card", label: "Post Card" },
 ];
 
 const active_tab = ref<TabId>("api-tracker");

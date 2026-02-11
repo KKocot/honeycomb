@@ -1,6 +1,6 @@
 export const CODE = {
   basic: {
-    react: `import { HivePostCard } from "@/components/hive";
+    react: `import { HivePostCard } from "@kkocot/honeycomb-react";
 
 function PostFeed() {
   return (
@@ -10,7 +10,7 @@ function PostFeed() {
     />
   );
 }`,
-    solid: `import { HivePostCard } from "@/components/hive";
+    solid: `import { HivePostCard } from "@kkocot/honeycomb-solid";
 
 function PostFeed() {
   return (
@@ -28,7 +28,7 @@ function PostFeed() {
 </template>
 
 <script setup lang="ts">
-import { HivePostCard } from "@/components/hive";
+import { HivePostCard } from "@kkocot/honeycomb-vue";
 </script>`,
   },
   variants: {
@@ -88,33 +88,32 @@ import { HivePostCard } from "@/components/hive";
 </template>`,
   },
   customStyle: {
-    react: `// Custom styling
+    react: `// Custom styling with className
 <HivePostCard
   author="barddev"
   permlink="my-post"
-  className="max-w-xl shadow-lg"
-  style={{ borderRadius: 16 }}
+  className="max-w-xl shadow-lg rounded-2xl"
 />`,
-    solid: `// Custom styling
+    solid: `// Custom styling with class
 <HivePostCard
   author="barddev"
   permlink="my-post"
-  class="max-w-xl shadow-lg"
-  style={{ "border-radius": "16px" }}
+  class="max-w-xl shadow-lg rounded-2xl"
 />`,
     vue: `<template>
-  <!-- Custom styling -->
+  <!-- Custom styling with class -->
   <HivePostCard
     author="barddev"
     permlink="my-post"
-    class="max-w-xl shadow-lg"
-    :style="{ borderRadius: '16px' }"
+    class="max-w-xl shadow-lg rounded-2xl"
   />
 </template>`,
   },
   postList: {
-    react: `// Render a list of posts
-function PostList({ posts }) {
+    react: `import { HivePostCard } from "@kkocot/honeycomb-react";
+
+// Render a list of posts
+function PostList({ posts }: { posts: Array<{ author: string; permlink: string }> }) {
   return (
     <div className="space-y-4">
       {posts.map((post) => (
@@ -128,6 +127,7 @@ function PostList({ posts }) {
   );
 }`,
     solid: `import { For } from "solid-js";
+import { HivePostCard } from "@kkocot/honeycomb-solid";
 
 // Render a list of posts
 function PostList(props: { posts: Array<{ author: string; permlink: string }> }) {
@@ -156,6 +156,8 @@ function PostList(props: { posts: Array<{ author: string; permlink: string }> })
 </template>
 
 <script setup lang="ts">
+import { HivePostCard } from "@kkocot/honeycomb-vue";
+
 defineProps<{
   posts: Array<{ author: string; permlink: string }>;
 }>();

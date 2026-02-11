@@ -21,6 +21,13 @@ export {
   type UseHiveAccountResult,
 } from "./use-hive-account.js";
 
+// Post composable
+export {
+  useHivePost,
+  type HivePost,
+  type UseHivePostResult,
+} from "./use-hive-post.js";
+
 // Components
 export { ApiTracker, type ApiTrackerProps } from "./api-tracker.js";
 export {
@@ -43,6 +50,12 @@ export {
   type HiveManabarProps,
   type ManabarVariant,
 } from "./manabar.js";
+export {
+  HivePostCard,
+  type HivePostCardProps,
+  type PostVariant,
+  type PostHideOption,
+} from "./post-card.js";
 
 // Re-export core types
 export type {

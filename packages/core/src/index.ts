@@ -28,6 +28,8 @@ export {
   calculate_manabar,
   format_mana_number,
   format_cooldown,
+  format_time_ago,
+  extract_thumbnail,
   MANA_REGENERATION_SECONDS,
   type NaiAsset,
   type ManabarData,

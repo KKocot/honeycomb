@@ -47,12 +47,25 @@ export {
   type ManabarVariant,
 } from "./manabar";
 
+export {
+  HivePostCard,
+  type HivePostCardProps,
+  type PostVariant,
+  type PostHideOption,
+} from "./post-card";
+
 // Data Hooks
 export {
   useHiveAccount,
   type HiveAccount,
   type UseHiveAccountResult,
 } from "./use-hive-account";
+
+export {
+  useHivePost,
+  type HivePost,
+  type UseHivePostResult,
+} from "./use-hive-post";
 
 // Utils
 export { cn } from "./utils";

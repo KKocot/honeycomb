@@ -40,8 +40,9 @@ export default async function PostCardPage({ params }: PageProps) {
               Display-only component
             </p>
             <p className="mt-1 text-sm text-muted-foreground">
-              Fetches post data automatically. Displays post content, author,
-              stats, and metadata. Does not perform any blockchain transactions.
+              Fetches post data automatically via condenser_api. Displays post
+              content, author, stats, and metadata. Requires HiveProvider
+              wrapper.
             </p>
           </div>
         </div>
@@ -222,27 +223,23 @@ export default async function PostCardPage({ params }: PageProps) {
               </tr>
               <tr>
                 <td className="py-3 px-4">
+                  <code>linkTarget</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>string</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>{`"https://blog.openhive.network"`}</code>
+                </td>
+              </tr>
+              <tr>
+                <td className="py-3 px-4">
                   <code>
                     {framework === "react" ? "className" : "class"}
                   </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>string</code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground">-</td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4">
-                  <code>style</code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground">
-                  <code>
-                    {framework === "react"
-                      ? "React.CSSProperties"
-                      : framework === "solid"
-                        ? 'JSX.CSSProperties'
-                        : "StyleValue"}
-                  </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">-</td>
               </tr>
