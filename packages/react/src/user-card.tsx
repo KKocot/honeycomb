@@ -28,32 +28,33 @@ interface ProfileMetadata {
 }
 
 /**
- * Format reputation score to human-readable number
- */
-function formatReputation(rep: number): number {
-  if (rep === 0) return 25;
-  const neg = rep < 0;
-  const repLevel = Math.log10(Math.abs(rep));
-  let reputationLevel = Math.max(repLevel - 9, 0);
-  if (repLevel < 0) reputationLevel = 0;
-  if (neg) reputationLevel *= -1;
-  return Math.floor(reputationLevel * 9 + 25);
-}
-
-/**
  * Parse profile metadata from account JSON
  */
-function parseMetadata(account: { posting_json_metadata?: string; json_metadata?: string } | null): ProfileMetadata | null {
+function parse_metadata(
+  account: { posting_json_metadata?: string; json_metadata?: string } | null,
+): ProfileMetadata | null {
   if (!account) return null;
 
   try {
     if (account.posting_json_metadata) {
-      const parsed = JSON.parse(account.posting_json_metadata);
-      if (parsed.profile) return parsed.profile;
+      const parsed: unknown = JSON.parse(account.posting_json_metadata);
+      if (
+        typeof parsed === "object" &&
+        parsed !== null &&
+        "profile" in parsed
+      ) {
+        return (parsed as { profile: ProfileMetadata }).profile;
+      }
     }
     if (account.json_metadata) {
-      const parsed = JSON.parse(account.json_metadata);
-      if (parsed.profile) return parsed.profile;
+      const parsed: unknown = JSON.parse(account.json_metadata);
+      if (
+        typeof parsed === "object" &&
+        parsed !== null &&
+        "profile" in parsed
+      ) {
+        return (parsed as { profile: ProfileMetadata }).profile;
+      }
     }
   } catch {
     // Invalid JSON
@@ -81,7 +82,7 @@ export function UserCard({
   const { account, is_loading, error } = useHiveAccount(username);
 
   const metadata = useMemo<ProfileMetadata | null>(
-    () => parseMetadata(account),
+    () => parse_metadata(account),
     [account]
   );
 
@@ -90,15 +91,15 @@ export function UserCard({
     return (
       <div
         className={cn(
-          "rounded-lg border border-border bg-card p-4 animate-pulse",
+          "rounded-lg border border-hive-border bg-hive-card p-4 animate-pulse",
           className
         )}
       >
         <div className="flex items-center gap-3">
-          <div className="h-12 w-12 rounded-full bg-muted" />
+          <div className="h-12 w-12 rounded-full bg-hive-muted" />
           <div className="space-y-2">
-            <div className="h-4 w-24 bg-muted rounded" />
-            <div className="h-3 w-32 bg-muted rounded" />
+            <div className="h-4 w-24 bg-hive-muted rounded" />
+            <div className="h-3 w-32 bg-hive-muted rounded" />
           </div>
         </div>
       </div>
@@ -108,15 +109,16 @@ export function UserCard({
   // Error state
   if (error || !account) {
     return (
-      <div className={cn("rounded-lg border border-border bg-card p-4", className)}>
-        <p className="text-sm text-muted-foreground">
+      <div className={cn("rounded-lg border border-hive-border bg-hive-card p-4", className)}>
+        <p className="text-sm text-hive-muted-foreground">
           {error?.message || "User not found"}
         </p>
       </div>
     );
   }
 
-  const reputation = formatReputation(account.reputation);
+  // Reputation already formatted by useHiveAccount hook
+  const reputation = account.reputation;
 
   // Compact variant
   if (variant === "compact") {
@@ -125,7 +127,7 @@ export function UserCard({
         <HiveAvatar username={username} size="sm" />
         <div>
           <span className="font-medium">@{username}</span>
-          <span className="text-muted-foreground text-sm ml-1">
+          <span className="text-hive-muted-foreground text-sm ml-1">
             ({reputation})
           </span>
         </div>
@@ -138,7 +140,7 @@ export function UserCard({
     return (
       <div
         className={cn(
-          "rounded-lg border border-border bg-card overflow-hidden",
+          "rounded-lg border border-hive-border bg-hive-card overflow-hidden",
           className
         )}
       >
@@ -154,20 +156,20 @@ export function UserCard({
             <HiveAvatar
               username={username}
               size="xl"
-              className={metadata?.cover_image ? "-mt-10 ring-4 ring-card" : ""}
+              className={metadata?.cover_image ? "-mt-10 ring-4 ring-hive-card" : ""}
             />
             <div className="flex-1 min-w-0">
               <h3 className="font-bold text-lg truncate">
                 {metadata?.name || `@${username}`}
               </h3>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-hive-muted-foreground text-sm">
                 @{username} • Rep: {reputation}
               </p>
             </div>
           </div>
 
           {metadata?.about && (
-            <p className="mt-3 text-sm text-muted-foreground line-clamp-2">
+            <p className="mt-3 text-sm text-hive-muted-foreground line-clamp-2">
               {metadata.about}
             </p>
           )}
@@ -176,19 +178,19 @@ export function UserCard({
             <div className="mt-4 grid grid-cols-3 gap-4 text-center">
               <div>
                 <p className="text-lg font-bold">{account.post_count}</p>
-                <p className="text-xs text-muted-foreground">Posts</p>
+                <p className="text-xs text-hive-muted-foreground">Posts</p>
+              </div>
+              <div>
+                <p className="text-lg font-bold">
+                  {account.hive_power.split(" ")[0]}
+                </p>
+                <p className="text-xs text-hive-muted-foreground">HP</p>
               </div>
               <div>
                 <p className="text-lg font-bold">
                   {account.balance.split(" ")[0]}
                 </p>
-                <p className="text-xs text-muted-foreground">HIVE</p>
-              </div>
-              <div>
-                <p className="text-lg font-bold">
-                  {account.hbd_balance.split(" ")[0]}
-                </p>
-                <p className="text-xs text-muted-foreground">HBD</p>
+                <p className="text-xs text-hive-muted-foreground">HIVE</p>
               </div>
             </div>
           )}
@@ -199,14 +201,14 @@ export function UserCard({
 
   // Default variant
   return (
-    <div className={cn("rounded-lg border border-border bg-card p-4", className)}>
+    <div className={cn("rounded-lg border border-hive-border bg-hive-card p-4", className)}>
       <div className="flex items-center gap-3">
         <HiveAvatar username={username} size="lg" />
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold truncate">
             {metadata?.name || `@${username}`}
           </h3>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-hive-muted-foreground">
             @{username} • Rep: {reputation}
           </p>
         </div>
@@ -215,7 +217,7 @@ export function UserCard({
       {showStats && (
         <div className="mt-3 flex gap-4 text-sm">
           <span>{account.post_count} posts</span>
-          <span>{account.balance}</span>
+          <span>{account.hive_power}</span>
         </div>
       )}
     </div>

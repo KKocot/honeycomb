@@ -1,29 +1,14 @@
 import { createSignal, createEffect, onCleanup, type Accessor } from "solid-js";
-import { useHiveChain } from "./hive-provider";
+import { useHive } from "./hive-provider";
+import {
+  fetch_bridge_reputation,
+  format_nai_asset,
+  convert_vests_to_hp,
+  type NaiAsset,
+} from "@kkocot/honeycomb-core";
 
-// Helper to format asset objects from API
-interface AssetLike {
-  amount?: string;
-  nai?: string;
-}
-
-function isAssetLike(value: unknown): value is AssetLike {
-  if (typeof value !== "object" || value === null) return false;
-  const obj = value as Record<string, unknown>;
-  return (
-    typeof obj.amount === "string" || typeof obj.amount === "undefined"
-  );
-}
-
-function formatAsset(asset: unknown, symbol: string): string {
-  if (!isAssetLike(asset) || !asset.amount) return `0.000 ${symbol}`;
-  const amount = parseInt(asset.amount, 10) / 1000;
-  return `${amount.toFixed(3)} ${symbol}`;
-}
-
-function getAssetAmount(asset: unknown): string {
-  if (!isAssetLike(asset)) return "0";
-  return asset.amount || "0";
+function format_with_symbol(amount: number, symbol: string): string {
+  return `${amount.toLocaleString("en-US", { minimumFractionDigits: 3, maximumFractionDigits: 3 })} ${symbol}`;
 }
 
 export interface HiveAccount {
@@ -35,6 +20,12 @@ export interface HiveAccount {
   vesting_shares: string;
   delegated_vesting_shares: string;
   received_vesting_shares: string;
+  hive_power: string;
+  effective_hp: string;
+  savings_balance: string;
+  savings_hbd_balance: string;
+  delegated_hp: string;
+  received_hp: string;
   posting_json_metadata: string;
   json_metadata: string;
   created: string;
@@ -73,16 +64,16 @@ export function useHiveAccount(
   const get_username =
     typeof username === "function" ? username : () => username;
 
-  const chain = useHiveChain();
+  const { chain, apiEndpoint } = useHive();
   const [account, set_account] = createSignal<HiveAccount | null>(null);
   const [is_loading, set_is_loading] = createSignal(true);
   const [error, set_error] = createSignal<Error | null>(null);
   const [refetch_counter, set_refetch_counter] = createSignal(0);
 
   createEffect(() => {
-    // Track reactive dependencies
     const chain_value = chain();
     const current_username = get_username();
+    const current_endpoint = apiEndpoint();
     void refetch_counter();
 
     if (!chain_value || !current_username) {
@@ -90,9 +81,9 @@ export function useHiveAccount(
       return;
     }
 
-    // Narrow type for async closure (avoids non-null assertion)
     const safe_chain = chain_value;
     const safe_username = current_username;
+    const endpoint = current_endpoint ?? "https://api.hive.blog";
 
     let cancelled = false;
     set_is_loading(true);
@@ -100,39 +91,95 @@ export function useHiveAccount(
 
     async function fetch_account() {
       try {
-        const response =
-          await safe_chain.api.database_api.find_accounts({
-            accounts: [safe_username.toLowerCase()],
-          });
+        const [account_response, global_response, reputation] =
+          await Promise.all([
+            safe_chain.api.database_api.find_accounts({
+              accounts: [safe_username.toLowerCase()],
+            }),
+            safe_chain.api.database_api.get_dynamic_global_properties({}),
+            fetch_bridge_reputation(safe_username.toLowerCase(), endpoint),
+          ]);
 
         if (cancelled) return;
 
-        if (response.accounts && response.accounts.length > 0) {
-          const acc = response.accounts[0] as unknown as Record<
+        if (
+          account_response.accounts &&
+          account_response.accounts.length > 0
+        ) {
+          const acc = account_response.accounts[0] as unknown as Record<
             string,
             unknown
           >;
-          const reputation = acc.reputation as string | number | undefined;
+          const global_props = global_response as unknown as Record<
+            string,
+            unknown
+          >;
+
+          const balance_asset = format_nai_asset(
+            acc.balance as unknown as NaiAsset,
+          );
+          const hbd_asset = format_nai_asset(
+            acc.hbd_balance as unknown as NaiAsset,
+          );
+
+          const vesting = acc.vesting_shares as unknown as NaiAsset;
+          const delegated =
+            acc.delegated_vesting_shares as unknown as NaiAsset;
+          const received =
+            acc.received_vesting_shares as unknown as NaiAsset;
+          const total_vesting_shares =
+            global_props.total_vesting_shares as unknown as NaiAsset;
+          const total_vesting_fund_hive =
+            global_props.total_vesting_fund_hive as unknown as NaiAsset;
+
+          const hp = convert_vests_to_hp(
+            vesting,
+            total_vesting_shares,
+            total_vesting_fund_hive,
+          );
+          const delegated_hp_value = convert_vests_to_hp(
+            delegated,
+            total_vesting_shares,
+            total_vesting_fund_hive,
+          );
+          const received_hp_value = convert_vests_to_hp(
+            received,
+            total_vesting_shares,
+            total_vesting_fund_hive,
+          );
+          const effective = hp - delegated_hp_value + received_hp_value;
+
+          const savings_asset = format_nai_asset(
+            acc.savings_balance as unknown as NaiAsset,
+          );
+          const savings_hbd_asset = format_nai_asset(
+            acc.savings_hbd_balance as unknown as NaiAsset,
+          );
+
           set_account({
-            name: acc.name as string,
-            reputation:
-              typeof reputation === "string"
-                ? parseInt(reputation, 10)
-                : (reputation ?? 0),
-            post_count: acc.post_count as number,
-            balance: formatAsset(acc.balance, "HIVE"),
-            hbd_balance: formatAsset(acc.hbd_balance, "HBD"),
-            vesting_shares: getAssetAmount(acc.vesting_shares),
-            delegated_vesting_shares: getAssetAmount(
-              acc.delegated_vesting_shares,
+            name: String(acc.name ?? ""),
+            reputation,
+            post_count: Number(acc.post_count ?? 0),
+            balance: format_with_symbol(
+              balance_asset.amount,
+              balance_asset.symbol,
             ),
-            received_vesting_shares: getAssetAmount(
-              acc.received_vesting_shares,
+            hbd_balance: format_with_symbol(
+              hbd_asset.amount,
+              hbd_asset.symbol,
             ),
-            posting_json_metadata:
-              (acc.posting_json_metadata as string) || "",
-            json_metadata: (acc.json_metadata as string) || "",
-            created: (acc.created as string) || "",
+            vesting_shares: String(vesting.amount),
+            delegated_vesting_shares: String(delegated.amount),
+            received_vesting_shares: String(received.amount),
+            hive_power: format_with_symbol(hp, "HP"),
+            effective_hp: format_with_symbol(effective, "HP"),
+            savings_balance: format_with_symbol(savings_asset.amount, savings_asset.symbol),
+            savings_hbd_balance: format_with_symbol(savings_hbd_asset.amount, savings_hbd_asset.symbol),
+            delegated_hp: format_with_symbol(delegated_hp_value, "HP"),
+            received_hp: format_with_symbol(received_hp_value, "HP"),
+            posting_json_metadata: String(acc.posting_json_metadata ?? ""),
+            json_metadata: String(acc.json_metadata ?? ""),
+            created: String(acc.created ?? ""),
           });
         } else {
           set_error(new Error("Account not found"));

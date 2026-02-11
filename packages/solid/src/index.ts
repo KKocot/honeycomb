@@ -29,6 +29,21 @@ export {
   type HiveAvatarProps,
   type AvatarSize,
 } from "./avatar";
+export {
+  UserCard,
+  type UserCardProps,
+  type UserCardVariant,
+} from "./user-card";
+export {
+  BalanceCard,
+  type BalanceCardProps,
+  type BalanceCardVariant,
+} from "./balance-card";
+export {
+  HiveManabar,
+  type HiveManabarProps,
+  type ManabarVariant,
+} from "./manabar";
 
 // Re-export core types
 export type {

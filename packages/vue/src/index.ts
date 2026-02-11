@@ -28,6 +28,21 @@ export {
   type HiveAvatarProps,
   type AvatarSize,
 } from "./avatar.js";
+export {
+  UserCard,
+  type UserCardProps,
+  type UserCardVariant,
+} from "./user-card.js";
+export {
+  BalanceCard,
+  type BalanceCardProps,
+  type BalanceCardVariant,
+} from "./balance-card.js";
+export {
+  HiveManabar,
+  type HiveManabarProps,
+  type ManabarVariant,
+} from "./manabar.js";
 
 // Re-export core types
 export type {
