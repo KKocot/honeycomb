@@ -5,10 +5,14 @@
       <p class="text-sm text-muted-foreground mb-4">
         Default card with author avatar, title, content preview, and stats.
       </p>
-      <div class="max-w-lg">
+      <div class="max-w-lg space-y-4">
         <HivePostCard
           author="barddev"
-          permlink="honeycomb-hive-ui-library"
+          permlink="my-honey-pot"
+        />
+        <HivePostCard
+          :author="GTG_POST_A.author"
+          :permlink="GTG_POST_A.permlink"
         />
       </div>
     </section>
@@ -53,7 +57,7 @@
       <div class="max-w-lg">
         <HivePostCard
           author="barddev"
-          permlink="honeycomb-hive-ui-library"
+          permlink="my-honey-pot"
           :hide="['author', 'thumbnail']"
         />
       </div>
@@ -79,11 +83,19 @@
 <script setup lang="ts">
 import { HivePostCard } from "@kkocot/honeycomb-vue";
 
-const DEMO_POSTS = [
-  { author: "barddev", permlink: "honeycomb-hive-ui-library" },
-  {
-    author: "blocktrades",
-    permlink: "updates-for-hive-roadmap-from-the-blocktrades-team",
-  },
-];
+const BARDDEV_POST = { author: "barddev", permlink: "my-honey-pot" };
+const BLOCKTRADES_POST = {
+  author: "blocktrades",
+  permlink: "updates-for-hive-roadmap-from-the-blocktrades-team",
+};
+const GTG_POST_A = {
+  author: "gtg",
+  permlink: "hive-hardfork-28-jump-starter-kit",
+};
+const GTG_POST_B = {
+  author: "gtg",
+  permlink: "brace-yourself-hardfork-is-coming",
+};
+
+const DEMO_POSTS = [BARDDEV_POST, BLOCKTRADES_POST, GTG_POST_A, GTG_POST_B];
 </script>

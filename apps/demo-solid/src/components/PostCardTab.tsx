@@ -3,11 +3,19 @@ import type { PostHideOption } from "@kkocot/honeycomb-solid";
 
 const POST_A = {
   author: "barddev",
-  permlink: "honeycomb-hive-ui-library",
+  permlink: "my-honey-pot",
 };
 const POST_B = {
   author: "blocktrades",
   permlink: "updates-for-hive-roadmap-from-the-blocktrades-team",
+};
+const POST_C = {
+  author: "gtg",
+  permlink: "hive-hardfork-28-jump-starter-kit",
+};
+const POST_D = {
+  author: "gtg",
+  permlink: "brace-yourself-hardfork-is-coming",
 };
 
 const HIDDEN_ELEMENTS: PostHideOption[] = ["payout", "votes"];
@@ -22,8 +30,9 @@ export default function PostCardTab() {
           Default full card with thumbnail, author, title, body preview, and
           stats.
         </p>
-        <div class="max-w-lg">
+        <div class="max-w-lg space-y-4">
           <HivePostCard author={POST_A.author} permlink={POST_A.permlink} />
+          <HivePostCard author={POST_C.author} permlink={POST_C.permlink} />
         </div>
       </section>
 
@@ -44,6 +53,16 @@ export default function PostCardTab() {
             permlink={POST_B.permlink}
             variant="compact"
           />
+          <HivePostCard
+            author={POST_C.author}
+            permlink={POST_C.permlink}
+            variant="compact"
+          />
+          <HivePostCard
+            author={POST_D.author}
+            permlink={POST_D.permlink}
+            variant="compact"
+          />
         </div>
       </section>
 
@@ -61,6 +80,16 @@ export default function PostCardTab() {
           <HivePostCard
             author={POST_B.author}
             permlink={POST_B.permlink}
+            variant="grid"
+          />
+          <HivePostCard
+            author={POST_C.author}
+            permlink={POST_C.permlink}
+            variant="grid"
+          />
+          <HivePostCard
+            author={POST_D.author}
+            permlink={POST_D.permlink}
             variant="grid"
           />
         </div>

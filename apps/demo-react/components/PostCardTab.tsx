@@ -2,9 +2,11 @@
 
 import { HivePostCard } from "@kkocot/honeycomb-react";
 
-const BARDDEV_POST = "honeycomb-hive-ui-library";
+const BARDDEV_POST = "my-honey-pot";
 const BLOCKTRADES_POST =
   "updates-for-hive-roadmap-from-the-blocktrades-team";
+const GTG_POST_A = "hive-hardfork-28-jump-starter-kit";
+const GTG_POST_B = "brace-yourself-hardfork-is-coming";
 
 export default function PostCardTab() {
   return (
@@ -14,8 +16,9 @@ export default function PostCardTab() {
         <p className="text-sm text-muted-foreground mb-4">
           Default variant with author info, body preview, and post stats.
         </p>
-        <div className="max-w-lg">
+        <div className="max-w-lg space-y-4">
           <HivePostCard author="barddev" permlink={BARDDEV_POST} />
+          <HivePostCard author="gtg" permlink={GTG_POST_A} />
         </div>
       </section>
 
@@ -35,6 +38,16 @@ export default function PostCardTab() {
             permlink={BLOCKTRADES_POST}
             variant="compact"
           />
+          <HivePostCard
+            author="gtg"
+            permlink={GTG_POST_A}
+            variant="compact"
+          />
+          <HivePostCard
+            author="gtg"
+            permlink={GTG_POST_B}
+            variant="compact"
+          />
         </div>
       </section>
 
@@ -52,6 +65,16 @@ export default function PostCardTab() {
           <HivePostCard
             author="blocktrades"
             permlink={BLOCKTRADES_POST}
+            variant="grid"
+          />
+          <HivePostCard
+            author="gtg"
+            permlink={GTG_POST_A}
+            variant="grid"
+          />
+          <HivePostCard
+            author="gtg"
+            permlink={GTG_POST_B}
             variant="grid"
           />
         </div>
