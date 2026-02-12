@@ -24,8 +24,8 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Build docs (with workspace dependencies)
-RUN pnpm --filter docs build && \
+# Build docs (turbo resolves workspace dependencies via ^build)
+RUN pnpm turbo build --filter=docs && \
     mkdir -p /app/apps/docs/public
 
 # Stage 2: Runner
