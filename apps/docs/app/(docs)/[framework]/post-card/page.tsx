@@ -293,10 +293,10 @@ export default async function PostCardPage({ params }: PageProps) {
           Manabar
         </Link>
         <Link
-          href={`/${framework}/content-renderer`}
+          href={`/${framework}/post-list`}
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
         >
-          Content Renderer
+          Post List
           <ArrowRight className="h-4 w-4" />
         </Link>
       </section>

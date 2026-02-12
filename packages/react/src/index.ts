@@ -67,5 +67,24 @@ export {
   type UseHivePostResult,
 } from "./use-hive-post";
 
+export {
+  useHivePostList,
+  type UseHivePostListOptions,
+  type UseHivePostListResult,
+} from "./use-hive-post-list";
+
+// Re-export post list types from core
+export type {
+  SortType,
+  PaginationCursor,
+  RankedPost,
+  RankedPostsResult,
+} from "@kkocot/honeycomb-core";
+
+export {
+  HivePostList,
+  type HivePostListProps,
+} from "./post-list";
+
 // Utils
 export { cn } from "./utils";

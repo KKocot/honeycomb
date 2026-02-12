@@ -53,6 +53,7 @@ export const docsConfig: NavSection[] = [
     type: "passive",
     items: [
       { title: "Post Card", href: "/react/post-card" },
+      { title: "Post List", href: "/react/post-list" },
     ],
   },
   {

@@ -57,6 +57,26 @@ export {
   type PostHideOption,
 } from "./post-card.js";
 
+// Post List
+export {
+  useHivePostList,
+  type UseHivePostListOptions,
+  type UseHivePostListResult,
+} from "./use-hive-post-list.js";
+
+export {
+  HivePostList,
+  type HivePostListProps,
+} from "./post-list.js";
+
+// Re-export post list types from core
+export type {
+  SortType,
+  PaginationCursor,
+  RankedPost,
+  RankedPostsResult,
+} from "@kkocot/honeycomb-core";
+
 // Re-export core types
 export type {
   HiveClientConfig,

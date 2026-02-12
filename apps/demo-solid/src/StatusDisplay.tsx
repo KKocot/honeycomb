@@ -6,6 +6,7 @@ import UserCardTab from "./components/UserCardTab";
 import BalanceCardTab from "./components/BalanceCardTab";
 import ManabarTab from "./components/ManabarTab";
 import PostCardTab from "./components/PostCardTab";
+import PostListTab from "./components/PostListTab";
 
 type TabId =
   | "api-tracker"
@@ -14,7 +15,8 @@ type TabId =
   | "user-card"
   | "balance-card"
   | "manabar"
-  | "post-card";
+  | "post-card"
+  | "post-list";
 
 interface TabConfig {
   id: TabId;
@@ -68,6 +70,13 @@ const TABS: readonly TabConfig[] = [
     label: "Post Card",
     title: "Post Card",
     description: "Renders a Hive blog post in card, compact or grid layout.",
+  },
+  {
+    id: "post-list",
+    label: "Post List",
+    title: "Post List",
+    description:
+      "Paginated list of ranked Hive posts with sort controls and multiple layouts.",
   },
 ] as const;
 
@@ -212,6 +221,9 @@ export default function StatusDisplay() {
             </Match>
             <Match when={active_tab() === "post-card"}>
               <PostCardTab />
+            </Match>
+            <Match when={active_tab() === "post-list"}>
+              <PostListTab />
             </Match>
           </Switch>
         </div>

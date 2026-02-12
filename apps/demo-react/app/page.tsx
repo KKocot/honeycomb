@@ -9,6 +9,7 @@ import UserCardTab from "../components/UserCardTab";
 import BalanceCardTab from "../components/BalanceCardTab";
 import ManabarTab from "../components/ManabarTab";
 import PostCardTab from "../components/PostCardTab";
+import PostListTab from "../components/PostListTab";
 
 type TabId =
   | "api-tracker"
@@ -17,7 +18,8 @@ type TabId =
   | "user-card"
   | "balance-card"
   | "manabar"
-  | "post-card";
+  | "post-card"
+  | "post-list";
 
 interface TabConfig {
   id: TabId;
@@ -73,6 +75,13 @@ const TABS: readonly TabConfig[] = [
     title: "Post Card",
     description:
       "Renders Hive blog posts in card, compact and grid layouts.",
+  },
+  {
+    id: "post-list",
+    label: "Post List",
+    title: "Post List",
+    description:
+      "Paginated Hive post feed with sort controls, pinned posts, and multiple layouts.",
   },
 ];
 
@@ -208,6 +217,7 @@ function HomePageContent() {
           {active_tab === "balance-card" && <BalanceCardTab />}
           {active_tab === "manabar" && <ManabarTab />}
           {active_tab === "post-card" && <PostCardTab />}
+          {active_tab === "post-list" && <PostListTab />}
         </div>
       </div>
 

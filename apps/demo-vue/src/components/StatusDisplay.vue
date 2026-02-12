@@ -72,6 +72,7 @@
         <BalanceCardTab v-else-if="active_tab === 'balance-card'" />
         <ManabarTab v-else-if="active_tab === 'manabar'" />
         <PostCardTab v-else-if="active_tab === 'post-card'" />
+        <PostListTab v-else-if="active_tab === 'post-list'" />
       </div>
     </div>
 
@@ -95,6 +96,7 @@ import UserCardTab from "./UserCardTab.vue";
 import BalanceCardTab from "./BalanceCardTab.vue";
 import ManabarTab from "./ManabarTab.vue";
 import PostCardTab from "./PostCardTab.vue";
+import PostListTab from "./PostListTab.vue";
 
 type TabId =
   | "api-tracker"
@@ -103,7 +105,8 @@ type TabId =
   | "user-card"
   | "balance-card"
   | "manabar"
-  | "post-card";
+  | "post-card"
+  | "post-list";
 
 interface TabConfig {
   id: TabId;
@@ -154,6 +157,13 @@ const TABS: readonly TabConfig[] = [
     label: "Post Card",
     title: "Post Card",
     description: "Blog post preview cards in multiple variants.",
+  },
+  {
+    id: "post-list",
+    label: "Post List",
+    title: "Post List",
+    description:
+      "Paginated list of ranked Hive posts with sort controls and multiple layouts.",
   },
 ];
 
