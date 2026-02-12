@@ -1,0 +1,94 @@
+:root {
+  /* Brand */
+  --hive-red: 350 82% 48%;
+  --hive-dark: 0 0% 10%;
+
+  /* Primary (Hive Red) */
+  --hive-primary: 348 83% 47%;
+  --hive-primary-foreground: 0 0% 100%;
+
+  /* Secondary */
+  --hive-secondary: 0 0% 93%;
+  --hive-secondary-foreground: 0 0% 10%;
+
+  /* Accent */
+  --hive-accent: 348 100% 95%;
+  --hive-accent-foreground: 348 83% 38%;
+
+  /* Layout */
+  --hive-background: 0 0% 100%;
+  --hive-foreground: 0 0% 9%;
+  --hive-border: 0 0% 90%;
+  --hive-input: 0 0% 75%;
+  --hive-ring: 350 82% 48%;
+
+  /* Card */
+  --hive-card: 0 0% 100%;
+  --hive-card-foreground: 0 0% 9%;
+
+  /* Popover */
+  --hive-popover: 0 0% 100%;
+  --hive-popover-foreground: 0 0% 9%;
+
+  /* Muted */
+  --hive-muted: 0 0% 96%;
+  --hive-muted-foreground: 0 0% 45%;
+
+  /* Status */
+  --hive-success: 142 76% 36%;
+  --hive-warning: 38 92% 50%;
+  --hive-destructive: 0 84% 60%;
+  --hive-destructive-foreground: 0 0% 100%;
+
+  /* Radius */
+  --hive-radius: 0.625rem;
+}
+
+.dark {
+  /* Primary (Hive Red) */
+  --hive-primary: 348 83% 47%;
+  --hive-primary-foreground: 0 0% 100%;
+
+  /* Secondary */
+  --hive-secondary: 0 0% 21%;
+  --hive-secondary-foreground: 0 0% 93%;
+
+  /* Accent */
+  --hive-accent: 349 77% 11%;
+  --hive-accent-foreground: 348 100% 60%;
+
+  /* Layout */
+  --hive-background: 0 0% 7%;
+  --hive-foreground: 0 0% 95%;
+  --hive-border: 0 0% 20%;
+  --hive-input: 0 0% 21%;
+
+  /* Card */
+  --hive-card: 0 0% 10%;
+  --hive-card-foreground: 0 0% 95%;
+
+  /* Popover */
+  --hive-popover: 0 0% 10%;
+  --hive-popover-foreground: 0 0% 95%;
+
+  /* Muted */
+  --hive-muted: 0 0% 15%;
+  --hive-muted-foreground: 0 0% 65%;
+
+  /* Status */
+  --hive-success: 142 71% 45%;
+  --hive-warning: 48 96% 53%;
+  --hive-destructive: 0 63% 31%;
+  --hive-destructive-foreground: 0 0% 95%;
+}
+
+* {
+  border-color: hsl(var(--hive-border));
+}
+
+body {
+  background-color: hsl(var(--hive-background));
+  color: hsl(var(--hive-foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

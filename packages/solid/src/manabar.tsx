@@ -73,8 +73,8 @@ function ManaRing(props: {
           fill="none"
           stroke={props.color}
           stroke-width={stroke_width()}
-          stroke-dasharray={circumference()}
-          stroke-dashoffset={offset()}
+          stroke-dasharray={String(circumference())}
+          stroke-dashoffset={String(offset())}
           stroke-linecap="round"
           class="transition-all duration-500"
         />
