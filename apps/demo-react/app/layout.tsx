@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { HiveProvider } from "@kkocot/honeycomb-react";
+import "@kkocot/honeycomb-core/styles.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className="min-h-screen">
+      <body className="min-h-screen antialiased">
         <HiveProvider>{children}</HiveProvider>
       </body>
     </html>

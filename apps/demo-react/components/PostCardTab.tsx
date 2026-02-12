@@ -2,7 +2,7 @@
 
 import { HivePostCard } from "@kkocot/honeycomb-react";
 
-const GTG_POST = "hive-hardfork-28-jump-starter-kit";
+const BARDDEV_POST = "honeycomb-hive-ui-library";
 const BLOCKTRADES_POST =
   "updates-for-hive-roadmap-from-the-blocktrades-team";
 
@@ -15,7 +15,7 @@ export default function PostCardTab() {
           Default variant with author info, body preview, and post stats.
         </p>
         <div className="max-w-lg">
-          <HivePostCard author="gtg" permlink={GTG_POST} />
+          <HivePostCard author="barddev" permlink={BARDDEV_POST} />
         </div>
       </section>
 
@@ -26,8 +26,8 @@ export default function PostCardTab() {
         </p>
         <div className="max-w-lg space-y-3">
           <HivePostCard
-            author="gtg"
-            permlink={GTG_POST}
+            author="barddev"
+            permlink={BARDDEV_POST}
             variant="compact"
           />
           <HivePostCard
@@ -45,8 +45,8 @@ export default function PostCardTab() {
         </p>
         <div className="grid grid-cols-2 gap-4 max-w-2xl">
           <HivePostCard
-            author="gtg"
-            permlink={GTG_POST}
+            author="barddev"
+            permlink={BARDDEV_POST}
             variant="grid"
           />
           <HivePostCard
@@ -68,8 +68,8 @@ export default function PostCardTab() {
               hide={`["author", "thumbnail"]`}
             </p>
             <HivePostCard
-              author="gtg"
-              permlink={GTG_POST}
+              author="barddev"
+              permlink={BARDDEV_POST}
               hide={["author", "thumbnail"]}
             />
           </div>
@@ -78,8 +78,8 @@ export default function PostCardTab() {
               hide={`["payout", "votes", "comments"]`}
             </p>
             <HivePostCard
-              author="gtg"
-              permlink={GTG_POST}
+              author="barddev"
+              permlink={BARDDEV_POST}
               hide={["payout", "votes", "comments"]}
             />
           </div>
@@ -93,14 +93,14 @@ export default function PostCardTab() {
         </p>
         <div className="max-w-lg space-y-3">
           <HivePostCard
-            author="gtg"
-            permlink={GTG_POST}
+            author="barddev"
+            permlink={BARDDEV_POST}
             linkTarget="https://peakd.com"
             variant="compact"
           />
           <HivePostCard
-            author="gtg"
-            permlink={GTG_POST}
+            author="barddev"
+            permlink={BARDDEV_POST}
             linkTarget="https://ecency.com"
             variant="compact"
           />

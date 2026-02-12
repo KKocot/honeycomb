@@ -2,7 +2,7 @@
 
 import { HiveAvatar } from "@kkocot/honeycomb-react";
 
-const DEMO_USERS = ["blocktrades", "gtg", "arcange", "good-karma", "therealwolf"];
+const DEMO_USERS = ["blocktrades", "barddev", "arcange", "good-karma", "therealwolf"];
 
 export default function AvatarTab() {
   return (
@@ -63,7 +63,7 @@ export default function AvatarTab() {
             <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-green-500 ring-2 ring-background" />
           </div>
           <div className="relative">
-            <HiveAvatar username="gtg" size="lg" />
+            <HiveAvatar username="barddev" size="lg" />
             <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-muted-foreground ring-2 ring-background" />
           </div>
           <div className="relative">

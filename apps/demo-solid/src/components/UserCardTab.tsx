@@ -1,7 +1,7 @@
 import { For } from "solid-js";
 import { UserCard } from "@kkocot/honeycomb-solid";
 
-const DEMO_USERS = ["barddev", "blocktrades", "gtg", "arcange"];
+const DEMO_USERS = ["barddev", "blocktrades", "good-karma", "arcange"];
 
 export default function UserCardTab() {
   return (
@@ -44,7 +44,7 @@ export default function UserCardTab() {
           Hide post count and balances by setting showStats to false.
         </p>
         <div class="max-w-sm">
-          <UserCard username="gtg" showStats={false} />
+          <UserCard username="barddev" showStats={false} />
         </div>
       </section>
 

@@ -2,7 +2,7 @@ import { For } from "solid-js";
 import { HiveAvatar } from "@kkocot/honeycomb-solid";
 import type { AvatarSize } from "@kkocot/honeycomb-solid";
 
-const DEMO_USERS = ["blocktrades", "gtg", "arcange", "good-karma", "therealwolf"];
+const DEMO_USERS = ["blocktrades", "barddev", "arcange", "good-karma", "therealwolf"];
 const SIZES: readonly AvatarSize[] = ["xs", "sm", "md", "lg", "xl"];
 
 export default function AvatarTab() {
@@ -67,7 +67,7 @@ export default function AvatarTab() {
             <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-green-500 ring-2 ring-background" />
           </div>
           <div class="relative">
-            <HiveAvatar username="gtg" size="lg" />
+            <HiveAvatar username="barddev" size="lg" />
             <span class="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-muted-foreground ring-2 ring-background" />
           </div>
           <div class="relative">

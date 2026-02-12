@@ -41,7 +41,7 @@
         Hide post count and balances by setting showStats to false.
       </p>
       <div class="max-w-sm">
-        <UserCard username="gtg" :showStats="false" />
+        <UserCard username="barddev" :showStats="false" />
       </div>
     </section>
 
@@ -77,5 +77,5 @@
 <script setup lang="ts">
 import { UserCard } from "@kkocot/honeycomb-vue";
 
-const DEMO_USERS = ["barddev", "blocktrades", "gtg", "arcange"];
+const DEMO_USERS = ["barddev", "blocktrades", "good-karma", "arcange"];
 </script>

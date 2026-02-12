@@ -7,8 +7,8 @@
       </p>
       <div class="max-w-lg">
         <HivePostCard
-          author="gtg"
-          permlink="hive-hardfork-28-jump-starter-kit"
+          author="barddev"
+          permlink="honeycomb-hive-ui-library"
         />
       </div>
     </section>
@@ -52,8 +52,8 @@
       </p>
       <div class="max-w-lg">
         <HivePostCard
-          author="gtg"
-          permlink="hive-hardfork-28-jump-starter-kit"
+          author="barddev"
+          permlink="honeycomb-hive-ui-library"
           :hide="['author', 'thumbnail']"
         />
       </div>
@@ -80,7 +80,7 @@
 import { HivePostCard } from "@kkocot/honeycomb-vue";
 
 const DEMO_POSTS = [
-  { author: "gtg", permlink: "hive-hardfork-28-jump-starter-kit" },
+  { author: "barddev", permlink: "honeycomb-hive-ui-library" },
   {
     author: "blocktrades",
     permlink: "updates-for-hive-roadmap-from-the-blocktrades-team",

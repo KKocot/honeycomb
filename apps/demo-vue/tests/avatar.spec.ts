@@ -49,7 +49,7 @@ test.describe("Avatar", () => {
   test("renders Multiple Users section", async ({ page }) => {
     await expect(page.getByText("Multiple Users")).toBeVisible();
     await expect(page.getByText("@blocktrades")).toBeVisible();
-    await expect(page.getByText("@gtg")).toBeVisible();
+    await expect(page.getByText("@barddev")).toBeVisible();
     await expect(page.getByText("@arcange")).toBeVisible();
   });
 

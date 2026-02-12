@@ -11,6 +11,7 @@
     "test:ui": "playwright test --ui"
   },
   "dependencies": {
+    "@kkocot/honeycomb-core": "workspace:*",
     "@kkocot/honeycomb-vue": "workspace:*",
     "react": "19.2.4",
     "react-dom": "19.2.4",

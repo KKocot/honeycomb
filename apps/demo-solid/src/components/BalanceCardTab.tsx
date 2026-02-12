@@ -1,8 +1,8 @@
 import { For } from "solid-js";
 import { BalanceCard } from "@kkocot/honeycomb-solid";
 
-const USERS = ["blocktrades", "gtg", "arcange"];
-const ALL_USERS = ["blocktrades", "gtg", "arcange", "good-karma"];
+const USERS = ["blocktrades", "barddev", "arcange"];
+const ALL_USERS = ["blocktrades", "barddev", "arcange", "good-karma"];
 
 export default function BalanceCardTab() {
   return (

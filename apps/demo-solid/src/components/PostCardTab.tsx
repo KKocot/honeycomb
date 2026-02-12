@@ -2,8 +2,8 @@ import { HivePostCard } from "@kkocot/honeycomb-solid";
 import type { PostHideOption } from "@kkocot/honeycomb-solid";
 
 const POST_A = {
-  author: "gtg",
-  permlink: "hive-hardfork-28-jump-starter-kit",
+  author: "barddev",
+  permlink: "honeycomb-hive-ui-library",
 };
 const POST_B = {
   author: "blocktrades",

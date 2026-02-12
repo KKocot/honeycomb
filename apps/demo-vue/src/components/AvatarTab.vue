@@ -59,7 +59,7 @@
           />
         </div>
         <div class="relative">
-          <HiveAvatar username="gtg" size="lg" />
+          <HiveAvatar username="barddev" size="lg" />
           <span
             class="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-muted-foreground ring-2 ring-background"
           />
@@ -132,6 +132,6 @@
 import { HiveAvatar } from "@kkocot/honeycomb-vue";
 import type { AvatarSize } from "@kkocot/honeycomb-vue";
 
-const DEMO_USERS = ["blocktrades", "gtg", "arcange", "good-karma", "therealwolf"];
+const DEMO_USERS = ["blocktrades", "barddev", "arcange", "good-karma", "therealwolf"];
 const SIZES: readonly AvatarSize[] = ["xs", "sm", "md", "lg", "xl"];
 </script>
