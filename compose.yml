@@ -1,4 +1,7 @@
+# Requires .env file in this directory with DOMAIN variable
+# Docker Compose reads .env automatically from the same directory
 services:
+  # Next.js docs (standalone, port 3030, basePath: /docs)
   docs:
     build:
       context: .
@@ -12,12 +15,18 @@ services:
       - /app/.next/cache
     security_opt:
       - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
     networks:
       - common_proxy_network
     expose:
       - "3030"
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:3030/docs || exit 1"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3030/docs"]
       interval: 30s
       timeout: 5s
       start_period: 30s
@@ -25,55 +34,46 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=common_proxy_network"
-      # Redirect middleware: / -> /docs (with trailing slash handling)
+      # --- Shared middlewares (defined once on docs service) ---
+      # Redirect: / -> /docs
       - "traefik.http.middlewares.honeycomb-redirect.redirectregex.regex=^(https?)://([^/]+)/?$$"
       - "traefik.http.middlewares.honeycomb-redirect.redirectregex.replacement=$${1}://$${2}/docs"
-      - "traefik.http.middlewares.honeycomb-redirect.redirectregex.permanent=true"
-      # Security headers middleware
+      - "traefik.http.middlewares.honeycomb-redirect.redirectregex.permanent=false"
+      # Security headers
       - "traefik.http.middlewares.honeycomb-security.headers.browserXssFilter=true"
       - "traefik.http.middlewares.honeycomb-security.headers.contentTypeNosniff=true"
-      - "traefik.http.middlewares.honeycomb-security.headers.frameDeny=true"
       - "traefik.http.middlewares.honeycomb-security.headers.sslRedirect=true"
       - "traefik.http.middlewares.honeycomb-security.headers.stsSeconds=31536000"
       - "traefik.http.middlewares.honeycomb-security.headers.stsIncludeSubdomains=true"
       - "traefik.http.middlewares.honeycomb-security.headers.stsPreload=true"
       - "traefik.http.middlewares.honeycomb-security.headers.customFrameOptionsValue=SAMEORIGIN"
-      # HTTP to HTTPS redirect
-      - "traefik.http.middlewares.honeycomb-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.honeycomb-https-redirect.redirectscheme.permanent=true"
-      # HTTP router for root redirect (redirect to HTTPS)
+      # --- Root redirect router (/ -> /docs) ---
       - "traefik.http.routers.honeycomb-root.rule=Host(`${DOMAIN}`) && Path(`/`)"
-      - "traefik.http.routers.honeycomb-root.entrypoints=web"
-      - "traefik.http.routers.honeycomb-root.middlewares=honeycomb-https-redirect"
+      - "traefik.http.routers.honeycomb-root.entrypoints=websecure"
+      - "traefik.http.routers.honeycomb-root.tls=true"
+      - "traefik.http.routers.honeycomb-root.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.honeycomb-root.middlewares=honeycomb-security,honeycomb-redirect"
       - "traefik.http.routers.honeycomb-root.service=honeycomb-docs"
-      # HTTPS router for root redirect
-      - "traefik.http.routers.honeycomb-root-secure.rule=Host(`${DOMAIN}`) && Path(`/`)"
-      - "traefik.http.routers.honeycomb-root-secure.tls=true"
-      - "traefik.http.routers.honeycomb-root-secure.entrypoints=websecure"
-      - "traefik.http.routers.honeycomb-root-secure.middlewares=honeycomb-security,honeycomb-redirect"
-      - "traefik.http.routers.honeycomb-root-secure.service=honeycomb-docs"
-      - "traefik.http.routers.honeycomb-root-secure.priority=100"
-      # HTTP router for /docs (redirect to HTTPS)
+      - "traefik.http.routers.honeycomb-root.priority=100"
+      # --- Docs router (/docs) ---
       - "traefik.http.routers.honeycomb-docs.rule=Host(`${DOMAIN}`) && PathPrefix(`/docs`)"
-      - "traefik.http.routers.honeycomb-docs.entrypoints=web"
-      - "traefik.http.routers.honeycomb-docs.middlewares=honeycomb-https-redirect"
+      - "traefik.http.routers.honeycomb-docs.entrypoints=websecure"
+      - "traefik.http.routers.honeycomb-docs.tls=true"
+      - "traefik.http.routers.honeycomb-docs.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.honeycomb-docs.middlewares=honeycomb-security"
       - "traefik.http.routers.honeycomb-docs.service=honeycomb-docs"
-      # HTTPS router for /docs
-      - "traefik.http.routers.honeycomb-docs-secure.rule=Host(`${DOMAIN}`) && PathPrefix(`/docs`)"
-      - "traefik.http.routers.honeycomb-docs-secure.tls=true"
-      - "traefik.http.routers.honeycomb-docs-secure.entrypoints=websecure"
-      - "traefik.http.routers.honeycomb-docs-secure.middlewares=honeycomb-security"
-      - "traefik.http.routers.honeycomb-docs-secure.service=honeycomb-docs"
+      # --- Docs service ---
       - "traefik.http.services.honeycomb-docs.loadbalancer.server.port=3030"
       - "traefik.http.services.honeycomb-docs.loadbalancer.healthcheck.path=/docs"
       - "traefik.http.services.honeycomb-docs.loadbalancer.healthcheck.interval=30s"
 
-  demo:
+  # Next.js demo-react (standalone, port 3031, basePath: /demo/react)
+  demo-react:
     build:
       context: .
-      dockerfile: Dockerfile.demo
-    image: honeycomb-demo:latest
-    container_name: honeycomb-demo
+      dockerfile: Dockerfile.demo-react
+    image: honeycomb-demo-react:latest
+    container_name: honeycomb-demo-react
     restart: unless-stopped
     read_only: true
     tmpfs:
@@ -81,14 +81,18 @@ services:
       - /app/.next/cache
     security_opt:
       - no-new-privileges:true
-    environment:
-      - NODE_ENV=production
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
     networks:
       - common_proxy_network
     expose:
       - "3031"
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:3031/demo || exit 1"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3031/demo/react"]
       interval: 30s
       timeout: 5s
       start_period: 30s
@@ -96,20 +100,64 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=common_proxy_network"
-      # HTTP router (redirect to HTTPS)
-      - "traefik.http.routers.honeycomb-demo.rule=Host(`${DOMAIN}`) && PathPrefix(`/demo`)"
-      - "traefik.http.routers.honeycomb-demo.entrypoints=web"
-      - "traefik.http.routers.honeycomb-demo.middlewares=honeycomb-https-redirect"
-      - "traefik.http.routers.honeycomb-demo.service=honeycomb-demo"
-      # HTTPS router
-      - "traefik.http.routers.honeycomb-demo-secure.rule=Host(`${DOMAIN}`) && PathPrefix(`/demo`)"
-      - "traefik.http.routers.honeycomb-demo-secure.tls=true"
-      - "traefik.http.routers.honeycomb-demo-secure.entrypoints=websecure"
-      - "traefik.http.routers.honeycomb-demo-secure.middlewares=honeycomb-security"
-      - "traefik.http.routers.honeycomb-demo-secure.service=honeycomb-demo"
-      - "traefik.http.services.honeycomb-demo.loadbalancer.server.port=3031"
-      - "traefik.http.services.honeycomb-demo.loadbalancer.healthcheck.path=/demo"
-      - "traefik.http.services.honeycomb-demo.loadbalancer.healthcheck.interval=30s"
+      # --- Demo React router (/demo/react) ---
+      - "traefik.http.routers.honeycomb-demo-react.rule=Host(`${DOMAIN}`) && PathPrefix(`/demo/react`)"
+      - "traefik.http.routers.honeycomb-demo-react.entrypoints=websecure"
+      - "traefik.http.routers.honeycomb-demo-react.tls=true"
+      - "traefik.http.routers.honeycomb-demo-react.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.honeycomb-demo-react.middlewares=honeycomb-security"
+      - "traefik.http.routers.honeycomb-demo-react.service=honeycomb-demo-react"
+      # --- Demo React service ---
+      - "traefik.http.services.honeycomb-demo-react.loadbalancer.server.port=3031"
+      - "traefik.http.services.honeycomb-demo-react.loadbalancer.healthcheck.path=/demo/react"
+      - "traefik.http.services.honeycomb-demo-react.loadbalancer.healthcheck.interval=30s"
+
+  # nginx static demos: Solid + Vue (port 8080)
+  demos:
+    build:
+      context: .
+      dockerfile: Dockerfile.demos
+    image: honeycomb-demos:latest
+    container_name: honeycomb-demos
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/cache/nginx
+      - /var/run
+      - /var/log/nginx
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+    networks:
+      - common_proxy_network
+    expose:
+      - "8080"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/demo/solid/"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=common_proxy_network"
+      # --- Demos router (/demo/solid, /demo/vue) ---
+      - "traefik.http.routers.honeycomb-demos.rule=Host(`${DOMAIN}`) && (PathPrefix(`/demo/solid`) || PathPrefix(`/demo/vue`))"
+      - "traefik.http.routers.honeycomb-demos.entrypoints=websecure"
+      - "traefik.http.routers.honeycomb-demos.tls=true"
+      - "traefik.http.routers.honeycomb-demos.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.honeycomb-demos.middlewares=honeycomb-security"
+      - "traefik.http.routers.honeycomb-demos.service=honeycomb-demos"
+      # --- Demos service ---
+      - "traefik.http.services.honeycomb-demos.loadbalancer.server.port=8080"
+      - "traefik.http.services.honeycomb-demos.loadbalancer.healthcheck.path=/demo/solid/"
+      - "traefik.http.services.honeycomb-demos.loadbalancer.healthcheck.interval=30s"
 
 networks:
   common_proxy_network:

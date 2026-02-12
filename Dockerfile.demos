@@ -1,0 +1,59 @@
+# Multi-stage build for Solid + Vue demos (honeycomb)
+# Serves static builds via nginx
+
+# Stage 1: Build
+FROM node:24-alpine AS builder
+RUN apk add --no-cache libc6-compat
+RUN corepack enable
+WORKDIR /app
+
+# Copy workspace config first for better layer caching
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json turbo.json ./
+COPY apps/demo-solid/package.json ./apps/demo-solid/
+COPY apps/demo-vue/package.json ./apps/demo-vue/
+COPY packages/core/package.json ./packages/core/
+COPY packages/react/package.json ./packages/react/
+COPY packages/solid/package.json ./packages/solid/
+COPY packages/vue/package.json ./packages/vue/
+COPY packages/cli/package.json ./packages/cli/
+
+# Install dependencies with cache mount
+RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store \
+    pnpm install --frozen-lockfile
+
+# Copy source code
+COPY . .
+
+# Build both demos (workspace dependencies built automatically via turbo)
+RUN pnpm turbo build --filter=demo-solid --filter=demo-vue
+
+# Stage 2: nginx runner
+FROM nginx:alpine AS runner
+
+# Remove default nginx config
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy custom nginx config
+COPY nginx/demos.conf /etc/nginx/conf.d/demos.conf
+
+# Copy Solid build output
+COPY --from=builder /app/apps/demo-solid/dist/ /usr/share/nginx/html/demo/solid/
+
+# Copy Vue build output
+COPY --from=builder /app/apps/demo-vue/dist/ /usr/share/nginx/html/demo/vue/
+
+# Prepare non-root execution (nginx user, UID 101)
+RUN chown -R nginx:nginx /usr/share/nginx/html && \
+    chown -R nginx:nginx /var/cache/nginx && \
+    chown -R nginx:nginx /var/log/nginx && \
+    touch /var/run/nginx.pid && \
+    chown nginx:nginx /var/run/nginx.pid
+
+USER nginx
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/demo/solid/ || exit 1
+
+CMD ["nginx", "-g", "daemon off;"]

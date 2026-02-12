@@ -144,7 +144,7 @@ function HomePageContent() {
               React
             </span>
             <a
-              href="http://localhost:3030"
+              href="/docs"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"

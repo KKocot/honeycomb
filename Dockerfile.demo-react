@@ -1,4 +1,4 @@
-# Multi-stage build for Next.js docs (honeycomb)
+# Multi-stage build for Next.js demo-react (honeycomb)
 
 # Stage 1: Build
 FROM node:24-alpine AS builder
@@ -8,7 +8,7 @@ WORKDIR /app
 
 # Copy workspace config first for better layer caching
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json turbo.json ./
-COPY apps/docs/package.json ./apps/docs/
+COPY apps/demo-react/package.json ./apps/demo-react/
 COPY packages/core/package.json ./packages/core/
 COPY packages/react/package.json ./packages/react/
 COPY packages/solid/package.json ./packages/solid/
@@ -24,9 +24,9 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Build docs (with workspace dependencies)
-RUN pnpm --filter docs build && \
-    mkdir -p /app/apps/docs/public
+# Build demo-react (with workspace dependencies)
+RUN pnpm --filter demo-react build && \
+    mkdir -p /app/apps/demo-react/public
 
 # Stage 2: Runner
 FROM node:24-alpine AS runner
@@ -34,22 +34,22 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV PORT=3030
+ENV PORT=3031
 ENV HOSTNAME="0.0.0.0"
 
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
 # Copy standalone output and public assets
-COPY --from=builder --chown=nextjs:nodejs /app/apps/docs/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/apps/docs/.next/static ./apps/docs/.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/apps/docs/public ./apps/docs/public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/demo-react/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/demo-react/.next/static ./apps/demo-react/.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/apps/demo-react/public ./apps/demo-react/public
 
 USER nextjs
 
-EXPOSE 3030
+EXPOSE 3031
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3030/docs || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3031/demo/react || exit 1
 
-CMD ["node", "apps/docs/server.js"]
+CMD ["node", "apps/demo-react/server.js"]
