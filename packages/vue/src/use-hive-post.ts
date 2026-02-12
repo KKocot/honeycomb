@@ -161,9 +161,11 @@ export function useHivePost(
             payout: `$${total_payout.toFixed(2)}`,
             created: format_time_ago(comment.created),
             raw_created: comment.created,
-            thumbnail: extract_thumbnail(
-              comment.json_metadata || "{}",
-            ),
+            thumbnail:
+              extract_thumbnail(
+                comment.json_metadata || "{}",
+                comment.body,
+              ) ?? `https://images.hive.blog/u/${comment.author}/avatar`,
           };
         } else {
           error.value = new Error("Post not found");

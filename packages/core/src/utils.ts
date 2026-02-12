@@ -237,7 +237,12 @@ export function format_time_ago(date_string: string): string {
 }
 
 function is_safe_image_url(url: string): boolean {
-  return url.startsWith("https://") || url.startsWith("http://");
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === "https:" || parsed.protocol === "http:";
+  } catch {
+    return false;
+  }
 }
 
 function is_image_metadata(
@@ -246,7 +251,7 @@ function is_image_metadata(
   if (typeof meta !== "object" || meta === null) return false;
   if (!("image" in meta)) return false;
 
-  const obj = meta as Record<string, unknown>;
+  const obj: { image: unknown } = meta;
   return (
     Array.isArray(obj.image) &&
     obj.image.length > 0 &&
@@ -254,19 +259,82 @@ function is_image_metadata(
   );
 }
 
+function is_images_metadata(
+  meta: unknown,
+): meta is { images: string[] } {
+  if (typeof meta !== "object" || meta === null) return false;
+  if (!("images" in meta)) return false;
+
+  const obj: { images: unknown } = meta;
+  return (
+    Array.isArray(obj.images) &&
+    obj.images.length > 0 &&
+    typeof obj.images[0] === "string"
+  );
+}
+
+function extract_image_from_body(body: string): string | null {
+  const markdown_match = body.match(/!\[[^\]]*\]\(([^)]+)\)/);
+  if (markdown_match?.[1] && is_safe_image_url(markdown_match[1])) {
+    return markdown_match[1];
+  }
+
+  const img_tag_match = body.match(/<img\s+src="([^"]+)"/);
+  if (img_tag_match?.[1] && is_safe_image_url(img_tag_match[1])) {
+    return img_tag_match[1];
+  }
+
+  const peakd_match = body.match(
+    /https:\/\/files\.peakd\.com\/[^\s"'>\]]+\.(jpg|jpeg|png|webp|gif)(\?[^\s"'>\]]*)?/i,
+  );
+  if (peakd_match?.[0] && is_safe_image_url(peakd_match[0])) {
+    return peakd_match[0];
+  }
+
+  const hive_blog_match = body.match(
+    /https:\/\/images\.hive\.blog\/[^\s)"'>\]]+/i,
+  );
+  if (hive_blog_match?.[0] && is_safe_image_url(hive_blog_match[0])) {
+    return hive_blog_match[0];
+  }
+
+  return null;
+}
+
 /**
  * Extract the first image URL from a post's json_metadata string.
+ * Falls back to extracting from post body (markdown, HTML img, CDN URLs).
  * Returns null if no image found or metadata is invalid.
  */
-export function extract_thumbnail(json_metadata: string): string | null {
+export function extract_thumbnail(
+  json_metadata: string,
+  body?: string,
+): string | null {
   try {
     const meta: unknown = JSON.parse(json_metadata);
+
     if (is_image_metadata(meta)) {
       const url = meta.image[0];
+      if (url.startsWith("youtu-") && url.length > 6) {
+        return `https://img.youtube.com/vi/${url.slice(6)}/0.jpg`;
+      }
+      if (is_safe_image_url(url)) return url;
+    }
+
+    if (is_images_metadata(meta)) {
+      const url = meta.images[0];
+      if (url.startsWith("youtu-") && url.length > 6) {
+        return `https://img.youtube.com/vi/${url.slice(6)}/0.jpg`;
+      }
       if (is_safe_image_url(url)) return url;
     }
   } catch {
     // ignore parse errors
   }
+
+  if (body) {
+    return extract_image_from_body(body);
+  }
+
   return null;
 }
