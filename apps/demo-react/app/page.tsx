@@ -10,6 +10,7 @@ import BalanceCardTab from "../components/BalanceCardTab";
 import ManabarTab from "../components/ManabarTab";
 import PostCardTab from "../components/PostCardTab";
 import PostListTab from "../components/PostListTab";
+import RendererTab from "../components/RendererTab";
 
 type TabId =
   | "api-tracker"
@@ -19,7 +20,8 @@ type TabId =
   | "balance-card"
   | "manabar"
   | "post-card"
-  | "post-list";
+  | "post-list"
+  | "renderer";
 
 interface TabConfig {
   id: TabId;
@@ -82,6 +84,13 @@ const TABS: readonly TabConfig[] = [
     title: "Post List",
     description:
       "Paginated Hive post feed with sort controls, pinned posts, and multiple layouts.",
+  },
+  {
+    id: "renderer",
+    label: "Renderer",
+    title: "Content Renderer",
+    description:
+      "Renders Hive markdown content with mentions, hashtags, embeds, and sanitization.",
   },
 ];
 
@@ -218,6 +227,7 @@ function HomePageContent() {
           {active_tab === "manabar" && <ManabarTab />}
           {active_tab === "post-card" && <PostCardTab />}
           {active_tab === "post-list" && <PostListTab />}
+          {active_tab === "renderer" && <RendererTab />}
         </div>
       </div>
 
