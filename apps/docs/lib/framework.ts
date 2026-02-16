@@ -1,14 +1,12 @@
 export const FRAMEWORKS = [
-  { id: "react", label: "React", demo_port: 3031, demo_base: "/demo/react" },
-  { id: "solid", label: "Solid.js", demo_port: 3032, demo_base: "/demo/solid/" },
-  { id: "vue", label: "Vue 3", demo_port: 3033, demo_base: "/demo/vue/" },
+  { id: "react", label: "React", demo_base: "/demo/react" },
+  { id: "solid", label: "Solid.js", demo_base: "/demo/solid/" },
+  { id: "vue", label: "Vue 3", demo_base: "/demo/vue/" },
 ] as const;
 
 export function get_demo_url(framework: Framework): string {
   const fw = FRAMEWORKS.find((f) => f.id === framework);
-  const port = fw?.demo_port ?? 3031;
-  const base = fw?.demo_base ?? "/demo/react";
-  return `http://127.0.0.1:${String(port)}${base}`;
+  return fw?.demo_base ?? "/demo/react";
 }
 
 export type Framework = (typeof FRAMEWORKS)[number]["id"];
