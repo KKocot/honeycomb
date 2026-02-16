@@ -73,6 +73,7 @@
         <ManabarTab v-else-if="active_tab === 'manabar'" />
         <PostCardTab v-else-if="active_tab === 'post-card'" />
         <PostListTab v-else-if="active_tab === 'post-list'" />
+        <RendererTab v-else-if="active_tab === 'renderer'" />
       </div>
     </div>
 
@@ -97,6 +98,7 @@ import BalanceCardTab from "./BalanceCardTab.vue";
 import ManabarTab from "./ManabarTab.vue";
 import PostCardTab from "./PostCardTab.vue";
 import PostListTab from "./PostListTab.vue";
+import RendererTab from "./RendererTab.vue";
 
 type TabId =
   | "api-tracker"
@@ -106,7 +108,8 @@ type TabId =
   | "balance-card"
   | "manabar"
   | "post-card"
-  | "post-list";
+  | "post-list"
+  | "renderer";
 
 interface TabConfig {
   id: TabId;
@@ -164,6 +167,13 @@ const TABS: readonly TabConfig[] = [
     title: "Post List",
     description:
       "Paginated list of ranked Hive posts with sort controls and multiple layouts.",
+  },
+  {
+    id: "renderer",
+    label: "Renderer",
+    title: "Content Renderer",
+    description:
+      "Renders Hive markdown content with mentions, hashtags, embeds, and sanitization.",
   },
 ];
 
