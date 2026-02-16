@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   ArrowLeft,
+  ArrowRight,
   ChevronLeft,
   ChevronRight,
   Info,
@@ -26,8 +27,9 @@ export default async function PostListPage({ params }: PageProps) {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">HivePostList</h1>
         <p className="mt-2 text-lg text-muted-foreground">
-          Ranked post feed with sorting, pagination, pinned posts, and multiple
-          layout variants.
+          Post feed with sorting, pagination, pinned posts, and multiple layout
+          variants. Supports global ranked posts, community feeds, and tag
+          filtering.
         </p>
       </div>
 
@@ -40,9 +42,14 @@ export default async function PostListPage({ params }: PageProps) {
               Uses bridge.get_ranked_posts
             </p>
             <p className="mt-1 text-sm text-muted-foreground">
-              Fetches ranked posts from the Hive blockchain via the Bridge API.
-              Supports sorting by trending, hot, created, payout, and muted.
-              Requires HiveProvider wrapper.
+              Fetches posts from the Hive blockchain via the Bridge API. Use the{" "}
+              <code className="rounded bg-muted px-1 py-0.5 text-xs">tag</code>{" "}
+              prop to filter by community (e.g.{" "}
+              <code className="rounded bg-muted px-1 py-0.5 text-xs">hive-167922</code>
+              ) or by tag (e.g.{" "}
+              <code className="rounded bg-muted px-1 py-0.5 text-xs">photography</code>
+              ). Without a tag, returns global ranked posts. Requires
+              HiveProvider wrapper.
             </p>
           </div>
         </div>
@@ -183,6 +190,7 @@ export default async function PostListPage({ params }: PageProps) {
                 <th className="py-3 px-4 text-left font-semibold">Prop</th>
                 <th className="py-3 px-4 text-left font-semibold">Type</th>
                 <th className="py-3 px-4 text-left font-semibold">Default</th>
+                <th className="py-3 px-4 text-left font-semibold">Description</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
@@ -196,6 +204,9 @@ export default async function PostListPage({ params }: PageProps) {
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>"trending"</code>
                 </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  Sort order for the post feed
+                </td>
               </tr>
               <tr>
                 <td className="py-3 px-4">
@@ -205,6 +216,10 @@ export default async function PostListPage({ params }: PageProps) {
                   <code>string</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">-</td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  Community name (<code>hive-167922</code>) or tag
+                  (<code>photography</code>). Omit for global feed.
+                </td>
               </tr>
               <tr>
                 <td className="py-3 px-4">
@@ -215,6 +230,9 @@ export default async function PostListPage({ params }: PageProps) {
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>20</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  Posts per page
                 </td>
               </tr>
               <tr>
@@ -227,6 +245,9 @@ export default async function PostListPage({ params }: PageProps) {
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>[]</code>
                 </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  Posts pinned at the top of the list
+                </td>
               </tr>
               <tr>
                 <td className="py-3 px-4">
@@ -237,6 +258,9 @@ export default async function PostListPage({ params }: PageProps) {
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>false</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  Show sort buttons above the list
                 </td>
               </tr>
               <tr>
@@ -249,6 +273,9 @@ export default async function PostListPage({ params }: PageProps) {
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>"compact"</code>
                 </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  Layout variant for post items
+                </td>
               </tr>
               <tr>
                 <td className="py-3 px-4">
@@ -259,6 +286,9 @@ export default async function PostListPage({ params }: PageProps) {
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>[]</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  Elements to hide from post cards
                 </td>
               </tr>
               <tr>
@@ -271,6 +301,9 @@ export default async function PostListPage({ params }: PageProps) {
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>{`"https://blog.openhive.network"`}</code>
                 </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  Base URL for post links
+                </td>
               </tr>
               <tr>
                 <td className="py-3 px-4">
@@ -282,6 +315,9 @@ export default async function PostListPage({ params }: PageProps) {
                   <code>string</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">-</td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  Additional CSS classes
+                </td>
               </tr>
             </tbody>
           </table>
@@ -417,6 +453,32 @@ export default async function PostListPage({ params }: PageProps) {
         <h2 className="text-xl font-semibold mb-4">Examples</h2>
         <div className="space-y-6">
           <div>
+            <h3 className="text-sm font-medium mb-2">Community posts</h3>
+            <p className="text-sm text-muted-foreground mb-2">
+              Pass a community name (format{" "}
+              <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                hive-NNNNNN
+              </code>
+              ) as the{" "}
+              <code className="rounded bg-muted px-1 py-0.5 text-xs">tag</code>{" "}
+              prop to show posts from that community.
+            </p>
+            <CodeBlock
+              code={CODE.communityPosts[framework]}
+              language={framework === "vue" ? "vue" : "tsx"}
+            />
+          </div>
+          <div>
+            <h3 className="text-sm font-medium mb-2">Tag filter</h3>
+            <p className="text-sm text-muted-foreground mb-2">
+              Pass any Hive tag to filter posts. Works with all sort options.
+            </p>
+            <CodeBlock
+              code={CODE.tagFilter[framework]}
+              language={framework === "vue" ? "vue" : "tsx"}
+            />
+          </div>
+          <div>
             <h3 className="text-sm font-medium mb-2">Sort controls</h3>
             <CodeBlock
               code={CODE.sortControls[framework]}
@@ -456,7 +518,13 @@ export default async function PostListPage({ params }: PageProps) {
           <ArrowLeft className="h-4 w-4" />
           Post Card
         </Link>
-        <div />
+        <Link
+          href={`/${framework}/content-renderer`}
+          className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
+        >
+          Content Renderer
+          <ArrowRight className="h-4 w-4" />
+        </Link>
       </section>
     </article>
   );

@@ -56,12 +56,11 @@ export const docsConfig: NavSection[] = [
       { title: "Post List", href: "/react/post-list" },
     ],
   },
-  // {
-  //   title: "Content",
-  //   type: "passive",
-  //   items: [
-  //     { title: "Content Renderer", href: "/react/content-renderer" },
-  //     { title: "Markdown Editor", href: "/react/markdown-editor" },
-  //   ],
-  // },
+  {
+    title: "Content",
+    type: "passive",
+    items: [
+      { title: "Content Renderer", href: "/react/content-renderer" },
+    ],
+  },
 ];

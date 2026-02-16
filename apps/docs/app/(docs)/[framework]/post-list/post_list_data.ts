@@ -153,6 +153,84 @@ const pinned = [
   <!-- Available: "author" | "thumbnail" | "payout" | "votes" | "comments" | "time" -->
 </template>`,
   },
+  communityPosts: {
+    react: `import { HivePostList } from "@kkocot/honeycomb-react";
+
+// Show posts from a specific community
+function LeoFinanceFeed() {
+  return (
+    <HivePostList
+      tag="hive-167922"
+      sort="trending"
+      show_sort_controls
+      limit={10}
+    />
+  );
+}`,
+    solid: `import { HivePostList } from "@kkocot/honeycomb-solid";
+
+// Show posts from a specific community
+function LeoFinanceFeed() {
+  return (
+    <HivePostList
+      tag="hive-167922"
+      sort="trending"
+      show_sort_controls
+      limit={10}
+    />
+  );
+}`,
+    vue: `<template>
+  <!-- Show posts from a specific community -->
+  <HivePostList
+    tag="hive-167922"
+    sort="trending"
+    show_sort_controls
+    :limit="10"
+  />
+</template>
+
+<script setup lang="ts">
+import { HivePostList } from "@kkocot/honeycomb-vue";
+</script>`,
+  },
+  tagFilter: {
+    react: `import { HivePostList } from "@kkocot/honeycomb-react";
+
+// Filter posts by a specific tag
+function PhotographyFeed() {
+  return (
+    <HivePostList
+      tag="photography"
+      sort="created"
+      limit={10}
+    />
+  );
+}`,
+    solid: `import { HivePostList } from "@kkocot/honeycomb-solid";
+
+// Filter posts by a specific tag
+function PhotographyFeed() {
+  return (
+    <HivePostList
+      tag="photography"
+      sort="created"
+      limit={10}
+    />
+  );
+}`,
+    vue: `<template>
+  <HivePostList
+    tag="photography"
+    sort="created"
+    :limit="10"
+  />
+</template>
+
+<script setup lang="ts">
+import { HivePostList } from "@kkocot/honeycomb-vue";
+</script>`,
+  },
   hookUsage: {
     react: `import { useHivePostList } from "@kkocot/honeycomb-react";
 

@@ -6,7 +6,12 @@ import { useRouter, usePathname } from "next/navigation";
 import { Github, ChevronDown, Check } from "lucide-react";
 import { HiveLogo } from "./hive-logo";
 import { cn } from "@/lib/utils";
-import { FRAMEWORKS, parseFramework, type Framework } from "@/lib/framework";
+import {
+  FRAMEWORKS,
+  parseFramework,
+  get_demo_url,
+  type Framework,
+} from "@/lib/framework";
 
 export function Header() {
   const router = useRouter();
@@ -94,6 +99,14 @@ export function Header() {
           >
             Docs
           </Link>
+          <a
+            href={get_demo_url(active_framework)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Demo
+          </a>
 
           {/* Framework Dropdown */}
           <div className="relative" ref={dropdownRef}>
