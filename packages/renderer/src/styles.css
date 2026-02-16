@@ -1,0 +1,353 @@
+/*
+ * HiveContentRenderer - Content Styles
+ *
+ * Required CSS for rendering Hive blockchain content.
+ * Apply the `.hive-renderer` class to the wrapper element.
+ *
+ * Works with @tailwindcss/typography (prose) for base typography,
+ * then overrides specific styles for Hive content rendering.
+ *
+ * Usage:
+ *   <div class="prose dark:prose-invert hive-renderer max-w-none">
+ *     <HiveContentRenderer body={markdown} />
+ *   </div>
+ */
+
+/* ============================================
+ * Typography overrides
+ * ============================================ */
+
+.hive-renderer {
+  font-size: 16.5px;
+  line-height: 1.75;
+}
+
+@media (min-width: 640px) {
+  .hive-renderer {
+    font-size: 17.6px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hive-renderer {
+    font-size: 19.2px;
+  }
+}
+
+/* Headings */
+.hive-renderer h1 {
+  font-size: 1.6em;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  margin-top: 2.5rem;
+}
+
+.hive-renderer h2 {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  margin-top: 2.5rem;
+}
+
+.hive-renderer h3 {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  margin-top: 2.5rem;
+}
+
+.hive-renderer h4 {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  margin-top: 2.5rem;
+}
+
+/* Paragraphs */
+.hive-renderer p {
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.hive-renderer p::before,
+.hive-renderer p::after {
+  content: none !important;
+}
+
+/* Links */
+.hive-renderer a {
+  text-decoration: none;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.hive-renderer a:hover {
+  text-decoration: underline;
+}
+
+/* External link icon */
+.hive-renderer a.link-external::after {
+  content: "";
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  margin-left: 0.15em;
+  margin-right: 0.1em;
+  opacity: 0.5;
+  vertical-align: baseline;
+  position: relative;
+  top: 0.05em;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* Phishing warning */
+.hive-renderer .phishy {
+  display: inline;
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* Blockquotes */
+.hive-renderer blockquote {
+  font-weight: 400;
+  margin: 0;
+  margin-bottom: 1rem;
+  padding-left: 1.25rem;
+  padding-top: 0.5rem;
+  opacity: 0.7;
+}
+
+/* Code */
+.hive-renderer code {
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+  font-weight: 400;
+  font-size: 0.875em;
+  line-height: 1.25;
+  word-break: break-word;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+}
+
+.hive-renderer pre {
+  margin: 0;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  overflow-x: auto;
+  border-radius: 0.375rem;
+}
+
+.hive-renderer pre code {
+  padding: 0;
+  font-size: inherit;
+  background: transparent;
+}
+
+/* Lists */
+.hive-renderer ol,
+.hive-renderer ul {
+  margin-bottom: 1rem;
+  margin-left: 0.75rem;
+  margin-top: 0;
+}
+
+.hive-renderer li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Images */
+.hive-renderer img {
+  margin-bottom: 0.625rem;
+  margin-top: 0;
+  max-width: 100%;
+  height: auto;
+  cursor: pointer;
+  border-radius: 0.375rem;
+}
+
+/* Horizontal rule */
+.hive-renderer hr {
+  margin: 1.25rem 0;
+}
+
+/* ============================================
+ * Tables
+ * ============================================ */
+
+.hive-renderer table {
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9em;
+}
+
+.hive-renderer thead th {
+  text-align: left;
+  font-weight: 600;
+}
+
+.hive-renderer td,
+.hive-renderer th {
+  vertical-align: middle;
+  padding: 0.5rem 0.75rem;
+}
+
+.hive-renderer table td a,
+.hive-renderer table th a {
+  word-break: normal;
+  white-space: nowrap;
+}
+
+/* ============================================
+ * Video Embeds (YouTube, Vimeo, Twitch)
+ * ============================================ */
+
+.hive-renderer .videoWrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.hive-renderer .videoWrapper iframe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* YouTube lazy-load facade */
+.hive-renderer .youtube-facade {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+}
+
+.hive-renderer .youtube-facade img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0;
+  border-radius: 0;
+}
+
+.hive-renderer .youtube-facade .youtube-play-btn {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.2s ease;
+}
+
+.hive-renderer .youtube-facade:hover .youtube-play-btn {
+  transform: scale(1.1);
+}
+
+/* ============================================
+ * Twitter Embeds
+ * ============================================ */
+
+.hive-renderer .twitterWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
+
+.hive-renderer .twitterWrapper > iframe {
+  width: 100% !important;
+  max-width: 550px;
+  height: 600px;
+  border: none;
+}
+
+/* ============================================
+ * Instagram Embeds
+ * ============================================ */
+
+.hive-renderer .instagramWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
+
+.hive-renderer .instagramWrapper iframe {
+  width: 100% !important;
+  max-width: 540px;
+  height: 800px;
+  border: none;
+}
+
+/* ============================================
+ * Float Images (pull-left, pull-right)
+ * ============================================ */
+
+.hive-renderer .pull-left {
+  float: left;
+  padding-right: 1rem;
+  max-width: 50%;
+}
+
+.hive-renderer .pull-right {
+  float: right;
+  padding-left: 1rem;
+  max-width: 50%;
+}
+
+/* ============================================
+ * Details / Summary (Spoilers)
+ * ============================================ */
+
+.hive-renderer details {
+  padding: 0.625rem;
+  margin: 0.625rem 0;
+  border-radius: 0.375rem;
+  border: 1px solid hsl(var(--hive-border, 0 0% 20%));
+  background-color: hsl(var(--hive-muted, 0 0% 15%) / 0.3);
+}
+
+.hive-renderer summary {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* ============================================
+ * Center
+ * ============================================ */
+
+.hive-renderer center,
+.hive-renderer .text-center {
+  text-align: center;
+}
+
+.hive-renderer .text-justify {
+  text-align: justify;
+}
+
+.hive-renderer .text-right {
+  text-align: right;
+}
+
+.hive-renderer .text-rtl {
+  direction: rtl;
+}

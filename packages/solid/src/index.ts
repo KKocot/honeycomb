@@ -78,6 +78,29 @@ export type {
   RankedPostsResult,
 } from "@kkocot/honeycomb-core";
 
+// Content Renderer
+export {
+  HiveContentRenderer,
+  type HiveContentRendererProps,
+} from "./HiveContentRenderer";
+
+// Re-export renderer types and plugins
+export type {
+  RendererOptions,
+  RendererPlugin,
+  PostContext,
+} from "@kkocot/honeycomb-renderer";
+export {
+  DefaultRenderer,
+  TablePlugin,
+  TwitterPlugin,
+  TwitterResizePlugin,
+  InstagramPlugin,
+  InstagramResizePlugin,
+  DEFAULT_PLUGINS,
+  HighlightPlugin,
+} from "@kkocot/honeycomb-renderer";
+
 // Re-export core types
 export type {
   HiveClientConfig,

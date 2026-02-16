@@ -69,6 +69,29 @@ export {
   type HivePostListProps,
 } from "./post-list.js";
 
+// Content Renderer
+export {
+  HiveContentRenderer,
+  type HiveContentRendererProps,
+} from "./HiveContentRenderer.js";
+
+// Re-export renderer types and plugins
+export type {
+  RendererOptions,
+  RendererPlugin,
+  PostContext,
+} from "@kkocot/honeycomb-renderer";
+export {
+  DefaultRenderer,
+  TablePlugin,
+  TwitterPlugin,
+  TwitterResizePlugin,
+  InstagramPlugin,
+  InstagramResizePlugin,
+  DEFAULT_PLUGINS,
+  HighlightPlugin,
+} from "@kkocot/honeycomb-renderer";
+
 // Re-export post list types from core
 export type {
   SortType,

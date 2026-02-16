@@ -1,8 +1,15 @@
 {
-  "name": "@kkocot/honeycomb-solid",
+  "name": "@kkocot/honeycomb-renderer",
   "version": "0.1.0",
-  "description": "Solid.js components for Hive Blockchain applications",
-  "keywords": ["hive", "blockchain", "solidjs", "components", "web3", "honeycomb"],
+  "description": "Content renderer for Hive Blockchain posts and comments. Markdown + HTML sanitization, asset embedding, and security.",
+  "keywords": [
+    "hive",
+    "blockchain",
+    "markdown",
+    "renderer",
+    "honeycomb",
+    "content-renderer"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/KKocot/honeycomb"
@@ -15,36 +22,36 @@
   "type": "module",
   "exports": {
     ".": {
-      "solid": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./styles.css": "./src/styles.css"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "src/styles.css"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist"
-  },
-  "peerDependencies": {
-    "solid-js": ">=1.8.0",
-    "@hiveio/wax": ">=1.28.0"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@kkocot/honeycomb-core": "workspace:*",
-    "@kkocot/honeycomb-renderer": "workspace:*",
-    "@kobalte/core": "^0.13.0",
-    "clsx": "^2.1.1",
-    "tailwind-merge": "^3.4.0"
+    "@xmldom/xmldom": "^0.8.10",
+    "remarkable": "^2.0.1",
+    "sanitize-html": "^2.13.0",
+    "zod": "^4.0.0"
   },
   "devDependencies": {
-    "solid-js": "^1.9.0",
-    "@hiveio/wax": "^1.28.4-rc0",
+    "@types/node": "^20.14.10",
+    "@types/remarkable": "^2.0.8",
+    "@types/sanitize-html": "^2.11.0",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   },
