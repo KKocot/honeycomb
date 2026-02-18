@@ -25,6 +25,12 @@ export type {
   HealthCheckerFields,
 } from "@kkocot/honeycomb-core";
 
+// Health checker component
+export {
+  HealthCheckerComponent,
+  type HealthCheckerComponentProps,
+} from "./healthchecker";
+
 // Display Components
 export {
   HiveAvatar,
