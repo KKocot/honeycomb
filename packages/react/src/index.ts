@@ -17,6 +17,14 @@ export type {
   HiveClientState,
 } from "@kkocot/honeycomb-core";
 
+// Health checker service (re-export from core)
+export { HealthCheckerService } from "@kkocot/honeycomb-core";
+export type {
+  ApiChecker,
+  ValidationErrorDetails,
+  HealthCheckerFields,
+} from "@kkocot/honeycomb-core";
+
 // Display Components
 export {
   HiveAvatar,

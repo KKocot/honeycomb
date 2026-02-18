@@ -35,6 +35,14 @@ export {
   type ManabarData,
 } from "./utils.js";
 
+// Health checker service
+export { HealthCheckerService } from "./healthchecker-service.js";
+export type {
+  ApiChecker,
+  ValidationErrorDetails,
+  HealthCheckerFields,
+} from "./healthchecker-service.js";
+
 // Post list
 export {
   fetch_ranked_posts,
