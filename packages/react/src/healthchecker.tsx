@@ -259,13 +259,13 @@ export function HealthCheckerComponent({
               className={cn(
                 "flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full p-0.5 transition-colors",
                 {
-                  "justify-end bg-primary": !!isActive,
-                  "justify-start bg-input": !isActive,
+                  "justify-end bg-[hsl(var(--hive-primary))]": !!isActive,
+                  "justify-start bg-[hsl(var(--hive-input))]": !isActive,
                 }
               )}
               onClick={changeActivity}
             >
-              <div className="pointer-events-none h-5 w-5 rounded-full bg-background shadow-sm" />
+              <div className="pointer-events-none h-5 w-5 rounded-full bg-[hsl(var(--hive-background))] shadow-sm" />
             </div>
           </div>
         </div>
