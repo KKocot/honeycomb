@@ -5,37 +5,54 @@ React components and hooks for Hive Blockchain applications. Read-only (passive)
 ## Installation
 
 ```bash
+npm install @barddev/honeycomb-react
+# or
 pnpm add @barddev/honeycomb-react
+# or
+yarn add @barddev/honeycomb-react
+# or
+bun add @barddev/honeycomb-react
 ```
 
 ### Peer Dependencies
 
 ```bash
+npm install @hiveio/wax @radix-ui/react-popover react react-dom
+# or
 pnpm add @hiveio/wax @radix-ui/react-popover react react-dom
+# or
+yarn add @hiveio/wax @radix-ui/react-popover react react-dom
+# or
+bun add @hiveio/wax @radix-ui/react-popover react react-dom
 ```
 
 ### Styles
 
-Import the stylesheet in your entry file (e.g. `main.tsx`, `layout.tsx`):
+Import the bundled stylesheet in your entry file (e.g. `main.tsx`, `layout.tsx`):
 
 ```tsx
 import "@barddev/honeycomb-react/styles.css";
 ```
 
-This single import includes everything: CSS variables, component styles, and Tailwind utilities. No additional Tailwind configuration needed.
+This includes CSS variables, component styles, and Tailwind utilities. No additional configuration needed.
 
 #### Using with your own Tailwind CSS
 
-If your project already uses Tailwind CSS 4, add the `@source` directive so Tailwind generates utility classes with your theme values:
+If your project already uses Tailwind CSS 4, import only the base styles to avoid duplicating utilities:
+
+```tsx
+import "@barddev/honeycomb-react/base.css";
+```
+
+This provides CSS variables (`--hive-*`) and component styles without Tailwind utilities.
+
+Add the `@source` directive so Tailwind generates utility classes used by honeycomb components:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-react/styles.css";
 
 @source "../node_modules/@barddev/honeycomb-react/dist";
 ```
-
-The `@source` directive tells Tailwind to scan the package and generate utility classes using your theme. The `styles.css` import provides CSS variables and component-specific styles.
 
 ## Quick Start
 
