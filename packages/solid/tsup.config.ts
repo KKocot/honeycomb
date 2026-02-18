@@ -7,5 +7,13 @@ export default defineConfig({
   clean: true,
   splitting: false,
   sourcemap: true,
-  external: ["solid-js", "@hiveio/wax"],
+  external: [
+    "solid-js",
+    "@hiveio/wax",
+    "@xmldom/xmldom",
+    "remarkable",
+    "sanitize-html",
+    "zod",
+  ],
+  noExternal: ["@kkocot/honeycomb-core", "@kkocot/honeycomb-renderer"],
 });

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { HiveProvider } from "@kkocot/honeycomb-react";
-import "@kkocot/honeycomb-core/styles.css";
+import { HiveProvider } from "@barddev/honeycomb-react";
+import "@barddev/honeycomb-react/styles.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Honeycomb React Demo",
-  description: "Minimal demo of @kkocot/honeycomb-react HiveProvider",
+  description: "Minimal demo of @barddev/honeycomb-react HiveProvider",
 };
 
 export default function RootLayout({

@@ -5,7 +5,7 @@ import { parseFramework } from "@/lib/framework";
 
 const CODE = {
   basic: {
-    react: `import { HiveAvatar } from "@kkocot/honeycomb-react";
+    react: `import { HiveAvatar } from "@barddev/honeycomb-react";
 
 function UserProfile() {
   return (

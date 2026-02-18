@@ -1,6 +1,6 @@
 "use client";
 
-import { HivePostList } from "@kkocot/honeycomb-react";
+import { HivePostList } from "@barddev/honeycomb-react";
 
 const PINNED_POSTS = [
   { author: "gtg", permlink: "hive-hardfork-28-jump-starter-kit" },

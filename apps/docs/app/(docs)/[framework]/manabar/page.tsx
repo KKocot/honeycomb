@@ -5,7 +5,7 @@ import { parseFramework } from "@/lib/framework";
 
 const CODE = {
   basic: {
-    react: `import { HiveManabar } from "@kkocot/honeycomb-react";
+    react: `import { HiveManabar } from "@barddev/honeycomb-react";
 
 function UserStats() {
   return (

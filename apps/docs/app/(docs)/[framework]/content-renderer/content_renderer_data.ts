@@ -11,7 +11,7 @@ export const CODE: {
   programmatic: string;
 } = {
   basic: {
-    react: `import { HiveContentRenderer } from "@kkocot/honeycomb-react";
+    react: `import { HiveContentRenderer } from "@barddev/honeycomb-react";
 
 function PostContent({ body, author, permlink }: {
   body: string;
@@ -94,7 +94,7 @@ export default {
   },
 
   customOptions: {
-    react: `import { HiveContentRenderer } from "@kkocot/honeycomb-react";
+    react: `import { HiveContentRenderer } from "@barddev/honeycomb-react";
 
 <HiveContentRenderer
   body={body}

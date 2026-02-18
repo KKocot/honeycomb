@@ -8,7 +8,7 @@
     "url": "https://github.com/KKocot/honeycomb"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "license": "MIT",
   "author": "KKocot",
@@ -18,34 +18,43 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./styles.css": "./dist/styles.css"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": ["dist", "README.md"],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && cp ../core/src/styles.css dist/core-styles.css && cp ../renderer/src/styles.css dist/renderer-styles.css && cat dist/core-styles.css dist/renderer-styles.css > dist/styles.css && rm dist/core-styles.css dist/renderer-styles.css",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
-    "vue": ">=3.5.0",
-    "@hiveio/wax": ">=1.28.0"
+    "@hiveio/wax": ">=1.28.0",
+    "vue": ">=3.5.0"
   },
   "dependencies": {
-    "@kkocot/honeycomb-core": "workspace:*",
-    "@kkocot/honeycomb-renderer": "workspace:*",
-    "radix-vue": "^1.9.0",
+    "@xmldom/xmldom": "^0.8.10",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.4.0"
+    "radix-vue": "^1.9.0",
+    "remarkable": "^2.0.1",
+    "sanitize-html": "^2.13.0",
+    "tailwind-merge": "^3.4.0",
+    "zod": "^4.0.0"
   },
   "devDependencies": {
-    "vue": "^3.5.0",
+    "@kkocot/honeycomb-core": "workspace:*",
+    "@kkocot/honeycomb-renderer": "workspace:*",
     "@hiveio/wax": "^1.28.4-rc0",
     "tsup": "^8.0.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vue": "^3.5.0"
   },
   "engines": {
     "node": ">=18"

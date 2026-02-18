@@ -1,4 +1,4 @@
-# @kkocot/honeycomb-react
+# @barddev/honeycomb-react
 
 Honeycomb - React components for Hive Blockchain applications. SSR-compatible, works with Next.js App Router.
 
@@ -13,9 +13,9 @@ echo "@kkocot:registry=https://npm.pkg.github.com" >> ~/.npmrc
 ### 2. Install
 
 ```bash
-npm install @kkocot/honeycomb-react
+npm install @barddev/honeycomb-react
 # or
-pnpm add @kkocot/honeycomb-react
+pnpm add @barddev/honeycomb-react
 ```
 
 ## Quick Start
@@ -24,7 +24,7 @@ pnpm add @kkocot/honeycomb-react
 
 ```tsx
 // app/layout.tsx (Next.js App Router)
-import { HiveProvider } from '@kkocot/honeycomb-react'
+import { HiveProvider } from '@barddev/honeycomb-react'
 
 export default function RootLayout({ children }) {
   return (
@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
 // app/page.tsx
 'use client'
 
-import { useHive, useHiveUser, useIsLoggedIn } from '@kkocot/honeycomb-react'
+import { useHive, useHiveUser, useIsLoggedIn } from '@barddev/honeycomb-react'
 
 export default function Page() {
   const { chain, isLoading, error } = useHive()
@@ -149,7 +149,7 @@ Login form using Hive Keychain browser extension:
 ```tsx
 'use client'
 
-import { KeychainLogin, hasKeychain } from '@kkocot/honeycomb-react'
+import { KeychainLogin, hasKeychain } from '@barddev/honeycomb-react'
 
 export function LoginPage() {
   return (
@@ -174,7 +174,7 @@ Login form using PeakVault browser extension:
 ```tsx
 'use client'
 
-import { PeakVaultLogin, hasPeakVault } from '@kkocot/honeycomb-react'
+import { PeakVaultLogin, hasPeakVault } from '@barddev/honeycomb-react'
 
 export function LoginPage() {
   return (
@@ -195,7 +195,7 @@ Display Hive user avatars with automatic fallback to initials:
 ```tsx
 'use client'
 
-import { HiveAvatar } from '@kkocot/honeycomb-react'
+import { HiveAvatar } from '@barddev/honeycomb-react'
 
 export function UserProfile() {
   return (
@@ -217,7 +217,7 @@ Display Hive user profile cards with account information:
 ```tsx
 'use client'
 
-import { UserCard } from '@kkocot/honeycomb-react'
+import { UserCard } from '@barddev/honeycomb-react'
 
 export function ProfilePage() {
   return (
@@ -242,7 +242,7 @@ Hook to fetch Hive account data:
 ```tsx
 'use client'
 
-import { useHiveAccount } from '@kkocot/honeycomb-react'
+import { useHiveAccount } from '@barddev/honeycomb-react'
 
 export function AccountInfo({ username }: { username: string }) {
   const { account, isLoading, error } = useHiveAccount(username)

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.1.2/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [],
+  "linked": [["@barddev/honeycomb-react", "@kkocot/honeycomb-vue"]],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": [
+    "demo-react",
+    "demo-solid",
+    "demo-vue",
+    "docs",
+    "@kkocot/honeycomb-core",
+    "@kkocot/honeycomb-renderer",
+    "@kkocot/honeycomb",
+    "@kkocot/honeycomb-solid"
+  ]
+}

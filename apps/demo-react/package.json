@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@kkocot/honeycomb-core": "workspace:*",
-    "@kkocot/honeycomb-react": "workspace:*",
+    "@barddev/honeycomb-react": "workspace:*",
     "highlight.js": "^11.11.1",
     "next": "^15.5.12",
     "react": "^19.2.4",

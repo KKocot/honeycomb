@@ -1,6 +1,6 @@
 "use client";
 
-import { HiveManabar } from "@kkocot/honeycomb-react";
+import { HiveManabar } from "@barddev/honeycomb-react";
 
 const DEMO_USERS = ["blocktrades", "barddev", "arcange", "good-karma"];
 

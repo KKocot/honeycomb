@@ -1,6 +1,6 @@
 "use client";
 
-import { UserCard } from "@kkocot/honeycomb-react";
+import { UserCard } from "@barddev/honeycomb-react";
 
 const DEMO_USERS = ["barddev", "blocktrades", "good-karma", "arcange"];
 

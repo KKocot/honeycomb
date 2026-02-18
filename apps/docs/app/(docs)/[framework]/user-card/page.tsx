@@ -4,7 +4,7 @@ import { CodeBlock } from "@/components/code-block";
 import { parseFramework } from "@/lib/framework";
 
 const CODE = {
-  react: `import { UserCard } from "@kkocot/honeycomb-react";
+  react: `import { UserCard } from "@barddev/honeycomb-react";
 
 function ProfilePage() {
   return (

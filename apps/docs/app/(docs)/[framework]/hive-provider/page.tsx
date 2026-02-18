@@ -18,7 +18,7 @@ const PUBLIC_NODES = [
 ];
 
 const CODE = {
-  reactBasic: `import { HiveProvider } from "@kkocot/honeycomb-react";
+  reactBasic: `import { HiveProvider } from "@barddev/honeycomb-react";
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
   reactNextjs: `// app/providers.tsx
 "use client";
 
-import { HiveProvider } from "@kkocot/honeycomb-react";
+import { HiveProvider } from "@barddev/honeycomb-react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -135,7 +135,7 @@ import { useHive } from "@kkocot/honeycomb-vue";
 
 const { chain, is_loading, error, status, api_endpoint } = useHive();
 </script>`,
-  customNodes: `import { HiveProvider } from "@kkocot/honeycomb-react";
+  customNodes: `import { HiveProvider } from "@barddev/honeycomb-react";
 
 <HiveProvider
   apiEndpoints={[

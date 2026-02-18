@@ -8,7 +8,7 @@ import {
   useHiveAccount,
   useHiveChain,
   type ConnectionStatus,
-} from "@kkocot/honeycomb-react";
+} from "@barddev/honeycomb-react";
 
 function get_status_color(status_value: ConnectionStatus) {
   switch (status_value) {

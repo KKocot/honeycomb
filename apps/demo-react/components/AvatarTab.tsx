@@ -1,6 +1,6 @@
 "use client";
 
-import { HiveAvatar } from "@kkocot/honeycomb-react";
+import { HiveAvatar } from "@barddev/honeycomb-react";
 
 const DEMO_USERS = ["blocktrades", "barddev", "arcange", "good-karma", "therealwolf"];
 

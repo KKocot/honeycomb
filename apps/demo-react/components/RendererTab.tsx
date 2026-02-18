@@ -5,7 +5,7 @@ import {
   HiveContentRenderer,
   DEFAULT_PLUGINS,
   HighlightPlugin,
-} from "@kkocot/honeycomb-react";
+} from "@barddev/honeycomb-react";
 import hljs from "highlight.js";
 import "highlight.js/styles/github-dark.css";
 

@@ -4,7 +4,7 @@ import { CodeBlock } from "@/components/code-block";
 import { parseFramework } from "@/lib/framework";
 
 const CODE = {
-  react: `import { BalanceCard } from "@kkocot/honeycomb-react";
+  react: `import { BalanceCard } from "@barddev/honeycomb-react";
 
 function WalletPage() {
   return <BalanceCard username="barddev" />;

@@ -1,5 +1,5 @@
 {
-  "name": "@kkocot/honeycomb-react",
+  "name": "@barddev/honeycomb-react",
   "version": "0.4.0",
   "description": "React components for Hive Blockchain applications",
   "keywords": [
@@ -12,10 +12,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/KKocot/honeycomb"
+    "url": "https://github.com/KKocot/honeycomb",
+    "directory": "packages/react"
+  },
+  "homepage": "https://github.com/KKocot/honeycomb#readme",
+  "bugs": {
+    "url": "https://github.com/KKocot/honeycomb/issues"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "license": "MIT",
   "author": "KKocot",
@@ -25,37 +30,41 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./styles.css": "./dist/styles.css"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist",
+    "!dist/*.map",
     "README.md"
   ],
   "sideEffects": [
-    "*.css"
+    "./dist/styles.css"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && cp ../core/src/styles.css dist/core-styles.css && cp ../renderer/src/styles.css dist/renderer-styles.css && cat dist/core-styles.css dist/renderer-styles.css > dist/styles.css && rm dist/core-styles.css dist/renderer-styles.css",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
-    "react": ">=19.0.0",
-    "react-dom": ">=19.0.0"
+    "@hiveio/wax": ">=1.28.0",
+    "@radix-ui/react-popover": ">=1.1.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "dependencies": {
+    "@xmldom/xmldom": "^0.8.10",
+    "clsx": "^2.1.1",
+    "remarkable": "^2.0.1",
+    "sanitize-html": "^2.13.0",
+    "tailwind-merge": "^3.4.0",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
     "@hiveio/wax": "^1.28.4-rc0",
     "@kkocot/honeycomb-core": "workspace:*",
     "@kkocot/honeycomb-renderer": "workspace:*",
-    "@radix-ui/react-popover": "^1.1.0",
-    "clsx": "^2.1.0",
-    "tailwind-merge": "^2.2.0"
-  },
-  "devDependencies": {
     "@types/node": "^20.11.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",

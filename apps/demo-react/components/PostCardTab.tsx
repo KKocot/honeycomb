@@ -1,6 +1,6 @@
 "use client";
 
-import { HivePostCard } from "@kkocot/honeycomb-react";
+import { HivePostCard } from "@barddev/honeycomb-react";
 
 const BARDDEV_POST = "my-honey-pot";
 const BLOCKTRADES_POST =

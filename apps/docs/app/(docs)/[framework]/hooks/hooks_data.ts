@@ -1,6 +1,6 @@
 export const CODE = {
   // useHive
-  useHiveReact: `import { useHive } from "@kkocot/honeycomb-react";
+  useHiveReact: `import { useHive } from "@barddev/honeycomb-react";
 
 function StatusBar() {
   const {
@@ -89,7 +89,7 @@ const healthy_count = computed(() =>
 </script>`,
 
   // useHiveChain
-  useHiveChainReact: `import { useHiveChain } from "@kkocot/honeycomb-react";
+  useHiveChainReact: `import { useHiveChain } from "@barddev/honeycomb-react";
 
 function AccountLookup({ username }: { username: string }) {
   const chain = useHiveChain();
@@ -184,7 +184,7 @@ async function fetch_global_props() {
 </script>`,
 
   // useApiEndpoint
-  useApiEndpointReact: `import { useApiEndpoint } from "@kkocot/honeycomb-react";
+  useApiEndpointReact: `import { useApiEndpoint } from "@barddev/honeycomb-react";
 
 function EndpointDisplay() {
   const endpoint = useApiEndpoint();
@@ -209,7 +209,7 @@ const apiEndpoint = useApiEndpoint();
 </script>`,
 
   // useHiveStatus
-  useHiveStatusReact: `import { useHiveStatus } from "@kkocot/honeycomb-react";
+  useHiveStatusReact: `import { useHiveStatus } from "@barddev/honeycomb-react";
 
 function ConnectionMonitor() {
   const { status, endpoints } = useHiveStatus();
@@ -270,7 +270,7 @@ const healthy_count = computed(
 </script>`,
 
   // useHiveAccount
-  useHiveAccountReact: `import { useHiveAccount } from "@kkocot/honeycomb-react";
+  useHiveAccountReact: `import { useHiveAccount } from "@barddev/honeycomb-react";
 
 function UserProfile({ username }: { username: string }) {
   const { account, is_loading, error, refetch } = useHiveAccount(username);

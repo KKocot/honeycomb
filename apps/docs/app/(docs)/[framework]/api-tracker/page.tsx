@@ -5,7 +5,7 @@ import { parseFramework } from "@/lib/framework";
 
 const CODE = {
   basic: {
-    react: `import { ApiTracker } from "@kkocot/honeycomb-react";
+    react: `import { ApiTracker } from "@barddev/honeycomb-react";
 
 function App() {
   return (

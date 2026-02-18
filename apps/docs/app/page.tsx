@@ -75,7 +75,7 @@ export default function LandingPage() {
           </div>
           <pre className="overflow-x-auto p-6">
             <code className="text-sm">
-{`import { HiveProvider, HiveAvatar } from '@kkocot/honeycomb-react'
+{`import { HiveProvider, HiveAvatar } from '@barddev/honeycomb-react'
 
 export default function App() {
   return (

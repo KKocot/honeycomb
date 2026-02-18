@@ -1,6 +1,6 @@
 export const CODE = {
   basic: {
-    react: `import { HivePostList } from "@kkocot/honeycomb-react";
+    react: `import { HivePostList } from "@barddev/honeycomb-react";
 
 function TrendingFeed() {
   return <HivePostList sort="trending" limit={10} />;
@@ -19,7 +19,7 @@ import { HivePostList } from "@kkocot/honeycomb-vue";
 </script>`,
   },
   sortControls: {
-    react: `import { HivePostList } from "@kkocot/honeycomb-react";
+    react: `import { HivePostList } from "@barddev/honeycomb-react";
 
 // Show sort buttons (trending, hot, created, payout, muted)
 function FeedWithControls() {
@@ -56,7 +56,7 @@ import { HivePostList } from "@kkocot/honeycomb-vue";
 </script>`,
   },
   pinnedPosts: {
-    react: `import { HivePostList } from "@kkocot/honeycomb-react";
+    react: `import { HivePostList } from "@barddev/honeycomb-react";
 
 // Pin specific posts to the top of the list
 function FeedWithPinned() {
@@ -154,7 +154,7 @@ const pinned = [
 </template>`,
   },
   communityPosts: {
-    react: `import { HivePostList } from "@kkocot/honeycomb-react";
+    react: `import { HivePostList } from "@barddev/honeycomb-react";
 
 // Show posts from a specific community
 function LeoFinanceFeed() {
@@ -195,7 +195,7 @@ import { HivePostList } from "@kkocot/honeycomb-vue";
 </script>`,
   },
   tagFilter: {
-    react: `import { HivePostList } from "@kkocot/honeycomb-react";
+    react: `import { HivePostList } from "@barddev/honeycomb-react";
 
 // Filter posts by a specific tag
 function PhotographyFeed() {
@@ -232,7 +232,7 @@ import { HivePostList } from "@kkocot/honeycomb-vue";
 </script>`,
   },
   hookUsage: {
-    react: `import { useHivePostList } from "@kkocot/honeycomb-react";
+    react: `import { useHivePostList } from "@barddev/honeycomb-react";
 
 function CustomFeed() {
   const {

@@ -1,6 +1,6 @@
 export const CODE = {
   basic: {
-    react: `import { HivePostCard } from "@kkocot/honeycomb-react";
+    react: `import { HivePostCard } from "@barddev/honeycomb-react";
 
 function PostFeed() {
   return (
@@ -110,7 +110,7 @@ import { HivePostCard } from "@kkocot/honeycomb-vue";
 </template>`,
   },
   postList: {
-    react: `import { HivePostCard } from "@kkocot/honeycomb-react";
+    react: `import { HivePostCard } from "@barddev/honeycomb-react";
 
 // Render a list of posts
 function PostList({ posts }: { posts: Array<{ author: string; permlink: string }> }) {

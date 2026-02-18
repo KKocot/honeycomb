@@ -6,7 +6,7 @@ import { UsageTabs } from "@/components/usage-tabs";
 import { parseFramework } from "@/lib/framework";
 
 const PACKAGES = {
-  react: "@kkocot/honeycomb-react",
+  react: "@barddev/honeycomb-react",
   solid: "@kkocot/honeycomb-solid",
   vue: "@kkocot/honeycomb-vue",
 } as const;
@@ -22,7 +22,7 @@ const CODE = {
   react: {
     provider: `"use client";
 
-import { HiveProvider } from "@kkocot/honeycomb-react";
+import { HiveProvider } from "@barddev/honeycomb-react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }`,
-    usage: `import { useHive } from "@kkocot/honeycomb-react";
+    usage: `import { useHive } from "@barddev/honeycomb-react";
 
 function MyComponent() {
   const { chain, is_loading, error } = useHive();

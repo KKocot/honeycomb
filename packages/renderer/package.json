@@ -14,9 +14,7 @@
     "type": "git",
     "url": "https://github.com/KKocot/honeycomb"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
+  "private": true,
   "license": "MIT",
   "author": "KKocot",
   "type": "module",

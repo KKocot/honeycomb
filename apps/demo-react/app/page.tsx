@@ -178,7 +178,7 @@ function HomePageContent() {
           </div>
 
           <div className="text-sm text-muted-foreground font-mono">
-            @kkocot/honeycomb-react
+            @barddev/honeycomb-react
           </div>
         </div>
       </header>
@@ -234,7 +234,7 @@ function HomePageContent() {
       {/* Footer */}
       <footer className="border-t border-border mt-16 py-8">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          Honeycomb React Demo - @kkocot/honeycomb-react
+          Honeycomb React Demo - @barddev/honeycomb-react
         </div>
       </footer>
     </div>

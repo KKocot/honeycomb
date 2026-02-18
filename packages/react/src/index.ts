@@ -108,6 +108,3 @@ export {
   DEFAULT_PLUGINS,
   HighlightPlugin,
 } from "@kkocot/honeycomb-renderer";
-
-// Utils
-export { cn } from "./utils";
