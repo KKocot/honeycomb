@@ -109,23 +109,23 @@ export default function RendererTab() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <section className="border border-border rounded-lg p-4 sm:p-6 bg-muted/20">
+      <section className="border border-hive-border rounded-lg p-4 sm:p-6 bg-hive-muted/20">
         <h2 className="text-xl sm:text-2xl font-semibold mb-2">
           Raw Markdown
         </h2>
-        <p className="text-sm text-muted-foreground mb-4">
+        <p className="text-sm text-hive-muted-foreground mb-4">
           Source markdown used for the preview on the right.
         </p>
-        <pre className="text-xs bg-background rounded-lg p-4 overflow-x-auto border border-border whitespace-pre-wrap break-words">
+        <pre className="text-xs bg-hive-background rounded-lg p-4 overflow-x-auto border border-hive-border whitespace-pre-wrap break-words">
           {SAMPLE_BODY}
         </pre>
       </section>
 
-      <section className="border border-border rounded-lg p-4 sm:p-6 bg-muted/20">
+      <section className="border border-hive-border rounded-lg p-4 sm:p-6 bg-hive-muted/20">
         <h2 className="text-xl sm:text-2xl font-semibold mb-2">
           Live Preview
         </h2>
-        <p className="text-sm text-muted-foreground mb-4">
+        <p className="text-sm text-hive-muted-foreground mb-4">
           Renders Hive markdown with mentions, hashtags, embeds, and
           sanitization.
         </p>

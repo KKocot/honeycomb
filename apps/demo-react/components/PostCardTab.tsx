@@ -11,9 +11,9 @@ const GTG_POST_B = "brace-yourself-hardfork-is-coming";
 export default function PostCardTab() {
   return (
     <div className="space-y-6">
-      <section className="border border-border rounded-lg p-6 bg-muted/20">
+      <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
         <h2 className="text-2xl font-semibold mb-2">Card Variant</h2>
-        <p className="text-sm text-muted-foreground mb-4">
+        <p className="text-sm text-hive-muted-foreground mb-4">
           Default variant with author info, body preview, and post stats.
         </p>
         <div className="max-w-lg space-y-4">
@@ -22,9 +22,9 @@ export default function PostCardTab() {
         </div>
       </section>
 
-      <section className="border border-border rounded-lg p-6 bg-muted/20">
+      <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
         <h2 className="text-2xl font-semibold mb-2">Compact Variant</h2>
-        <p className="text-sm text-muted-foreground mb-4">
+        <p className="text-sm text-hive-muted-foreground mb-4">
           Condensed layout ideal for post lists and sidebars.
         </p>
         <div className="max-w-lg space-y-3">
@@ -51,9 +51,9 @@ export default function PostCardTab() {
         </div>
       </section>
 
-      <section className="border border-border rounded-lg p-6 bg-muted/20">
+      <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
         <h2 className="text-2xl font-semibold mb-2">Grid Variant</h2>
-        <p className="text-sm text-muted-foreground mb-4">
+        <p className="text-sm text-hive-muted-foreground mb-4">
           Thumbnail-first layout for image galleries and grid views.
         </p>
         <div className="grid grid-cols-2 gap-4 max-w-2xl">
@@ -80,14 +80,14 @@ export default function PostCardTab() {
         </div>
       </section>
 
-      <section className="border border-border rounded-lg p-6 bg-muted/20">
+      <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
         <h2 className="text-2xl font-semibold mb-2">Hidden Elements</h2>
-        <p className="text-sm text-muted-foreground mb-4">
+        <p className="text-sm text-hive-muted-foreground mb-4">
           Hide specific parts of the post card using the hide prop.
         </p>
         <div className="max-w-lg space-y-4">
           <div>
-            <p className="text-xs text-muted-foreground mb-2">
+            <p className="text-xs text-hive-muted-foreground mb-2">
               hide={`["author", "thumbnail"]`}
             </p>
             <HivePostCard
@@ -97,7 +97,7 @@ export default function PostCardTab() {
             />
           </div>
           <div>
-            <p className="text-xs text-muted-foreground mb-2">
+            <p className="text-xs text-hive-muted-foreground mb-2">
               hide={`["payout", "votes", "comments"]`}
             </p>
             <HivePostCard
@@ -109,9 +109,9 @@ export default function PostCardTab() {
         </div>
       </section>
 
-      <section className="border border-border rounded-lg p-6 bg-muted/20">
+      <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
         <h2 className="text-2xl font-semibold mb-2">Custom Link Target</h2>
-        <p className="text-sm text-muted-foreground mb-4">
+        <p className="text-sm text-hive-muted-foreground mb-4">
           Links point to different Hive frontends.
         </p>
         <div className="max-w-lg space-y-3">

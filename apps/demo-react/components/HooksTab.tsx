@@ -13,15 +13,15 @@ import {
 function get_status_color(status_value: ConnectionStatus) {
   switch (status_value) {
     case "connected":
-      return "bg-green-500";
+      return "bg-hive-success";
     case "connecting":
     case "reconnecting":
-      return "bg-yellow-500";
+      return "bg-hive-warning";
     case "error":
     case "disconnected":
-      return "bg-red-500";
+      return "bg-hive-destructive";
     default:
-      return "bg-gray-500";
+      return "bg-hive-muted-foreground";
   }
 }
 
@@ -78,7 +78,7 @@ function ConnectionStatusSection() {
   const { status, is_loading, error } = useHive();
 
   return (
-    <section className="border border-border rounded-lg p-6 bg-muted/20">
+    <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
       <h2 className="text-2xl font-semibold mb-4">Connection Status</h2>
       <div className="flex items-center gap-3">
         <div
@@ -87,11 +87,11 @@ function ConnectionStatusSection() {
         />
         <span className="text-lg capitalize">{status}</span>
         {is_loading && (
-          <span className="text-muted-foreground text-sm">(loading...)</span>
+          <span className="text-hive-muted-foreground text-sm">(loading...)</span>
         )}
       </div>
       {error && (
-        <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded text-red-400">
+        <div className="mt-4 p-3 bg-hive-destructive/10 border border-hive-destructive/20 rounded text-hive-destructive">
           <strong>Error:</strong> {error}
         </div>
       )}
@@ -103,9 +103,9 @@ function CurrentEndpointSection() {
   const api_endpoint = useApiEndpoint();
 
   return (
-    <section className="border border-border rounded-lg p-6 bg-muted/20">
+    <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
       <h2 className="text-2xl font-semibold mb-4">Current Endpoint</h2>
-      <p className="font-mono text-sm text-muted-foreground">
+      <p className="font-mono text-sm text-hive-muted-foreground">
         {api_endpoint || <em>Not connected</em>}
       </p>
     </section>
@@ -127,7 +127,7 @@ function AllEndpointsSection() {
   };
 
   return (
-    <section className="border border-border rounded-lg p-6 bg-muted/20">
+    <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-2xl font-semibold">
           All Endpoints ({endpoints.length})
@@ -144,18 +144,18 @@ function AllEndpointsSection() {
         {endpoints.map((endpoint) => (
           <div
             key={endpoint.url}
-            className="flex items-center justify-between p-3 bg-background border border-border rounded"
+            className="flex items-center justify-between p-3 bg-hive-background border border-hive-border rounded"
           >
             <div className="flex items-center gap-3 flex-1">
               <div
                 className={`w-3 h-3 rounded-full ${
-                  endpoint.healthy ? "bg-green-500" : "bg-red-500"
+                  endpoint.healthy ? "bg-hive-success" : "bg-hive-destructive"
                 }`}
                 title={endpoint.healthy ? "Healthy" : "Unhealthy"}
               />
               <span className="font-mono text-sm">{endpoint.url}</span>
             </div>
-            <div className="flex gap-4 text-xs text-muted-foreground">
+            <div className="flex gap-4 text-xs text-hive-muted-foreground">
               {endpoint.lastCheck !== null && (
                 <span>
                   Checked:{" "}
@@ -163,7 +163,7 @@ function AllEndpointsSection() {
                 </span>
               )}
               {endpoint.lastError && (
-                <span className="text-red-400" title={endpoint.lastError}>
+                <span className="text-hive-destructive" title={endpoint.lastError}>
                   Error
                 </span>
               )}
@@ -192,7 +192,7 @@ function AccountLookupSection() {
   };
 
   return (
-    <section className="border border-border rounded-lg p-6 bg-muted/20">
+    <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
       <h2 className="text-2xl font-semibold mb-4">Account Lookup</h2>
       <div className="flex gap-2 mb-4">
         <input
@@ -203,7 +203,7 @@ function AccountLookupSection() {
             if (e.key === "Enter") handle_lookup();
           }}
           placeholder="Enter Hive username"
-          className="flex-1 px-3 py-2 text-sm bg-background border border-border rounded focus:outline-none focus:ring-2 focus:ring-hive-red/50"
+          className="flex-1 px-3 py-2 text-sm bg-hive-background border border-hive-border rounded focus:outline-none focus:ring-2 focus:ring-hive-red/50"
         />
         <button
           onClick={handle_lookup}
@@ -213,32 +213,32 @@ function AccountLookupSection() {
         </button>
       </div>
       {account_loading && (
-        <p className="text-sm text-muted-foreground">Loading...</p>
+        <p className="text-sm text-hive-muted-foreground">Loading...</p>
       )}
       {account_error && (
-        <div className="p-3 bg-red-500/10 border border-red-500/20 rounded text-red-400 text-sm">
+        <div className="p-3 bg-hive-destructive/10 border border-hive-destructive/20 rounded text-hive-destructive text-sm">
           Error: {account_error.message}
         </div>
       )}
       {!account_loading && !account_error && account && (
         <div className="space-y-2">
           <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
-            <span className="text-muted-foreground">Name</span>
+            <span className="text-hive-muted-foreground">Name</span>
             <span className="font-mono">{account.name}</span>
-            <span className="text-muted-foreground">Reputation</span>
+            <span className="text-hive-muted-foreground">Reputation</span>
             <span className="font-mono">{account.reputation}</span>
-            <span className="text-muted-foreground">Posts</span>
+            <span className="text-hive-muted-foreground">Posts</span>
             <span className="font-mono">{account.post_count}</span>
-            <span className="text-muted-foreground">Balance</span>
+            <span className="text-hive-muted-foreground">Balance</span>
             <span className="font-mono">{account.balance}</span>
-            <span className="text-muted-foreground">HBD Balance</span>
+            <span className="text-hive-muted-foreground">HBD Balance</span>
             <span className="font-mono">{account.hbd_balance}</span>
-            <span className="text-muted-foreground">Created</span>
+            <span className="text-hive-muted-foreground">Created</span>
             <span className="font-mono">{account.created}</span>
           </div>
           <button
             onClick={account_refetch}
-            className="mt-3 px-3 py-1.5 text-sm border border-border rounded hover:bg-muted/50"
+            className="mt-3 px-3 py-1.5 text-sm border border-hive-border rounded hover:bg-hive-muted/50"
           >
             Refetch
           </button>
@@ -281,10 +281,10 @@ function ChainApiSection() {
   };
 
   return (
-    <section className="border border-border rounded-lg p-6 bg-muted/20">
+    <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
       <h2 className="text-2xl font-semibold mb-4">Chain API</h2>
       {chain === null ? (
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-hive-muted-foreground">
           Waiting for chain connection...
         </p>
       ) : (
@@ -297,23 +297,23 @@ function ChainApiSection() {
             {chain_loading ? "Fetching..." : "Fetch Global Properties"}
           </button>
           {chain_error && (
-            <div className="p-3 bg-red-500/10 border border-red-500/20 rounded text-red-400 text-sm mb-4">
+            <div className="p-3 bg-hive-destructive/10 border border-hive-destructive/20 rounded text-hive-destructive text-sm mb-4">
               Error: {chain_error}
             </div>
           )}
           {global_props && (
             <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
-              <span className="text-muted-foreground">
+              <span className="text-hive-muted-foreground">
                 Head Block Number
               </span>
               <span className="font-mono">
                 {global_props.head_block_number.toLocaleString()}
               </span>
-              <span className="text-muted-foreground">Current Supply</span>
+              <span className="text-hive-muted-foreground">Current Supply</span>
               <span className="font-mono">
                 {global_props.current_supply}
               </span>
-              <span className="text-muted-foreground">Head Block ID</span>
+              <span className="text-hive-muted-foreground">Head Block ID</span>
               <span className="font-mono text-xs break-all">
                 {global_props.head_block_id}
               </span>

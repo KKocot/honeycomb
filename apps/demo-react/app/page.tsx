@@ -106,7 +106,7 @@ export default function HomePage() {
     <Suspense
       fallback={
         <div className="min-h-screen flex items-center justify-center">
-          <p className="text-muted-foreground">Loading...</p>
+          <p className="text-hive-muted-foreground">Loading...</p>
         </div>
       }
     >
@@ -142,21 +142,21 @@ function HomePageContent() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
+      <header className="sticky top-0 z-50 border-b border-hive-border bg-hive-background/95 backdrop-blur">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-8 w-8 rounded-lg bg-hive-red flex items-center justify-center">
               <span className="text-white font-bold">H</span>
             </div>
             <span className="font-bold text-xl">Hive UI</span>
-            <span className="text-sm text-muted-foreground font-medium">
+            <span className="text-sm text-hive-muted-foreground font-medium">
               React
             </span>
             <a
               href="/docs"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-hive-muted-foreground hover:text-hive-foreground hover:bg-hive-muted transition-colors"
               title="Documentation"
             >
               <svg
@@ -177,7 +177,7 @@ function HomePageContent() {
             </a>
           </div>
 
-          <div className="text-sm text-muted-foreground font-mono">
+          <div className="text-sm text-hive-muted-foreground font-mono">
             @barddev/honeycomb-react
           </div>
         </div>
@@ -196,8 +196,8 @@ function HomePageContent() {
               onClick={() => handle_tab_change(tab.id)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
                 active_tab === tab.id
-                  ? "bg-foreground text-background"
-                  : "bg-muted text-muted-foreground hover:text-foreground"
+                  ? "bg-hive-foreground text-hive-background"
+                  : "bg-hive-muted text-hive-muted-foreground hover:text-hive-foreground"
               }`}
             >
               {tab.label}
@@ -209,7 +209,7 @@ function HomePageContent() {
         {current_tab && (
           <div className="mb-8">
             <h2 className="text-2xl font-bold mb-2">{current_tab.title}</h2>
-            <p className="text-muted-foreground">{current_tab.description}</p>
+            <p className="text-hive-muted-foreground">{current_tab.description}</p>
           </div>
         )}
 
@@ -232,8 +232,8 @@ function HomePageContent() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-border mt-16 py-8">
-        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
+      <footer className="border-t border-hive-border mt-16 py-8">
+        <div className="container mx-auto px-4 text-center text-sm text-hive-muted-foreground">
           Honeycomb React Demo - @barddev/honeycomb-react
         </div>
       </footer>
