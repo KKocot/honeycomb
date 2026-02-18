@@ -257,22 +257,15 @@ export function HealthCheckerComponent({
             <p>Continuous Check</p>
             <div
               className={cn(
-                "w-10 h-5 rounded-3xl border-2 relative border-black dark:border-white cursor-pointer",
+                "flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full p-0.5 transition-colors",
                 {
-                  "bg-green-600": !!isActive,
-                  "bg-transparent": !isActive,
+                  "justify-end bg-primary": !!isActive,
+                  "justify-start bg-input": !isActive,
                 }
               )}
               onClick={changeActivity}
             >
-              <div
-                className={cn(
-                  "w-3.5 h-3.5 rounded-full absolute top-px left-px transition duration-300 ease-in-out bg-black dark:bg-white",
-                  {
-                    "translate-x-5": !!isActive,
-                  }
-                )}
-              />
+              <div className="pointer-events-none h-5 w-5 rounded-full bg-background shadow-sm" />
             </div>
           </div>
         </div>
