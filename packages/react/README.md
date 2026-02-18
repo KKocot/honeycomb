@@ -44,15 +44,7 @@ If your project already uses Tailwind CSS 4, import only the base styles to avoi
 import "@barddev/honeycomb-react/base.css";
 ```
 
-This provides CSS variables (`--hive-*`) and component styles without Tailwind utilities.
-
-Add the `@source` directive so Tailwind generates utility classes used by honeycomb components:
-
-```css
-@import "tailwindcss";
-
-@source "../node_modules/@barddev/honeycomb-react/dist";
-```
+This provides CSS variables (`--hive-*`) and component styles without Tailwind utilities. Your Tailwind setup generates the utility classes. You can override any `--hive-*` variable in your own CSS.
 
 ## Quick Start
 
