@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("ApiTracker", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/demo/react");
     await expect(page.locator("span.capitalize").first()).toHaveText(
       "connected",
       { timeout: 15000 }
@@ -10,7 +10,9 @@ test.describe("ApiTracker", () => {
   });
 
   test("renders API Tracker section", async ({ page }) => {
-    await expect(page.getByText("API Tracker")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "API Tracker" }).first()
+    ).toBeVisible();
   });
 
   test("shows pill badge with status", async ({ page }) => {
@@ -19,16 +21,16 @@ test.describe("ApiTracker", () => {
     await expect(pill.locator("span.capitalize")).toHaveText("connected");
   });
 
-  test("shows green status dot when connected", async ({ page }) => {
+  test("shows status dot when connected", async ({ page }) => {
     const pill = page.locator("button.rounded-full");
-    await expect(pill.locator(".bg-green-500")).toBeAttached();
+    await expect(pill.locator("[class*=bg-hive-success]")).toBeAttached();
   });
 
   test("opens tooltip on click", async ({ page }) => {
     const pill = page.locator("button.rounded-full");
     await pill.click();
 
-    const tooltip = page.locator("[data-radix-popover-content]");
+    const tooltip = page.getByRole("dialog");
     await expect(tooltip).toBeVisible();
     await expect(tooltip.getByText("API Endpoints")).toBeVisible();
   });
@@ -37,7 +39,7 @@ test.describe("ApiTracker", () => {
     const pill = page.locator("button.rounded-full");
     await pill.click();
 
-    const tooltip = page.locator("[data-radix-popover-content]");
+    const tooltip = page.getByRole("dialog");
     await expect(tooltip.locator("text=/\\d+\\/\\d+ healthy/")).toBeVisible();
   });
 
@@ -45,7 +47,7 @@ test.describe("ApiTracker", () => {
     const pill = page.locator("button.rounded-full");
     await pill.click();
 
-    const tooltip = page.locator("[data-radix-popover-content]");
+    const tooltip = page.getByRole("dialog");
     await expect(tooltip.locator(".font-mono").first()).toBeVisible();
     await expect(tooltip.getByText("Healthy").first()).toBeVisible();
   });
@@ -54,7 +56,7 @@ test.describe("ApiTracker", () => {
     const pill = page.locator("button.rounded-full");
     await pill.click();
 
-    const tooltip = page.locator("[data-radix-popover-content]");
+    const tooltip = page.getByRole("dialog");
     await expect(tooltip.getByText("Refresh")).toBeVisible();
   });
 
@@ -62,11 +64,13 @@ test.describe("ApiTracker", () => {
     const pill = page.locator("button.rounded-full");
     await pill.click();
 
-    const tooltip = page.locator("[data-radix-popover-content]");
+    const tooltip = page.getByRole("dialog");
     const refresh_btn = tooltip.getByText("Refresh");
     await refresh_btn.click();
 
-    await expect(tooltip.getByText("Checking...")).toBeVisible({ timeout: 5000 });
+    await expect(tooltip.getByText("Checking...")).toBeVisible({
+      timeout: 5000,
+    });
     await expect(tooltip.getByText("Refresh")).toBeVisible({ timeout: 15000 });
   });
 
@@ -74,7 +78,7 @@ test.describe("ApiTracker", () => {
     const pill = page.locator("button.rounded-full");
     await pill.click();
 
-    const tooltip = page.locator("[data-radix-popover-content]");
+    const tooltip = page.getByRole("dialog");
     await expect(tooltip.getByText(/Last check:/).first()).toBeVisible();
   });
 
@@ -82,10 +86,10 @@ test.describe("ApiTracker", () => {
     const pill = page.locator("button.rounded-full");
     await pill.click();
 
-    const tooltip = page.locator("[data-radix-popover-content]");
+    const tooltip = page.getByRole("dialog");
     await expect(tooltip).toBeVisible();
 
-    await page.locator("h1").click();
+    await page.locator("h2").first().click();
     await expect(tooltip).not.toBeVisible();
   });
 });

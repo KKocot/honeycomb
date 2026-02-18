@@ -2,13 +2,12 @@ import { test, expect } from "@playwright/test";
 
 test.describe("HiveProvider", () => {
   test("page loads with title", async ({ page }) => {
-    await page.goto("/");
-    await expect(page.locator("h1")).toContainText("Honeycomb React Demo");
+    await page.goto("/demo/react");
+    await expect(page).toHaveTitle("Honeycomb React Demo");
   });
 
   test("default tab is API Tracker", async ({ page }) => {
-    await page.goto("/");
-    await expect(page.getByText("API Tracker")).toBeVisible();
+    await page.goto("/demo/react");
     await expect(
       page.getByRole("tab", { name: "API Tracker" })
     ).toHaveAttribute("aria-selected", "true");
@@ -17,13 +16,13 @@ test.describe("HiveProvider", () => {
   test("clicking Hooks tab shows Connection Status section", async ({
     page,
   }) => {
-    await page.goto("/");
+    await page.goto("/demo/react");
     await page.getByRole("tab", { name: "Hooks" }).click();
     await expect(page.getByText("Connection Status")).toBeVisible();
   });
 
   test("Hooks tab connects to Hive blockchain", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/demo/react");
     await page.getByRole("tab", { name: "Hooks" }).click();
     await expect(page.locator("span.capitalize")).toHaveText("connected", {
       timeout: 15000,
@@ -33,7 +32,7 @@ test.describe("HiveProvider", () => {
   test("Hooks tab displays current endpoint after connection", async ({
     page,
   }) => {
-    await page.goto("/");
+    await page.goto("/demo/react");
     await page.getByRole("tab", { name: "Hooks" }).click();
     await expect(page.locator("span.capitalize")).toHaveText("connected", {
       timeout: 15000,
@@ -46,7 +45,7 @@ test.describe("HiveProvider", () => {
   test("Hooks tab shows all endpoints section with count", async ({
     page,
   }) => {
-    await page.goto("/");
+    await page.goto("/demo/react");
     await page.getByRole("tab", { name: "Hooks" }).click();
     await expect(page.locator("span.capitalize")).toHaveText("connected", {
       timeout: 15000,
@@ -59,18 +58,18 @@ test.describe("HiveProvider", () => {
   test("Hooks tab shows green status indicator when connected", async ({
     page,
   }) => {
-    await page.goto("/");
+    await page.goto("/demo/react");
     await page.getByRole("tab", { name: "Hooks" }).click();
     await expect(page.locator("span.capitalize")).toHaveText("connected", {
       timeout: 15000,
     });
-    await expect(page.locator(".bg-green-500").first()).toBeVisible();
+    await expect(page.locator("[class*=bg-hive-success]").first()).toBeVisible();
   });
 
   test("Hooks tab endpoint list shows health indicators", async ({
     page,
   }) => {
-    await page.goto("/");
+    await page.goto("/demo/react");
     await page.getByRole("tab", { name: "Hooks" }).click();
     await expect(page.locator("span.capitalize")).toHaveText("connected", {
       timeout: 15000,
@@ -79,13 +78,13 @@ test.describe("HiveProvider", () => {
   });
 
   test("Hooks tab shows Account Lookup section", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/demo/react");
     await page.getByRole("tab", { name: "Hooks" }).click();
     await expect(page.getByText("Account Lookup")).toBeVisible();
   });
 
   test("Hooks tab shows Chain API section", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/demo/react");
     await page.getByRole("tab", { name: "Hooks" }).click();
     await expect(page.getByText("Chain API")).toBeVisible();
   });
@@ -93,7 +92,7 @@ test.describe("HiveProvider", () => {
 
 test.describe("Tab navigation", () => {
   test("clicking Hooks tab shows all hook sections", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/demo/react");
     await page.getByRole("tab", { name: "Hooks" }).click();
     await expect(page.getByText("Connection Status")).toBeVisible();
     await expect(page.getByText("Current Endpoint")).toBeVisible();
@@ -104,15 +103,17 @@ test.describe("Tab navigation", () => {
   test("clicking API Tracker tab returns to API Tracker", async ({
     page,
   }) => {
-    await page.goto("/");
+    await page.goto("/demo/react");
     await page.getByRole("tab", { name: "Hooks" }).click();
     await expect(page.getByText("Connection Status")).toBeVisible();
     await page.getByRole("tab", { name: "API Tracker" }).click();
-    await expect(page.getByText("API Tracker")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "API Tracker" }).first()
+    ).toBeVisible();
   });
 
   test("tab has correct aria attributes", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/demo/react");
     const api_tracker_tab = page.getByRole("tab", { name: "API Tracker" });
     const hooks_tab = page.getByRole("tab", { name: "Hooks" });
 
