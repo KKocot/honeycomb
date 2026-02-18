@@ -1,16 +1,8 @@
 # @barddev/honeycomb-react
 
-Honeycomb - React components for Hive Blockchain applications. SSR-compatible, works with Next.js App Router.
+React components and hooks for Hive Blockchain applications. Read-only (passive) - displays blockchain data without auth or transaction signing. SSR-compatible, works with Next.js App Router.
 
 ## Installation
-
-### 1. Configure npm for GitHub Packages
-
-```bash
-echo "@kkocot:registry=https://npm.pkg.github.com" >> ~/.npmrc
-```
-
-### 2. Install
 
 ```bash
 npm install @barddev/honeycomb-react
@@ -18,272 +10,378 @@ npm install @barddev/honeycomb-react
 pnpm add @barddev/honeycomb-react
 ```
 
-## Quick Start
+### Peer Dependencies
 
-### 1. Add HiveProvider
+```bash
+npm install @hiveio/wax @radix-ui/react-popover react react-dom
+```
+
+### Styles
+
+Import the stylesheet in your layout or entry file:
+
+```tsx
+import "@barddev/honeycomb-react/styles.css";
+```
+
+Components use Tailwind CSS classes with custom `hive-*` CSS variables. The stylesheet provides default values for these variables.
+
+## Quick Start
 
 ```tsx
 // app/layout.tsx (Next.js App Router)
-import { HiveProvider } from '@barddev/honeycomb-react'
+import { HiveProvider } from "@barddev/honeycomb-react";
+import "@barddev/honeycomb-react/styles.css";
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <body>
-        <HiveProvider>
-          {children}
-        </HiveProvider>
+        <HiveProvider>{children}</HiveProvider>
       </body>
     </html>
-  )
+  );
 }
 ```
-
-### 2. Use hooks
 
 ```tsx
 // app/page.tsx
-'use client'
+"use client";
 
-import { useHive, useHiveUser, useIsLoggedIn } from '@barddev/honeycomb-react'
+import { useHive, HiveAvatar, UserCard } from "@barddev/honeycomb-react";
 
 export default function Page() {
-  const { chain, isLoading, error } = useHive()
-  const user = useHiveUser()
-  const isLoggedIn = useIsLoggedIn()
+  const { chain, is_loading, error, status } = useHive();
 
-  if (isLoading) return <div>Connecting to Hive...</div>
-  if (error) return <div>Error: {error}</div>
+  if (is_loading) return <div>Connecting to Hive...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div>
-      {isLoggedIn ? (
-        <p>Welcome, @{user.username}!</p>
-      ) : (
-        <p>Please log in</p>
-      )}
+      <p>Status: {status}</p>
+      <HiveAvatar username="blocktrades" size="lg" />
+      <UserCard username="blocktrades" variant="expanded" />
     </div>
-  )
+  );
 }
 ```
 
-## API Reference
+## HiveProvider
 
-### HiveProvider
-
-Root provider component. Must wrap your app.
+Root provider component. Manages blockchain connection with automatic endpoint fallback and health monitoring.
 
 ```tsx
 <HiveProvider
-  storageKey="hive-ui-session"  // localStorage key for session
-  apiEndpoint="https://api.hive.blog"  // Hive API node
-  onLogin={(user) => console.log('Logged in:', user)}
-  onLogout={() => console.log('Logged out')}
+  apiEndpoints={["https://api.hive.blog", "https://api.deathwing.me"]}
+  timeout={5000}
+  healthCheckInterval={30000}
+  onEndpointChange={(endpoint) => console.log("Switched to:", endpoint)}
 >
   {children}
 </HiveProvider>
 ```
 
-### Hooks
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `apiEndpoints` | `string[]` | `DEFAULT_API_ENDPOINTS` | API endpoints in priority order |
+| `timeout` | `number` | `5000` | Request timeout in ms |
+| `healthCheckInterval` | `number` | `30000` | Health check interval in ms (0 = disabled) |
+| `onEndpointChange` | `(endpoint: string) => void` | - | Callback on endpoint switch |
 
-#### useHive()
+## Hooks
 
-Returns full context:
+### useHive()
+
+Full context access. Throws if used outside `HiveProvider`.
 
 ```tsx
 const {
-  chain,      // IHiveChainInterface | null
-  isLoading,  // boolean
-  error,      // string | null
-  user,       // HiveUser | null
-  login,      // (username: string, method: string) => void
-  logout,     // () => void
-  isClient,   // boolean - true when on client
-} = useHive()
+  chain,              // IHiveChainInterface | null
+  is_loading,         // boolean
+  error,              // string | null
+  is_client,          // boolean
+  api_endpoint,       // string | null
+  status,             // "connected" | "connecting" | "reconnecting" | "error" | "disconnected"
+  endpoints,          // EndpointStatus[]
+  refresh_endpoints,  // () => Promise<void>
+} = useHive();
 ```
 
-#### useHiveChain()
+### useHiveChain()
 
-Returns Hive chain instance (null during SSR):
+Returns Hive chain instance (`null` during SSR / before connection).
 
 ```tsx
-const chain = useHiveChain()
+const chain = useHiveChain();
 
-// Use for API calls
 const accounts = await chain?.api.database_api.find_accounts({
-  accounts: ['blocktrades']
-})
+  accounts: ["blocktrades"],
+});
 ```
 
-#### useHiveUser()
+### useApiEndpoint()
 
-Returns current user or null:
+Returns currently connected API endpoint or `null`.
 
 ```tsx
-const user = useHiveUser()
-// { username: 'alice', loginMethod: 'keychain' } | null
+const endpoint = useApiEndpoint();
 ```
 
-#### useIsLoggedIn()
+### useHiveStatus()
 
-Returns boolean:
+Returns connection status and endpoint health.
 
 ```tsx
-const isLoggedIn = useIsLoggedIn()
+const { status, endpoints } = useHiveStatus();
 ```
 
-#### useHiveAuth()
+### useHiveAccount(username)
 
-Returns auth-related values:
+Fetches account data including balances, HP, reputation, and savings.
 
 ```tsx
-const { user, login, logout, isLoading } = useHiveAuth()
+const { account, is_loading, error, refetch } = useHiveAccount("blocktrades");
+
+// account.balance       -> "1,234.567 HIVE"
+// account.hbd_balance   -> "100.000 HBD"
+// account.hive_power    -> "50,000.000 HP"
+// account.effective_hp  -> "55,000.000 HP"
+// account.reputation    -> 75
+// account.post_count    -> 1234
 ```
 
-## Auth Components
+### useHivePost(author, permlink)
 
-### KeychainLogin
-
-Login form using Hive Keychain browser extension:
+Fetches a single post via `condenser_api.get_content`.
 
 ```tsx
-'use client'
+const { post, is_loading, error } = useHivePost("barddev", "my-post-permlink");
 
-import { KeychainLogin, hasKeychain } from '@barddev/honeycomb-react'
-
-export function LoginPage() {
-  return (
-    <KeychainLogin
-      onSuccess={(username) => console.log('Logged in:', username)}
-      onError={(error) => console.error(error)}
-      keyType="Posting"  // or "Active"
-    />
-  )
-}
-
-// Check if Keychain is available
-if (hasKeychain()) {
-  console.log('Keychain is installed')
-}
+// post.title, post.body, post.votes, post.comments, post.payout, post.created, post.thumbnail
 ```
 
-### PeakVaultLogin
+### useHivePostList(options?)
 
-Login form using PeakVault browser extension:
+Paginated list of ranked posts via `bridge.get_ranked_posts`.
 
 ```tsx
-'use client'
-
-import { PeakVaultLogin, hasPeakVault } from '@barddev/honeycomb-react'
-
-export function LoginPage() {
-  return (
-    <PeakVaultLogin
-      onSuccess={(username) => console.log('Logged in:', username)}
-      onError={(error) => console.error(error)}
-    />
-  )
-}
+const {
+  posts,       // RankedPost[]
+  is_loading,
+  error,
+  sort,        // current SortType
+  set_sort,    // change sort (resets pagination)
+  has_next,
+  has_prev,
+  next_page,
+  prev_page,
+  page,        // current page number
+} = useHivePostList({ sort: "trending", tag: "hive", limit: 10 });
 ```
 
-## Social Components
+Sort types: `"trending"` | `"hot"` | `"created"` | `"payout"` | `"muted"`
+
+## Components
 
 ### HiveAvatar
 
-Display Hive user avatars with automatic fallback to initials:
+User avatar with automatic fallback to colored initials.
 
 ```tsx
-'use client'
-
-import { HiveAvatar } from '@barddev/honeycomb-react'
-
-export function UserProfile() {
-  return (
-    <div className="flex items-center gap-4">
-      <HiveAvatar username="blocktrades" size="xs" />
-      <HiveAvatar username="blocktrades" size="sm" />
-      <HiveAvatar username="blocktrades" size="md" />
-      <HiveAvatar username="blocktrades" size="lg" />
-      <HiveAvatar username="blocktrades" size="xl" />
-    </div>
-  )
-}
+<HiveAvatar username="blocktrades" size="lg" showBorder />
 ```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `username` | `string` | required | Hive username |
+| `size` | `"xs" \| "sm" \| "md" \| "lg" \| "xl"` | `"md"` | Avatar size |
+| `showBorder` | `boolean` | `false` | Show ring border |
+| `fallbackColor` | `string` | auto-generated | Custom fallback background color |
+| `className` | `string` | - | Additional CSS classes |
 
 ### UserCard
 
-Display Hive user profile cards with account information:
+User profile card with reputation, stats, and metadata.
 
 ```tsx
-'use client'
-
-import { UserCard } from '@barddev/honeycomb-react'
-
-export function ProfilePage() {
-  return (
-    <div className="space-y-4">
-      {/* Compact - inline display */}
-      <UserCard username="blocktrades" variant="compact" />
-
-      {/* Default - card with basic info */}
-      <UserCard username="blocktrades" variant="default" />
-
-      {/* Expanded - full profile card with cover image */}
-      <UserCard username="blocktrades" variant="expanded" />
-    </div>
-  )
-}
+<UserCard username="blocktrades" variant="expanded" showStats />
 ```
 
-### useHiveAccount
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `username` | `string` | required | Hive username |
+| `variant` | `"compact" \| "default" \| "expanded"` | `"default"` | Display style |
+| `showStats` | `boolean` | `true` | Show post count and balances |
+| `className` | `string` | - | Additional CSS classes |
 
-Hook to fetch Hive account data:
+### BalanceCard
+
+Wallet balances display (HIVE, HBD, HP, savings, delegations).
 
 ```tsx
-'use client'
-
-import { useHiveAccount } from '@barddev/honeycomb-react'
-
-export function AccountInfo({ username }: { username: string }) {
-  const { account, isLoading, error } = useHiveAccount(username)
-
-  if (isLoading) return <div>Loading...</div>
-  if (error) return <div>Error: {error.message}</div>
-
-  return (
-    <div>
-      <p>Balance: {account?.balance}</p>
-      <p>Posts: {account?.post_count}</p>
-    </div>
-  )
-}
+<BalanceCard username="blocktrades" variant="expanded" />
 ```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `username` | `string` | required | Hive username |
+| `variant` | `"compact" \| "default" \| "expanded"` | `"default"` | Display style |
+| `className` | `string` | - | Additional CSS classes |
+
+### ApiTracker
+
+Connection status indicator with endpoint health popover. Requires `@radix-ui/react-popover`.
+
+```tsx
+<ApiTracker showUrl side="bottom" />
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `showUrl` | `boolean` | `false` | Show current endpoint hostname |
+| `side` | `"top" \| "bottom"` | `"bottom"` | Popover position |
+| `className` | `string` | - | Additional CSS classes |
+
+### HiveManabar
+
+Voting Power, Downvote Power, and Resource Credits as ring charts.
+
+```tsx
+<HiveManabar username="blocktrades" variant="full" showValues showCooldown />
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `username` | `string` | required | Hive username |
+| `variant` | `"full" \| "compact" \| "ring"` | `"full"` | Display style (`ring` = RC only) |
+| `showLabels` | `boolean` | `true` | Show manabar labels |
+| `showValues` | `boolean` | `false` | Show current/max values |
+| `showCooldown` | `boolean` | `true` | Show time to full recharge |
+| `className` | `string` | - | Additional CSS classes |
+
+### HivePostCard
+
+Single post card with thumbnail, author, stats, and content preview.
+
+```tsx
+<HivePostCard author="blocktrades" permlink="my-post" variant="card" hide={["payout"]} />
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `author` | `string` | required | Post author |
+| `permlink` | `string` | required | Post permlink |
+| `variant` | `"card" \| "compact" \| "grid"` | `"card"` | Display style |
+| `hide` | `PostHideOption[]` | `[]` | Hide elements: `"author"`, `"thumbnail"`, `"payout"`, `"votes"`, `"comments"`, `"time"` |
+| `linkTarget` | `string` | `"https://blog.openhive.network"` | Base URL for post links |
+| `className` | `string` | - | Additional CSS classes |
+
+### HivePostList
+
+Paginated post feed with sort controls and pinned posts.
+
+```tsx
+<HivePostList
+  sort="trending"
+  tag="hive"
+  limit={20}
+  show_sort_controls
+  variant="compact"
+  pinned_posts={[{ author: "hiveio", permlink: "announcement" }]}
+/>
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `sort` | `SortType` | `"trending"` | Initial sort order |
+| `tag` | `string` | - | Community or tag filter |
+| `limit` | `number` | `20` | Posts per page |
+| `pinned_posts` | `{ author, permlink }[]` | - | Pinned posts at the top |
+| `show_sort_controls` | `boolean` | `false` | Show sort buttons |
+| `variant` | `"card" \| "compact" \| "grid"` | `"compact"` | Post card variant |
+| `hide` | `PostHideOption[]` | `[]` | Hide elements on cards |
+| `linkTarget` | `string` | `"https://blog.openhive.network"` | Base URL for post links |
+| `className` | `string` | - | Additional CSS classes |
+
+### HiveContentRenderer
+
+Renders Hive post markdown/HTML body with plugin support (tables, embeds, syntax highlighting).
+
+```tsx
+import { HiveContentRenderer, DEFAULT_PLUGINS } from "@barddev/honeycomb-react";
+
+<HiveContentRenderer
+  body={post.body}
+  author="blocktrades"
+  permlink="my-post"
+  plugins={DEFAULT_PLUGINS}
+/>
+```
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `body` | `string` | required | Post body (markdown/HTML) |
+| `author` | `string` | - | Post author (for image proxy) |
+| `permlink` | `string` | - | Post permlink |
+| `options` | `Partial<RendererOptions>` | - | Renderer options |
+| `plugins` | `RendererPlugin[]` | `DEFAULT_PLUGINS` | Renderer plugins |
+| `className` | `string` | - | Additional CSS classes |
+
+Available plugins: `TablePlugin`, `TwitterPlugin`, `TwitterResizePlugin`, `InstagramPlugin`, `InstagramResizePlugin`, `HighlightPlugin`, `DEFAULT_PLUGINS` (all bundled).
 
 ## SSR Compatibility
 
-The package is fully SSR-compatible:
-
 - `chain` is `null` during server-side rendering
-- `isClient` flag indicates client-side hydration
-- No localStorage access during SSR
-- Safe to use in Next.js App Router with `"use client"` components
-- Auth components render safely on server (functionality activates on client)
+- `is_client` flag indicates client-side hydration
+- No `localStorage` / `window` access during SSR
+- Components render loading skeletons on server, fetch data on client
+- Safe to use in Next.js App Router with `"use client"` directive
 
 ## Types
 
-```tsx
-interface HiveUser {
-  username: string
-  loginMethod: string
-}
+All types are exported for direct use:
 
-interface HiveProviderProps {
-  children: ReactNode
-  storageKey?: string
-  apiEndpoint?: string
-  onLogin?: (user: HiveUser) => void
-  onLogout?: () => void
-}
+```tsx
+import type {
+  // Provider
+  HiveContextValue,
+  HiveProviderProps,
+  // Core
+  ConnectionStatus,
+  EndpointStatus,
+  HiveClientState,
+  // Account
+  HiveAccount,
+  UseHiveAccountResult,
+  // Posts
+  HivePost,
+  UseHivePostResult,
+  UseHivePostListOptions,
+  UseHivePostListResult,
+  SortType,
+  PaginationCursor,
+  RankedPost,
+  RankedPostsResult,
+  // Components
+  HiveAvatarProps,
+  AvatarSize,
+  UserCardProps,
+  UserCardVariant,
+  BalanceCardProps,
+  BalanceCardVariant,
+  ApiTrackerProps,
+  HiveManabarProps,
+  ManabarVariant,
+  HivePostCardProps,
+  PostVariant,
+  PostHideOption,
+  HivePostListProps,
+  HiveContentRendererProps,
+  // Renderer
+  RendererOptions,
+  RendererPlugin,
+  PostContext,
+} from "@barddev/honeycomb-react";
 ```
 
 ## License
