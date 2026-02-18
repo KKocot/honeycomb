@@ -36,17 +36,17 @@ Import the bundled stylesheet in your entry file (e.g. `main.tsx`, `layout.tsx`)
 import "@barddev/honeycomb-react/styles.css";
 ```
 
-This includes CSS variables, component styles, and Tailwind utilities. No additional configuration needed.
+That's it. The file includes everything: CSS variables, component styles, pre-compiled Tailwind utilities, and `@theme inline` tokens. Works with or without your own Tailwind CSS 4 setup. You can use `hive-*` classes in your own code (e.g. `bg-hive-card`, `text-hive-red`) without any extra configuration.
 
-#### Using with your own Tailwind CSS
+Dark mode requires `class="dark"` on the `<html>` element.
 
-If your project already uses Tailwind CSS 4, import only the base styles to avoid duplicating utilities:
+#### Alternative imports
 
-```tsx
-import "@barddev/honeycomb-react/base.css";
-```
-
-This provides CSS variables (`--hive-*`) and component styles without Tailwind utilities. Your Tailwind setup generates the utility classes. You can override any `--hive-*` variable in your own CSS.
+| Import | Contains | Use when |
+|--------|----------|----------|
+| `styles.css` | Everything (CSS vars + styles + utilities + theme tokens) | Default |
+| `base.css` | CSS vars + component styles only | Projects without Tailwind CSS |
+| `theme.css` | `@theme inline` tokens only | Standalone theme tokens (advanced) |
 
 ## Quick Start
 

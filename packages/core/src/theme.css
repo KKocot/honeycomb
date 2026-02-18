@@ -1,8 +1,17 @@
-@import "tailwindcss/theme" layer(theme);
-@import "tailwindcss/utilities";
-@source "./dist/index.js";
+/*
+ * Honeycomb Theme Tokens for Tailwind CSS 4
+ *
+ * Import this file in your Tailwind CSS project to use hive-* utility classes
+ * (e.g. bg-hive-card, text-hive-muted-foreground, border-hive-border).
+ *
+ * This file does NOT generate CSS custom properties - it only maps
+ * existing --hive-* variables (from styles.css or base.css) to Tailwind tokens.
+ *
+ * Usage:
+ *   @import "@barddev/honeycomb-react/theme.css";
+ */
 
-@theme {
+@theme inline {
   /* Brand */
   --color-hive-red: hsl(var(--hive-red));
   --color-hive-dark: hsl(var(--hive-dark));
