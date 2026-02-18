@@ -26,6 +26,8 @@ yarn add @hiveio/wax @radix-ui/react-popover react react-dom
 bun add @hiveio/wax @radix-ui/react-popover react react-dom
 ```
 
+`@radix-ui/react-popover` is only required if you use the `ApiTracker` component.
+
 ### Styles
 
 Import the bundled stylesheet in your entry file (e.g. `main.tsx`, `layout.tsx`):
@@ -168,6 +170,7 @@ const { account, is_loading, error, refetch } = useHiveAccount("blocktrades");
 // account.effective_hp  -> "55,000.000 HP"
 // account.reputation    -> 75
 // account.post_count    -> 1234
+// refetch()           -> manually re-fetch account data
 ```
 
 ### useHivePost(author, permlink)
@@ -347,7 +350,7 @@ import { HiveContentRenderer, DEFAULT_PLUGINS } from "@barddev/honeycomb-react";
 | `plugins` | `RendererPlugin[]` | `DEFAULT_PLUGINS` | Renderer plugins |
 | `className` | `string` | - | Additional CSS classes |
 
-Available plugins: `TablePlugin`, `TwitterPlugin`, `TwitterResizePlugin`, `InstagramPlugin`, `InstagramResizePlugin`, `HighlightPlugin`, `DEFAULT_PLUGINS` (all bundled).
+Available plugins: `TablePlugin`, `TwitterPlugin`, `TwitterResizePlugin`, `InstagramPlugin`, `InstagramResizePlugin`, `HighlightPlugin`, `DEFAULT_PLUGINS` (all bundled). For advanced use cases, import `DefaultRenderer` directly to render HTML outside of React.
 
 ## SSR Compatibility
 
@@ -356,6 +359,7 @@ Available plugins: `TablePlugin`, `TwitterPlugin`, `TwitterResizePlugin`, `Insta
 - No `localStorage` / `window` access during SSR
 - Components render loading skeletons on server, fetch data on client
 - Safe to use in Next.js App Router with `"use client"` directive
+- All hooks and components require `"use client"` - they cannot be used in Server Components directly
 
 ## Types
 
