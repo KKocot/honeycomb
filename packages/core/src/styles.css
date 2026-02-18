@@ -81,14 +81,3 @@
   --hive-destructive: 0 63% 31%;
   --hive-destructive-foreground: 0 0% 95%;
 }
-
-* {
-  border-color: hsl(var(--hive-border));
-}
-
-body {
-  background-color: hsl(var(--hive-background));
-  color: hsl(var(--hive-foreground));
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
