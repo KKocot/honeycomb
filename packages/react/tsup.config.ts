@@ -13,6 +13,8 @@ export default defineConfig([
       "react-dom",
       "@hiveio/wax",
       "@radix-ui/react-popover",
+      "@radix-ui/react-switch",
+      "lucide-react",
       "@xmldom/xmldom",
       "clsx",
       "remarkable",
