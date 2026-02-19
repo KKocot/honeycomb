@@ -13,7 +13,6 @@ COPY packages/core/package.json ./packages/core/
 COPY packages/react/package.json ./packages/react/
 COPY packages/solid/package.json ./packages/solid/
 COPY packages/vue/package.json ./packages/vue/
-COPY packages/cli/package.json ./packages/cli/
 COPY packages/renderer/package.json ./packages/renderer/
 
 # Install dependencies with cache mount

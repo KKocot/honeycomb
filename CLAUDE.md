@@ -34,7 +34,6 @@ pnpm lint             # Lint all
 - `apps/docs` - Next.js 15 documentation site with App Router (port 3030)
 - `apps/demo` - Interactive demo app to test all components (port 3031, default user: barddev)
 - `packages/react` - React components (placeholder)
-- `packages/cli` - CLI tool for adding components (placeholder)
 
 ### Demo App (`apps/demo`)
 
