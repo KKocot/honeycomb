@@ -35,8 +35,8 @@ export interface HealthCheckerServiceConfig {
   defaultProviders: string[];
   /** Currently active node address for this service */
   nodeAddress: string | null;
-  /** Callback fired when the healthchecker switches to a different node */
-  onNodeChange: (node: string | null) => void;
+  /** Callback fired when the healthchecker switches to a different node. Receives chain for convenience. */
+  onNodeChange: (node: string | null, chain: IHiveChainInterface) => void;
   /** Enable console logs for debugging */
   enableLogs?: boolean;
 }
@@ -127,7 +127,7 @@ export function HiveProvider({
   const [is_client, set_is_client] = useState(false);
   const [chain_instance, set_chain_instance] = useState<IHiveChainInterface | null>(null);
   const client_ref = useRef<HiveClient | null>(null);
-  const hc_services_ref = useRef<Map<string, HealthCheckerService>>(new Map());
+  const [hc_services, set_hc_services] = useState<Map<string, HealthCheckerService>>(new Map());
   const on_endpoint_change_ref = useRef(onEndpointChange);
 
   // Update callback ref when prop changes
@@ -189,36 +189,36 @@ export function HiveProvider({
   useEffect(() => {
     if (!chain_instance || !healthCheckerServices?.length) return;
 
-    const services_map = hc_services_ref.current;
+    const new_services = new Map<string, HealthCheckerService>();
 
     for (const config of healthCheckerServices) {
-      if (services_map.has(config.key)) continue;
-
       const checkers = config.createCheckers(chain_instance);
       const service = new HealthCheckerService(
         config.key,
         checkers,
         config.defaultProviders,
         config.nodeAddress,
-        config.onNodeChange,
+        (node) => config.onNodeChange(node, chain_instance),
         config.enableLogs,
       );
-      services_map.set(config.key, service);
+      new_services.set(config.key, service);
     }
 
+    set_hc_services(new_services);
+
     return () => {
-      for (const service of services_map.values()) {
+      for (const service of new_services.values()) {
         service.stopCheckingProcess();
       }
-      services_map.clear();
+      set_hc_services(new Map());
     };
   }, [chain_instance, healthCheckerServices]);
 
   const getHealthCheckerService = useCallback(
     (key: string): HealthCheckerService | null => {
-      return hc_services_ref.current.get(key) ?? null;
+      return hc_services.get(key) ?? null;
     },
-    [],
+    [hc_services],
   );
 
   // Memoize context value
@@ -234,7 +234,7 @@ export function HiveProvider({
       refresh_endpoints,
       getHealthCheckerService,
     }),
-    [state, is_client, chain_instance]
+    [state, is_client, chain_instance, getHealthCheckerService]
   );
 
   return <HiveContext.Provider value={value}>{children}</HiveContext.Provider>;

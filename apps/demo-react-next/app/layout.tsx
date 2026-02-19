@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { HiveProvider } from "@barddev/honeycomb-react";
-// All-in-one: CSS vars + component styles + pre-compiled Tailwind utilities + theme tokens
+import { Providers } from "../components/Providers";
 import "@barddev/honeycomb-react/styles.css";
 import "./globals.css";
 
@@ -17,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="min-h-screen antialiased bg-hive-background text-hive-foreground">
-        <HiveProvider>{children}</HiveProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

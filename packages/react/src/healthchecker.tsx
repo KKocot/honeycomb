@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import type { TScoredEndpoint } from "@hiveio/wax";
 import type {
-  HealthCheckerService,
   ApiChecker,
   ValidationErrorDetails,
 } from "@kkocot/honeycomb-core";
@@ -14,14 +13,34 @@ import { ProviderCard } from "./healthchecker-provider-card";
 import { ProviderAddition } from "./healthchecker-provider-addition";
 import { ValidationErrorDialog } from "./healthchecker-validation-error-dialog";
 import { ConfirmationSwitchDialog } from "./healthchecker-confirmation-switch-dialog";
+import { useHive } from "./hive-provider";
 
 export interface HealthCheckerComponentProps {
-  healthCheckerService: HealthCheckerService;
+  healthcheckerKey: string;
 }
 
 export function HealthCheckerComponent({
-  healthCheckerService,
+  healthcheckerKey,
 }: HealthCheckerComponentProps) {
+  const { getHealthCheckerService } = useHive();
+  const healthCheckerService = getHealthCheckerService(healthcheckerKey);
+
+  if (!healthCheckerService) {
+    return (
+      <div className="flex items-center justify-center p-4">
+        <LoaderCircle className="animate-spin h-8 w-8" />
+      </div>
+    );
+  }
+
+  return <HealthCheckerComponentInner healthCheckerService={healthCheckerService} />;
+}
+
+function HealthCheckerComponentInner({
+  healthCheckerService,
+}: {
+  healthCheckerService: NonNullable<ReturnType<ReturnType<typeof useHive>["getHealthCheckerService"]>>;
+}) {
   const {
     addProvider,
     removeProvider,
