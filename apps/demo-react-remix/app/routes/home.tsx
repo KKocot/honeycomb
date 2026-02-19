@@ -117,9 +117,15 @@ export default function Home() {
       <header className="sticky top-0 z-50 border-b border-hive-border bg-hive-background/95 backdrop-blur">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-lg bg-hive-red flex items-center justify-center">
-              <span className="text-white font-bold">H</span>
-            </div>
+            <svg viewBox="0 0 256 256" fill="none" className="h-8 w-8" aria-hidden="true">
+              <polygon points="251,128 231,162.6 191,162.6 171,128 191,93.4 231,93.4" fill="#E31337" opacity="0.35" />
+              <polygon points="209.5,56.1 189.5,90.7 149.5,90.7 129.5,56.1 149.5,21.5 189.5,21.5" fill="#E31337" opacity="0.35" />
+              <polygon points="126.5,56.1 106.5,90.7 66.5,90.7 46.5,56.1 66.5,21.5 106.5,21.5" fill="#E31337" opacity="0.35" />
+              <polygon points="85,128 65,162.6 25,162.6 5,128 25,93.4 65,93.4" fill="#E31337" opacity="0.35" />
+              <polygon points="126.5,199.9 106.5,234.5 66.5,234.5 46.5,199.9 66.5,165.3 106.5,165.3" fill="#E31337" opacity="0.35" />
+              <polygon points="209.5,199.9 189.5,234.5 149.5,234.5 129.5,199.9 149.5,165.3 189.5,165.3" fill="#E31337" opacity="0.35" />
+              <polygon points="168,128 148,162.6 108,162.6 88,128 108,93.4 148,93.4" fill="#E31337" />
+            </svg>
             <span className="font-bold text-xl">Honeycomb</span>
             <span className="text-sm text-hive-muted-foreground font-medium">
               React Router
