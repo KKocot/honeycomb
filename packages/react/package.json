@@ -1,6 +1,6 @@
 {
   "name": "@barddev/honeycomb-react",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "React components for Hive Blockchain applications",
   "keywords": [
     "hive",
@@ -56,6 +56,11 @@
     "@radix-ui/react-popover": ">=1.1.0",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@radix-ui/react-popover": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@xmldom/xmldom": "^0.8.10",
