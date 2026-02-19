@@ -14,7 +14,7 @@ projects/hive/honeycomb/   <-- JESTEŚ TUTAJ
 
 ## Project Overview
 
-Hive UI is a shadcn/ui-style component library for Hive Blockchain applications. Components are meant to be copied into user projects, not installed as npm packages.
+Honeycomb is a component library for Hive Blockchain applications. Install the framework-specific package from npm and wrap your app with HiveProvider.
 
 ## Development Commands
 
@@ -31,17 +31,20 @@ pnpm lint             # Lint all
 
 ### Monorepo Structure (Turborepo + pnpm workspaces)
 
+**Apps:**
 - `apps/docs` - Next.js 15 documentation site with App Router (port 3030)
-- `apps/demo` - Interactive demo app to test all components (port 3031, default user: barddev)
-- `packages/react` - React components (placeholder)
+- `apps/demo-react-next` - Next.js demo (port 3031)
+- `apps/demo-react-vite` - Vite + React SPA demo
+- `apps/demo-react-astro` - Astro + React islands demo
+- `apps/demo-react-remix` - React Router 7 demo
+- `apps/demo-solid` - Solid.js + Vite demo
+- `apps/demo-vue` - Vue 3 + Vite demo
 
-### Demo App (`apps/demo`)
-
-- `app/page.tsx` - Main demo page with all component demonstrations
-- `components/hive/` - All Hive UI components (prefixed with `Hive`, e.g., `HiveAvatar`, `HiveUserCard`)
-- `contexts/hive-context.tsx` - HiveProvider context using `@hiveio/wax` for blockchain interaction
-
-Components are organized into sections: auth, social, content, wallet, community.
+**Packages:**
+- `packages/core` - Core logic and types
+- `packages/react` - React components and hooks
+- `packages/solid` - Solid.js components and hooks
+- `packages/vue` - Vue 3 components and composables
 
 ### Docs App (`apps/docs`)
 
@@ -81,9 +84,3 @@ The library provides login components that can be used individually:
 2. Add entry to `lib/docs-config.ts`
 3. Use `CodeBlock` component for code examples
 4. Follow existing page structure (heading, description, preview, code, props table)
-
-## Adding New Components to Demo
-
-1. Create component in `apps/demo/components/hive/` with `Hive` prefix
-2. Export from `apps/demo/components/hive/index.ts`
-3. Add demo in `apps/demo/app/page.tsx` under appropriate section
