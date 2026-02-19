@@ -1,6 +1,10 @@
 # @barddev/honeycomb-solid
 
+[![npm version](https://img.shields.io/npm/v/@barddev/honeycomb-solid)](https://www.npmjs.com/package/@barddev/honeycomb-solid) [![license](https://img.shields.io/npm/l/@barddev/honeycomb-solid)](https://github.com/KKocot/honeycomb/blob/main/LICENSE)
+
 Solid.js components and hooks for Hive Blockchain applications. Read-only (passive) - displays blockchain data without auth or transaction signing. SSR-compatible, works with SolidStart and Astro.
+
+[Documentation](https://honeycomb.bard-dev.com/docs/solid/introduction) | [GitHub](https://github.com/KKocot/honeycomb)
 
 ## Installation
 

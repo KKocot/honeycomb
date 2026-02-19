@@ -1,6 +1,10 @@
 # @barddev/honeycomb-react
 
+[![npm version](https://img.shields.io/npm/v/@barddev/honeycomb-react)](https://www.npmjs.com/package/@barddev/honeycomb-react) [![license](https://img.shields.io/npm/l/@barddev/honeycomb-react)](https://github.com/KKocot/honeycomb/blob/main/LICENSE)
+
 React components and hooks for Hive Blockchain applications. Read-only (passive) - displays blockchain data without auth or transaction signing. SSR-compatible, works with Next.js App Router.
+
+[Documentation](https://honeycomb.bard-dev.com/docs/react/introduction) | [GitHub](https://github.com/KKocot/honeycomb)
 
 ## Installation
 

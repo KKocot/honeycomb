@@ -1,6 +1,10 @@
 # @barddev/honeycomb-vue
 
+[![npm version](https://img.shields.io/npm/v/@barddev/honeycomb-vue)](https://www.npmjs.com/package/@barddev/honeycomb-vue) [![license](https://img.shields.io/npm/l/@barddev/honeycomb-vue)](https://github.com/KKocot/honeycomb/blob/main/LICENSE)
+
 Vue 3 composables and components for Hive Blockchain applications. Read-only (passive) - displays blockchain data without auth or transaction signing.
+
+[Documentation](https://honeycomb.bard-dev.com/docs/vue/introduction) | [GitHub](https://github.com/KKocot/honeycomb)
 
 ## Installation
 
