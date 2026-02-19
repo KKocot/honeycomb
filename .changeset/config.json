@@ -9,7 +9,12 @@
   "updateInternalDependencies": "patch",
   "ignore": [
     "demo-react-next",
-    "demo-solid",
+    "demo-react-vite",
+    "demo-react-astro",
+    "demo-react-remix",
+    "demo-solid-vite",
+    "demo-solid-astro",
+    "demo-solid-start",
     "demo-vue",
     "docs"
   ]

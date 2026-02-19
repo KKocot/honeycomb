@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@import "@barddev/honeycomb-solid/theme.css";
+
+@plugin "@tailwindcss/typography";
+
+@theme inline {
+  --color-background: hsl(var(--hive-background));
+  --color-foreground: hsl(var(--hive-foreground));
+  --color-border: hsl(var(--hive-border));
+  --color-muted: hsl(var(--hive-muted));
+  --color-muted-foreground: hsl(var(--hive-muted-foreground));
+  --color-card: hsl(var(--hive-card));
+  --color-card-foreground: hsl(var(--hive-card-foreground));
+}

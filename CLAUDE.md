@@ -37,7 +37,9 @@ pnpm lint             # Lint all
 - `apps/demo-react-vite` - Vite + React SPA demo
 - `apps/demo-react-astro` - Astro + React islands demo
 - `apps/demo-react-remix` - React Router 7 demo
-- `apps/demo-solid` - Solid.js + Vite demo
+- `apps/demo-solid-vite` - Solid.js + Vite demo
+- `apps/demo-solid-astro` - Astro + Solid.js islands demo
+- `apps/demo-solid-start` - SolidStart demo
 - `apps/demo-vue` - Vue 3 + Vite demo
 
 **Packages:**
