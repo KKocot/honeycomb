@@ -8,7 +8,6 @@ import type {
   ValidationErrorDetails,
 } from "@kkocot/honeycomb-core";
 import * as Switch from "@radix-ui/react-switch";
-import { cn } from "./utils";
 import { LoaderCircle } from "lucide-react";
 import { ProviderCard } from "./healthchecker-provider-card";
 import { ProviderAddition } from "./healthchecker-provider-addition";
@@ -16,12 +15,10 @@ import { ValidationErrorDialog } from "./healthchecker-validation-error-dialog";
 import { ConfirmationSwitchDialog } from "./healthchecker-confirmation-switch-dialog";
 
 export interface HealthCheckerComponentProps {
-  className?: string;
   healthCheckerService: HealthCheckerService;
 }
 
 export function HealthCheckerComponent({
-  className,
   healthCheckerService,
 }: HealthCheckerComponentProps) {
   const {
@@ -245,7 +242,7 @@ export function HealthCheckerComponent({
   };
 
   return (
-    <div className={cn(className)}>
+    <div>
       <div className="flex justify-between items-center">
         <h2 className="text-xl text-left">
           Healthchecker for API servers

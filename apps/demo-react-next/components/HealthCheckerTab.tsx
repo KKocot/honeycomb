@@ -100,7 +100,6 @@ export default function HealthCheckerTab() {
         </p>
         {hcService ? (
           <HealthCheckerComponent
-            className="mt-4"
             healthCheckerService={hcService}
           />
         ) : (
