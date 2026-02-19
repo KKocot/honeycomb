@@ -1,6 +1,6 @@
 import { HiveManabar } from "@barddev/honeycomb-react";
 
-const DEMO_USERS = ["blocktrades", "barddev", "arcange", "good-karma"];
+const DEMO_USERS = ["barddev", "blocktrades", "arcange", "good-karma"];
 
 export default function ManabarTab() {
   return (

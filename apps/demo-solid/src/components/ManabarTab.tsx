@@ -1,7 +1,7 @@
 import { For } from "solid-js";
 import { HiveManabar } from "@barddev/honeycomb-solid";
 
-const USERS = ["blocktrades", "barddev", "arcange"];
+const USERS = ["barddev", "blocktrades", "arcange"];
 
 export default function ManabarTab() {
   return (

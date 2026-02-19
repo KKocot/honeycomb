@@ -2,7 +2,7 @@ import { For } from "solid-js";
 import { HiveAvatar } from "@barddev/honeycomb-solid";
 import type { AvatarSize } from "@barddev/honeycomb-solid";
 
-const DEMO_USERS = ["blocktrades", "barddev", "arcange", "good-karma", "therealwolf"];
+const DEMO_USERS = ["barddev", "blocktrades", "arcange", "good-karma", "therealwolf"];
 const SIZES: readonly AvatarSize[] = ["xs", "sm", "md", "lg", "xl"];
 
 export default function AvatarTab() {

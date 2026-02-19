@@ -2,7 +2,7 @@
 
 import { HiveAvatar } from "@barddev/honeycomb-react";
 
-const DEMO_USERS = ["blocktrades", "barddev", "arcange", "good-karma", "therealwolf"];
+const DEMO_USERS = ["barddev", "blocktrades", "arcange", "good-karma", "therealwolf"];
 
 export default function AvatarTab() {
   return (

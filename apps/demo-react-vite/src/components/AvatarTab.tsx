@@ -1,8 +1,8 @@
 import { HiveAvatar } from "@barddev/honeycomb-react";
 
 const DEMO_USERS = [
-  "blocktrades",
   "barddev",
+  "blocktrades",
   "arcange",
   "good-karma",
   "therealwolf",

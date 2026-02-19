@@ -132,6 +132,6 @@
 import { HiveAvatar } from "@barddev/honeycomb-vue";
 import type { AvatarSize } from "@barddev/honeycomb-vue";
 
-const DEMO_USERS = ["blocktrades", "barddev", "arcange", "good-karma", "therealwolf"];
+const DEMO_USERS = ["barddev", "blocktrades", "arcange", "good-karma", "therealwolf"];
 const SIZES: readonly AvatarSize[] = ["xs", "sm", "md", "lg", "xl"];
 </script>

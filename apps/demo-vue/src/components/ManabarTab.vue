@@ -65,5 +65,5 @@
 <script setup lang="ts">
 import { HiveManabar } from "@barddev/honeycomb-vue";
 
-const USERS = ["blocktrades", "barddev", "arcange", "good-karma"];
+const USERS = ["barddev", "blocktrades", "arcange", "good-karma"];
 </script>

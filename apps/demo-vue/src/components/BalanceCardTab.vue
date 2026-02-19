@@ -73,6 +73,6 @@
 <script setup lang="ts">
 import { BalanceCard } from "@barddev/honeycomb-vue";
 
-const USERS = ["blocktrades", "barddev", "arcange"];
-const ALL_USERS = ["blocktrades", "barddev", "arcange", "good-karma"];
+const USERS = ["barddev", "blocktrades", "arcange"];
+const ALL_USERS = ["barddev", "blocktrades", "arcange", "good-karma"];
 </script>

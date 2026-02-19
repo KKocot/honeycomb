@@ -1,6 +1,6 @@
 import { BalanceCard } from "@barddev/honeycomb-react";
 
-const DEMO_USERS = ["blocktrades", "barddev", "arcange", "good-karma"];
+const DEMO_USERS = ["barddev", "blocktrades", "arcange", "good-karma"];
 
 export default function BalanceCardTab() {
   return (
@@ -39,7 +39,7 @@ export default function BalanceCardTab() {
           Balance cards for different users.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {["blocktrades", "barddev", "arcange"].map((user) => (
+          {["barddev", "blocktrades", "arcange"].map((user) => (
             <BalanceCard key={user} username={user} />
           ))}
         </div>
