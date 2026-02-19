@@ -53,6 +53,7 @@
   },
   "peerDependencies": {
     "@hiveio/wax": ">=1.28.0",
+    "@radix-ui/react-dialog": ">=1.1.0",
     "@radix-ui/react-popover": ">=1.1.0",
     "@radix-ui/react-switch": ">=1.1.0",
     "lucide-react": ">=0.400.0",
@@ -76,6 +77,7 @@
     "@hiveio/wax": "^1.28.4-rc0",
     "@kkocot/honeycomb-core": "workspace:*",
     "@kkocot/honeycomb-renderer": "workspace:*",
+    "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-switch": "^1.2.6",
     "@tailwindcss/cli": "^4.0.0",
     "@types/node": "^20.11.0",
