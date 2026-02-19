@@ -237,7 +237,9 @@ export default async function PostListPage({ params }: PageProps) {
               </tr>
               <tr>
                 <td className="py-3 px-4">
-                  <code>pinned_posts</code>
+                  <code>
+                    {framework === "vue" ? "pinnedPosts" : "pinned_posts"}
+                  </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>{`Array<{ author: string; permlink: string }>`}</code>
@@ -251,7 +253,11 @@ export default async function PostListPage({ params }: PageProps) {
               </tr>
               <tr>
                 <td className="py-3 px-4">
-                  <code>show_sort_controls</code>
+                  <code>
+                    {framework === "vue"
+                      ? "showSortControls"
+                      : "show_sort_controls"}
+                  </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>boolean</code>
@@ -354,7 +360,11 @@ export default async function PostListPage({ params }: PageProps) {
                   <code>posts</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  <code>RankedPost[]</code>
+                  <code>
+                    {framework === "vue"
+                      ? "Ref<RankedPost[]>"
+                      : "RankedPost[]"}
+                  </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   Current page of ranked posts
@@ -362,10 +372,14 @@ export default async function PostListPage({ params }: PageProps) {
               </tr>
               <tr>
                 <td className="py-3 px-4">
-                  <code>is_loading</code>
+                  <code>
+                    {framework === "vue" ? "isLoading" : "is_loading"}
+                  </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  <code>boolean</code>
+                  <code>
+                    {framework === "vue" ? "Ref<boolean>" : "boolean"}
+                  </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   Whether data is being fetched
@@ -387,7 +401,9 @@ export default async function PostListPage({ params }: PageProps) {
                   <code>sort</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  <code>SortType</code>
+                  <code>
+                    {framework === "vue" ? "Ref<SortType>" : "SortType"}
+                  </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   Current sort method
@@ -395,7 +411,9 @@ export default async function PostListPage({ params }: PageProps) {
               </tr>
               <tr>
                 <td className="py-3 px-4">
-                  <code>set_sort</code>
+                  <code>
+                    {framework === "vue" ? "setSort" : "set_sort"}
+                  </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>(sort: SortType) =&gt; void</code>
@@ -409,7 +427,9 @@ export default async function PostListPage({ params }: PageProps) {
                   <code>page</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  <code>number</code>
+                  <code>
+                    {framework === "vue" ? "Ref<number>" : "number"}
+                  </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   Current page number
@@ -417,10 +437,18 @@ export default async function PostListPage({ params }: PageProps) {
               </tr>
               <tr>
                 <td className="py-3 px-4">
-                  <code>has_prev</code> / <code>has_next</code>
+                  <code>
+                    {framework === "vue" ? "hasPrev" : "has_prev"}
+                  </code>{" "}
+                  /{" "}
+                  <code>
+                    {framework === "vue" ? "hasNext" : "has_next"}
+                  </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  <code>boolean</code>
+                  <code>
+                    {framework === "vue" ? "Ref<boolean>" : "boolean"}
+                  </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   Whether previous/next page exists
@@ -428,7 +456,13 @@ export default async function PostListPage({ params }: PageProps) {
               </tr>
               <tr>
                 <td className="py-3 px-4">
-                  <code>prev_page</code> / <code>next_page</code>
+                  <code>
+                    {framework === "vue" ? "prevPage" : "prev_page"}
+                  </code>{" "}
+                  /{" "}
+                  <code>
+                    {framework === "vue" ? "nextPage" : "next_page"}
+                  </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>() =&gt; void</code>

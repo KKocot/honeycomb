@@ -56,7 +56,7 @@ function PostContent(props: {
 </template>
 
 <script setup lang="ts">
-import { HiveContentRenderer } from "@kkocot/honeycomb-vue";
+import { HiveContentRenderer } from "@barddev/honeycomb-vue";
 
 defineProps<{
   body: string;
@@ -132,7 +132,7 @@ export default {
 </template>
 
 <script setup lang="ts">
-import { HiveContentRenderer } from "@kkocot/honeycomb-vue";
+import { HiveContentRenderer } from "@barddev/honeycomb-vue";
 
 const rendererOptions = {
   baseUrl: "https://hive.blog/",

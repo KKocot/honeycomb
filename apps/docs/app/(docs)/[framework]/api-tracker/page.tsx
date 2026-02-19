@@ -30,7 +30,7 @@ function App() {
 </template>
 
 <script setup lang="ts">
-import { ApiTracker } from "@kkocot/honeycomb-vue";
+import { ApiTracker } from "@barddev/honeycomb-vue";
 </script>`,
   },
   showUrl: {

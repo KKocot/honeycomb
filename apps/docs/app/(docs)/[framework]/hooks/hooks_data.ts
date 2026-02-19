@@ -77,7 +77,7 @@ function StatusBar() {
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useHive } from "@kkocot/honeycomb-vue";
+import { useHive } from "@barddev/honeycomb-vue";
 
 const { chain, isLoading, error, apiEndpoint, status, endpoints, refreshEndpoints } =
   useHive();
@@ -158,7 +158,7 @@ function AccountLookup(props: { username: string }) {
 </template>
 
 <script setup lang="ts">
-import { useHiveChain } from "@kkocot/honeycomb-vue";
+import { useHiveChain } from "@barddev/honeycomb-vue";
 
 const props = defineProps<{ username: string }>();
 
@@ -202,7 +202,7 @@ function EndpointDisplay() {
 </template>
 
 <script setup lang="ts">
-import { useApiEndpoint } from "@kkocot/honeycomb-vue";
+import { useApiEndpoint } from "@barddev/honeycomb-vue";
 
 // Returns a Ref - auto-unwrapped in template
 const apiEndpoint = useApiEndpoint();
@@ -260,7 +260,7 @@ function ConnectionMonitor() {
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useHiveStatus } from "@kkocot/honeycomb-vue";
+import { useHiveStatus } from "@barddev/honeycomb-vue";
 
 // Returns { status: Ref, endpoints: Ref }
 const { status, endpoints } = useHiveStatus();
@@ -333,7 +333,7 @@ function UserProfile(props: { username: string }) {
 </template>
 
 <script setup lang="ts">
-import { useHiveAccount } from "@kkocot/honeycomb-vue";
+import { useHiveAccount } from "@barddev/honeycomb-vue";
 
 const props = defineProps<{ username: string }>();
 

@@ -15,7 +15,7 @@ function TrendingFeed() {
 </template>
 
 <script setup lang="ts">
-import { HivePostList } from "@kkocot/honeycomb-vue";
+import { HivePostList } from "@barddev/honeycomb-vue";
 </script>`,
   },
   sortControls: {
@@ -47,12 +47,12 @@ function FeedWithControls() {
   <HivePostList
     sort="trending"
     tag="hive"
-    show_sort_controls
+    show-sort-controls
   />
 </template>
 
 <script setup lang="ts">
-import { HivePostList } from "@kkocot/honeycomb-vue";
+import { HivePostList } from "@barddev/honeycomb-vue";
 </script>`,
   },
   pinnedPosts: {
@@ -87,12 +87,12 @@ function FeedWithPinned() {
     vue: `<template>
   <HivePostList
     sort="created"
-    :pinned_posts="pinned"
+    :pinned-posts="pinned"
   />
 </template>
 
 <script setup lang="ts">
-import { HivePostList } from "@kkocot/honeycomb-vue";
+import { HivePostList } from "@barddev/honeycomb-vue";
 
 const pinned = [
   { author: "hiveio", permlink: "welcome-to-hive" },
@@ -185,13 +185,13 @@ function LeoFinanceFeed() {
   <HivePostList
     tag="hive-167922"
     sort="trending"
-    show_sort_controls
+    show-sort-controls
     :limit="10"
   />
 </template>
 
 <script setup lang="ts">
-import { HivePostList } from "@kkocot/honeycomb-vue";
+import { HivePostList } from "@barddev/honeycomb-vue";
 </script>`,
   },
   tagFilter: {
@@ -228,7 +228,7 @@ function PhotographyFeed() {
 </template>
 
 <script setup lang="ts">
-import { HivePostList } from "@kkocot/honeycomb-vue";
+import { HivePostList } from "@barddev/honeycomb-vue";
 </script>`,
   },
   hookUsage: {
@@ -321,14 +321,14 @@ function CustomFeed() {
   );
 }`,
     vue: `<template>
-  <p v-if="feed.is_loading">Loading...</p>
+  <p v-if="feed.isLoading">Loading...</p>
   <div v-else>
     <div class="flex gap-2 mb-4">
       <button
         v-for="s in sorts"
         :key="s"
         :class="{ 'font-bold': feed.sort === s }"
-        @click="feed.set_sort(s)"
+        @click="feed.setSort(s)"
       >
         {{ s }}
       </button>
@@ -340,15 +340,15 @@ function CustomFeed() {
     </article>
 
     <div class="flex gap-2 mt-4">
-      <button :disabled="!feed.has_prev" @click="feed.prev_page">Previous</button>
+      <button :disabled="!feed.hasPrev" @click="feed.prevPage()">Previous</button>
       <span>Page {{ feed.page }}</span>
-      <button :disabled="!feed.has_next" @click="feed.next_page">Next</button>
+      <button :disabled="!feed.hasNext" @click="feed.nextPage()">Next</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useHivePostList } from "@kkocot/honeycomb-vue";
+import { useHivePostList } from "@barddev/honeycomb-vue";
 
 const sorts = ["trending", "hot", "created"];
 const feed = useHivePostList({ sort: "trending", tag: "hive", limit: 10 });

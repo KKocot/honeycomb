@@ -28,7 +28,7 @@ function PostFeed() {
 </template>
 
 <script setup lang="ts">
-import { HivePostCard } from "@kkocot/honeycomb-vue";
+import { HivePostCard } from "@barddev/honeycomb-vue";
 </script>`,
   },
   variants: {
@@ -156,7 +156,7 @@ function PostList(props: { posts: Array<{ author: string; permlink: string }> })
 </template>
 
 <script setup lang="ts">
-import { HivePostCard } from "@kkocot/honeycomb-vue";
+import { HivePostCard } from "@barddev/honeycomb-vue";
 
 defineProps<{
   posts: Array<{ author: string; permlink: string }>;

@@ -39,7 +39,7 @@ function UserStats() {
 </template>
 
 <script setup lang="ts">
-import { HiveManabar } from "@kkocot/honeycomb-vue";
+import { HiveManabar } from "@barddev/honeycomb-vue";
 </script>`,
   },
   compact: {

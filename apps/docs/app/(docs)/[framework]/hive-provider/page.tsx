@@ -111,7 +111,7 @@ function MyComponent() {
 </template>
 
 <script setup lang="ts">
-import { HiveProvider } from "@kkocot/honeycomb-vue";
+import { HiveProvider } from "@barddev/honeycomb-vue";
 import MyComponent from "./MyComponent.vue";
 
 const endpoints = [
@@ -131,7 +131,7 @@ const onEndpointChange = (ep: string) => console.log("Switched to:", ep);
 </template>
 
 <script setup lang="ts">
-import { useHive } from "@kkocot/honeycomb-vue";
+import { useHive } from "@barddev/honeycomb-vue";
 
 const { chain, is_loading, error, status, api_endpoint } = useHive();
 </script>`,

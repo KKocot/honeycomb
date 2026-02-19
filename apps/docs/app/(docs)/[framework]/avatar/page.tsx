@@ -33,7 +33,7 @@ function UserProfile() {
 </template>
 
 <script setup lang="ts">
-import { HiveAvatar } from "@kkocot/honeycomb-vue";
+import { HiveAvatar } from "@barddev/honeycomb-vue";
 </script>`,
   },
   sizes: {

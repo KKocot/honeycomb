@@ -29,7 +29,7 @@ function ProfilePage() {
 </template>
 
 <script setup>
-import { UserCard } from "@kkocot/honeycomb-vue";
+import { UserCard } from "@barddev/honeycomb-vue";
 </script>`,
   variants: {
     react: `// Compact - inline display

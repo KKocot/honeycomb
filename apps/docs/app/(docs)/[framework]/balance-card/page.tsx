@@ -19,7 +19,7 @@ function WalletPage() {
 </template>
 
 <script setup lang="ts">
-import { BalanceCard } from "@kkocot/honeycomb-vue";
+import { BalanceCard } from "@barddev/honeycomb-vue";
 </script>`,
   variants: {
     react: `// Compact

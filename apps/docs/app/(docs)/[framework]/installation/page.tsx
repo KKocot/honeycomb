@@ -8,7 +8,7 @@ import { parseFramework } from "@/lib/framework";
 const PACKAGES = {
   react: "@barddev/honeycomb-react",
   solid: "@kkocot/honeycomb-solid",
-  vue: "@kkocot/honeycomb-vue",
+  vue: "@barddev/honeycomb-vue",
 } as const;
 
 const pmCommands = (pkg: string) => ({
@@ -84,7 +84,7 @@ function MyComponent() {
 </template>
 
 <script setup lang="ts">
-import { HiveProvider } from "@kkocot/honeycomb-vue";
+import { HiveProvider } from "@barddev/honeycomb-vue";
 </script>`,
     usage: `<template>
   <div>
@@ -95,7 +95,7 @@ import { HiveProvider } from "@kkocot/honeycomb-vue";
 </template>
 
 <script setup lang="ts">
-import { useHive } from "@kkocot/honeycomb-vue";
+import { useHive } from "@barddev/honeycomb-vue";
 
 const { chain, is_loading, error } = useHive();
 </script>`,
