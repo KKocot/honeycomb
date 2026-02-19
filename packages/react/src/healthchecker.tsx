@@ -8,6 +8,7 @@ import type {
   ValidationErrorDetails,
 } from "@kkocot/honeycomb-core";
 import * as Switch from "@radix-ui/react-switch";
+import { cn } from "./utils";
 import { LoaderCircle } from "lucide-react";
 import { ProviderCard } from "./healthchecker-provider-card";
 import { ProviderAddition } from "./healthchecker-provider-addition";
@@ -255,10 +256,15 @@ export function HealthCheckerComponent({
             <p>Continuous Check</p>
             <Switch.Root
               checked={!!isActive}
-              onCheckedChange={changeActivity}
-              className="peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors data-[state=checked]:bg-[hsl(var(--hive-primary))] data-[state=unchecked]:bg-[hsl(var(--hive-input))]"
+              onCheckedChange={() => changeActivity()}
+              className={cn(
+                "inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full p-0.5 transition-colors",
+                isActive
+                  ? "justify-end bg-[hsl(var(--hive-primary))]"
+                  : "justify-start bg-[hsl(var(--hive-input))]"
+              )}
             >
-              <Switch.Thumb className="pointer-events-none block h-5 w-5 rounded-full bg-[hsl(var(--hive-background))] shadow-sm transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0" />
+              <Switch.Thumb className="pointer-events-none block h-5 w-5 rounded-full bg-[hsl(var(--hive-background))] shadow-sm" />
             </Switch.Root>
           </div>
         </div>
