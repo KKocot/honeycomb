@@ -2,12 +2,12 @@
 
 import { cn } from "./utils";
 import {
-  IconX,
-  IconLoader2,
-  IconOctagonAlert,
-  IconTriangleAlert,
-  IconCircleCheck,
-} from "./healthchecker-icons";
+  X,
+  LoaderCircle,
+  OctagonAlert,
+  TriangleAlert,
+  CircleCheck,
+} from "lucide-react";
 
 export interface ProviderCardProps {
   providerLink: string;
@@ -71,7 +71,7 @@ export function ProviderCard({
             className="inline-flex items-center justify-center p-1 rounded text-sm font-medium hover:bg-accent hover:text-accent-foreground"
             onClick={() => deleteProvider(providerLink)}
           >
-            <IconX className="w-4 h-4 dark:text-white" />
+            <X className="w-4 h-4 dark:text-white" />
           </button>
         </div>
       )}
@@ -89,7 +89,7 @@ export function ProviderCard({
                 {providerLink}
               </p>
               {isProviderValid && isHealthCheckerActive && (
-                <IconCircleCheck className="ml-1 inline-block w-4 h-4 text-green-600" />
+                <CircleCheck className="ml-1 inline-block w-4 h-4 text-green-600" />
               )}
             </div>
           </div>
@@ -116,10 +116,10 @@ export function ProviderCard({
                 >
                   {checkerName}
                   {failedErrorChecks.includes(checkerName) && (
-                    <IconOctagonAlert className="ml-1 inline-block w-4 h-4 text-red-600" />
+                    <OctagonAlert className="ml-1 inline-block w-4 h-4 text-red-600" />
                   )}
                   {failedValidationChecks.includes(checkerName) && (
-                    <IconTriangleAlert className="ml-1 inline-block w-4 h-4 text-orange-500" />
+                    <TriangleAlert className="ml-1 inline-block w-4 h-4 text-orange-500" />
                   )}
                 </span>
               ))
@@ -137,7 +137,7 @@ export function ProviderCard({
                   </div>
                 )
               ) : (
-                <IconLoader2 className="h-6 w-6 animate-spin" />
+                <LoaderCircle className="h-6 w-6 animate-spin" />
               )}
             </div>
           )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { IconX } from "./healthchecker-icons";
+import { X } from "lucide-react";
 
 export interface ConfirmationSwitchDialogProps {
   isOpened: boolean;
@@ -28,7 +28,7 @@ export function ConfirmationSwitchDialog({
           className="absolute right-4 top-4 rounded-sm opacity-70 hover:opacity-100"
           onClick={() => onDialogOpenChange(false)}
         >
-          <IconX className="h-4 w-4" />
+          <X className="h-4 w-4" />
           <span className="sr-only">Close</span>
         </button>
         <div className="flex flex-col space-y-1.5 text-center sm:text-left">
