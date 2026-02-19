@@ -117,7 +117,7 @@ export default async function InstallationPage({ params }: PageProps) {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Installation</h1>
         <p className="mt-2 text-lg text-muted-foreground">
-          How to install and set up Hive UI in your project.
+          How to install and set up Honeycomb in your project.
         </p>
       </div>
 
@@ -211,7 +211,7 @@ export default async function InstallationPage({ params }: PageProps) {
       <section>
         <h2 className="text-xl font-semibold mb-4">What&apos;s Next?</h2>
         <p className="text-muted-foreground mb-4">
-          Now that you have Hive UI set up, you can start adding components:
+          Now that you have Honeycomb set up, you can start adding components:
         </p>
 
         <div className="flex gap-4">

@@ -132,7 +132,7 @@ export default function DemoApp() {
             <div className="h-8 w-8 rounded-lg bg-hive-red flex items-center justify-center">
               <span className="text-white font-bold">H</span>
             </div>
-            <span className="font-bold text-xl">Hive UI</span>
+            <span className="font-bold text-xl">Honeycomb</span>
             <span className="text-sm text-hive-muted-foreground font-medium">
               React + Astro
             </span>

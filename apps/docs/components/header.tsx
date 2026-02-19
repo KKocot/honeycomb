@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { Github, ChevronDown, Check } from "lucide-react";
-import { HiveLogo } from "./hive-logo";
+import { HoneycombLogo } from "./honeycomb-logo";
 import { cn } from "@/lib/utils";
 import {
   FRAMEWORKS,
@@ -88,7 +88,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm">
       <div className="container mx-auto flex h-14 max-w-screen-2xl items-center px-4">
         <Link href="/" className="flex items-center gap-2">
-          <HiveLogo className="h-6 w-6" />
+          <HoneycombLogo className="h-6 w-6" />
           <span className="font-semibold">Honeycomb</span>
         </Link>
 

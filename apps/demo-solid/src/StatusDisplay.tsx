@@ -139,7 +139,7 @@ export default function StatusDisplay() {
             <div class="h-8 w-8 rounded-lg bg-hive-red flex items-center justify-center">
               <span class="text-white font-bold">H</span>
             </div>
-            <span class="font-bold text-xl">Hive UI</span>
+            <span class="font-bold text-xl">Honeycomb</span>
             <span class="text-sm text-muted-foreground font-medium">
               Solid
             </span>

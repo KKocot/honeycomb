@@ -2,7 +2,13 @@ import Link from "next/link";
 import { ArrowRight, Blocks, Package, Zap, Activity } from "lucide-react";
 import { parseFramework } from "@/lib/framework";
 
-const SUPPORTED_TECH = [
+type TechItem = string | { name: string; href: string };
+
+const SUPPORTED_TECH: {
+  icon: typeof Package;
+  title: string;
+  items: TechItem[];
+}[] = [
   {
     icon: Package,
     title: "UI Frameworks",
@@ -11,19 +17,41 @@ const SUPPORTED_TECH = [
   {
     icon: Blocks,
     title: "Meta-frameworks",
-    items: ["Next.js", "Astro", "Nuxt", "SolidStart"],
+    items: [
+      {
+        name: "Next.js",
+        href: "https://github.com/KKocot/honeycomb/tree/main/apps/demo-react-next",
+      },
+      {
+        name: "Astro",
+        href: "https://github.com/KKocot/honeycomb/tree/main/apps/demo-react-astro",
+      },
+      {
+        name: "React Router",
+        href: "https://github.com/KKocot/honeycomb/tree/main/apps/demo-react-remix",
+      },
+      "Nuxt",
+      "SolidStart",
+    ],
   },
   {
     icon: Zap,
     title: "Bundlers",
-    items: ["Vite", "webpack", "Turbopack"],
+    items: [
+      {
+        name: "Vite",
+        href: "https://github.com/KKocot/honeycomb/tree/main/apps/demo-react-vite",
+      },
+      "webpack",
+      "Turbopack",
+    ],
   },
   {
     icon: Activity,
     title: "Requirements",
     items: ["Node.js >=18", "TypeScript (recommended)"],
   },
-] as const;
+];
 
 interface PageProps {
   params: Promise<{ framework: string }>;
@@ -38,7 +66,7 @@ export default async function IntroductionPage({ params }: PageProps) {
       <h1 className="text-3xl font-bold tracking-tight">Introduction</h1>
 
       <p className="text-lg text-muted-foreground">
-        Hive UI is a component library for building applications on the Hive
+        Honeycomb is a component library for building applications on the Hive
         Blockchain. Install from npm, wrap your app, and start building.
       </p>
 
@@ -69,7 +97,7 @@ export default async function IntroductionPage({ params }: PageProps) {
           Supported Technologies
         </h2>
         <p className="mb-6 text-muted-foreground">
-          Hive UI works with modern JavaScript frameworks and build tools.
+          Honeycomb works with modern JavaScript frameworks and build tools.
           Choose your stack and start building.
         </p>
 
@@ -82,9 +110,26 @@ export default async function IntroductionPage({ params }: PageProps) {
               <Icon className="mb-2 h-6 w-6 text-hive-red" />
               <h3 className="text-sm font-semibold">{title}</h3>
               <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
-                {items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
+                {items.map((item) => {
+                  const is_link = typeof item === "object";
+                  const label = is_link ? item.name : item;
+                  return (
+                    <li key={label}>
+                      {is_link ? (
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-hive-red hover:underline"
+                        >
+                          {label}
+                        </a>
+                      ) : (
+                        label
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}

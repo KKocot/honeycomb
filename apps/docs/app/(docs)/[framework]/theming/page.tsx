@@ -20,7 +20,7 @@ export default async function ThemingPage({ params }: PageProps) {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Theming</h1>
         <p className="mt-2 text-lg text-muted-foreground">
-          Customize Hive UI components with CSS variables and Tailwind CSS.
+          Customize Honeycomb components with CSS variables and Tailwind CSS.
         </p>
       </div>
 
@@ -31,7 +31,7 @@ export default async function ThemingPage({ params }: PageProps) {
           <div>
             <p className="font-medium text-blue-500">CSS Variables Required</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              Hive UI uses CSS variables with{" "}
+              Honeycomb uses CSS variables with{" "}
               <code className="text-hive-red bg-muted px-1.5 py-0.5 rounded">
                 --hive-*
               </code>{" "}
@@ -49,7 +49,7 @@ export default async function ThemingPage({ params }: PageProps) {
       <section>
         <h2 className="text-xl font-semibold mb-4">CSS Variables Reference</h2>
         <p className="text-muted-foreground mb-4">
-          Complete list of CSS variables used by Hive UI components. All values
+          Complete list of CSS variables used by Honeycomb components. All values
           are in HSL format (H S% L%).
         </p>
         <div className="overflow-x-auto">
@@ -149,7 +149,7 @@ export default async function ThemingPage({ params }: PageProps) {
       <section>
         <h2 className="text-xl font-semibold mb-4">Usage Examples</h2>
         <p className="text-muted-foreground mb-4">
-          How to use Hive UI color variables in your components.
+          How to use Honeycomb color variables in your components.
         </p>
         <CodeBlock code={CODE.usage} language="tsx" />
       </section>

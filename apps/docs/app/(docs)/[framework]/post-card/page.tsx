@@ -145,7 +145,7 @@ export default async function PostCardPage({ params }: PageProps) {
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold line-clamp-2">
-                    Hive UI Components Tutorial
+                    Honeycomb Components Tutorial
                   </h3>
                   <p className="mt-1 text-sm text-muted-foreground">
                     @barddev · 1d ago

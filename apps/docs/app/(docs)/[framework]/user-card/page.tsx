@@ -9,7 +9,7 @@ const CODE = {
 function ProfilePage() {
   return (
     <div className="max-w-md">
-      <UserCard username="blocktrades" />
+      <UserCard username="barddev" />
     </div>
   );
 }`,
@@ -18,13 +18,13 @@ function ProfilePage() {
 function ProfilePage() {
   return (
     <div class="max-w-md">
-      <UserCard username="blocktrades" />
+      <UserCard username="barddev" />
     </div>
   );
 }`,
   vue: `<template>
   <div class="max-w-md">
-    <UserCard username="blocktrades" />
+    <UserCard username="barddev" />
   </div>
 </template>
 
@@ -140,12 +140,12 @@ export default async function UserCardPage({ params }: PageProps) {
             {/* Compact preview */}
             <div className="flex items-center gap-2">
               <img
-                src="https://images.hive.blog/u/blocktrades/avatar"
-                alt="@blocktrades"
+                src="https://images.hive.blog/u/barddev/avatar"
+                alt="@barddev"
                 className="h-8 w-8 rounded-full"
               />
               <div>
-                <span className="font-medium">@blocktrades</span>
+                <span className="font-medium">@barddev</span>
                 <span className="text-muted-foreground text-sm ml-1">
                   (65)
                 </span>
@@ -156,14 +156,14 @@ export default async function UserCardPage({ params }: PageProps) {
             <div className="rounded-lg border border-border bg-card p-4">
               <div className="flex items-center gap-3">
                 <img
-                  src="https://images.hive.blog/u/blocktrades/avatar"
-                  alt="@blocktrades"
+                  src="https://images.hive.blog/u/barddev/avatar"
+                  alt="@barddev"
                   className="h-12 w-12 rounded-full"
                 />
                 <div>
-                  <h3 className="font-semibold">blocktrades</h3>
+                  <h3 className="font-semibold">barddev</h3>
                   <p className="text-sm text-muted-foreground">
-                    @blocktrades &bull; Rep: 65
+                    @barddev &bull; Rep: 65
                   </p>
                 </div>
               </div>

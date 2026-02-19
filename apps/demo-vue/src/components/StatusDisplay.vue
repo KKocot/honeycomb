@@ -13,7 +13,7 @@
           >
             <span class="text-white font-bold">H</span>
           </div>
-          <span class="font-bold text-xl">Hive UI</span>
+          <span class="font-bold text-xl">Honeycomb</span>
           <span class="text-sm text-muted-foreground font-medium">Vue</span>
           <a
             href="/docs"

@@ -14,7 +14,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hive UI - Components for Hive Blockchain",
+  title: "Honeycomb - Components for Hive Blockchain",
   description:
     "Beautiful, accessible components for building Hive Blockchain applications. Copy and paste into your apps. Open source.",
   keywords: ["hive", "blockchain", "components", "react", "ui", "shadcn"],
