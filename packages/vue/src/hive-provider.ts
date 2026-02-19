@@ -5,6 +5,7 @@
 
 import {
   defineComponent,
+  h,
   provide,
   inject,
   ref,
@@ -62,7 +63,7 @@ const HIVE_INJECTION_KEY: InjectionKey<HiveContextValue> = Symbol("hive");
  * </template>
  *
  * <script setup>
- * import { HiveProvider } from '@kkocot/honeycomb-vue';
+ * import { HiveProvider } from '@barddev/honeycomb-vue';
  *
  * const endpoints = ['https://api.hive.blog', 'https://api.openhive.network'];
  * </script>
@@ -276,7 +277,7 @@ export function useHiveStatus(): {
  * @example
  * ```typescript
  * import { createApp } from 'vue';
- * import { hivePlugin } from '@kkocot/honeycomb-vue';
+ * import { hivePlugin } from '@barddev/honeycomb-vue';
  *
  * const app = createApp(App);
  * app.use(hivePlugin, {
@@ -294,7 +295,22 @@ export const hivePlugin = {
       healthCheckInterval?: number;
     }
   ) {
-    // Register HiveProvider as global component
-    app.component("HiveProvider", HiveProvider);
+    const ConfiguredProvider = defineComponent({
+      name: "HiveProvider",
+      setup(_, { slots, attrs }) {
+        return () =>
+          h(
+            HiveProvider,
+            {
+              apiEndpoints: options?.endpoints,
+              timeout: options?.timeout,
+              healthCheckInterval: options?.healthCheckInterval,
+              ...attrs,
+            },
+            slots
+          );
+      },
+    });
+    app.component("HiveProvider", ConfiguredProvider);
   },
 };

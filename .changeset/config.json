@@ -3,7 +3,7 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [],
-  "linked": [["@barddev/honeycomb-react", "@kkocot/honeycomb-vue"]],
+  "linked": [["@barddev/honeycomb-react", "@barddev/honeycomb-vue"]],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",

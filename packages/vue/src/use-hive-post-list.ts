@@ -16,14 +16,14 @@ export interface UseHivePostListOptions {
 
 export interface UseHivePostListResult {
   posts: Ref<RankedPost[]>;
-  is_loading: Ref<boolean>;
+  isLoading: Ref<boolean>;
   error: Ref<Error | null>;
   sort: Ref<SortType>;
-  set_sort: (sort: SortType) => void;
-  has_next: Ref<boolean>;
-  has_prev: Ref<boolean>;
-  next_page: () => void;
-  prev_page: () => void;
+  setSort: (sort: SortType) => void;
+  hasNext: Ref<boolean>;
+  hasPrev: Ref<boolean>;
+  nextPage: () => void;
+  prevPage: () => void;
   page: Ref<number>;
 }
 
@@ -39,9 +39,9 @@ const DEFAULT_LIMIT = 20;
  * @example
  * ```vue
  * <script setup>
- * import { useHivePostList } from '@kkocot/honeycomb-vue';
+ * import { useHivePostList } from '@barddev/honeycomb-vue';
  *
- * const { posts, is_loading, next_page, prev_page, has_next, has_prev } =
+ * const { posts, isLoading, nextPage, prevPage, hasNext, hasPrev } =
  *   useHivePostList({ sort: "trending", limit: 10 });
  * </script>
  * ```
@@ -153,14 +153,14 @@ export function useHivePostList(
 
   return {
     posts,
-    is_loading,
+    isLoading: is_loading,
     error,
     sort,
-    set_sort,
-    has_next,
-    has_prev,
-    next_page,
-    prev_page,
+    setSort: set_sort,
+    hasNext: has_next,
+    hasPrev: has_prev,
+    nextPage: next_page,
+    prevPage: prev_page,
     page,
   };
 }

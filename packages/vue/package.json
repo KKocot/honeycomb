@@ -1,11 +1,16 @@
 {
-  "name": "@kkocot/honeycomb-vue",
+  "name": "@barddev/honeycomb-vue",
   "version": "0.1.0",
   "description": "Vue 3 composables for Hive Blockchain applications",
   "keywords": ["hive", "blockchain", "vue", "vue3", "composables", "web3", "honeycomb"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/KKocot/honeycomb"
+    "url": "https://github.com/KKocot/honeycomb",
+    "directory": "packages/vue"
+  },
+  "homepage": "https://github.com/KKocot/honeycomb#readme",
+  "bugs": {
+    "url": "https://github.com/KKocot/honeycomb/issues"
   },
   "publishConfig": {
     "access": "public"
@@ -19,30 +24,39 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./base.css": "./dist/base.css",
+    "./theme.css": "./dist/theme.css"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "!dist/*.map",
+    "README.md"
+  ],
   "sideEffects": [
-    "*.css"
+    "./dist/styles.css",
+    "./dist/base.css",
+    "./dist/theme.css"
   ],
   "scripts": {
-    "build": "tsup && cp ../core/src/styles.css dist/core-styles.css && cp ../renderer/src/styles.css dist/renderer-styles.css && cat dist/core-styles.css dist/renderer-styles.css > dist/styles.css && rm dist/core-styles.css dist/renderer-styles.css",
+    "build": "tsup && bash scripts/build-css.sh",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist",
     "prepublishOnly": "pnpm build"
   },
   "peerDependencies": {
     "@hiveio/wax": ">=1.28.0",
+    "radix-vue": "^1.9.0",
     "vue": ">=3.5.0"
+  },
+  "peerDependenciesMeta": {
+    "radix-vue": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@xmldom/xmldom": "^0.8.10",
     "clsx": "^2.1.1",
-    "radix-vue": "^1.9.0",
     "remarkable": "^2.0.1",
     "sanitize-html": "^2.13.0",
     "tailwind-merge": "^3.4.0",
@@ -52,6 +66,8 @@
     "@kkocot/honeycomb-core": "workspace:*",
     "@kkocot/honeycomb-renderer": "workspace:*",
     "@hiveio/wax": "^1.28.4-rc0",
+    "@tailwindcss/cli": "^4.0.0",
+    "tailwindcss": "^4.0.0",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
     "vue": "^3.5.0"

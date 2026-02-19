@@ -3,7 +3,7 @@ import { defineConfig } from "tsup";
 export default defineConfig({
   entry: ["src/index.ts"],
   format: ["esm", "cjs"],
-  dts: true,
+  dts: { resolve: ["@kkocot/honeycomb-core", "@kkocot/honeycomb-renderer"] },
   clean: true,
   splitting: false,
   sourcemap: true,

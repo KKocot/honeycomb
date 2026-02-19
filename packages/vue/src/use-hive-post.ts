@@ -26,7 +26,7 @@ export interface HivePost {
 
 export interface UseHivePostResult {
   post: Ref<HivePost | null>;
-  is_loading: Ref<boolean>;
+  isLoading: Ref<boolean>;
   error: Ref<Error | null>;
 }
 
@@ -75,13 +75,13 @@ function is_valid_post_result(
  * @example
  * ```vue
  * <script setup>
- * import { useHivePost } from '@kkocot/honeycomb-vue';
+ * import { useHivePost } from '@barddev/honeycomb-vue';
  *
- * const { post, is_loading, error } = useHivePost("barddev", "my-post-permlink");
+ * const { post, isLoading, error } = useHivePost("barddev", "my-post-permlink");
  * </script>
  *
  * <template>
- *   <div v-if="is_loading">Loading...</div>
+ *   <div v-if="isLoading">Loading...</div>
  *   <div v-else-if="error">Error: {{ error.message }}</div>
  *   <div v-else>{{ post?.title }}</div>
  * </template>
@@ -186,5 +186,5 @@ export function useHivePost(
     { immediate: true },
   );
 
-  return { post, is_loading, error };
+  return { post, isLoading: is_loading, error };
 }
