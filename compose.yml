@@ -139,7 +139,7 @@ services:
     expose:
       - "8080"
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/demo/solid/"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:8080/demo/solid-vite/"]
       interval: 30s
       timeout: 5s
       start_period: 10s
@@ -147,8 +147,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=common_proxy_network"
-      # --- Demos router (/demo/solid, /demo/vue) ---
-      - "traefik.http.routers.honeycomb-demos.rule=Host(`${DOMAIN}`) && (PathPrefix(`/demo/solid`) || PathPrefix(`/demo/vue`))"
+      # --- Demos router (/demo/solid-vite, /demo/vue) ---
+      - "traefik.http.routers.honeycomb-demos.rule=Host(`${DOMAIN}`) && (PathPrefix(`/demo/solid-vite`) || PathPrefix(`/demo/vue`))"
       - "traefik.http.routers.honeycomb-demos.entrypoints=websecure"
       - "traefik.http.routers.honeycomb-demos.tls=true"
       - "traefik.http.routers.honeycomb-demos.tls.certresolver=letsencrypt"
@@ -156,7 +156,7 @@ services:
       - "traefik.http.routers.honeycomb-demos.service=honeycomb-demos"
       # --- Demos service ---
       - "traefik.http.services.honeycomb-demos.loadbalancer.server.port=8080"
-      - "traefik.http.services.honeycomb-demos.loadbalancer.healthcheck.path=/demo/solid/"
+      - "traefik.http.services.honeycomb-demos.loadbalancer.healthcheck.path=/demo/solid-vite/"
       - "traefik.http.services.honeycomb-demos.loadbalancer.healthcheck.interval=30s"
 
 networks:

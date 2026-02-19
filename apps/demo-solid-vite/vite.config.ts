@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import solid from "vite-plugin-solid";
 
 export default defineConfig({
-  base: "/demo/solid/",
+  base: "/demo/solid-vite/",
   plugins: [solid()],
   server: {
     port: 3032,

@@ -9,7 +9,7 @@ WORKDIR /app
 
 # Copy workspace config first for better layer caching
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json turbo.json ./
-COPY apps/demo-solid/package.json ./apps/demo-solid/
+COPY apps/demo-solid-vite/package.json ./apps/demo-solid-vite/
 COPY apps/demo-vue/package.json ./apps/demo-vue/
 COPY packages/core/package.json ./packages/core/
 COPY packages/react/package.json ./packages/react/
@@ -25,7 +25,7 @@ RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store \
 COPY . .
 
 # Build both demos (workspace dependencies built automatically via turbo)
-RUN pnpm turbo build --filter=demo-solid --filter=demo-vue
+RUN pnpm turbo build --filter=demo-solid-vite --filter=demo-vue
 
 # Stage 2: nginx runner
 FROM nginx:alpine AS runner
@@ -37,7 +37,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx/demos.conf /etc/nginx/conf.d/demos.conf
 
 # Copy Solid build output
-COPY --from=builder /app/apps/demo-solid/dist/ /usr/share/nginx/html/demo/solid/
+COPY --from=builder /app/apps/demo-solid-vite/dist/ /usr/share/nginx/html/demo/solid-vite/
 
 # Copy Vue build output
 COPY --from=builder /app/apps/demo-vue/dist/ /usr/share/nginx/html/demo/vue/
@@ -54,6 +54,6 @@ USER nginx
 EXPOSE 8080
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/demo/solid/ || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/demo/solid-vite/ || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]
