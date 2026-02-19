@@ -8,6 +8,7 @@ export {
   DEFAULT_API_ENDPOINTS,
   type HiveContextValue,
   type HiveProviderProps,
+  type HealthCheckerServiceConfig,
 } from "./hive-provider";
 
 // Re-export core types for convenience

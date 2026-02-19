@@ -13,15 +13,30 @@ import type { IHiveChainInterface } from "@hiveio/wax";
 import {
   HiveClient,
   DEFAULT_API_ENDPOINTS,
+  HealthCheckerService,
   type HiveClientState,
   type ConnectionStatus,
   type EndpointStatus,
+  type ApiChecker,
 } from "@kkocot/honeycomb-core";
 
 // Re-export for backward compatibility
 export { DEFAULT_API_ENDPOINTS };
 
 // ============== Types ==============
+
+export interface HealthCheckerServiceConfig {
+  /** Unique key to identify this service instance */
+  key: string;
+  /** Factory that receives chain and returns checkers array */
+  createCheckers: (chain: IHiveChainInterface) => ApiChecker[];
+  /** Default API endpoint URLs to check */
+  defaultProviders: string[];
+  /** Callback fired when the healthchecker switches to a different node */
+  onNodeChange?: (node: string | null) => void;
+  /** Enable console logs for debugging */
+  enableLogs?: boolean;
+}
 
 export interface HiveContextValue {
   /** Hive chain instance - null during SSR and initial load */
@@ -40,6 +55,8 @@ export interface HiveContextValue {
   endpoints: EndpointStatus[];
   /** Refresh all endpoints health status */
   refresh_endpoints: () => Promise<void>;
+  /** Get a HealthCheckerService instance by key, null if not ready */
+  getHealthCheckerService: (key: string) => HealthCheckerService | null;
 }
 
 export interface HiveProviderProps {
@@ -63,6 +80,11 @@ export interface HiveProviderProps {
    * Callback fired when endpoint changes
    */
   onEndpointChange?: (endpoint: string) => void;
+  /**
+   * HealthChecker service configurations. Each entry creates a separate
+   * HealthCheckerService instance, accessible by key via getHealthCheckerService().
+   */
+  healthCheckerServices?: HealthCheckerServiceConfig[];
 }
 
 // ============== Context ==============
@@ -158,6 +180,11 @@ export function HiveProvider({
     }
   };
 
+  // Stub: will be implemented in iteration 2
+  const getHealthCheckerService = (_key: string): HealthCheckerService | null => {
+    return null;
+  };
+
   // Memoize context value
   const value = useMemo<HiveContextValue>(
     () => ({
@@ -169,6 +196,7 @@ export function HiveProvider({
       status: state.status,
       endpoints: state.endpoints,
       refresh_endpoints,
+      getHealthCheckerService,
     }),
     [state, is_client, chain_instance]
   );
