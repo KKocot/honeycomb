@@ -8,7 +8,7 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "demo-react",
+    "demo-react-next",
     "demo-solid",
     "demo-vue",
     "docs"

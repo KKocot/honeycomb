@@ -1,0 +1,8 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DemoApp from "../components/DemoApp";
+---
+
+<BaseLayout title="Honeycomb React Astro Demo">
+  <DemoApp client:only="react" />
+</BaseLayout>

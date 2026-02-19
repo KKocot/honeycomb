@@ -1,6 +1,8 @@
-# Honeycomb React Demo
+# Honeycomb React Demo (Next.js)
 
 Interactive demo of `@barddev/honeycomb-react` components with live Hive blockchain data.
+
+**Dev server:** http://localhost:3031/demo/react-next
 
 This guide shows how to integrate `@barddev/honeycomb-react` into a fresh Next.js project from scratch.
 

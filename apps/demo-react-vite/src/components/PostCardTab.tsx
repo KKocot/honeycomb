@@ -1,0 +1,132 @@
+import { HivePostCard } from "@barddev/honeycomb-react";
+
+const BARDDEV_POST = "my-honey-pot";
+const BLOCKTRADES_POST =
+  "updates-for-hive-roadmap-from-the-blocktrades-team";
+const GTG_POST_A = "hive-hardfork-28-jump-starter-kit";
+const GTG_POST_B = "brace-yourself-hardfork-is-coming";
+
+export default function PostCardTab() {
+  return (
+    <div className="space-y-6">
+      <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
+        <h2 className="text-2xl font-semibold mb-2">Card Variant</h2>
+        <p className="text-sm text-hive-muted-foreground mb-4">
+          Default variant with author info, body preview, and post stats.
+        </p>
+        <div className="max-w-lg space-y-4">
+          <HivePostCard author="barddev" permlink={BARDDEV_POST} />
+          <HivePostCard author="gtg" permlink={GTG_POST_A} />
+        </div>
+      </section>
+
+      <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
+        <h2 className="text-2xl font-semibold mb-2">Compact Variant</h2>
+        <p className="text-sm text-hive-muted-foreground mb-4">
+          Condensed layout ideal for post lists and sidebars.
+        </p>
+        <div className="max-w-lg space-y-3">
+          <HivePostCard
+            author="barddev"
+            permlink={BARDDEV_POST}
+            variant="compact"
+          />
+          <HivePostCard
+            author="blocktrades"
+            permlink={BLOCKTRADES_POST}
+            variant="compact"
+          />
+          <HivePostCard
+            author="gtg"
+            permlink={GTG_POST_A}
+            variant="compact"
+          />
+          <HivePostCard
+            author="gtg"
+            permlink={GTG_POST_B}
+            variant="compact"
+          />
+        </div>
+      </section>
+
+      <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
+        <h2 className="text-2xl font-semibold mb-2">Grid Variant</h2>
+        <p className="text-sm text-hive-muted-foreground mb-4">
+          Thumbnail-first layout for image galleries and grid views.
+        </p>
+        <div className="grid grid-cols-2 gap-4 max-w-2xl">
+          <HivePostCard
+            author="barddev"
+            permlink={BARDDEV_POST}
+            variant="grid"
+          />
+          <HivePostCard
+            author="blocktrades"
+            permlink={BLOCKTRADES_POST}
+            variant="grid"
+          />
+          <HivePostCard
+            author="gtg"
+            permlink={GTG_POST_A}
+            variant="grid"
+          />
+          <HivePostCard
+            author="gtg"
+            permlink={GTG_POST_B}
+            variant="grid"
+          />
+        </div>
+      </section>
+
+      <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
+        <h2 className="text-2xl font-semibold mb-2">Hidden Elements</h2>
+        <p className="text-sm text-hive-muted-foreground mb-4">
+          Hide specific parts of the post card using the hide prop.
+        </p>
+        <div className="max-w-lg space-y-4">
+          <div>
+            <p className="text-xs text-hive-muted-foreground mb-2">
+              hide={`["author", "thumbnail"]`}
+            </p>
+            <HivePostCard
+              author="barddev"
+              permlink={BARDDEV_POST}
+              hide={["author", "thumbnail"]}
+            />
+          </div>
+          <div>
+            <p className="text-xs text-hive-muted-foreground mb-2">
+              hide={`["payout", "votes", "comments"]`}
+            </p>
+            <HivePostCard
+              author="barddev"
+              permlink={BARDDEV_POST}
+              hide={["payout", "votes", "comments"]}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
+        <h2 className="text-2xl font-semibold mb-2">Custom Link Target</h2>
+        <p className="text-sm text-hive-muted-foreground mb-4">
+          Links point to different Hive frontends.
+        </p>
+        <div className="max-w-lg space-y-3">
+          <HivePostCard
+            author="barddev"
+            permlink={BARDDEV_POST}
+            linkTarget="https://peakd.com"
+            variant="compact"
+          />
+          <HivePostCard
+            author="barddev"
+            permlink={BARDDEV_POST}
+            linkTarget="https://ecency.com"
+            variant="compact"
+          />
+        </div>
+      </section>
+    </div>
+  );
+}

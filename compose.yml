@@ -67,13 +67,13 @@ services:
       - "traefik.http.services.honeycomb-docs.loadbalancer.healthcheck.path=/docs"
       - "traefik.http.services.honeycomb-docs.loadbalancer.healthcheck.interval=30s"
 
-  # Next.js demo-react (standalone, port 3031, basePath: /demo/react)
-  demo-react:
+  # Next.js demo-react-next (standalone, port 3031, basePath: /demo/react-next)
+  demo-react-next:
     build:
       context: .
-      dockerfile: Dockerfile.demo-react
-    image: honeycomb-demo-react:latest
-    container_name: honeycomb-demo-react
+      dockerfile: Dockerfile.demo-react-next
+    image: honeycomb-demo-react-next:latest
+    container_name: honeycomb-demo-react-next
     restart: unless-stopped
     read_only: true
     tmpfs:
@@ -92,7 +92,7 @@ services:
     expose:
       - "3031"
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3031/demo/react"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3031/demo/react-next"]
       interval: 30s
       timeout: 5s
       start_period: 30s
@@ -100,17 +100,17 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=common_proxy_network"
-      # --- Demo React router (/demo/react) ---
-      - "traefik.http.routers.honeycomb-demo-react.rule=Host(`${DOMAIN}`) && PathPrefix(`/demo/react`)"
-      - "traefik.http.routers.honeycomb-demo-react.entrypoints=websecure"
-      - "traefik.http.routers.honeycomb-demo-react.tls=true"
-      - "traefik.http.routers.honeycomb-demo-react.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.honeycomb-demo-react.middlewares=honeycomb-security"
-      - "traefik.http.routers.honeycomb-demo-react.service=honeycomb-demo-react"
-      # --- Demo React service ---
-      - "traefik.http.services.honeycomb-demo-react.loadbalancer.server.port=3031"
-      - "traefik.http.services.honeycomb-demo-react.loadbalancer.healthcheck.path=/demo/react"
-      - "traefik.http.services.honeycomb-demo-react.loadbalancer.healthcheck.interval=30s"
+      # --- Demo React Next router (/demo/react-next) ---
+      - "traefik.http.routers.honeycomb-demo-react-next.rule=Host(`${DOMAIN}`) && PathPrefix(`/demo/react-next`)"
+      - "traefik.http.routers.honeycomb-demo-react-next.entrypoints=websecure"
+      - "traefik.http.routers.honeycomb-demo-react-next.tls=true"
+      - "traefik.http.routers.honeycomb-demo-react-next.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.honeycomb-demo-react-next.middlewares=honeycomb-security"
+      - "traefik.http.routers.honeycomb-demo-react-next.service=honeycomb-demo-react-next"
+      # --- Demo React Next service ---
+      - "traefik.http.services.honeycomb-demo-react-next.loadbalancer.server.port=3031"
+      - "traefik.http.services.honeycomb-demo-react-next.loadbalancer.healthcheck.path=/demo/react-next"
+      - "traefik.http.services.honeycomb-demo-react-next.loadbalancer.healthcheck.interval=30s"
 
   # nginx static demos: Solid + Vue (port 8080)
   demos:

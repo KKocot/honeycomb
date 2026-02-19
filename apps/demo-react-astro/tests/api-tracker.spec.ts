@@ -2,16 +2,16 @@ import { test, expect } from "@playwright/test";
 
 test.describe("ApiTracker", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/demo/react");
+    await page.goto("/demo/react-astro/");
     await expect(page.locator("span.capitalize").first()).toHaveText(
       "connected",
-      { timeout: 15000 }
+      { timeout: 15000 },
     );
   });
 
   test("renders API Tracker section", async ({ page }) => {
     await expect(
-      page.getByRole("heading", { name: "API Tracker" }).first()
+      page.getByRole("heading", { name: "API Tracker" }).first(),
     ).toBeVisible();
   });
 
