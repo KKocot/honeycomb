@@ -28,7 +28,7 @@ function PostContent({ body, author, permlink }: {
     </div>
   );
 }`,
-    solid: `import { HiveContentRenderer } from "@kkocot/honeycomb-solid";
+    solid: `import { HiveContentRenderer } from "@barddev/honeycomb-solid";
 
 function PostContent(props: {
   body: string;
@@ -108,7 +108,7 @@ export default {
     hashtagUrlFn: (tag) => \`/tag/\${tag}\`,
   }}
 />`,
-    solid: `import { HiveContentRenderer } from "@kkocot/honeycomb-solid";
+    solid: `import { HiveContentRenderer } from "@barddev/honeycomb-solid";
 
 <HiveContentRenderer
   body={body}

@@ -57,7 +57,7 @@ function parse_metadata(
 }
 
 export const UserCard: Component<UserCardProps> = (props) => {
-  const { account, isLoading, error } = useHiveAccount(
+  const { account, is_loading, error } = useHiveAccount(
     () => props.username,
   );
 
@@ -70,7 +70,7 @@ export const UserCard: Component<UserCardProps> = (props) => {
 
   return (
     <Show
-      when={!isLoading()}
+      when={!is_loading()}
       fallback={
         <div
           class={cn(

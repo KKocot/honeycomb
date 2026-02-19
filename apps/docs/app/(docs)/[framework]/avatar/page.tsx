@@ -15,7 +15,7 @@ function UserProfile() {
     </div>
   );
 }`,
-    solid: `import { HiveAvatar } from "@kkocot/honeycomb-solid";
+    solid: `import { HiveAvatar } from "@barddev/honeycomb-solid";
 
 function UserProfile() {
   return (

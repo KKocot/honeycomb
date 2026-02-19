@@ -45,7 +45,7 @@ export const ApiTracker: Component<ApiTrackerProps> = (props) => {
     if (open) {
       set_is_refreshing(true);
       try {
-        await hive.refreshEndpoints();
+        await hive.refresh_endpoints();
       } finally {
         set_is_refreshing(false);
       }
@@ -55,14 +55,14 @@ export const ApiTracker: Component<ApiTrackerProps> = (props) => {
   const handle_refresh = async () => {
     set_is_refreshing(true);
     try {
-      await hive.refreshEndpoints();
+      await hive.refresh_endpoints();
     } finally {
       set_is_refreshing(false);
     }
   };
 
   const current_endpoint = () => {
-    const endpoint = hive.apiEndpoint();
+    const endpoint = hive.api_endpoint();
     if (!endpoint) return null;
     return props.showUrl ? format_url(endpoint) : null;
   };

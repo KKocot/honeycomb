@@ -1,5 +1,5 @@
 import { For } from "solid-js";
-import { HiveManabar } from "@kkocot/honeycomb-solid";
+import { HiveManabar } from "@barddev/honeycomb-solid";
 
 const USERS = ["blocktrades", "barddev", "arcange"];
 

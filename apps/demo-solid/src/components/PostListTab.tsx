@@ -1,4 +1,4 @@
-import { HivePostList } from "@kkocot/honeycomb-solid";
+import { HivePostList } from "@barddev/honeycomb-solid";
 
 const PINNED_POSTS = [
   { author: "gtg", permlink: "hive-hardfork-28-jump-starter-kit" },

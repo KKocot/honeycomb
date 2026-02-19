@@ -10,7 +10,7 @@ function PostFeed() {
     />
   );
 }`,
-    solid: `import { HivePostCard } from "@kkocot/honeycomb-solid";
+    solid: `import { HivePostCard } from "@barddev/honeycomb-solid";
 
 function PostFeed() {
   return (
@@ -127,7 +127,7 @@ function PostList({ posts }: { posts: Array<{ author: string; permlink: string }
   );
 }`,
     solid: `import { For } from "solid-js";
-import { HivePostCard } from "@kkocot/honeycomb-solid";
+import { HivePostCard } from "@barddev/honeycomb-solid";
 
 // Render a list of posts
 function PostList(props: { posts: Array<{ author: string; permlink: string }> }) {

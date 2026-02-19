@@ -1,5 +1,5 @@
 import { For } from "solid-js";
-import { BalanceCard } from "@kkocot/honeycomb-solid";
+import { BalanceCard } from "@barddev/honeycomb-solid";
 
 const USERS = ["blocktrades", "barddev", "arcange"];
 const ALL_USERS = ["blocktrades", "barddev", "arcange", "good-karma"];

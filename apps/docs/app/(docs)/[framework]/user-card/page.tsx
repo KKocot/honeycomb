@@ -13,7 +13,7 @@ function ProfilePage() {
     </div>
   );
 }`,
-  solid: `import { UserCard } from "@kkocot/honeycomb-solid";
+  solid: `import { UserCard } from "@barddev/honeycomb-solid";
 
 function ProfilePage() {
   return (

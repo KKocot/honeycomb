@@ -45,7 +45,7 @@ const DEFAULT_LIMIT = 20;
 export function useHivePostList(
   options: UseHivePostListOptions = {},
 ): UseHivePostListResult {
-  const { chain, apiEndpoint } = useHive();
+  const { chain, api_endpoint } = useHive();
   const { tag, limit = DEFAULT_LIMIT } = options;
 
   const [sort, set_sort_state] = createSignal<SortType>(
@@ -93,7 +93,7 @@ export function useHivePostList(
 
   createEffect(() => {
     const chain_value = chain();
-    const current_endpoint = apiEndpoint();
+    const current_endpoint = api_endpoint();
     const current_sort = sort();
     const cc = current_cursor();
 

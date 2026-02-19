@@ -21,7 +21,7 @@ function split_value(formatted: string): SplitBalance {
 }
 
 export const BalanceCard: Component<BalanceCardProps> = (props) => {
-  const { account, isLoading, error } = useHiveAccount(
+  const { account, is_loading, error } = useHiveAccount(
     () => props.username,
   );
 
@@ -50,7 +50,7 @@ export const BalanceCard: Component<BalanceCardProps> = (props) => {
 
   return (
     <Show
-      when={!isLoading()}
+      when={!is_loading()}
       fallback={
         <div
           class={cn(

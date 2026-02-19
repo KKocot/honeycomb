@@ -70,7 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }`,
-  solidBasic: `import { HiveProvider, useHive } from "@kkocot/honeycomb-solid";
+  solidBasic: `import { HiveProvider, useHive } from "@barddev/honeycomb-solid";
 
 function App() {
   return (

@@ -14,7 +14,7 @@ function App() {
     </div>
   );
 }`,
-    solid: `import { ApiTracker } from "@kkocot/honeycomb-solid";
+    solid: `import { ApiTracker } from "@barddev/honeycomb-solid";
 
 function App() {
   return (

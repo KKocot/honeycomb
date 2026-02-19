@@ -72,12 +72,12 @@ importers:
 
   apps/demo-solid:
     dependencies:
+      '@barddev/honeycomb-solid':
+        specifier: workspace:*
+        version: link:../../packages/solid
       '@kkocot/honeycomb-core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@kkocot/honeycomb-solid':
-        specifier: workspace:*
-        version: link:../../packages/solid
       highlight.js:
         specifier: ^11.11.1
         version: 11.11.1
@@ -94,30 +94,27 @@ importers:
       '@playwright/test':
         specifier: ^1.58.0
         version: 1.58.1
+      '@tailwindcss/postcss':
+        specifier: ^4.0.0
+        version: 4.1.18
       '@tailwindcss/typography':
         specifier: ^0.5.19
-        version: 0.5.19(tailwindcss@3.4.19)
-      autoprefixer:
-        specifier: ^10.4.23
-        version: 10.4.23(postcss@8.5.6)
+        version: 0.5.19(tailwindcss@4.1.18)
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
       tailwindcss:
-        specifier: ^3.4.19
-        version: 3.4.19
-      tailwindcss-animate:
-        specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.19)
+        specifier: ^4.0.0
+        version: 4.1.18
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
       vite:
         specifier: ^7.0.0
-        version: 7.3.1(@types/node@22.19.6)(jiti@1.21.7)(lightningcss@1.30.2)
+        version: 7.3.1(@types/node@22.19.6)(jiti@2.6.1)(lightningcss@1.30.2)
       vite-plugin-solid:
         specifier: ^2.10.0
-        version: 2.11.10(solid-js@1.9.11)(vite@7.3.1(@types/node@22.19.6)(jiti@1.21.7)(lightningcss@1.30.2))
+        version: 2.11.10(solid-js@1.9.11)(vite@7.3.1(@types/node@22.19.6)(jiti@2.6.1)(lightningcss@1.30.2))
 
   apps/demo-vue:
     dependencies:
@@ -361,7 +358,7 @@ importers:
   packages/solid:
     dependencies:
       '@kobalte/core':
-        specifier: ^0.13.0
+        specifier: '>=0.13.0'
         version: 0.13.11(solid-js@1.9.11)
       '@xmldom/xmldom':
         specifier: ^0.8.10
@@ -391,9 +388,15 @@ importers:
       '@kkocot/honeycomb-renderer':
         specifier: workspace:*
         version: link:../renderer
+      '@tailwindcss/cli':
+        specifier: ^4.0.0
+        version: 4.1.18
       solid-js:
         specifier: ^1.9.0
         version: 1.9.11
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.1.18
       tsup:
         specifier: ^8.0.1
         version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)
@@ -2999,11 +3002,6 @@ packages:
 
   tailwind-merge@3.4.0:
     resolution: {integrity: sha512-uSaO4gnW+b3Y2aWoWfFpX62vn2sR3skfhbjsEnaBI81WD1wBLlHZe5sWf0AqjksNdYTbGBEd0UasQMT3SNV15g==}
-
-  tailwindcss-animate@1.0.7:
-    resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
-    peerDependencies:
-      tailwindcss: '>=3.0.0 || insiders'
 
   tailwindcss@3.4.19:
     resolution: {integrity: sha512-3ofp+LL8E+pK/JuPLPggVAIaEuhvIz4qNcf3nA1Xn2o/7fb7s/TYpHhwGDv1ZU3PkBluUVaF8PyCHcm48cKLWQ==}
@@ -5818,10 +5816,6 @@ snapshots:
 
   tailwind-merge@3.4.0: {}
 
-  tailwindcss-animate@1.0.7(tailwindcss@3.4.19):
-    dependencies:
-      tailwindcss: 3.4.19
-
   tailwindcss@3.4.19:
     dependencies:
       '@alloc/quick-lru': 5.2.0
@@ -6010,7 +6004,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite-plugin-solid@2.11.10(solid-js@1.9.11)(vite@7.3.1(@types/node@22.19.6)(jiti@1.21.7)(lightningcss@1.30.2)):
+  vite-plugin-solid@2.11.10(solid-js@1.9.11)(vite@7.3.1(@types/node@22.19.6)(jiti@2.6.1)(lightningcss@1.30.2)):
     dependencies:
       '@babel/core': 7.29.0
       '@types/babel__core': 7.20.5
@@ -6018,24 +6012,10 @@ snapshots:
       merge-anything: 5.1.7
       solid-js: 1.9.11
       solid-refresh: 0.6.3(solid-js@1.9.11)
-      vite: 7.3.1(@types/node@22.19.6)(jiti@1.21.7)(lightningcss@1.30.2)
-      vitefu: 1.1.1(vite@7.3.1(@types/node@22.19.6)(jiti@1.21.7)(lightningcss@1.30.2))
+      vite: 7.3.1(@types/node@22.19.6)(jiti@2.6.1)(lightningcss@1.30.2)
+      vitefu: 1.1.1(vite@7.3.1(@types/node@22.19.6)(jiti@2.6.1)(lightningcss@1.30.2))
     transitivePeerDependencies:
       - supports-color
-
-  vite@7.3.1(@types/node@22.19.6)(jiti@1.21.7)(lightningcss@1.30.2):
-    dependencies:
-      esbuild: 0.27.2
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
-      postcss: 8.5.6
-      rollup: 4.55.1
-      tinyglobby: 0.2.15
-    optionalDependencies:
-      '@types/node': 22.19.6
-      fsevents: 2.3.3
-      jiti: 1.21.7
-      lightningcss: 1.30.2
 
   vite@7.3.1(@types/node@22.19.6)(jiti@2.6.1)(lightningcss@1.30.2):
     dependencies:
@@ -6051,9 +6031,9 @@ snapshots:
       jiti: 2.6.1
       lightningcss: 1.30.2
 
-  vitefu@1.1.1(vite@7.3.1(@types/node@22.19.6)(jiti@1.21.7)(lightningcss@1.30.2)):
+  vitefu@1.1.1(vite@7.3.1(@types/node@22.19.6)(jiti@2.6.1)(lightningcss@1.30.2)):
     optionalDependencies:
-      vite: 7.3.1(@types/node@22.19.6)(jiti@1.21.7)(lightningcss@1.30.2)
+      vite: 7.3.1(@types/node@22.19.6)(jiti@2.6.1)(lightningcss@1.30.2)
 
   vitest@4.0.18(@types/node@22.19.6)(jiti@2.6.1)(lightningcss@1.30.2):
     dependencies:

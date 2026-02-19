@@ -28,33 +28,33 @@ function StatusBar() {
     </div>
   );
 }`,
-  useHiveSolid: `import { useHive } from "@kkocot/honeycomb-solid";
+  useHiveSolid: `import { useHive } from "@barddev/honeycomb-solid";
 
 function StatusBar() {
   const {
     chain,
-    isLoading,
+    is_loading,
     error,
-    isClient,
-    apiEndpoint,
+    is_client,
+    api_endpoint,
     status,
     endpoints,
-    refreshEndpoints,
+    refresh_endpoints,
   } = useHive();
 
   // All values are signal getters - call them as functions
   return (
     <div>
-      {isLoading() ? (
+      {is_loading() ? (
         <p>Connecting to Hive...</p>
       ) : error() ? (
         <p>Error: {error()}</p>
       ) : (
         <>
           <p>Status: {status()}</p>
-          <p>Endpoint: {apiEndpoint()}</p>
+          <p>Endpoint: {api_endpoint()}</p>
           <p>Healthy: {endpoints().filter((ep) => ep.healthy).length}</p>
-          <button onClick={() => refreshEndpoints()}>
+          <button onClick={() => refresh_endpoints()}>
             Refresh Endpoints
           </button>
         </>
@@ -118,7 +118,7 @@ function AccountLookup({ username }: { username: string }) {
     </div>
   );
 }`,
-  useHiveChainSolid: `import { useHiveChain } from "@kkocot/honeycomb-solid";
+  useHiveChainSolid: `import { useHiveChain } from "@barddev/honeycomb-solid";
 
 function AccountLookup(props: { username: string }) {
   // Returns a signal getter
@@ -190,7 +190,7 @@ function EndpointDisplay() {
   const endpoint = useApiEndpoint();
   return <p>Connected to: {endpoint ?? "none"}</p>;
 }`,
-  useApiEndpointSolid: `import { useApiEndpoint } from "@kkocot/honeycomb-solid";
+  useApiEndpointSolid: `import { useApiEndpoint } from "@barddev/honeycomb-solid";
 
 function EndpointDisplay() {
   const endpoint = useApiEndpoint();
@@ -229,7 +229,7 @@ function ConnectionMonitor() {
     </div>
   );
 }`,
-  useHiveStatusSolid: `import { useHiveStatus } from "@kkocot/honeycomb-solid";
+  useHiveStatusSolid: `import { useHiveStatus } from "@barddev/honeycomb-solid";
 
 function ConnectionMonitor() {
   // Returns a signal getter for { status, endpoints }
@@ -290,14 +290,14 @@ function UserProfile({ username }: { username: string }) {
     </div>
   );
 }`,
-  useHiveAccountSolid: `import { useHiveAccount } from "@kkocot/honeycomb-solid";
+  useHiveAccountSolid: `import { useHiveAccount } from "@barddev/honeycomb-solid";
 
 function UserProfile(props: { username: string }) {
-  const { account, isLoading, error, refetch } = useHiveAccount(props.username);
+  const { account, is_loading, error, refetch } = useHiveAccount(props.username);
 
   return (
     <div>
-      {isLoading() ? (
+      {is_loading() ? (
         <p>Loading account...</p>
       ) : error() ? (
         <p>Error: {error()?.message}</p>
@@ -351,7 +351,7 @@ export const USE_HIVE_ACCOUNT_RETURN_VALUES = [
   },
   {
     react: "is_loading",
-    solid: "isLoading",
+    solid: "is_loading",
     vue: "isLoading",
     type: "boolean",
     desc: "True while fetching account data",
@@ -382,7 +382,7 @@ export const USE_HIVE_RETURN_VALUES = [
   },
   {
     react: "is_loading",
-    solid: "isLoading",
+    solid: "is_loading",
     vue: "isLoading",
     type: "boolean",
     desc: "True while connecting to blockchain",
@@ -396,14 +396,14 @@ export const USE_HIVE_RETURN_VALUES = [
   },
   {
     react: "is_client",
-    solid: "isClient",
+    solid: "is_client",
     vue: "N/A",
     type: "boolean",
     desc: "True when running on client (SSR detection). Not available in Vue package.",
   },
   {
     react: "api_endpoint",
-    solid: "apiEndpoint",
+    solid: "api_endpoint",
     vue: "apiEndpoint",
     type: "string | null",
     desc: "Currently active API endpoint URL",
@@ -424,7 +424,7 @@ export const USE_HIVE_RETURN_VALUES = [
   },
   {
     react: "refresh_endpoints",
-    solid: "refreshEndpoints",
+    solid: "refresh_endpoints",
     vue: "refreshEndpoints",
     type: "() => Promise<void>",
     desc: "Manually trigger endpoint health checks",

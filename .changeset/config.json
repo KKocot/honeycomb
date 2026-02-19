@@ -3,7 +3,7 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [],
-  "linked": [["@barddev/honeycomb-react", "@barddev/honeycomb-vue"]],
+  "linked": [["@barddev/honeycomb-react", "@barddev/honeycomb-vue", "@barddev/honeycomb-solid"]],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
@@ -14,7 +14,6 @@
     "docs",
     "@kkocot/honeycomb-core",
     "@kkocot/honeycomb-renderer",
-    "@kkocot/honeycomb",
-    "@kkocot/honeycomb-solid"
+    "@kkocot/honeycomb"
   ]
 }

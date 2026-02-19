@@ -35,7 +35,7 @@ export interface UseHiveAccountResult {
   /** Account data signal getter */
   account: () => HiveAccount | null;
   /** Loading state signal getter */
-  isLoading: () => boolean;
+  is_loading: () => boolean;
   /** Error signal getter */
   error: () => Error | null;
   /** Refetch account data */
@@ -47,10 +47,10 @@ export interface UseHiveAccountResult {
  *
  * @example
  * ```tsx
- * const { account, isLoading, error } = useHiveAccount("blocktrades");
+ * const { account, is_loading, error } = useHiveAccount("blocktrades");
  *
  * return (
- *   <Show when={!isLoading()} fallback={<div>Loading...</div>}>
+ *   <Show when={!is_loading()} fallback={<div>Loading...</div>}>
  *     <Show when={!error()} fallback={<div>Error: {error()?.message}</div>}>
  *       <div>Balance: {account()?.balance}</div>
  *     </Show>
@@ -64,7 +64,7 @@ export function useHiveAccount(
   const get_username =
     typeof username === "function" ? username : () => username;
 
-  const { chain, apiEndpoint } = useHive();
+  const { chain, api_endpoint } = useHive();
   const [account, set_account] = createSignal<HiveAccount | null>(null);
   const [is_loading, set_is_loading] = createSignal(true);
   const [error, set_error] = createSignal<Error | null>(null);
@@ -73,7 +73,7 @@ export function useHiveAccount(
   createEffect(() => {
     const chain_value = chain();
     const current_username = get_username();
-    const current_endpoint = apiEndpoint();
+    const current_endpoint = api_endpoint();
     void refetch_counter();
 
     if (!chain_value || !current_username) {
@@ -210,5 +210,5 @@ export function useHiveAccount(
     set_refetch_counter((c) => c + 1);
   };
 
-  return { account, isLoading: is_loading, error, refetch };
+  return { account, is_loading, error, refetch };
 }

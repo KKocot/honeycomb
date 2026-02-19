@@ -87,14 +87,14 @@ export function useHivePost(
   author: string,
   permlink: string,
 ): UseHivePostResult {
-  const { chain, apiEndpoint } = useHive();
+  const { chain, api_endpoint } = useHive();
   const [post, set_post] = createSignal<HivePost | null>(null);
   const [is_loading, set_is_loading] = createSignal(true);
   const [error, set_error] = createSignal<Error | null>(null);
 
   createEffect(() => {
     const chain_value = chain();
-    const current_endpoint = apiEndpoint();
+    const current_endpoint = api_endpoint();
 
     if (!chain_value || !author || !permlink) {
       set_is_loading(false);

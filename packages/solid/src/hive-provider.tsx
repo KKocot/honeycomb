@@ -29,19 +29,19 @@ export interface HiveContextValue {
   /** Hive chain instance getter - returns null during SSR and initial load */
   chain: () => IHiveChainInterface | null;
   /** Loading state getter - true while chain is initializing */
-  isLoading: () => boolean;
+  is_loading: () => boolean;
   /** Error getter - error message if chain initialization failed */
   error: () => string | null;
   /** Client-side detection getter - check if running on client */
-  isClient: () => boolean;
+  is_client: () => boolean;
   /** API endpoint getter - currently connected API endpoint */
-  apiEndpoint: () => string | null;
+  api_endpoint: () => string | null;
   /** Connection status getter */
   status: () => ConnectionStatus;
   /** Endpoints status getter - status of all endpoints */
   endpoints: () => EndpointStatus[];
   /** Refresh all endpoints health status */
-  refreshEndpoints: () => Promise<void>;
+  refresh_endpoints: () => Promise<void>;
 }
 
 /**
@@ -161,16 +161,16 @@ export const HiveProvider: ParentComponent<HiveProviderProps> = (props) => {
   // Memoize context value with signal getters
   const value = createMemo<HiveContextValue>(() => ({
     chain: () => chain_ref(),
-    isLoading: () => {
+    is_loading: () => {
       const state = client_state();
       return state.status === "connecting" || state.status === "reconnecting";
     },
     error: () => client_state().error,
-    isClient: () => is_client(),
-    apiEndpoint: () => client_state().currentEndpoint,
+    is_client: () => is_client(),
+    api_endpoint: () => client_state().currentEndpoint,
     status: () => client_state().status,
     endpoints: () => client_state().endpoints,
-    refreshEndpoints: refresh_endpoints,
+    refresh_endpoints: refresh_endpoints,
   }));
 
   return <HiveContext.Provider value={value()}>{props.children}</HiveContext.Provider>;
@@ -206,8 +206,8 @@ export function useHiveChain(): () => IHiveChainInterface | null {
  * @returns Signal getter for current endpoint URL or null
  */
 export function useApiEndpoint(): () => string | null {
-  const { apiEndpoint } = useHive();
-  return apiEndpoint;
+  const { api_endpoint } = useHive();
+  return api_endpoint;
 }
 
 /**

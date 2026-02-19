@@ -9,7 +9,7 @@ const CODE = {
 function WalletPage() {
   return <BalanceCard username="barddev" />;
 }`,
-  solid: `import { BalanceCard } from "@kkocot/honeycomb-solid";
+  solid: `import { BalanceCard } from "@barddev/honeycomb-solid";
 
 function WalletPage() {
   return <BalanceCard username="barddev" />;

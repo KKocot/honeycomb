@@ -169,7 +169,7 @@ export default function StatusDisplay() {
           </div>
 
           <div class="text-sm text-muted-foreground font-mono">
-            @kkocot/honeycomb-solid
+            @barddev/honeycomb-solid
           </div>
         </div>
       </header>
@@ -244,7 +244,7 @@ export default function StatusDisplay() {
       {/* Footer */}
       <footer class="border-t border-border mt-16 py-8">
         <div class="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>Honeycomb Solid Demo - @kkocot/honeycomb-solid</p>
+          <p>Honeycomb Solid Demo - @barddev/honeycomb-solid</p>
         </div>
       </footer>
     </div>

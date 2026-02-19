@@ -17,7 +17,7 @@ function UserStats() {
     />
   );
 }`,
-    solid: `import { HiveManabar } from "@kkocot/honeycomb-solid";
+    solid: `import { HiveManabar } from "@barddev/honeycomb-solid";
 
 function UserStats() {
   return (

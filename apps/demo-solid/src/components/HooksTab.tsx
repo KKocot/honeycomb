@@ -7,7 +7,7 @@ import {
   useHiveChain,
   type ConnectionStatus,
   type EndpointStatus,
-} from "@kkocot/honeycomb-solid";
+} from "@barddev/honeycomb-solid";
 
 interface GlobalProps {
   head_block_number: number;
@@ -78,7 +78,7 @@ export default function HooksTab() {
 
   const {
     account,
-    isLoading: account_loading,
+    is_loading: account_loading,
     error: account_error,
     refetch,
   } = useHiveAccount(username_to_fetch);
@@ -86,7 +86,7 @@ export default function HooksTab() {
   const handle_refresh_endpoints = async () => {
     set_refresh_loading(true);
     try {
-      await hive_context.refreshEndpoints();
+      await hive_context.refresh_endpoints();
     } finally {
       set_refresh_loading(false);
     }
@@ -152,7 +152,7 @@ export default function HooksTab() {
             title={hive_context.status()}
           />
           <span class="text-lg capitalize">{hive_context.status()}</span>
-          <Show when={hive_context.isLoading()}>
+          <Show when={hive_context.is_loading()}>
             <span class="text-muted-foreground text-sm">(loading...)</span>
           </Show>
         </div>

@@ -7,7 +7,7 @@ import { parseFramework } from "@/lib/framework";
 
 const PACKAGES = {
   react: "@barddev/honeycomb-react",
-  solid: "@kkocot/honeycomb-solid",
+  solid: "@barddev/honeycomb-solid",
   vue: "@barddev/honeycomb-vue",
 } as const;
 
@@ -54,7 +54,7 @@ function MyComponent() {
 }`,
   },
   solid: {
-    provider: `import { HiveProvider } from "@kkocot/honeycomb-solid";
+    provider: `import { HiveProvider } from "@barddev/honeycomb-solid";
 
 function App() {
   return (
@@ -63,7 +63,7 @@ function App() {
     </HiveProvider>
   );
 }`,
-    usage: `import { useHive } from "@kkocot/honeycomb-solid";
+    usage: `import { useHive } from "@barddev/honeycomb-solid";
 
 function MyComponent() {
   const { chain, is_loading, error } = useHive();

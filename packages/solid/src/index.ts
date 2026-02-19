@@ -1,5 +1,5 @@
 /**
- * @kkocot/honeycomb-solid
+ * @barddev/honeycomb-solid
  * Solid.js components for Hive Blockchain applications
  */
 

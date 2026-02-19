@@ -5,7 +5,7 @@ export const CODE = {
 function TrendingFeed() {
   return <HivePostList sort="trending" limit={10} />;
 }`,
-    solid: `import { HivePostList } from "@kkocot/honeycomb-solid";
+    solid: `import { HivePostList } from "@barddev/honeycomb-solid";
 
 function TrendingFeed() {
   return <HivePostList sort="trending" limit={10} />;
@@ -31,7 +31,7 @@ function FeedWithControls() {
     />
   );
 }`,
-    solid: `import { HivePostList } from "@kkocot/honeycomb-solid";
+    solid: `import { HivePostList } from "@barddev/honeycomb-solid";
 
 // Show sort buttons (trending, hot, created, payout, muted)
 function FeedWithControls() {
@@ -70,7 +70,7 @@ function FeedWithPinned() {
     />
   );
 }`,
-    solid: `import { HivePostList } from "@kkocot/honeycomb-solid";
+    solid: `import { HivePostList } from "@barddev/honeycomb-solid";
 
 // Pin specific posts to the top of the list
 function FeedWithPinned() {
@@ -167,7 +167,7 @@ function LeoFinanceFeed() {
     />
   );
 }`,
-    solid: `import { HivePostList } from "@kkocot/honeycomb-solid";
+    solid: `import { HivePostList } from "@barddev/honeycomb-solid";
 
 // Show posts from a specific community
 function LeoFinanceFeed() {
@@ -207,7 +207,7 @@ function PhotographyFeed() {
     />
   );
 }`,
-    solid: `import { HivePostList } from "@kkocot/honeycomb-solid";
+    solid: `import { HivePostList } from "@barddev/honeycomb-solid";
 
 // Filter posts by a specific tag
 function PhotographyFeed() {
@@ -280,7 +280,7 @@ function CustomFeed() {
     </div>
   );
 }`,
-    solid: `import { useHivePostList } from "@kkocot/honeycomb-solid";
+    solid: `import { useHivePostList } from "@barddev/honeycomb-solid";
 import { For, Show } from "solid-js";
 
 function CustomFeed() {

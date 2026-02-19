@@ -1,5 +1,4 @@
-@import "@kkocot/honeycomb-renderer/styles.css";
+@import "tailwindcss";
+@import "@barddev/honeycomb-solid/theme.css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@plugin "@tailwindcss/typography";

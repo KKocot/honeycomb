@@ -1,5 +1,5 @@
 import { For } from "solid-js";
-import { UserCard } from "@kkocot/honeycomb-solid";
+import { UserCard } from "@barddev/honeycomb-solid";
 
 const DEMO_USERS = ["barddev", "blocktrades", "good-karma", "arcange"];
 
