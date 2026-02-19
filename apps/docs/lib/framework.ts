@@ -1,12 +1,12 @@
 export const FRAMEWORKS = [
-  { id: "react", label: "React", demo_base: "/demo/react-next" },
-  { id: "solid", label: "Solid.js", demo_base: "/demo/solid/" },
+  { id: "react", label: "React", demo_base: "/demo/react-next/" },
+  { id: "solid", label: "Solid.js", demo_base: "/demo/solid-vite/" },
   { id: "vue", label: "Vue 3", demo_base: "/demo/vue/" },
 ] as const;
 
 export function get_demo_url(framework: Framework): string {
   const fw = FRAMEWORKS.find((f) => f.id === framework);
-  return fw?.demo_base ?? "/demo/react-next";
+  return fw?.demo_base ?? "/demo/react-next/";
 }
 
 export type Framework = (typeof FRAMEWORKS)[number]["id"];

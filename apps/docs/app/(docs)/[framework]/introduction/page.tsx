@@ -1,57 +1,45 @@
 import Link from "next/link";
-import { ArrowRight, Blocks, Package, Zap, Activity } from "lucide-react";
-import { parseFramework } from "@/lib/framework";
+import {
+  ArrowRight,
+  Blocks,
+  Package,
+  Zap,
+  Activity,
+  ExternalLink,
+} from "lucide-react";
+import { parseFramework, type Framework } from "@/lib/framework";
 
-type TechItem = string | { name: string; href: string };
+type DemoConfig = {
+  name: string;
+  desc: string;
+  app: string;
+};
 
-const SUPPORTED_TECH: {
-  icon: typeof Package;
-  title: string;
-  items: TechItem[];
-}[] = [
-  {
-    icon: Package,
-    title: "UI Frameworks",
-    items: ["React >=19", "Solid.js", "Vue 3"],
-  },
-  {
-    icon: Blocks,
-    title: "Meta-frameworks",
-    items: [
-      {
-        name: "Next.js",
-        href: "https://github.com/KKocot/honeycomb/tree/main/apps/demo-react-next",
-      },
-      {
-        name: "Astro",
-        href: "https://github.com/KKocot/honeycomb/tree/main/apps/demo-react-astro",
-      },
-      {
-        name: "React Router",
-        href: "https://github.com/KKocot/honeycomb/tree/main/apps/demo-react-remix",
-      },
-      "Nuxt",
-      "SolidStart",
-    ],
-  },
-  {
-    icon: Zap,
-    title: "Bundlers",
-    items: [
-      {
-        name: "Vite",
-        href: "https://github.com/KKocot/honeycomb/tree/main/apps/demo-react-vite",
-      },
-      "webpack",
-      "Turbopack",
-    ],
-  },
-  {
-    icon: Activity,
-    title: "Requirements",
-    items: ["Node.js >=18", "TypeScript (recommended)"],
-  },
-];
+const GITHUB_APPS_BASE =
+  "https://github.com/KKocot/honeycomb/tree/main/apps";
+
+const FRAMEWORK_DEMOS: Record<Framework, DemoConfig[]> = {
+  react: [
+    { name: "Next.js", desc: "Full-stack framework with SSR", app: "demo-react-next" },
+    { name: "Vite", desc: "Lightning-fast SPA bundler", app: "demo-react-vite" },
+    { name: "Astro", desc: "Island architecture with partial hydration", app: "demo-react-astro" },
+    { name: "React Router", desc: "SPA routing with optional SSR", app: "demo-react-remix" },
+  ],
+  solid: [
+    { name: "SolidStart", desc: "Solid.js meta-framework with SSR", app: "demo-solid-start" },
+    { name: "Vite", desc: "Lightning-fast SPA bundler", app: "demo-solid-vite" },
+    { name: "Astro", desc: "Island architecture with partial hydration", app: "demo-solid-astro" },
+  ],
+  vue: [
+    { name: "Vite", desc: "Lightning-fast SPA bundler", app: "demo-vue" },
+  ],
+};
+
+const FRAMEWORK_LABELS: Record<Framework, string> = {
+  react: "React",
+  solid: "Solid.js",
+  vue: "Vue 3",
+};
 
 interface PageProps {
   params: Promise<{ framework: string }>;
@@ -91,49 +79,68 @@ export default async function IntroductionPage({ params }: PageProps) {
         </div>
       </div>
 
-      {/* Supported Technologies */}
+      {/* Demo Applications */}
       <div className="not-prose my-8">
         <h2 className="mb-4 text-2xl font-bold tracking-tight">
-          Supported Technologies
+          Demo Applications
         </h2>
         <p className="mb-6 text-muted-foreground">
-          Honeycomb works with modern JavaScript frameworks and build tools.
-          Choose your stack and start building.
+          Explore working examples of Honeycomb with{" "}
+          {FRAMEWORK_LABELS[framework]} and popular build tools.
         </p>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {SUPPORTED_TECH.map(({ icon: Icon, title, items }) => (
-            <div
-              key={title}
-              className="rounded-lg border border-border bg-card p-4"
+        <div className="grid gap-4 sm:grid-cols-2">
+          {FRAMEWORK_DEMOS[framework].map((demo) => (
+            <a
+              key={demo.app}
+              href={`${GITHUB_APPS_BASE}/${demo.app}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-lg border border-border bg-card p-4 transition-colors hover:border-hive-red/50"
             >
-              <Icon className="mb-2 h-6 w-6 text-hive-red" />
-              <h3 className="text-sm font-semibold">{title}</h3>
-              <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
-                {items.map((item) => {
-                  const is_link = typeof item === "object";
-                  const label = is_link ? item.name : item;
-                  return (
-                    <li key={label}>
-                      {is_link ? (
-                        <a
-                          href={item.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-hive-red hover:underline"
-                        >
-                          {label}
-                        </a>
-                      ) : (
-                        label
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+              <div className="flex items-start justify-between">
+                <h3 className="text-sm font-semibold">{demo.name}</h3>
+                <ExternalLink className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-hive-red" />
+              </div>
+              <p className="mt-1 text-sm text-muted-foreground">{demo.desc}</p>
+            </a>
           ))}
         </div>
+      </div>
+
+      {/* Also Available */}
+      <div className="not-prose my-8">
+        <h2 className="mb-4 text-2xl font-bold tracking-tight">
+          Also Available
+        </h2>
+        <div className="flex flex-wrap gap-3">
+          {(["react", "solid", "vue"] as const)
+            .filter((fw): fw is Framework => fw !== framework)
+            .map((fw) => (
+              <Link
+                key={fw}
+                href={`/${fw}/introduction`}
+                className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm transition-colors hover:border-hive-red/50 hover:bg-muted"
+              >
+                <span className="font-medium">{FRAMEWORK_LABELS[fw]}</span>
+                <span className="text-muted-foreground">
+                  ({FRAMEWORK_DEMOS[fw].length}{" "}
+                  {FRAMEWORK_DEMOS[fw].length === 1 ? "demo" : "demos"})
+                </span>
+              </Link>
+            ))}
+        </div>
+      </div>
+
+      {/* Requirements */}
+      <div className="not-prose my-8">
+        <h2 className="mb-4 text-2xl font-bold tracking-tight">
+          Requirements
+        </h2>
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>Node.js &gt;=18</li>
+          <li>TypeScript (recommended)</li>
+        </ul>
       </div>
 
       {/* Feature callouts */}
