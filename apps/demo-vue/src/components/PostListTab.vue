@@ -6,7 +6,7 @@
       <p class="text-sm text-muted-foreground mb-4">
         Interactive sort controls to browse different post rankings.
       </p>
-      <HivePostList :show_sort_controls="true" :limit="5" />
+      <HivePostList :show-sort-controls="true" :limit="5" />
     </section>
 
     <!-- Two-column grid for smaller demos -->
@@ -54,7 +54,7 @@
           Pinned posts appear at the top with a badge.
         </p>
         <HivePostList
-          :pinned_posts="PINNED_POSTS"
+          :pinned-posts="PINNED_POSTS"
           :limit="5"
           variant="compact"
         />
@@ -94,7 +94,7 @@
 </template>
 
 <script setup lang="ts">
-import { HivePostList } from "@kkocot/honeycomb-vue";
+import { HivePostList } from "@barddev/honeycomb-vue";
 
 const PINNED_POSTS = [
   { author: "gtg", permlink: "hive-hardfork-28-jump-starter-kit" },

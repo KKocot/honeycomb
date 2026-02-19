@@ -81,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import { HivePostCard } from "@kkocot/honeycomb-vue";
+import { HivePostCard } from "@barddev/honeycomb-vue";
 
 const BARDDEV_POST = { author: "barddev", permlink: "my-honey-pot" };
 const BLOCKTRADES_POST = {

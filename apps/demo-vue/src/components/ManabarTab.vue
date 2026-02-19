@@ -63,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { HiveManabar } from "@kkocot/honeycomb-vue";
+import { HiveManabar } from "@barddev/honeycomb-vue";
 
 const USERS = ["blocktrades", "barddev", "arcange", "good-karma"];
 </script>

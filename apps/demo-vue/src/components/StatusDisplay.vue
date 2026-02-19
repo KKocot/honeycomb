@@ -26,7 +26,7 @@
         </div>
 
         <div class="text-sm text-muted-foreground font-mono">
-          @kkocot/honeycomb-vue
+          @barddev/honeycomb-vue
         </div>
       </div>
     </header>
@@ -82,7 +82,7 @@
       <div
         class="container mx-auto px-4 text-center text-sm text-muted-foreground"
       >
-        <p>Honeycomb Vue Demo - @kkocot/honeycomb-vue</p>
+        <p>Honeycomb Vue Demo - @barddev/honeycomb-vue</p>
       </div>
     </footer>
   </div>

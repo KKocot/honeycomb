@@ -193,7 +193,7 @@ import {
   useHiveStatus,
   useHiveAccount,
   useHiveChain,
-} from "@kkocot/honeycomb-vue";
+} from "@barddev/honeycomb-vue";
 
 // Connection Status
 const {

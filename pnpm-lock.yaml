@@ -121,10 +121,7 @@ importers:
 
   apps/demo-vue:
     dependencies:
-      '@kkocot/honeycomb-core':
-        specifier: workspace:*
-        version: link:../../packages/core
-      '@kkocot/honeycomb-vue':
+      '@barddev/honeycomb-vue':
         specifier: workspace:*
         version: link:../../packages/vue
       highlight.js:
@@ -143,24 +140,21 @@ importers:
       '@playwright/test':
         specifier: ^1.58.0
         version: 1.58.1
+      '@tailwindcss/postcss':
+        specifier: ^4.0.0
+        version: 4.1.18
       '@tailwindcss/typography':
         specifier: ^0.5.19
-        version: 0.5.19(tailwindcss@3.4.19)
+        version: 0.5.19(tailwindcss@4.1.18)
       '@vitejs/plugin-vue':
         specifier: ^5.0.0
         version: 5.2.4(vite@7.3.1(@types/node@22.19.6)(jiti@2.6.1)(lightningcss@1.30.2))(vue@3.5.27(typescript@5.9.3))
-      autoprefixer:
-        specifier: ^10.4.23
-        version: 10.4.23(postcss@8.5.6)
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
       tailwindcss:
-        specifier: ^3.4.19
-        version: 3.4.19
-      tailwindcss-animate:
-        specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.19)
+        specifier: ^4.0.0
+        version: 4.1.18
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -440,6 +434,12 @@ importers:
       '@kkocot/honeycomb-renderer':
         specifier: workspace:*
         version: link:../renderer
+      '@tailwindcss/cli':
+        specifier: ^4.0.0
+        version: 4.1.18
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.1.18
       tsup:
         specifier: ^8.0.1
         version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)

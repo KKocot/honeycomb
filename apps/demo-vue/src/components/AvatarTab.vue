@@ -129,8 +129,8 @@
 </template>
 
 <script setup lang="ts">
-import { HiveAvatar } from "@kkocot/honeycomb-vue";
-import type { AvatarSize } from "@kkocot/honeycomb-vue";
+import { HiveAvatar } from "@barddev/honeycomb-vue";
+import type { AvatarSize } from "@barddev/honeycomb-vue";
 
 const DEMO_USERS = ["blocktrades", "barddev", "arcange", "good-karma", "therealwolf"];
 const SIZES: readonly AvatarSize[] = ["xs", "sm", "md", "lg", "xl"];

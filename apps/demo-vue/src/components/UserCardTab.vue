@@ -75,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { UserCard } from "@kkocot/honeycomb-vue";
+import { UserCard } from "@barddev/honeycomb-vue";
 
 const DEMO_USERS = ["barddev", "blocktrades", "good-karma", "arcange"];
 </script>
