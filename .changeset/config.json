@@ -11,9 +11,6 @@
     "demo-react",
     "demo-solid",
     "demo-vue",
-    "docs",
-    "@kkocot/honeycomb-core",
-    "@kkocot/honeycomb-renderer",
-    "@kkocot/honeycomb"
+    "docs"
   ]
 }
