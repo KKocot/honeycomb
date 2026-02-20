@@ -85,11 +85,12 @@ export function ApiTracker({
           className
         )}
         type="button"
+        data-testid="hive-connect-button"
       >
         <span className={cn("w-2.5 h-2.5 rounded-full", get_status_color(status))} />
-        <span className="text-sm text-hive-foreground capitalize">{status}</span>
+        <span className="text-sm text-hive-foreground capitalize" data-testid="hive-connection-status">{status}</span>
         {showUrl && api_endpoint && (
-          <span className="text-xs text-hive-muted-foreground font-mono truncate max-w-[200px]">
+          <span className="text-xs text-hive-muted-foreground font-mono truncate max-w-[200px]" data-testid="hive-api-endpoint">
             {format_url(api_endpoint)}
           </span>
         )}
@@ -125,11 +126,12 @@ export function ApiTracker({
             </button>
           </div>
 
-          <div className="space-y-0">
+          <div className="space-y-0" data-testid="hive-endpoint-list">
             {endpoints.map((endpoint) => (
               <div
                 key={endpoint.url}
                 className="flex items-start justify-between gap-2 py-2 border-b border-hive-border last:border-0"
+                data-testid="hive-endpoint-item"
               >
                 <div className="flex items-start gap-2 flex-1 min-w-0">
                   <span
@@ -139,7 +141,7 @@ export function ApiTracker({
                     )}
                   />
                   <div className="flex-1 min-w-0">
-                    <div className="text-xs font-mono truncate">
+                    <div className="text-xs font-mono truncate" data-testid="hive-endpoint-url">
                       {format_url(endpoint.url)}
                     </div>
                     <p className="text-xs text-hive-muted-foreground mt-0.5">
@@ -159,6 +161,7 @@ export function ApiTracker({
                       ? "bg-hive-success/10 text-hive-success"
                       : "bg-hive-destructive/10 text-hive-destructive"
                   )}
+                  data-testid="hive-endpoint-status"
                 >
                   {endpoint.healthy ? "Healthy" : "Unhealthy"}
                 </span>

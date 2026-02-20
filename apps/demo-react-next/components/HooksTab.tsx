@@ -84,8 +84,9 @@ function ConnectionStatusSection() {
         <div
           className={`w-4 h-4 rounded-full ${get_status_color(status)}`}
           title={status}
+          data-testid="hive-hook-status-dot"
         />
-        <span className="text-lg capitalize">{status}</span>
+        <span className="text-lg capitalize" data-testid="hive-hook-status">{status}</span>
         {is_loading && (
           <span className="text-hive-muted-foreground text-sm">(loading...)</span>
         )}
@@ -105,7 +106,7 @@ function CurrentEndpointSection() {
   return (
     <section className="border border-hive-border rounded-lg p-6 bg-hive-muted/20">
       <h2 className="text-2xl font-semibold mb-4">Current Endpoint</h2>
-      <p className="font-mono text-sm text-hive-muted-foreground">
+      <p className="font-mono text-sm text-hive-muted-foreground" data-testid="hive-hook-endpoint">
         {api_endpoint || <em>Not connected</em>}
       </p>
     </section>
@@ -153,7 +154,7 @@ function AllEndpointsSection() {
                 }`}
                 title={endpoint.healthy ? "Healthy" : "Unhealthy"}
               />
-              <span className="font-mono text-sm">{endpoint.url}</span>
+              <span className="font-mono text-sm" data-testid="hive-hook-endpoint-url">{endpoint.url}</span>
             </div>
             <div className="flex gap-4 text-xs text-hive-muted-foreground">
               {endpoint.lastCheck !== null && (

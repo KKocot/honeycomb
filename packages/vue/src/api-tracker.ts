@@ -89,7 +89,7 @@ export const ApiTracker = defineComponent({
 
       const status_text = h(
         "span",
-        { class: "text-sm text-hive-foreground capitalize" },
+        { class: "text-sm text-hive-foreground capitalize", "data-testid": "hive-connection-status" },
         ctx.status.value
       );
 
@@ -97,7 +97,7 @@ export const ApiTracker = defineComponent({
         props.showUrl && ctx.apiEndpoint.value
           ? h(
               "span",
-              { class: "text-xs text-hive-muted-foreground font-mono truncate max-w-[200px]" },
+              { class: "text-xs text-hive-muted-foreground font-mono truncate max-w-[200px]", "data-testid": "hive-api-endpoint" },
               format_url(ctx.apiEndpoint.value)
             )
           : null;
@@ -141,7 +141,7 @@ export const ApiTracker = defineComponent({
 
         h(
           "div",
-          { class: "space-y-0" },
+          { class: "space-y-0", "data-testid": "hive-endpoint-list" },
           ctx.endpoints.value.length === 0
             ? [
                 h(
@@ -158,6 +158,7 @@ export const ApiTracker = defineComponent({
                   {
                     class:
                       "flex items-start justify-between gap-2 py-2 border-b border-hive-border last:border-0",
+                    "data-testid": "hive-endpoint-item",
                   },
                   [
                     h(
@@ -170,7 +171,7 @@ export const ApiTracker = defineComponent({
                         h("div", { class: "flex-1 min-w-0" }, [
                           h(
                             "div",
-                            { class: "text-xs font-mono truncate" },
+                            { class: "text-xs font-mono truncate", "data-testid": "hive-endpoint-url" },
                             format_url(endpoint.url)
                           ),
                           h(
@@ -197,6 +198,7 @@ export const ApiTracker = defineComponent({
                             ? "bg-hive-success/10 text-hive-success"
                             : "bg-hive-destructive/10 text-hive-destructive"
                         }`,
+                        "data-testid": "hive-endpoint-status",
                       },
                       endpoint.healthy ? "Healthy" : "Unhealthy"
                     ),
@@ -219,6 +221,7 @@ export const ApiTracker = defineComponent({
                 asChild: false,
                 class:
                   "inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-hive-border bg-hive-card cursor-pointer hover:bg-hive-muted/50 transition-colors",
+                "data-testid": "hive-connect-button",
               },
               { default: () => trigger_content }
             ),

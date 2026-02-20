@@ -15,8 +15,9 @@
                 : 'bg-yellow-500',
           ]"
           :title="hive_status"
+          data-testid="hive-hook-status-dot"
         />
-        <span class="text-lg capitalize">{{ hive_status }}</span>
+        <span class="text-lg capitalize" data-testid="hive-hook-status">{{ hive_status }}</span>
         <span v-if="is_loading" class="text-muted-foreground text-sm"
           >(loading...)</span
         >
@@ -35,7 +36,7 @@
       <p class="text-xs text-muted-foreground mb-3 font-mono">
         useApiEndpoint()
       </p>
-      <p class="font-mono text-sm text-muted-foreground">
+      <p class="font-mono text-sm text-muted-foreground" data-testid="hive-hook-endpoint">
         {{ api_endpoint || "Not connected" }}
       </p>
     </section>
@@ -70,8 +71,9 @@
                 endpoint.healthy ? 'bg-green-500' : 'bg-red-500',
               ]"
               :title="endpoint.healthy ? 'Healthy' : 'Unhealthy'"
+              data-testid="hive-hook-endpoint-dot"
             />
-            <span class="font-mono text-sm">{{ endpoint.url }}</span>
+            <span class="font-mono text-sm" data-testid="hive-hook-endpoint-url">{{ endpoint.url }}</span>
           </div>
           <div class="flex gap-4 text-xs text-muted-foreground">
             <span v-if="endpoint.lastCheck !== null">

@@ -150,8 +150,9 @@ export default function HooksTab() {
           <div
             class={`w-4 h-4 rounded-full ${get_status_color(hive_context.status())}`}
             title={hive_context.status()}
+            data-testid="hive-hook-status-dot"
           />
-          <span class="text-lg capitalize">{hive_context.status()}</span>
+          <span class="text-lg capitalize" data-testid="hive-hook-status">{hive_context.status()}</span>
           <Show when={hive_context.is_loading()}>
             <span class="text-muted-foreground text-sm">(loading...)</span>
           </Show>
@@ -169,7 +170,7 @@ export default function HooksTab() {
         <p class="text-xs text-muted-foreground mb-3 font-mono">
           useApiEndpoint()
         </p>
-        <p class="font-mono text-sm text-muted-foreground">
+        <p class="font-mono text-sm text-muted-foreground" data-testid="hive-hook-endpoint">
           {api_endpoint() || <em>Not connected</em>}
         </p>
       </section>
@@ -193,7 +194,7 @@ export default function HooksTab() {
                     }`}
                     title={endpoint.healthy ? "Healthy" : "Unhealthy"}
                   />
-                  <span class="font-mono text-sm">{endpoint.url}</span>
+                  <span class="font-mono text-sm" data-testid="hive-hook-endpoint-url">{endpoint.url}</span>
                 </div>
                 <div class="flex gap-4 text-xs text-muted-foreground">
                   <Show when={endpoint.lastCheck !== null}>
