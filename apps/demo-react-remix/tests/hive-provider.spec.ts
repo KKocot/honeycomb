@@ -24,9 +24,9 @@ test.describe("HiveProvider", () => {
   test("Hooks tab connects to Hive blockchain", async ({ page }) => {
     await page.goto("/demo/react-remix/");
     await page.getByRole("tab", { name: "Hooks" }).click();
-    await expect(page.locator("span.capitalize")).toHaveText("connected", {
-      timeout: 15000,
-    });
+    await expect(
+      page.locator("[data-testid='hive-hook-status']"),
+    ).toHaveText("connected", { timeout: 15000 });
   });
 
   test("Hooks tab displays current endpoint after connection", async ({
@@ -34,12 +34,12 @@ test.describe("HiveProvider", () => {
   }) => {
     await page.goto("/demo/react-remix/");
     await page.getByRole("tab", { name: "Hooks" }).click();
-    await expect(page.locator("span.capitalize")).toHaveText("connected", {
-      timeout: 15000,
-    });
-    await expect(page.locator("p.font-mono").first()).not.toHaveText(
-      "Not connected",
-    );
+    await expect(
+      page.locator("[data-testid='hive-hook-status']"),
+    ).toHaveText("connected", { timeout: 15000 });
+    await expect(
+      page.locator("[data-testid='hive-hook-endpoint']").first(),
+    ).not.toHaveText("Not connected");
   });
 
   test("Hooks tab shows all endpoints section with count", async ({
@@ -47,9 +47,9 @@ test.describe("HiveProvider", () => {
   }) => {
     await page.goto("/demo/react-remix/");
     await page.getByRole("tab", { name: "Hooks" }).click();
-    await expect(page.locator("span.capitalize")).toHaveText("connected", {
-      timeout: 15000,
-    });
+    await expect(
+      page.locator("[data-testid='hive-hook-status']"),
+    ).toHaveText("connected", { timeout: 15000 });
     await expect(
       page.getByText(/All Endpoints \([1-9]\d*\)/),
     ).toBeVisible();
@@ -60,11 +60,11 @@ test.describe("HiveProvider", () => {
   }) => {
     await page.goto("/demo/react-remix/");
     await page.getByRole("tab", { name: "Hooks" }).click();
-    await expect(page.locator("span.capitalize")).toHaveText("connected", {
-      timeout: 15000,
-    });
     await expect(
-      page.locator("[class*=bg-hive-success]").first(),
+      page.locator("[data-testid='hive-hook-status']"),
+    ).toHaveText("connected", { timeout: 15000 });
+    await expect(
+      page.locator("[data-testid='hive-hook-status-dot']").first(),
     ).toBeVisible();
   });
 
@@ -73,10 +73,12 @@ test.describe("HiveProvider", () => {
   }) => {
     await page.goto("/demo/react-remix/");
     await page.getByRole("tab", { name: "Hooks" }).click();
-    await expect(page.locator("span.capitalize")).toHaveText("connected", {
-      timeout: 15000,
-    });
-    await expect(page.locator("span.font-mono").first()).toBeVisible();
+    await expect(
+      page.locator("[data-testid='hive-hook-status']"),
+    ).toHaveText("connected", { timeout: 15000 });
+    await expect(
+      page.locator("[data-testid='hive-hook-endpoint-url']").first(),
+    ).toBeVisible();
   });
 
   test("Hooks tab shows Account Lookup section", async ({ page }) => {

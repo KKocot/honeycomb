@@ -3,10 +3,9 @@ import { test, expect } from "@playwright/test";
 test.describe("Avatar", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator("span.capitalize").first()).toHaveText(
-      /connected/i,
-      { timeout: 15000 }
-    );
+    await expect(
+      page.locator("[data-testid='hive-connection-status']").first(),
+    ).toHaveText(/connected/i, { timeout: 15000 });
 
     const avatar_tab = page.locator('button[role="tab"]', {
       hasText: "Avatar",
@@ -18,7 +17,7 @@ test.describe("Avatar", () => {
   test("renders Avatar Sizes section", async ({ page }) => {
     await expect(page.getByText("Avatar Sizes")).toBeVisible();
     await expect(
-      page.getByText("Display avatars in different sizes")
+      page.getByText("Display avatars in different sizes"),
     ).toBeVisible();
   });
 
@@ -62,7 +61,7 @@ test.describe("Avatar", () => {
     const avatar = page.locator('img[alt="@blocktrades"]').first();
     await expect(avatar).toHaveAttribute(
       "src",
-      "https://images.hive.blog/u/blocktrades/avatar"
+      "https://images.hive.blog/u/blocktrades/avatar",
     );
   });
 });

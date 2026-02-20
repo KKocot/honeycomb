@@ -3,10 +3,9 @@ import { test, expect } from "@playwright/test";
 test.describe("ApiTracker", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator("span.capitalize").first()).toHaveText(
-      "connected",
-      { timeout: 15000 }
-    );
+    await expect(
+      page.locator("[data-testid='hive-connection-status']").first(),
+    ).toHaveText("connected", { timeout: 15000 });
   });
 
   test("renders API Tracker section", async ({ page }) => {
@@ -14,18 +13,20 @@ test.describe("ApiTracker", () => {
   });
 
   test("shows pill badge with status", async ({ page }) => {
-    const pill = page.locator("button.rounded-full");
+    const pill = page.locator("[data-testid='hive-connect-button']");
     await expect(pill).toBeVisible();
-    await expect(pill.locator("span.capitalize")).toHaveText("connected");
+    await expect(
+      pill.locator("[data-testid='hive-connection-status']"),
+    ).toHaveText("connected");
   });
 
   test("shows green status dot when connected", async ({ page }) => {
-    const pill = page.locator("button.rounded-full");
-    await expect(pill.locator(".bg-green-500")).toBeAttached();
+    const pill = page.locator("[data-testid='hive-connect-button']");
+    await expect(pill.locator("[class*=bg-hive-success]")).toBeAttached();
   });
 
   test("opens tooltip on click", async ({ page }) => {
-    const pill = page.locator("button.rounded-full");
+    const pill = page.locator("[data-testid='hive-connect-button']");
     await pill.click();
 
     const tooltip = page.locator("[data-expanded]");
@@ -34,7 +35,7 @@ test.describe("ApiTracker", () => {
   });
 
   test("tooltip shows healthy count", async ({ page }) => {
-    const pill = page.locator("button.rounded-full");
+    const pill = page.locator("[data-testid='hive-connect-button']");
     await pill.click();
 
     const tooltip = page.locator("[data-expanded]");
@@ -42,16 +43,18 @@ test.describe("ApiTracker", () => {
   });
 
   test("tooltip shows endpoint list with health badges", async ({ page }) => {
-    const pill = page.locator("button.rounded-full");
+    const pill = page.locator("[data-testid='hive-connect-button']");
     await pill.click();
 
     const tooltip = page.locator("[data-expanded]");
-    await expect(tooltip.locator(".font-mono").first()).toBeVisible();
+    await expect(
+      tooltip.locator("[data-testid='hive-endpoint-url']").first(),
+    ).toBeVisible();
     await expect(tooltip.getByText("Healthy").first()).toBeVisible();
   });
 
   test("tooltip shows refresh button", async ({ page }) => {
-    const pill = page.locator("button.rounded-full");
+    const pill = page.locator("[data-testid='hive-connect-button']");
     await pill.click();
 
     const tooltip = page.locator("[data-expanded]");
@@ -59,19 +62,21 @@ test.describe("ApiTracker", () => {
   });
 
   test("refresh button triggers health check", async ({ page }) => {
-    const pill = page.locator("button.rounded-full");
+    const pill = page.locator("[data-testid='hive-connect-button']");
     await pill.click();
 
     const tooltip = page.locator("[data-expanded]");
     const refresh_btn = tooltip.getByText("Refresh");
     await refresh_btn.click();
 
-    await expect(tooltip.getByText("Checking...")).toBeVisible({ timeout: 5000 });
+    await expect(tooltip.getByText("Checking...")).toBeVisible({
+      timeout: 5000,
+    });
     await expect(tooltip.getByText("Refresh")).toBeVisible({ timeout: 15000 });
   });
 
   test("tooltip shows last check timestamps", async ({ page }) => {
-    const pill = page.locator("button.rounded-full");
+    const pill = page.locator("[data-testid='hive-connect-button']");
     await pill.click();
 
     const tooltip = page.locator("[data-expanded]");
@@ -79,7 +84,7 @@ test.describe("ApiTracker", () => {
   });
 
   test("closes tooltip on outside click", async ({ page }) => {
-    const pill = page.locator("button.rounded-full");
+    const pill = page.locator("[data-testid='hive-connect-button']");
     await pill.click();
 
     const tooltip = page.locator("[data-expanded]");

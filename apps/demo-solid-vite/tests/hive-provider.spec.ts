@@ -13,7 +13,6 @@ test.describe("HiveProvider", () => {
 
   test("connects to Hive blockchain", async ({ page }) => {
     await page.goto("/");
-    // Status dd should show "connected"
     const status_dd = page.locator("dt:has-text('Status') + dd");
     await expect(status_dd).toHaveText(/connected/i, { timeout: 15000 });
   });
@@ -22,7 +21,6 @@ test.describe("HiveProvider", () => {
     await page.goto("/");
     const status_dd = page.locator("dt:has-text('Status') + dd");
     await expect(status_dd).toHaveText(/connected/i, { timeout: 15000 });
-    // Current Endpoint dd should not say "None"
     const endpoint_dd = page.locator("dt:has-text('Current Endpoint') + dd");
     await expect(endpoint_dd).not.toHaveText("None");
   });
@@ -32,15 +30,18 @@ test.describe("HiveProvider", () => {
     await expect(page.getByText("API Endpoints")).toBeVisible();
     const status_dd = page.locator("dt:has-text('Status') + dd");
     await expect(status_dd).toHaveText(/connected/i, { timeout: 15000 });
-    // At least one endpoint card should be visible
-    await expect(page.locator("code.font-mono").first()).toBeVisible();
+    await expect(
+      page.locator("[data-testid='hive-hook-endpoint-url']").first(),
+    ).toBeVisible();
   });
 
   test("shows green indicator when connected", async ({ page }) => {
     await page.goto("/");
     const status_dd = page.locator("dt:has-text('Status') + dd");
     await expect(status_dd).toHaveText(/connected/i, { timeout: 15000 });
-    await expect(page.locator(".bg-green-500").first()).toBeVisible();
+    await expect(
+      page.locator("[data-testid='hive-hook-status-dot']").first(),
+    ).toBeVisible();
   });
 
   test("shows client side detection", async ({ page }) => {
