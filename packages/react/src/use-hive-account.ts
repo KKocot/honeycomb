@@ -6,7 +6,6 @@ import {
   fetch_bridge_reputation,
   format_nai_asset,
   convert_vests_to_hp,
-  type NaiAsset,
 } from "@kkocot/honeycomb-core";
 
 function format_with_symbol(amount: number, symbol: string): string {
@@ -90,73 +89,62 @@ export function useHiveAccount(username: string): UseHiveAccountResult {
 
         if (cancelled) return;
 
-        if (account_response.accounts && account_response.accounts.length > 0) {
-          const acc = account_response.accounts[0] as unknown as Record<
-            string,
-            unknown
-          >;
-          const global_props = global_response as unknown as Record<
-            string,
-            unknown
-          >;
-
-          const balance_asset = format_nai_asset(
-            acc.balance as unknown as NaiAsset,
-          );
-          const hbd_asset = format_nai_asset(
-            acc.hbd_balance as unknown as NaiAsset,
-          );
-
-          const vesting = acc.vesting_shares as unknown as NaiAsset;
-          const delegated = acc.delegated_vesting_shares as unknown as NaiAsset;
-          const received = acc.received_vesting_shares as unknown as NaiAsset;
-          const total_vesting_shares =
-            global_props.total_vesting_shares as unknown as NaiAsset;
-          const total_vesting_fund_hive =
-            global_props.total_vesting_fund_hive as unknown as NaiAsset;
+        // find_accounts returns typed ApiAccount[] with NaiAsset fields
+        const acc = account_response.accounts?.[0];
+        if (acc) {
+          const balance_asset = format_nai_asset(acc.balance);
+          const hbd_asset = format_nai_asset(acc.hbd_balance);
 
           const hp = convert_vests_to_hp(
-            vesting,
-            total_vesting_shares,
-            total_vesting_fund_hive,
+            acc.vesting_shares,
+            global_response.total_vesting_shares,
+            global_response.total_vesting_fund_hive,
           );
           const delegated_hp_value = convert_vests_to_hp(
-            delegated,
-            total_vesting_shares,
-            total_vesting_fund_hive,
+            acc.delegated_vesting_shares,
+            global_response.total_vesting_shares,
+            global_response.total_vesting_fund_hive,
           );
           const received_hp_value = convert_vests_to_hp(
-            received,
-            total_vesting_shares,
-            total_vesting_fund_hive,
+            acc.received_vesting_shares,
+            global_response.total_vesting_shares,
+            global_response.total_vesting_fund_hive,
           );
           const effective = hp - delegated_hp_value + received_hp_value;
 
-          const savings_asset = format_nai_asset(
-            acc.savings_balance as unknown as NaiAsset,
-          );
-          const savings_hbd_asset = format_nai_asset(
-            acc.savings_hbd_balance as unknown as NaiAsset,
-          );
+          const savings_asset = format_nai_asset(acc.savings_balance);
+          const savings_hbd_asset = format_nai_asset(acc.savings_hbd_balance);
 
           setAccount({
-            name: String(acc.name ?? ""),
+            name: acc.name,
             reputation,
-            post_count: Number(acc.post_count ?? 0),
-            balance: format_with_symbol(balance_asset.amount, balance_asset.symbol),
-            hbd_balance: format_with_symbol(hbd_asset.amount, hbd_asset.symbol),
-            vesting_shares: String(vesting.amount),
-            delegated_vesting_shares: String(delegated.amount),
-            received_vesting_shares: String(received.amount),
+            post_count: acc.post_count,
+            balance: format_with_symbol(
+              balance_asset.amount,
+              balance_asset.symbol,
+            ),
+            hbd_balance: format_with_symbol(
+              hbd_asset.amount,
+              hbd_asset.symbol,
+            ),
+            vesting_shares: acc.vesting_shares.amount,
+            delegated_vesting_shares: acc.delegated_vesting_shares.amount,
+            received_vesting_shares: acc.received_vesting_shares.amount,
             hive_power: format_with_symbol(hp, "HP"),
             effective_hp: format_with_symbol(effective, "HP"),
-            savings_balance: format_with_symbol(savings_asset.amount, savings_asset.symbol),
-            savings_hbd_balance: format_with_symbol(savings_hbd_asset.amount, savings_hbd_asset.symbol),
+            savings_balance: format_with_symbol(
+              savings_asset.amount,
+              savings_asset.symbol,
+            ),
+            savings_hbd_balance: format_with_symbol(
+              savings_hbd_asset.amount,
+              savings_hbd_asset.symbol,
+            ),
             delegated_hp: format_with_symbol(delegated_hp_value, "HP"),
             received_hp: format_with_symbol(received_hp_value, "HP"),
-            posting_json_metadata: String(acc.posting_json_metadata ?? ""),
-            json_metadata: String(acc.json_metadata ?? ""),
-            created: String(acc.created ?? ""),
+            posting_json_metadata: acc.posting_json_metadata,
+            json_metadata: acc.json_metadata,
+            created: acc.created,
           });
         } else {
           setError(new Error("Account not found"));
