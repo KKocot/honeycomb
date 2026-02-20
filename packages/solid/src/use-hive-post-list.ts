@@ -46,7 +46,6 @@ export function useHivePostList(
   options: UseHivePostListOptions = {},
 ): UseHivePostListResult {
   const { chain, api_endpoint } = useHive();
-  const { tag, limit = DEFAULT_LIMIT } = options;
 
   const [sort, set_sort_state] = createSignal<SortType>(
     options.sort ?? DEFAULT_SORT,
@@ -95,6 +94,8 @@ export function useHivePostList(
     const chain_value = chain();
     const current_endpoint = api_endpoint();
     const current_sort = sort();
+    const current_tag = options.tag;
+    const current_limit = options.limit ?? DEFAULT_LIMIT;
     const cc = current_cursor();
 
     if (!chain_value) {
@@ -114,9 +115,9 @@ export function useHivePostList(
         const result: RankedPostsResult = await fetch_ranked_posts(
           endpoint,
           current_sort,
-          tag,
+          current_tag,
           cc,
-          limit,
+          current_limit,
         );
 
         if (cancelled) return;

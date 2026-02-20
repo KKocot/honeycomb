@@ -1,6 +1,6 @@
 {
   "name": "@barddev/honeycomb-solid",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Solid.js components for Hive Blockchain applications",
   "keywords": [
     "hive",
@@ -28,10 +28,11 @@
   "type": "module",
   "exports": {
     ".": {
-      "solid": "./src/index.ts",
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "solid": "./dist/index.jsx",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     },
     "./styles.css": "./dist/styles.css",
     "./base.css": "./dist/base.css",
@@ -39,7 +40,6 @@
   },
   "files": [
     "dist",
-    "src",
     "!dist/*.map",
     "README.md"
   ],
@@ -73,16 +73,20 @@
     "zod": "^4.0.0"
   },
   "devDependencies": {
+    "@hiveio/wax": "^1.28.4-rc0",
     "@kkocot/honeycomb-core": "workspace:*",
     "@kkocot/honeycomb-renderer": "workspace:*",
-    "@hiveio/wax": "^1.28.4-rc0",
     "@tailwindcss/cli": "^4.0.0",
     "solid-js": "^1.9.0",
     "tailwindcss": "^4.0.0",
     "tsup": "^8.0.1",
+    "tsup-preset-solid": "^2.2.0",
     "typescript": "^5.3.3"
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts"
 }

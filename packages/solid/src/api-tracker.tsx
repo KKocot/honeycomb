@@ -77,6 +77,7 @@ export const ApiTracker: Component<ApiTrackerProps> = (props) => {
     >
       <Popover.Trigger
         class={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-hive-border bg-hive-card cursor-pointer hover:bg-hive-muted/50 transition-colors ${props.class || ""}`}
+        data-testid="hive-connect-button"
       >
         <div
           classList={{
@@ -85,10 +86,10 @@ export const ApiTracker: Component<ApiTrackerProps> = (props) => {
           }}
         />
 
-        <span class="text-sm text-hive-foreground capitalize">{hive.status()}</span>
+        <span class="text-sm text-hive-foreground capitalize" data-testid="hive-connection-status">{hive.status()}</span>
 
         <Show when={current_endpoint()}>
-          <span class="text-xs text-hive-muted-foreground font-mono truncate max-w-[200px]">
+          <span class="text-xs text-hive-muted-foreground font-mono truncate max-w-[200px]" data-testid="hive-api-endpoint">
             {current_endpoint()}
           </span>
         </Show>
@@ -115,10 +116,10 @@ export const ApiTracker: Component<ApiTrackerProps> = (props) => {
             </button>
           </div>
 
-          <div class="space-y-0">
+          <div class="space-y-0" data-testid="hive-endpoint-list">
             <For each={hive.endpoints()}>
               {(endpoint) => (
-                <div class="flex items-start justify-between gap-2 py-2 border-b border-hive-border last:border-0">
+                <div class="flex items-start justify-between gap-2 py-2 border-b border-hive-border last:border-0" data-testid="hive-endpoint-item">
                   <div class="flex items-start gap-2 flex-1 min-w-0">
                     <div
                       classList={{
@@ -128,7 +129,7 @@ export const ApiTracker: Component<ApiTrackerProps> = (props) => {
                       }}
                     />
                     <div class="flex-1 min-w-0">
-                      <div class="text-xs font-mono truncate">
+                      <div class="text-xs font-mono truncate" data-testid="hive-endpoint-url">
                         {format_url(endpoint.url)}
                       </div>
                       <p class="text-xs text-hive-muted-foreground mt-0.5">
@@ -147,6 +148,7 @@ export const ApiTracker: Component<ApiTrackerProps> = (props) => {
                       "bg-hive-success/10 text-hive-success": endpoint.healthy,
                       "bg-hive-destructive/10 text-hive-destructive": !endpoint.healthy,
                     }}
+                    data-testid="hive-endpoint-status"
                   >
                     {endpoint.healthy ? "Healthy" : "Unhealthy"}
                   </span>

@@ -60,6 +60,7 @@ export function HiveContentRenderer(props: HiveContentRendererProps) {
       ref={(el) => {
         ref = el;
       }}
+      // Safe: DefaultRenderer sanitizes output via sanitize-html + SecurityChecker
       innerHTML={html()}
       class={props.class}
     />
