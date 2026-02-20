@@ -12,7 +12,6 @@
     "test:ui": "playwright test --ui"
   },
   "dependencies": {
-    "@kkocot/honeycomb-core": "workspace:*",
     "@barddev/honeycomb-react": "workspace:*",
     "@radix-ui/react-popover": "^1.1.0",
     "highlight.js": "^11.11.1",

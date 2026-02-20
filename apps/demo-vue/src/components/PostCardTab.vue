@@ -83,11 +83,6 @@
 <script setup lang="ts">
 import { HivePostCard } from "@barddev/honeycomb-vue";
 
-const BARDDEV_POST = { author: "barddev", permlink: "my-honey-pot" };
-const BLOCKTRADES_POST = {
-  author: "blocktrades",
-  permlink: "updates-for-hive-roadmap-from-the-blocktrades-team",
-};
 const GTG_POST_A = {
   author: "gtg",
   permlink: "hive-hardfork-28-jump-starter-kit",
@@ -97,5 +92,13 @@ const GTG_POST_B = {
   permlink: "brace-yourself-hardfork-is-coming",
 };
 
-const DEMO_POSTS = [BARDDEV_POST, BLOCKTRADES_POST, GTG_POST_A, GTG_POST_B];
+const DEMO_POSTS = [
+  { author: "barddev", permlink: "my-honey-pot" },
+  {
+    author: "blocktrades",
+    permlink: "updates-for-hive-roadmap-from-the-blocktrades-team",
+  },
+  GTG_POST_A,
+  GTG_POST_B,
+];
 </script>

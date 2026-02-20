@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   basePath: "/demo/react-next",
   assetPrefix: "/demo/react-next",
   reactStrictMode: true,
-  transpilePackages: ["@barddev/honeycomb-react", "@kkocot/honeycomb-core"],
+  transpilePackages: ["@barddev/honeycomb-react"],
   async redirects() {
     return [
       {

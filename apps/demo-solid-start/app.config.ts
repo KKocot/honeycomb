@@ -7,7 +7,7 @@ export default defineConfig({
       conditions: ["solid", "browser", "module"],
     },
     ssr: {
-      noExternal: ["@barddev/honeycomb-solid", "@kkocot/honeycomb-core"],
+      noExternal: ["@barddev/honeycomb-solid"],
     },
     server: {
       port: 3037,
