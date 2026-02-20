@@ -27,8 +27,13 @@ export function HealthCheckerComponent({
 
   if (!healthCheckerService) {
     return (
-      <div className="flex items-center justify-center p-4">
-        <LoaderCircle className="animate-spin h-8 w-8" />
+      <div className="rounded-lg border border-hive-border bg-hive-card p-6 animate-pulse">
+        <div className="flex items-center justify-center">
+          <LoaderCircle className="animate-spin h-8 w-8 text-hive-muted-foreground" />
+        </div>
+        <p className="text-center text-sm text-hive-muted-foreground mt-2">
+          Loading health checker...
+        </p>
       </div>
     );
   }
@@ -221,7 +226,12 @@ function HealthCheckerComponentInner({
   const renderProviders = () => {
     if (!scoredEndpoints || !scoredEndpoints.length)
       return (
-        <LoaderCircle className="ml-2 animate-spin h-8 w-8 justify-self-center mb-4" />
+        <div className="flex flex-col items-center justify-center py-8">
+          <LoaderCircle className="animate-spin h-8 w-8 text-hive-muted-foreground" />
+          <p className="text-sm text-hive-muted-foreground mt-2">
+            Checking API servers...
+          </p>
+        </div>
       );
 
     const filteredEndpoints = filter
@@ -232,8 +242,18 @@ function HealthCheckerComponentInner({
         )
       : scoredEndpoints;
 
+    if (filteredEndpoints.length === 0) {
+      return (
+        <div className="rounded-lg border border-hive-border bg-hive-card p-6 text-center">
+          <p className="text-sm text-hive-muted-foreground">
+            No providers match your filter.
+          </p>
+        </div>
+      );
+    }
+
     return (
-      <>
+      <div className="space-y-2">
         {filteredEndpoints
           .sort((a, b) => {
             if (a.endpointUrl === nodeAddress) return -1;
@@ -243,70 +263,72 @@ function HealthCheckerComponentInner({
           .map((scoredEndpoint, index) =>
             renderProvider(scoredEndpoint, index)
           )}
-      </>
+      </div>
     );
   };
 
   const renderSwitchStatus = () => {
-    if (!switchStatus) return <>Switch to Best</>;
+    if (!switchStatus) return <span>Switch to Best</span>;
     if (switchStatus === "waiting")
       return (
-        <>
-          Evaluating{" "}
-          <LoaderCircle className="animate-spin h-6 w-6" />
-        </>
+        <span className="inline-flex items-center gap-2">
+          Evaluating
+          <LoaderCircle className="animate-spin h-4 w-4" />
+        </span>
       );
-    if (switchStatus === "done") return <>Endpoint found, switching</>;
+    if (switchStatus === "done") return <span className="text-green-600">Switching...</span>;
     if (switchStatus === "no_change")
-      return <>Already on the best provider</>;
+      return <span className="text-hive-muted-foreground">Already on best</span>;
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl text-left">
-          Healthchecker for API servers
-        </h2>
-        <div className="flex items-center space-x-2 my-2">
-          <div
-            className="flex gap-x-2 items-center"
-            data-testid="toggle"
+    <div className="space-y-4">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <h2 className="text-lg font-semibold">API Health Monitor</h2>
+          <p className="text-sm text-hive-muted-foreground">
+            Monitor and manage Hive API endpoints
+          </p>
+        </div>
+        <div
+          className="flex items-center gap-3"
+          data-testid="toggle"
+        >
+          <span className="text-sm text-hive-muted-foreground">Auto-check</span>
+          <Switch.Root
+            checked={!!isActive}
+            onCheckedChange={() => changeActivity()}
+            className={cn(
+              "inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full p-0.5 transition-colors",
+              isActive
+                ? "justify-end bg-hive-red"
+                : "justify-start bg-hive-muted"
+            )}
           >
-            <p>Continuous Check</p>
-            <Switch.Root
-              checked={!!isActive}
-              onCheckedChange={() => changeActivity()}
-              className={cn(
-                "inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full p-0.5 transition-colors",
-                isActive
-                  ? "justify-end bg-[hsl(var(--hive-primary))]"
-                  : "justify-start bg-[hsl(var(--hive-input))]"
-              )}
-            >
-              <Switch.Thumb className="pointer-events-none block h-5 w-5 rounded-full bg-[hsl(var(--hive-background))] shadow-sm" />
-            </Switch.Root>
-          </div>
+            <Switch.Thumb className="pointer-events-none block h-5 w-5 rounded-full bg-white shadow-sm transition-transform" />
+          </Switch.Root>
         </div>
       </div>
-      <div className="flex flex-wrap items-center gap-2 justify-between my-2 w-full">
-        <button
-          className="inline-flex items-center justify-center rounded-md text-sm font-medium h-10 px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground mt-2 order-1 sm:order-2"
-          onClick={evaluateAndSwitch}
-        >
-          {renderSwitchStatus()}
-        </button>
 
-        <div className="flex mt-2 w-full sm:w-1/2 order-2 sm:order-1">
+      {/* Controls */}
+      <div className="flex flex-col sm:flex-row gap-3">
+        <div className="relative flex-1">
           <input
             type="text"
-            placeholder="Filter by URL…"
+            placeholder="Filter providers by URL..."
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+            className={cn(
+              "flex h-10 w-full rounded-md border border-hive-border bg-hive-card px-3 py-2 text-sm",
+              "ring-offset-background placeholder:text-hive-muted-foreground",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hive-red focus-visible:ring-offset-2",
+              "disabled:cursor-not-allowed disabled:opacity-50"
+            )}
           />
           {filter && (
             <button
-              className="inline-flex items-center justify-center text-sm font-medium h-10 w-10 hover:bg-accent hover:text-accent-foreground ml-2"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-hive-muted-foreground hover:text-foreground transition-colors"
               onClick={() => setFilter("")}
               aria-label="Clear filter"
             >
@@ -314,15 +336,38 @@ function HealthCheckerComponentInner({
             </button>
           )}
         </div>
+        <button
+          className={cn(
+            "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium h-10 px-4",
+            "bg-hive-red text-white hover:bg-hive-red/90 transition-colors",
+            "disabled:opacity-50 disabled:cursor-not-allowed"
+          )}
+          onClick={evaluateAndSwitch}
+        >
+          {renderSwitchStatus()}
+        </button>
       </div>
+
+      {/* Provider List */}
       {renderProviders()}
-      <ProviderAddition onProviderSubmit={handleAdditionOfProvider} />
+
+      {/* Add Provider Section */}
+      <div className="pt-4 border-t border-hive-border">
+        <ProviderAddition onProviderSubmit={handleAdditionOfProvider} />
+      </div>
+
+      {/* Reset Button */}
       <button
-        className="inline-flex items-center justify-center rounded-md text-sm font-medium h-10 px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground mt-2"
+        className={cn(
+          "inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-3",
+          "text-hive-muted-foreground hover:text-foreground",
+          "border border-hive-border hover:border-hive-red/50 transition-colors"
+        )}
         onClick={resetProviders}
       >
-        Restore default API server set
+        Reset to defaults
       </button>
+
       <ValidationErrorDialog
         isOpened={isValidationErrorDialogOpened}
         onDialogOpenChange={setIsValidationErrorDialogOpened}
