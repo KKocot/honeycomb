@@ -1,17 +1,18 @@
 import { defineConfig } from "@solidjs/start/config";
+import { wasmUrlPlugin } from "@barddev/honeycomb-solid/plugins";
 
 export default defineConfig({
   ssr: true,
   vite: {
+    plugins: [wasmUrlPlugin()],
     resolve: {
       conditions: ["solid", "browser", "module"],
     },
     ssr: {
       noExternal: ["@barddev/honeycomb-solid"],
     },
-    server: {
-      port: 3037,
-      host: "127.0.0.1",
+    optimizeDeps: {
+      exclude: ["@hiveio/wax"],
     },
   },
 });

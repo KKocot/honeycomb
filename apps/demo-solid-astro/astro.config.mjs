@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import solidJs from "@astrojs/solid-js";
+import { wasmUrlPlugin } from "@barddev/honeycomb-solid/plugins";
 
 export default defineConfig({
   integrations: [solidJs()],
@@ -7,5 +8,8 @@ export default defineConfig({
   server: {
     port: 3038,
     host: "127.0.0.1",
+  },
+  vite: {
+    plugins: [wasmUrlPlugin()],
   },
 });
