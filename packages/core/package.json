@@ -23,7 +23,11 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./styles.css": "./src/styles.css"
+    "./styles.css": "./src/styles.css",
+    "./plugins": {
+      "types": "./dist/vite-plugins.d.ts",
+      "import": "./dist/vite-plugins.js"
+    }
   },
   "sideEffects": [
     "*.css"
@@ -37,7 +41,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "rm -rf dist && tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -51,6 +55,7 @@
     "@hiveio/wax": "^1.28.4-rc0",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
+    "vite": "^7.0.0",
     "vitest": "^4.0.18"
   },
   "engines": {

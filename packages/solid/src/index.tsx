@@ -101,6 +101,9 @@ export {
   HighlightPlugin,
 } from "@kkocot/honeycomb-renderer";
 
+// Vite plugins (separate entry point):
+// import { wasmUrlPlugin } from "@barddev/honeycomb-solid/plugins"
+
 // Re-export core types
 export type {
   HiveClientConfig,

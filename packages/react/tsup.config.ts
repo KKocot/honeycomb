@@ -1,24 +1,35 @@
 import { defineConfig } from "tsup";
 
-export default defineConfig({
-  entry: ["src/index.ts"],
-  format: ["esm", "cjs"],
-  dts: { resolve: ["@kkocot/honeycomb-core", "@kkocot/honeycomb-renderer"] },
-  clean: true,
-  splitting: false,
-  sourcemap: true,
-  external: [
-    "react",
-    "react-dom",
-    "@hiveio/wax",
-    "@radix-ui/react-popover",
-    "@xmldom/xmldom",
-    "clsx",
-    "remarkable",
-    "sanitize-html",
-    "tailwind-merge",
-    "zod",
-  ],
-  noExternal: ["@kkocot/honeycomb-core", "@kkocot/honeycomb-renderer"],
-  banner: { js: '"use client";' },
-});
+export default defineConfig([
+  {
+    entry: ["src/index.ts"],
+    format: ["esm", "cjs"],
+    dts: { resolve: ["@kkocot/honeycomb-core", "@kkocot/honeycomb-renderer"] },
+    clean: false,
+    splitting: false,
+    sourcemap: true,
+    external: [
+      "react",
+      "react-dom",
+      "@hiveio/wax",
+      "@radix-ui/react-popover",
+      "@xmldom/xmldom",
+      "clsx",
+      "remarkable",
+      "sanitize-html",
+      "tailwind-merge",
+      "zod",
+    ],
+    noExternal: ["@kkocot/honeycomb-core", "@kkocot/honeycomb-renderer"],
+    banner: { js: '"use client";' },
+  },
+  {
+    entry: { "vite-plugins": "src/vite-plugins.ts" },
+    outDir: "dist",
+    format: ["esm"],
+    dts: true,
+    clean: false,
+    target: "esnext",
+    platform: "node",
+  },
+]);

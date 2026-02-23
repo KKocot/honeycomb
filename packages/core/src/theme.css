@@ -8,7 +8,7 @@
  * existing --hive-* variables (from styles.css or base.css) to Tailwind tokens.
  *
  * Usage:
- *   @import "@barddev/honeycomb-react/theme.css";
+ *   @import "@barddev/honeycomb-<framework>/theme.css";
  */
 
 @theme inline {

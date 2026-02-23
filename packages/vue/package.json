@@ -26,7 +26,13 @@
     },
     "./styles.css": "./dist/styles.css",
     "./base.css": "./dist/base.css",
-    "./theme.css": "./dist/theme.css"
+    "./theme.css": "./dist/theme.css",
+    "./plugins": {
+      "import": {
+        "types": "./dist/vite-plugins.d.ts",
+        "default": "./dist/vite-plugins.js"
+      }
+    }
   },
   "files": [
     "dist",
@@ -39,7 +45,7 @@
     "./dist/theme.css"
   ],
   "scripts": {
-    "build": "tsup && bash scripts/build-css.sh",
+    "build": "rm -rf dist && tsup && bash scripts/build-css.sh",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm build"
@@ -47,10 +53,14 @@
   "peerDependencies": {
     "@hiveio/wax": ">=1.28.0",
     "radix-vue": "^1.9.0",
+    "tailwindcss": ">=4.0.0",
     "vue": ">=3.5.0"
   },
   "peerDependenciesMeta": {
     "radix-vue": {
+      "optional": true
+    },
+    "tailwindcss": {
       "optional": true
     }
   },
@@ -70,6 +80,7 @@
     "tailwindcss": "^4.0.0",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
+    "vite": "^7.0.0",
     "vue": "^3.5.0"
   },
   "engines": {

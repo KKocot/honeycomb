@@ -12,10 +12,24 @@ export default defineConfig((config) => {
   const watching = !!config.watch;
   const parsed = preset.parsePresetOptions(preset_options, watching);
   const options = preset.generateTsupOptions(parsed);
-  return options.map((option) => ({
+
+  const solid_builds = options.map((option) => ({
     ...option,
     dts: option.dts
       ? { resolve: ["@kkocot/honeycomb-core", "@kkocot/honeycomb-renderer"] }
       : false,
   }));
+
+  // Separate build for vite-plugins (re-export from core, no JSX, no solid preset)
+  const plugins_build = {
+    entry: { "vite-plugins": "src/vite-plugins.ts" },
+    outDir: "dist",
+    format: "esm" as const,
+    dts: true as const,
+    clean: false,
+    target: "esnext" as const,
+    platform: "node" as const,
+  };
+
+  return [...solid_builds, plugins_build];
 });
