@@ -45,6 +45,62 @@ export default async function ThemingPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* CSS Files */}
+      <section>
+        <h2 className="text-xl font-semibold mb-4">CSS Files</h2>
+        <p className="text-muted-foreground mb-4">
+          The package exports 3 CSS files for different use cases:
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-border">
+                <th className="py-3 px-4 text-left font-semibold">File</th>
+                <th className="py-3 px-4 text-left font-semibold">Contents</th>
+                <th className="py-3 px-4 text-left font-semibold">
+                  When to use
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              <tr>
+                <td className="py-3 px-4">
+                  <code className="text-hive-red text-xs">styles.css</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground text-xs">
+                  CSS vars + components + Tailwind utilities + theme
+                </td>
+                <td className="py-3 px-4 text-muted-foreground text-xs">
+                  Quick start — all-in-one, no Tailwind needed
+                </td>
+              </tr>
+              <tr>
+                <td className="py-3 px-4">
+                  <code className="text-hive-red text-xs">base.css</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground text-xs">
+                  CSS vars + component styles only
+                </td>
+                <td className="py-3 px-4 text-muted-foreground text-xs">
+                  Minimal CSS without Tailwind utilities
+                </td>
+              </tr>
+              <tr>
+                <td className="py-3 px-4">
+                  <code className="text-hive-red text-xs">theme.css</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground text-xs">
+                  @theme inline tokens only
+                </td>
+                <td className="py-3 px-4 text-muted-foreground text-xs">
+                  Add hive-* classes to your own Tailwind project
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
       {/* All CSS Variables */}
       <section>
         <h2 className="text-xl font-semibold mb-4">CSS Variables Reference</h2>
@@ -133,16 +189,28 @@ export default async function ThemingPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* globals.css */}
+      {/* CSS Variables */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">globals.css</h2>
+        <h2 className="text-xl font-semibold mb-4">CSS Variables</h2>
         <CodeBlock code={CODE.cssVariables} language="css" />
       </section>
 
-      {/* Tailwind Config */}
+      {/* Solid.js CSS Setup */}
+      {framework === "solid" && (
+        <section>
+          <h2 className="text-xl font-semibold mb-4">Solid.js CSS Setup</h2>
+          <p className="text-muted-foreground mb-4">
+            If you use Tailwind CSS 4 in your Solid.js project, create an
+            app.css with the following content:
+          </p>
+          <CodeBlock code={CODE.solidCssSetup} language="css" />
+        </section>
+      )}
+
+      {/* Tailwind CSS 4 Theme */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">Tailwind Config</h2>
-        <CodeBlock code={CODE.tailwindConfig} language="typescript" />
+        <h2 className="text-xl font-semibold mb-4">Tailwind CSS 4 Theme</h2>
+        <CodeBlock code={CODE.tailwindTheme.replace("<framework>", framework)} language="css" />
       </section>
 
       {/* Usage Examples */}
@@ -151,7 +219,7 @@ export default async function ThemingPage({ params }: PageProps) {
         <p className="text-muted-foreground mb-4">
           How to use Honeycomb color variables in your components.
         </p>
-        <CodeBlock code={CODE.usage} language="tsx" />
+        <CodeBlock code={CODE.usage[framework]} language={framework === "vue" ? "vue" : "tsx"} />
       </section>
 
       {/* Customization */}

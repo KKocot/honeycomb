@@ -125,102 +125,76 @@ export const CSS_VARIABLES = [
 ];
 
 export const CODE = {
-  cssVariables: `@layer base {
-  :root {
-    /* Brand */
-    --hive-red: 350 82% 48%;
-    --hive-dark: 0 0% 10%;
+  cssVariables: `:root {
+  /* Brand */
+  --hive-red: 350 82% 48%;
+  --hive-dark: 0 0% 10%;
 
-    /* Layout */
-    --hive-background: 0 0% 100%;
-    --hive-foreground: 0 0% 9%;
-    --hive-border: 0 0% 90%;
-    --hive-ring: 350 82% 48%;
+  /* Layout */
+  --hive-background: 0 0% 100%;
+  --hive-foreground: 0 0% 9%;
+  --hive-border: 0 0% 90%;
+  --hive-ring: 350 82% 48%;
 
-    /* Card */
-    --hive-card: 0 0% 100%;
-    --hive-card-foreground: 0 0% 9%;
+  /* Card */
+  --hive-card: 0 0% 100%;
+  --hive-card-foreground: 0 0% 9%;
 
-    /* Popover */
-    --hive-popover: 0 0% 100%;
-    --hive-popover-foreground: 0 0% 9%;
+  /* Popover */
+  --hive-popover: 0 0% 100%;
+  --hive-popover-foreground: 0 0% 9%;
 
-    /* Muted */
-    --hive-muted: 0 0% 96%;
-    --hive-muted-foreground: 0 0% 45%;
+  /* Muted */
+  --hive-muted: 0 0% 96%;
+  --hive-muted-foreground: 0 0% 45%;
 
-    /* Status */
-    --hive-success: 142 76% 36%;
-    --hive-warning: 38 92% 50%;
-    --hive-destructive: 0 84% 60%;
-    --hive-destructive-foreground: 0 0% 100%;
-  }
+  /* Status */
+  --hive-success: 142 76% 36%;
+  --hive-warning: 38 92% 50%;
+  --hive-destructive: 0 84% 60%;
+  --hive-destructive-foreground: 0 0% 100%;
+}
 
-  .dark {
-    /* Layout */
-    --hive-background: 0 0% 7%;
-    --hive-foreground: 0 0% 95%;
-    --hive-border: 0 0% 20%;
+.dark {
+  /* Layout */
+  --hive-background: 0 0% 7%;
+  --hive-foreground: 0 0% 95%;
+  --hive-border: 0 0% 20%;
 
-    /* Card */
-    --hive-card: 0 0% 10%;
-    --hive-card-foreground: 0 0% 95%;
+  /* Card */
+  --hive-card: 0 0% 10%;
+  --hive-card-foreground: 0 0% 95%;
 
-    /* Popover */
-    --hive-popover: 0 0% 10%;
-    --hive-popover-foreground: 0 0% 95%;
+  /* Popover */
+  --hive-popover: 0 0% 10%;
+  --hive-popover-foreground: 0 0% 95%;
 
-    /* Muted */
-    --hive-muted: 0 0% 15%;
-    --hive-muted-foreground: 0 0% 65%;
+  /* Muted */
+  --hive-muted: 0 0% 15%;
+  --hive-muted-foreground: 0 0% 65%;
 
-    /* Status */
-    --hive-success: 142 71% 45%;
-    --hive-warning: 48 96% 53%;
-    --hive-destructive: 0 63% 31%;
-    --hive-destructive-foreground: 0 0% 95%;
-  }
+  /* Status */
+  --hive-success: 142 71% 45%;
+  --hive-warning: 48 96% 53%;
+  --hive-destructive: 0 63% 31%;
+  --hive-destructive-foreground: 0 0% 95%;
 }`,
-  tailwindConfig: `// tailwind.config.ts
-export default {
-  darkMode: "class",
-  theme: {
-    extend: {
-      colors: {
-        hive: {
-          // Brand
-          red: "hsl(var(--hive-red))",
-          dark: "hsl(var(--hive-dark))",
+  tailwindTheme: `/* Import in your app.css alongside tailwindcss */
+@import "tailwindcss";
+@import "@barddev/honeycomb-<framework>/theme.css";
 
-          // Layout
-          background: "hsl(var(--hive-background))",
-          foreground: "hsl(var(--hive-foreground))",
-          border: "hsl(var(--hive-border))",
-          ring: "hsl(var(--hive-ring))",
-
-          // Card
-          card: "hsl(var(--hive-card))",
-          "card-foreground": "hsl(var(--hive-card-foreground))",
-
-          // Popover
-          popover: "hsl(var(--hive-popover))",
-          "popover-foreground": "hsl(var(--hive-popover-foreground))",
-
-          // Muted
-          muted: "hsl(var(--hive-muted))",
-          "muted-foreground": "hsl(var(--hive-muted-foreground))",
-
-          // Status
-          success: "hsl(var(--hive-success))",
-          warning: "hsl(var(--hive-warning))",
-          destructive: "hsl(var(--hive-destructive))",
-          "destructive-foreground": "hsl(var(--hive-destructive-foreground))",
-        },
-      },
-    },
-  },
-};`,
-  usage: `// Layout colors - auto adapt to light/dark mode
+/* Optional: map hive vars to Tailwind semantic colors */
+@theme inline {
+  --color-background: hsl(var(--hive-background));
+  --color-foreground: hsl(var(--hive-foreground));
+  --color-border: hsl(var(--hive-border));
+  --color-muted: hsl(var(--hive-muted));
+  --color-muted-foreground: hsl(var(--hive-muted-foreground));
+  --color-card: hsl(var(--hive-card));
+  --color-card-foreground: hsl(var(--hive-card-foreground));
+}`,
+  usage: {
+    react: `// Layout colors - auto adapt to light/dark mode
 <div className="bg-hive-background text-hive-foreground border-hive-border">
   <p className="text-hive-muted-foreground">Muted text</p>
 </div>
@@ -239,6 +213,68 @@ export default {
 <button className="bg-hive-red text-white hover:bg-hive-red/90">
   Vote on Hive
 </button>`,
+    solid: `// Layout colors - auto adapt to light/dark mode
+<div class="bg-hive-background text-hive-foreground border-hive-border">
+  <p class="text-hive-muted-foreground">Muted text</p>
+</div>
+
+// Card component
+<div class="bg-hive-card text-hive-card-foreground border-hive-border border rounded-lg p-4">
+  Card content
+</div>
+
+// Status colors
+<div class="bg-hive-success/10 text-hive-success">Connected</div>
+<div class="bg-hive-warning/10 text-hive-warning">Connecting...</div>
+<div class="bg-hive-destructive/10 text-hive-destructive">Error</div>
+
+// Brand colors
+<button class="bg-hive-red text-white hover:bg-hive-red/90">
+  Vote on Hive
+</button>`,
+    vue: `<!-- Layout colors - auto adapt to light/dark mode -->
+<div class="bg-hive-background text-hive-foreground border-hive-border">
+  <p class="text-hive-muted-foreground">Muted text</p>
+</div>
+
+<!-- Card component -->
+<div class="bg-hive-card text-hive-card-foreground border-hive-border border rounded-lg p-4">
+  Card content
+</div>
+
+<!-- Status colors -->
+<div class="bg-hive-success/10 text-hive-success">Connected</div>
+<div class="bg-hive-warning/10 text-hive-warning">Connecting...</div>
+<div class="bg-hive-destructive/10 text-hive-destructive">Error</div>
+
+<!-- Brand colors -->
+<button class="bg-hive-red text-white hover:bg-hive-red/90">
+  Vote on Hive
+</button>`,
+  },
+  cssFiles: `Package exports 3 CSS files:
+
+styles.css — Full bundle (CSS vars + component styles + Tailwind utilities + theme tokens)
+             Use for quick start. No Tailwind installation needed.
+
+base.css   — CSS vars + component styles only.
+             Use if you want minimal CSS without Tailwind utilities.
+
+theme.css  — @theme inline tokens only.
+             Use to add hive-* utility classes to your own Tailwind project.`,
+  solidCssSetup: `/* app.css — Solid.js projects with Tailwind CSS 4 */
+@import "tailwindcss";
+@import "@barddev/honeycomb-solid/theme.css";
+
+@theme inline {
+  --color-background: hsl(var(--hive-background));
+  --color-foreground: hsl(var(--hive-foreground));
+  --color-border: hsl(var(--hive-border));
+  --color-muted: hsl(var(--hive-muted));
+  --color-muted-foreground: hsl(var(--hive-muted-foreground));
+  --color-card: hsl(var(--hive-card));
+  --color-card-foreground: hsl(var(--hive-card-foreground));
+}`,
   customization: `// In your app's globals.css, override any variable:
 :root {
   --hive-red: 220 90% 56%; /* Blue instead of red */

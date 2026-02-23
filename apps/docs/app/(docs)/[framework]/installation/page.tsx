@@ -18,6 +18,15 @@ const pmCommands = (pkg: string) => ({
   bun: `bun add ${pkg}`,
 });
 
+const SOLID_PEER_DEPS = "@hiveio/wax solid-js tailwindcss @tailwindcss/vite";
+
+const solid_peer_commands = {
+  npm: `npm install ${SOLID_PEER_DEPS}`,
+  pnpm: `pnpm add ${SOLID_PEER_DEPS}`,
+  yarn: `yarn add ${SOLID_PEER_DEPS}`,
+  bun: `bun add ${SOLID_PEER_DEPS}`,
+};
+
 const CODE = {
   react: {
     provider: `"use client";
@@ -75,6 +84,67 @@ function MyComponent() {
     </div>
   );
 }`,
+    styles_entry: `// Entry file (index.tsx or app.tsx)
+import "@barddev/honeycomb-solid/base.css";
+import "./app.css";`,
+    styles_css: `/* app.css */
+@import "tailwindcss";
+@import "@barddev/honeycomb-solid/theme.css";
+
+@theme inline {
+  --color-background: hsl(var(--hive-background));
+  --color-foreground: hsl(var(--hive-foreground));
+  --color-border: hsl(var(--hive-border));
+  --color-muted: hsl(var(--hive-muted));
+  --color-muted-foreground: hsl(var(--hive-muted-foreground));
+  --color-card: hsl(var(--hive-card));
+  --color-card-foreground: hsl(var(--hive-card-foreground));
+}`,
+    dark_mode: `<html lang="en" class="dark">
+  <body class="min-h-screen antialiased bg-hive-background text-hive-foreground">`,
+    vite_config: `// vite.config.ts
+import { defineConfig } from "vite";
+import solid from "vite-plugin-solid";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [tailwindcss(), solid()],
+  optimizeDeps: {
+    exclude: ["@hiveio/wax"],
+  },
+});`,
+    astro_config: `// astro.config.mjs
+import { defineConfig } from "astro/config";
+import solid from "@astrojs/solid-js";
+import tailwindcss from "@tailwindcss/vite";
+import { wasmUrlPlugin } from "@barddev/honeycomb-solid/plugins";
+
+export default defineConfig({
+  integrations: [solid()],
+  vite: {
+    plugins: [tailwindcss(), wasmUrlPlugin()],
+  },
+});`,
+    solid_start_config: `// app.config.ts
+import { defineConfig } from "@solidjs/start/config";
+import tailwindcss from "@tailwindcss/vite";
+import { wasmUrlPlugin } from "@barddev/honeycomb-solid/plugins";
+
+export default defineConfig({
+  ssr: true,
+  vite: {
+    plugins: [tailwindcss(), wasmUrlPlugin()],
+    resolve: {
+      conditions: ["solid", "browser", "module"],
+    },
+    optimizeDeps: {
+      exclude: ["@hiveio/wax"],
+    },
+    ssr: {
+      noExternal: ["@barddev/honeycomb-solid"],
+    },
+  },
+});`,
   },
   vue: {
     provider: `<template>
@@ -137,6 +207,23 @@ export default async function InstallationPage({ params }: PageProps) {
             />
           </Step>
 
+          {framework === "solid" && (
+            <Step title="Install peer dependencies">
+              <p className="mb-3">
+                Solid package requires additional peer dependencies.{" "}
+                <code>@kobalte/core</code> is optional (only needed for{" "}
+                <code>ApiTracker</code>).
+              </p>
+              <UsageTabs
+                tabs={Object.entries(solid_peer_commands).map(([pm, cmd]) => ({
+                  id: `solid-peer-${pm}`,
+                  label: pm,
+                  content: <CodeBlock code={cmd} language="bash" />,
+                }))}
+              />
+            </Step>
+          )}
+
           <Step title="Wrap your app with HiveProvider">
             {framework === "react" && (
               <div className="space-y-4">
@@ -164,6 +251,32 @@ export default async function InstallationPage({ params }: PageProps) {
               </div>
             )}
           </Step>
+
+          {framework === "solid" && (
+            <Step title="Set up styles">
+              <div className="space-y-4">
+                <p className="mb-3">
+                  Import the component styles and configure Tailwind CSS with
+                  Honeycomb theme tokens:
+                </p>
+                <CodeBlock filename="index.tsx" code={CODE.solid.styles_entry} language="tsx" />
+                <CodeBlock filename="app.css" code={CODE.solid.styles_css} language="css" />
+              </div>
+            </Step>
+          )}
+
+          {framework === "solid" && (
+            <Step title="Configure dark mode">
+              <div className="space-y-4">
+                <p className="mb-3">
+                  Add the <code>dark</code> class to <code>{"<html>"}</code> and
+                  apply base background/foreground utilities to{" "}
+                  <code>{"<body>"}</code>:
+                </p>
+                <CodeBlock filename="index.html" code={CODE.solid.dark_mode} language="html" />
+              </div>
+            </Step>
+          )}
 
           <Step title="Use in your components">
             {framework === "react" && (
@@ -206,6 +319,62 @@ export default async function InstallationPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {/* Framework Guides (Solid only) */}
+      {framework === "solid" && (
+        <section>
+          <h2 className="text-xl font-semibold mb-4">Framework Guides</h2>
+          <p className="text-muted-foreground mb-6">
+            Configuration varies by meta-framework. Pick your setup below.
+          </p>
+
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div className="rounded-lg border border-border bg-card p-4">
+              <h3 className="font-semibold mb-3">Vite</h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                Standard SPA setup with Solid and Tailwind plugins.
+              </p>
+              <CodeBlock filename="vite.config.ts" code={CODE.solid.vite_config} language="ts" />
+            </div>
+
+            <div className="rounded-lg border border-border bg-card p-4">
+              <h3 className="font-semibold mb-3">Astro</h3>
+              <div className="flex items-start gap-2 rounded-md bg-yellow-500/10 border border-yellow-500/20 p-2 mb-3">
+                <AlertTriangle className="h-4 w-4 text-yellow-500 shrink-0 mt-0.5" />
+                <p className="text-xs text-muted-foreground">
+                  Use <code>client:only=&quot;solid-js&quot;</code> instead of{" "}
+                  <code>client:load</code>. WASM modules require the{" "}
+                  <code>wasmUrlPlugin()</code>.
+                </p>
+              </div>
+              <CodeBlock filename="astro.config.mjs" code={CODE.solid.astro_config} language="js" />
+              <p className="mt-2 text-xs text-muted-foreground">
+                wasmUrlPlugin is required for projects installed from npm.
+                Monorepo demo apps may work without it due to Vite workspace
+                resolution.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-border bg-card p-4">
+              <h3 className="font-semibold mb-3">SolidStart</h3>
+              <div className="flex items-start gap-2 rounded-md bg-yellow-500/10 border border-yellow-500/20 p-2 mb-3">
+                <AlertTriangle className="h-4 w-4 text-yellow-500 shrink-0 mt-0.5" />
+                <p className="text-xs text-muted-foreground">
+                  Use <code>clientOnly()</code> from{" "}
+                  <code>@solidjs/start</code>. Add{" "}
+                  <code>ssr.noExternal</code> for the package.
+                </p>
+              </div>
+              <CodeBlock filename="app.config.ts" code={CODE.solid.solid_start_config} language="ts" />
+              <p className="mt-2 text-xs text-muted-foreground">
+                wasmUrlPlugin is required for projects installed from npm.
+                Monorepo demo apps may work without it due to Vite workspace
+                resolution.
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* What's Next */}
       <section>
