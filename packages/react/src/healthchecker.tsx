@@ -338,7 +338,7 @@ function HealthCheckerComponentInner({
         </div>
         <button
           className={cn(
-            "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium h-10 px-4",
+            "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium h-10 px-4 cursor-pointer",
             "bg-hive-red text-white hover:bg-hive-red/90 transition-colors",
             "disabled:opacity-50 disabled:cursor-not-allowed"
           )}

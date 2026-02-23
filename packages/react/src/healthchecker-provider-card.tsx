@@ -198,7 +198,7 @@ export function ProviderCard({
                 </div>
               </>
             ) : (
-              <span className="text-sm text-red-500">Unavailable</span>
+              <span className="text-sm font-medium text-red-400">Unavailable</span>
             )}
           </div>
         )}
@@ -208,7 +208,7 @@ export function ProviderCard({
           {!isSelected ? (
             <button
               className={cn(
-                "inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-4",
+                "inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-4 cursor-pointer",
                 "bg-hive-red text-white hover:bg-hive-red/90 transition-colors",
                 "disabled:opacity-50 disabled:cursor-not-allowed"
               )}

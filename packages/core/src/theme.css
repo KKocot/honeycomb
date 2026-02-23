@@ -11,6 +11,8 @@
  *   @import "@barddev/honeycomb-<framework>/theme.css";
  */
 
+@source "./index.js";
+
 @theme inline {
   /* Brand */
   --color-hive-red: hsl(var(--hive-red));
