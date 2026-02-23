@@ -31,7 +31,7 @@ const FRAMEWORK_DEMOS: Record<Framework, DemoConfig[]> = {
     { name: "Astro", desc: "Island architecture with partial hydration", app: "demo-solid-astro" },
   ],
   vue: [
-    { name: "Vite", desc: "Lightning-fast SPA bundler", app: "demo-vue" },
+    { name: "Vite", desc: "Lightning-fast SPA bundler", app: "demo-vue-vite" },
   ],
 };
 

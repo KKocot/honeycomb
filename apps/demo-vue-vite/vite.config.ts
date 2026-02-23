@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
 export default defineConfig({
-  base: "/demo/vue/",
+  base: "/demo/vue-vite/",
   plugins: [vue()],
   server: {
     port: 3033,
