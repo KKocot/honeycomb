@@ -1,0 +1,8 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DemoApp from "../components/DemoApp.vue";
+---
+
+<BaseLayout title="Honeycomb Vue Astro Demo">
+  <DemoApp client:only="vue" />
+</BaseLayout>

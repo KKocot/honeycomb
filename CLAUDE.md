@@ -40,7 +40,9 @@ pnpm lint             # Lint all
 - `apps/demo-solid-vite` - Solid.js + Vite demo
 - `apps/demo-solid-astro` - Astro + Solid.js islands demo
 - `apps/demo-solid-start` - SolidStart demo
-- `apps/demo-vue` - Vue 3 + Vite demo
+- `apps/demo-vue-vite` - Vue 3 + Vite demo
+- `apps/demo-vue-nuxt` - Nuxt 3 demo
+- `apps/demo-vue-astro` - Astro + Vue islands demo
 
 **Packages:**
 - `packages/core` - Core logic and types
