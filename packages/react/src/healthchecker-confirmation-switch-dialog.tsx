@@ -31,7 +31,7 @@ export function ConfirmationSwitchDialog({
             {/* Close Button */}
             <Dialog.Close
               className={cn(
-                "absolute right-4 top-4 p-1 rounded-md transition-colors",
+                "absolute right-4 top-4 p-1 rounded-md transition-colors cursor-pointer",
                 "text-hive-muted-foreground hover:text-foreground hover:bg-hive-muted"
               )}
             >
@@ -63,7 +63,7 @@ export function ConfirmationSwitchDialog({
               <Dialog.Close asChild>
                 <button
                   className={cn(
-                    "inline-flex items-center justify-center rounded-md text-sm font-medium h-10 px-4",
+                    "inline-flex items-center justify-center rounded-md text-sm font-medium h-10 px-4 cursor-pointer",
                     "border border-hive-border bg-transparent",
                     "hover:bg-hive-muted transition-colors"
                   )}
@@ -73,7 +73,7 @@ export function ConfirmationSwitchDialog({
               </Dialog.Close>
               <button
                 className={cn(
-                  "inline-flex items-center justify-center rounded-md text-sm font-medium h-10 px-4",
+                  "inline-flex items-center justify-center rounded-md text-sm font-medium h-10 px-4 cursor-pointer",
                   "bg-orange-500 text-white hover:bg-orange-600 transition-colors"
                 )}
                 onClick={onConfirm}

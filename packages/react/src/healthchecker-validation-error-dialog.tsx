@@ -51,7 +51,7 @@ export function ValidationErrorDialog({
             {/* Close Button */}
             <Dialog.Close
               className={cn(
-                "absolute right-4 top-4 p-1 rounded-md transition-colors",
+                "absolute right-4 top-4 p-1 rounded-md transition-colors cursor-pointer",
                 "text-hive-muted-foreground hover:text-foreground hover:bg-hive-muted"
               )}
             >
@@ -129,7 +129,7 @@ export function ValidationErrorDialog({
               <Dialog.Close asChild>
                 <button
                   className={cn(
-                    "inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-4",
+                    "inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-4 cursor-pointer",
                     "border border-hive-border bg-transparent",
                     "hover:bg-hive-muted transition-colors"
                   )}
@@ -139,7 +139,7 @@ export function ValidationErrorDialog({
               </Dialog.Close>
               <button
                 className={cn(
-                  "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium h-9 px-4",
+                  "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium h-9 px-4 cursor-pointer",
                   "bg-hive-red text-white hover:bg-hive-red/90 transition-colors"
                 )}
                 onClick={handleErrorClearClick}
