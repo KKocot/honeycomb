@@ -27,6 +27,7 @@ export const docsConfig: NavSection[] = [
       { title: "Hooks", href: "/react/hooks" },
       { title: "Theming", href: "/react/theming" },
       { title: "API Tracker", href: "/react/api-tracker" },
+      { title: "HealthChecker", href: "/react/healthchecker" },
     ],
   },
   // ===========================================
