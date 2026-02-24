@@ -43,6 +43,13 @@ export type {
   HealthCheckerFields,
 } from "./healthchecker-service.js";
 
+// Default healthchecker configuration
+export {
+  DEFAULT_HEALTHCHECKER_KEY,
+  DEFAULT_HEALTHCHECKER_PROVIDERS,
+  createDefaultCheckers,
+} from "./default-healthchecker.js";
+
 // Post list
 export {
   fetch_ranked_posts,

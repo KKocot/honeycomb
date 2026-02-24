@@ -6,6 +6,7 @@ export {
   useApiEndpoint,
   useHiveStatus,
   DEFAULT_API_ENDPOINTS,
+  DEFAULT_HEALTHCHECKER_KEY,
   type HiveContextValue,
   type HiveProviderProps,
   type HealthCheckerServiceConfig,
@@ -19,7 +20,11 @@ export type {
 } from "@kkocot/honeycomb-core";
 
 // Health checker service (re-export from core)
-export { HealthCheckerService } from "@kkocot/honeycomb-core";
+export {
+  HealthCheckerService,
+  createDefaultCheckers,
+  DEFAULT_HEALTHCHECKER_PROVIDERS,
+} from "@kkocot/honeycomb-core";
 export type {
   ApiChecker,
   ValidationErrorDetails,

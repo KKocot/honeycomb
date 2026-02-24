@@ -15,6 +15,9 @@ import {
   HiveClient,
   DEFAULT_API_ENDPOINTS,
   HealthCheckerService,
+  DEFAULT_HEALTHCHECKER_KEY,
+  DEFAULT_HEALTHCHECKER_PROVIDERS,
+  createDefaultCheckers,
   type HiveClientState,
   type ConnectionStatus,
   type EndpointStatus,
@@ -22,7 +25,7 @@ import {
 } from "@kkocot/honeycomb-core";
 
 // Re-export for backward compatibility
-export { DEFAULT_API_ENDPOINTS };
+export { DEFAULT_API_ENDPOINTS, DEFAULT_HEALTHCHECKER_KEY };
 
 // ============== Types ==============
 
@@ -185,13 +188,32 @@ export function HiveProvider({
     }
   };
 
-  // Initialize HealthCheckerService instances when chain becomes available
+  // Initialize HealthCheckerService instances when chain becomes available.
+  // When no healthCheckerServices are configured, create a default service
+  // so that <HealthCheckerComponent healthcheckerKey="default" /> works out of the box.
   useEffect(() => {
-    if (!chain_instance || !healthCheckerServices?.length) return;
+    if (!chain_instance) return;
+
+    const configs: HealthCheckerServiceConfig[] =
+      healthCheckerServices?.length
+        ? healthCheckerServices
+        : [
+            {
+              key: DEFAULT_HEALTHCHECKER_KEY,
+              createCheckers: createDefaultCheckers,
+              defaultProviders: DEFAULT_HEALTHCHECKER_PROVIDERS,
+              nodeAddress: null,
+              onNodeChange: (node, chain) => {
+                if (node) {
+                  chain.endpointUrl = node;
+                }
+              },
+            },
+          ];
 
     const new_services = new Map<string, HealthCheckerService>();
 
-    for (const config of healthCheckerServices) {
+    for (const config of configs) {
       const checkers = config.createCheckers(chain_instance);
       const service = new HealthCheckerService(
         config.key,
