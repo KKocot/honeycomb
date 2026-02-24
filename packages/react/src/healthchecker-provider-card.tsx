@@ -204,7 +204,7 @@ export function ProviderCard({
         )}
 
         {/* Action Button */}
-        <div className="shrink-0" data-testid={isSelected ? "hc-selected" : undefined}>
+        <div className="shrink-0 sm:ml-auto" data-testid={isSelected ? "hc-selected" : undefined}>
           {!isSelected ? (
             <button
               className={cn(
