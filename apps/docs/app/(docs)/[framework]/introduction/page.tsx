@@ -31,7 +31,9 @@ const FRAMEWORK_DEMOS: Record<Framework, DemoConfig[]> = {
     { name: "Astro", desc: "Island architecture with partial hydration", app: "demo-solid-astro" },
   ],
   vue: [
+    { name: "Nuxt", desc: "Full-stack meta-framework with SSR", app: "demo-vue-nuxt" },
     { name: "Vite", desc: "Lightning-fast SPA bundler", app: "demo-vue-vite" },
+    { name: "Astro", desc: "Island architecture with partial hydration", app: "demo-vue-astro" },
   ],
   svelte: [
     { name: "Vite", desc: "Lightning-fast SPA bundler", app: "demo-svelte-vite" },
