@@ -1,4 +1,4 @@
-# Multi-stage build for Solid + Vue demos (honeycomb)
+# Multi-stage build for Solid + Vue + Svelte demos (honeycomb)
 # Serves static builds via nginx
 
 # Stage 1: Build
@@ -10,10 +10,12 @@ WORKDIR /app
 # Copy workspace config first for better layer caching
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json turbo.json ./
 COPY apps/demo-solid-vite/package.json ./apps/demo-solid-vite/
+COPY apps/demo-svelte-vite/package.json ./apps/demo-svelte-vite/
 COPY apps/demo-vue-vite/package.json ./apps/demo-vue-vite/
 COPY packages/core/package.json ./packages/core/
 COPY packages/react/package.json ./packages/react/
 COPY packages/solid/package.json ./packages/solid/
+COPY packages/svelte/package.json ./packages/svelte/
 COPY packages/vue/package.json ./packages/vue/
 COPY packages/renderer/package.json ./packages/renderer/
 
@@ -24,8 +26,8 @@ RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store \
 # Copy source code
 COPY . .
 
-# Build both demos (workspace dependencies built automatically via turbo)
-RUN pnpm turbo build --filter=demo-solid-vite --filter=demo-vue-vite
+# Build all three demos (workspace dependencies built automatically via turbo)
+RUN pnpm turbo build --filter=demo-solid-vite --filter=demo-svelte-vite --filter=demo-vue-vite
 
 # Stage 2: nginx runner
 FROM nginx:alpine AS runner
@@ -38,6 +40,9 @@ COPY nginx/demos.conf /etc/nginx/conf.d/demos.conf
 
 # Copy Solid build output
 COPY --from=builder /app/apps/demo-solid-vite/dist/ /usr/share/nginx/html/demo/solid-vite/
+
+# Copy Svelte build output
+COPY --from=builder /app/apps/demo-svelte-vite/dist/ /usr/share/nginx/html/demo/svelte-vite/
 
 # Copy Vue build output
 COPY --from=builder /app/apps/demo-vue-vite/dist/ /usr/share/nginx/html/demo/vue-vite/

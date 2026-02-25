@@ -112,7 +112,7 @@ services:
       - "traefik.http.services.honeycomb-demo-react-next.loadbalancer.healthcheck.path=/demo/react-next"
       - "traefik.http.services.honeycomb-demo-react-next.loadbalancer.healthcheck.interval=30s"
 
-  # nginx static demos: Solid + Vue (port 8080)
+  # nginx static demos: Solid + Svelte + Vue (port 8080)
   demos:
     build:
       context: .
@@ -147,8 +147,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=common_proxy_network"
-      # --- Demos router (/demo/solid-vite, /demo/vue) ---
-      - "traefik.http.routers.honeycomb-demos.rule=Host(`${DOMAIN}`) && (PathPrefix(`/demo/solid-vite`) || PathPrefix(`/demo/vue`))"
+      # --- Demos router (/demo/solid-vite, /demo/svelte-vite, /demo/vue) ---
+      - "traefik.http.routers.honeycomb-demos.rule=Host(`${DOMAIN}`) && (PathPrefix(`/demo/solid-vite`) || PathPrefix(`/demo/svelte-vite`) || PathPrefix(`/demo/vue`))"
       - "traefik.http.routers.honeycomb-demos.entrypoints=websecure"
       - "traefik.http.routers.honeycomb-demos.tls=true"
       - "traefik.http.routers.honeycomb-demos.tls.certresolver=letsencrypt"
@@ -158,6 +158,50 @@ services:
       - "traefik.http.services.honeycomb-demos.loadbalancer.server.port=8080"
       - "traefik.http.services.honeycomb-demos.loadbalancer.healthcheck.path=/demo/solid-vite/"
       - "traefik.http.services.honeycomb-demos.loadbalancer.healthcheck.interval=30s"
+
+  # SvelteKit demo-svelte-kit (adapter-node, port 3042, basePath: /demo/svelte-kit)
+  demo-svelte-kit:
+    build:
+      context: .
+      dockerfile: Dockerfile.demo-svelte-kit
+    image: honeycomb-demo-svelte-kit:latest
+    container_name: honeycomb-demo-svelte-kit
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    networks:
+      - common_proxy_network
+    expose:
+      - "3042"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3042/"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=common_proxy_network"
+      # --- Demo Svelte Kit router (/demo/svelte-kit) ---
+      - "traefik.http.routers.honeycomb-demo-svelte-kit.rule=Host(`${DOMAIN}`) && PathPrefix(`/demo/svelte-kit`)"
+      - "traefik.http.routers.honeycomb-demo-svelte-kit.entrypoints=websecure"
+      - "traefik.http.routers.honeycomb-demo-svelte-kit.tls=true"
+      - "traefik.http.routers.honeycomb-demo-svelte-kit.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.honeycomb-demo-svelte-kit.middlewares=honeycomb-security"
+      - "traefik.http.routers.honeycomb-demo-svelte-kit.service=honeycomb-demo-svelte-kit"
+      # --- Demo Svelte Kit service ---
+      - "traefik.http.services.honeycomb-demo-svelte-kit.loadbalancer.server.port=3042"
+      - "traefik.http.services.honeycomb-demo-svelte-kit.loadbalancer.healthcheck.path=/"
+      - "traefik.http.services.honeycomb-demo-svelte-kit.loadbalancer.healthcheck.interval=30s"
 
 networks:
   common_proxy_network:
