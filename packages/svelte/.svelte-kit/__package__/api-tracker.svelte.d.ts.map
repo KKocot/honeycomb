@@ -1,0 +1,1 @@
+{"version":3,"file":"api-tracker.svelte.d.ts","sourceRoot":"","sources":["../src/api-tracker.svelte.ts"],"names":[],"mappings":"AAGE,MAAM,WAAW,eAAe;IAC9B,KAAK,CAAC,EAAE,MAAM,CAAC;IACf,OAAO,CAAC,EAAE,OAAO,CAAC;IAClB,IAAI,CAAC,EAAE,KAAK,GAAG,QAAQ,CAAC;CACzB;AAkKH,QAAA,MAAM,UAAU,qDAAwC,CAAC;AACzD,KAAK,UAAU,GAAG,UAAU,CAAC,OAAO,UAAU,CAAC,CAAC;AAChD,eAAe,UAAU,CAAC"}

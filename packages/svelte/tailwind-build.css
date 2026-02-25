@@ -1,0 +1,49 @@
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities";
+@source "./dist/index.js";
+
+@theme {
+  /* Brand */
+  --color-hive-red: hsl(var(--hive-red));
+  --color-hive-dark: hsl(var(--hive-dark));
+
+  /* Primary */
+  --color-hive-primary: hsl(var(--hive-primary));
+  --color-hive-primary-foreground: hsl(var(--hive-primary-foreground));
+
+  /* Secondary */
+  --color-hive-secondary: hsl(var(--hive-secondary));
+  --color-hive-secondary-foreground: hsl(var(--hive-secondary-foreground));
+
+  /* Accent */
+  --color-hive-accent: hsl(var(--hive-accent));
+  --color-hive-accent-foreground: hsl(var(--hive-accent-foreground));
+
+  /* Layout */
+  --color-hive-background: hsl(var(--hive-background));
+  --color-hive-foreground: hsl(var(--hive-foreground));
+  --color-hive-border: hsl(var(--hive-border));
+  --color-hive-input: hsl(var(--hive-input));
+  --color-hive-ring: hsl(var(--hive-ring));
+
+  /* Card */
+  --color-hive-card: hsl(var(--hive-card));
+  --color-hive-card-foreground: hsl(var(--hive-card-foreground));
+
+  /* Popover */
+  --color-hive-popover: hsl(var(--hive-popover));
+  --color-hive-popover-foreground: hsl(var(--hive-popover-foreground));
+
+  /* Muted */
+  --color-hive-muted: hsl(var(--hive-muted));
+  --color-hive-muted-foreground: hsl(var(--hive-muted-foreground));
+
+  /* Status */
+  --color-hive-success: hsl(var(--hive-success));
+  --color-hive-warning: hsl(var(--hive-warning));
+  --color-hive-destructive: hsl(var(--hive-destructive));
+  --color-hive-destructive-foreground: hsl(var(--hive-destructive-foreground));
+
+  /* Radius */
+  --radius-hive: var(--hive-radius);
+}
