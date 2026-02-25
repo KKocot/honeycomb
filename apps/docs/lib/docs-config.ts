@@ -62,6 +62,7 @@ export const docsConfig: NavSection[] = [
     type: "passive",
     items: [
       { title: "Content Renderer", href: "/react/content-renderer" },
+      { title: "Markdown Editor", href: "/react/markdown-editor" },
     ],
   },
 ];

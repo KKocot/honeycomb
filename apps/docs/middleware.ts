@@ -1,8 +1,25 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { FRAMEWORKS } from "@/lib/framework";
 
-const VALID_FRAMEWORKS = new Set(["react", "solid", "vue"]);
-const FRAMEWORK_PAGES = new Set(["hive-provider", "installation"]);
+const VALID_FRAMEWORKS = new Set<string>(FRAMEWORKS.map((f) => f.id));
+const FRAMEWORK_PAGES = new Set([
+  "introduction",
+  "installation",
+  "hive-provider",
+  "hooks",
+  "theming",
+  "api-tracker",
+  "healthchecker",
+  "avatar",
+  "user-card",
+  "balance-card",
+  "manabar",
+  "post-card",
+  "post-list",
+  "content-renderer",
+  "markdown-editor",
+]);
 
 export function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
@@ -27,10 +44,10 @@ export function middleware(request: NextRequest) {
   // Handle direct access to framework-specific pages without framework segment
   // /hive-provider -> /react/hive-provider
   // /installation -> /react/installation
-  if (pathname === "/hive-provider" || pathname === "/installation") {
-    const page = pathname.substring(1); // Remove leading slash
+  const bare_page = pathname.substring(1); // Remove leading slash
+  if (FRAMEWORK_PAGES.has(bare_page)) {
     const new_url = request.nextUrl.clone();
-    new_url.pathname = `/react/${page}`;
+    new_url.pathname = `/react/${bare_page}`;
 
     return NextResponse.redirect(new_url);
   }
@@ -55,9 +72,7 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/hive-provider",
-    "/installation",
-    "/:framework/hive-provider",
-    "/:framework/installation",
+    "/:page(introduction|installation|hive-provider|hooks|theming|api-tracker|healthchecker|avatar|user-card|balance-card|manabar|post-card|post-list|content-renderer|markdown-editor)",
+    "/:framework/:page(introduction|installation|hive-provider|hooks|theming|api-tracker|healthchecker|avatar|user-card|balance-card|manabar|post-card|post-list|content-renderer|markdown-editor)",
   ],
 };
