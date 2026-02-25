@@ -3,7 +3,7 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [],
-  "linked": [["@barddev/honeycomb-react", "@barddev/honeycomb-vue", "@barddev/honeycomb-solid"]],
+  "linked": [["@barddev/honeycomb-react", "@barddev/honeycomb-vue", "@barddev/honeycomb-solid", "@barddev/honeycomb-svelte"]],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
@@ -16,6 +16,11 @@
     "demo-solid-astro",
     "demo-solid-start",
     "demo-vue-vite",
+    "demo-vue-nuxt",
+    "demo-vue-astro",
+    "demo-svelte-vite",
+    "demo-svelte-kit",
+    "demo-svelte-astro",
     "docs"
   ]
 }
