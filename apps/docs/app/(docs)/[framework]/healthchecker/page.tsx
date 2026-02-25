@@ -5,7 +5,8 @@ import { UsageTabs } from "@/components/usage-tabs";
 import { parseFramework } from "@/lib/framework";
 
 const CODE = {
-  zeroConfig: `import { HiveProvider, HealthCheckerComponent } from "@barddev/honeycomb-react";
+  zeroConfig: {
+    react: `import { HiveProvider, HealthCheckerComponent } from "@barddev/honeycomb-react";
 
 function App() {
   return (
@@ -14,7 +15,18 @@ function App() {
     </HiveProvider>
   );
 }`,
-  customServices: `import {
+    vue: `<template>
+  <HiveProvider>
+    <HealthCheckerComponent healthchecker-key="default" />
+  </HiveProvider>
+</template>
+
+<script setup lang="ts">
+import { HiveProvider, HealthCheckerComponent } from "@barddev/honeycomb-vue";
+</script>`,
+  },
+  customServices: {
+    react: `import {
   HiveProvider,
   HealthCheckerComponent,
   type HealthCheckerServiceConfig,
@@ -69,7 +81,66 @@ function App() {
     </HiveProvider>
   );
 }`,
-  multipleInstances: `import {
+    vue: `<template>
+  <HiveProvider :health-checker-services="healthCheckerServices">
+    <HealthCheckerComponent healthchecker-key="my-api" />
+  </HiveProvider>
+</template>
+
+<script setup lang="ts">
+import {
+  HiveProvider,
+  HealthCheckerComponent,
+  type HealthCheckerServiceConfig,
+  type ApiChecker,
+} from "@barddev/honeycomb-vue";
+import type { IHiveChainInterface } from "@hiveio/wax";
+
+const ENDPOINTS = [
+  "https://api.hive.blog",
+  "https://api.openhive.network",
+  "https://api.syncad.com",
+  "https://anyx.io",
+  "https://techcoderx.com",
+  "https://api.deathwing.me",
+];
+
+const healthCheckerServices: HealthCheckerServiceConfig[] = [
+  {
+    key: "my-api",
+    defaultProviders: ENDPOINTS,
+    nodeAddress: null,
+    onNodeChange: (node: string | null, chain: IHiveChainInterface) => {
+      if (node) {
+        chain.endpointUrl = node;
+      }
+    },
+    createCheckers: (chain: IHiveChainInterface): ApiChecker[] => [
+      {
+        title: "Database - Find accounts",
+        method: chain.api.database_api.find_accounts,
+        params: { accounts: ["hiveio"], delayed_votes_active: false },
+        validatorFunction: (data: any) =>
+          data?.accounts?.[0]?.name === "hiveio"
+            ? true
+            : "Find accounts error",
+      },
+      {
+        title: "Database - Dynamic global properties",
+        method: chain.api.database_api.get_dynamic_global_properties,
+        params: {},
+        validatorFunction: (data: any) =>
+          !!data?.head_block_number
+            ? true
+            : "Dynamic global properties error",
+      },
+    ],
+  },
+];
+</script>`,
+  },
+  multipleInstances: {
+    react: `import {
   HiveProvider,
   HealthCheckerComponent,
   type HealthCheckerServiceConfig,
@@ -146,6 +217,80 @@ function App() {
     </HiveProvider>
   );
 }`,
+    vue: `<template>
+  <HiveProvider :health-checker-services="healthCheckerServices">
+    <h2>Node API Health</h2>
+    <HealthCheckerComponent healthchecker-key="hive-node-api" />
+
+    <h2>Wallet API Health</h2>
+    <HealthCheckerComponent healthchecker-key="hive-wallet-api" />
+  </HiveProvider>
+</template>
+
+<script setup lang="ts">
+import {
+  HiveProvider,
+  HealthCheckerComponent,
+  type HealthCheckerServiceConfig,
+} from "@barddev/honeycomb-vue";
+
+const healthCheckerServices: HealthCheckerServiceConfig[] = [
+  {
+    key: "hive-node-api",
+    defaultProviders: [
+      "https://api.hive.blog",
+      "https://api.openhive.network",
+      "https://anyx.io",
+      "https://techcoderx.com",
+    ],
+    nodeAddress: null,
+    onNodeChange: (node, chain) => {
+      if (node) chain.endpointUrl = node;
+    },
+    createCheckers: (chain) => {
+      const api = chain.api as any;
+      return [
+        {
+          title: "Database - Find accounts",
+          method: chain.api.database_api.find_accounts,
+          params: { accounts: ["hiveio"], delayed_votes_active: false },
+          validatorFunction: (data: any) =>
+            data?.accounts?.[0]?.name === "hiveio" ? true : "Error",
+        },
+        {
+          title: "Bridge - Get Ranked Posts",
+          method: api.bridge.get_ranked_posts,
+          params: { observer: "hive.blog", tag: "", limit: 10, sort: "trending" },
+          validatorFunction: (data: any) =>
+            data?.length > 0 ? true : "Bridge API error",
+        },
+      ];
+    },
+  },
+  {
+    key: "hive-wallet-api",
+    defaultProviders: [
+      "https://api.hive.blog",
+      "https://api.openhive.network",
+      "https://api.deathwing.me",
+    ],
+    nodeAddress: null,
+    onNodeChange: (node, chain) => {
+      if (node) chain.endpointUrl = node;
+    },
+    createCheckers: (chain) => [
+      {
+        title: "Database - Dynamic global properties",
+        method: chain.api.database_api.get_dynamic_global_properties,
+        params: {},
+        validatorFunction: (data: any) =>
+          !!data?.head_block_number ? true : "Error",
+      },
+    ],
+  },
+];
+</script>`,
+  },
   checkerExample: `{
   title: "Database - Find accounts",
   method: chain.api.database_api.find_accounts,
@@ -155,7 +300,8 @@ function App() {
       ? true           // check passed
       : "Account not found"  // error message
 }`,
-  serviceAccess: `import { useHive } from "@barddev/honeycomb-react";
+  serviceAccess: {
+    react: `import { useHive } from "@barddev/honeycomb-react";
 
 function MyComponent() {
   const { getHealthCheckerService } = useHive();
@@ -177,6 +323,29 @@ function MyComponent() {
     </div>
   );
 }`,
+    vue: `<template>
+  <div>
+    <button @click="handleStart">Start Checks</button>
+    <button @click="handleStop">Stop Checks</button>
+    <button @click="handleSwitch">Switch to Best</button>
+    <button @click="handleReset">Reset Providers</button>
+    <button @click="handleAdd">Add Custom Node</button>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useHive } from "@barddev/honeycomb-vue";
+
+const { getHealthCheckerService } = useHive();
+const service = getHealthCheckerService("default");
+
+const handleStart = () => service?.startCheckingProcess();
+const handleStop = () => service?.stopCheckingProcess();
+const handleReset = () => service?.resetProviders();
+const handleAdd = () => service?.addProvider("https://my-node.example.com");
+const handleSwitch = () => service?.evaluateAndSwitch();
+</script>`,
+  },
 };
 
 interface PageProps {
@@ -196,16 +365,16 @@ export default async function HealthCheckerPage({ params }: PageProps) {
         </p>
       </div>
 
-      {/* React-only note */}
-      {framework !== "react" && (
+      {/* Solid-only note */}
+      {framework !== "react" && framework !== "vue" && (
         <section className="rounded-lg border border-yellow-500/20 bg-yellow-500/5 p-4">
           <div className="flex gap-3">
             <AlertTriangle className="h-5 w-5 text-yellow-500 shrink-0 mt-0.5" />
             <div>
-              <p className="font-medium text-yellow-500">React Only</p>
+              <p className="font-medium text-yellow-500">React &amp; Vue Only</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                The HealthChecker component is currently available only for React.
-                Solid.js and Vue support is planned for a future release.
+                The HealthChecker component is currently available for React and Vue.
+                Solid.js support is planned for a future release.
               </p>
             </div>
           </div>
@@ -270,7 +439,7 @@ export default async function HealthCheckerPage({ params }: PageProps) {
           The simplest setup requires no configuration. A default health checker service is created
           automatically with basic database API checks against the default endpoints.
         </p>
-        <CodeBlock code={CODE.zeroConfig} language="tsx" />
+        <CodeBlock code={framework === "vue" ? CODE.zeroConfig.vue : CODE.zeroConfig.react} language={framework === "vue" ? "vue" : "tsx"} />
       </section>
 
       {/* Custom Configuration */}
@@ -280,7 +449,7 @@ export default async function HealthCheckerPage({ params }: PageProps) {
           For full control, pass <code>healthCheckerServices</code> to <code>HiveProvider</code>.
           Each service defines its own endpoints, API checks, and node-change callback.
         </p>
-        <CodeBlock code={CODE.customServices} language="tsx" />
+        <CodeBlock code={framework === "vue" ? CODE.customServices.vue : CODE.customServices.react} language={framework === "vue" ? "vue" : "tsx"} />
       </section>
 
       {/* Multiple Instances */}
@@ -291,7 +460,7 @@ export default async function HealthCheckerPage({ params }: PageProps) {
           sets of endpoints with different checks. Use unique <code>key</code> values
           and render separate <code>HealthCheckerComponent</code> instances.
         </p>
-        <CodeBlock code={CODE.multipleInstances} language="tsx" />
+        <CodeBlock code={framework === "vue" ? CODE.multipleInstances.vue : CODE.multipleInstances.react} language={framework === "vue" ? "vue" : "tsx"} />
       </section>
 
       {/* HealthCheckerComponent Props */}
@@ -451,7 +620,7 @@ export default async function HealthCheckerPage({ params }: PageProps) {
           Access the underlying <code>HealthCheckerService</code> instance via the <code>useHive</code> hook
           for programmatic control outside of the UI component.
         </p>
-        <CodeBlock code={CODE.serviceAccess} language="tsx" />
+        <CodeBlock code={framework === "vue" ? CODE.serviceAccess.vue : CODE.serviceAccess.react} language={framework === "vue" ? "vue" : "tsx"} />
 
         <div className="mt-6 overflow-x-auto">
           <table className="w-full text-sm">

@@ -10,6 +10,7 @@ import {
   inject,
   ref,
   shallowRef,
+  watch,
   onMounted,
   onUnmounted,
   type InjectionKey,
@@ -21,9 +22,29 @@ import type { IHiveChainInterface } from "@hiveio/wax";
 import {
   HiveClient,
   DEFAULT_API_ENDPOINTS,
+  HealthCheckerService,
+  DEFAULT_HEALTHCHECKER_KEY,
+  DEFAULT_HEALTHCHECKER_PROVIDERS,
+  createDefaultCheckers,
   type HiveClientState,
   type ConnectionStatus,
+  type ApiChecker,
 } from "@kkocot/honeycomb-core";
+
+export interface HealthCheckerServiceConfig {
+  /** Unique key to identify this service instance */
+  key: string;
+  /** Factory that receives chain and returns checkers array */
+  createCheckers: (chain: IHiveChainInterface) => ApiChecker[];
+  /** Default API endpoint URLs to check */
+  defaultProviders: string[];
+  /** Currently active node address for this service */
+  nodeAddress: string | null;
+  /** Callback fired when the healthchecker switches to a different node */
+  onNodeChange: (node: string | null, chain: IHiveChainInterface) => void;
+  /** Enable console logs for debugging */
+  enableLogs?: boolean;
+}
 
 /**
  * Context value provided by HiveProvider
@@ -43,6 +64,8 @@ export interface HiveContextValue {
   endpoints: Ref<HiveClientState["endpoints"]>;
   /** Refresh all endpoints health status */
   refreshEndpoints: () => Promise<void>;
+  /** Get a HealthCheckerService instance by key */
+  getHealthCheckerService: (key: string) => HealthCheckerService | null;
 }
 
 /**
@@ -103,6 +126,13 @@ export const HiveProvider = defineComponent({
       type: Function as PropType<(endpoint: string) => void>,
       default: undefined,
     },
+    /**
+     * HealthChecker service configurations
+     */
+    healthCheckerServices: {
+      type: Array as PropType<HealthCheckerServiceConfig[]>,
+      default: undefined,
+    },
   },
   setup(props, { slots }) {
     // Reactive state
@@ -115,6 +145,9 @@ export const HiveProvider = defineComponent({
 
     let client: HiveClient | null = null;
     let unsubscribe: (() => void) | null = null;
+
+    // HealthChecker services (shallowRef to preserve class instances)
+    const hc_services = shallowRef<Map<string, HealthCheckerService>>(new Map());
 
     /**
      * Initialize Hive client and connect to blockchain
@@ -146,10 +179,59 @@ export const HiveProvider = defineComponent({
       }
     });
 
+    // Initialize HealthChecker services when chain becomes available
+    watch(chain, (new_chain) => {
+      // Cleanup old services
+      for (const service of hc_services.value.values()) {
+        service.stopCheckingProcess();
+      }
+      hc_services.value = new Map();
+
+      if (!new_chain) return;
+
+      const configs: HealthCheckerServiceConfig[] =
+        props.healthCheckerServices?.length
+          ? props.healthCheckerServices
+          : [
+              {
+                key: DEFAULT_HEALTHCHECKER_KEY,
+                createCheckers: createDefaultCheckers,
+                defaultProviders: DEFAULT_HEALTHCHECKER_PROVIDERS,
+                nodeAddress: null,
+                onNodeChange: (node, chain_ref) => {
+                  if (node) {
+                    chain_ref.endpointUrl = node;
+                  }
+                },
+              },
+            ];
+
+      const new_services = new Map<string, HealthCheckerService>();
+
+      for (const config of configs) {
+        const checkers = config.createCheckers(new_chain);
+        const service = new HealthCheckerService(
+          config.key,
+          checkers,
+          config.defaultProviders,
+          config.nodeAddress,
+          (node) => config.onNodeChange(node, new_chain),
+          config.enableLogs,
+        );
+        new_services.set(config.key, service);
+      }
+
+      hc_services.value = new_services;
+    });
+
     /**
      * Cleanup on unmount
      */
     onUnmounted(() => {
+      for (const service of hc_services.value.values()) {
+        service.stopCheckingProcess();
+      }
+      hc_services.value = new Map();
       unsubscribe?.();
       client?.disconnect();
       client = null;
@@ -164,6 +246,13 @@ export const HiveProvider = defineComponent({
       }
     };
 
+    /**
+     * Get a HealthCheckerService instance by key
+     */
+    const get_health_checker_service = (key: string): HealthCheckerService | null => {
+      return hc_services.value.get(key) ?? null;
+    };
+
     // Provide context to children
     provide(HIVE_INJECTION_KEY, {
       chain,
@@ -173,6 +262,7 @@ export const HiveProvider = defineComponent({
       status,
       endpoints: endpoint_statuses,
       refreshEndpoints: refresh_endpoints,
+      getHealthCheckerService: get_health_checker_service,
     });
 
     // Renderless component - just render default slot

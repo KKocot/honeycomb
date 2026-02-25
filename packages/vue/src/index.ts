@@ -12,7 +12,14 @@ export {
   useHiveStatus,
   hivePlugin,
   type HiveContextValue,
+  type HealthCheckerServiceConfig,
 } from "./hive-provider.js";
+
+// HealthChecker
+export {
+  HealthCheckerComponent,
+  type HealthCheckerComponentProps,
+} from "./healthchecker.js";
 
 // Account composable
 export {
@@ -112,3 +119,17 @@ export type {
 
 // Re-export default endpoints
 export { DEFAULT_API_ENDPOINTS } from "@kkocot/honeycomb-core";
+
+// Health checker service and types
+export {
+  HealthCheckerService,
+  DEFAULT_HEALTHCHECKER_KEY,
+  DEFAULT_HEALTHCHECKER_PROVIDERS,
+  createDefaultCheckers,
+} from "@kkocot/honeycomb-core";
+
+export type {
+  ApiChecker,
+  ValidationErrorDetails,
+  HealthCheckerFields,
+} from "@kkocot/honeycomb-core";
