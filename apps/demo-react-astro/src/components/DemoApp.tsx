@@ -9,6 +9,7 @@ import ManabarTab from "./ManabarTab";
 import PostCardTab from "./PostCardTab";
 import PostListTab from "./PostListTab";
 import RendererTab from "./RendererTab";
+import HealthCheckerTab from "./HealthCheckerTab";
 
 type TabId =
   | "api-tracker"
@@ -19,7 +20,8 @@ type TabId =
   | "manabar"
   | "post-card"
   | "post-list"
-  | "renderer";
+  | "renderer"
+  | "health-checker";
 
 interface TabConfig {
   id: TabId;
@@ -88,6 +90,13 @@ const TABS: readonly TabConfig[] = [
     title: "Content Renderer",
     description:
       "Renders Hive markdown content with mentions, hashtags, embeds, and sanitization.",
+  },
+  {
+    id: "health-checker",
+    label: "Health Checker",
+    title: "Health Checker",
+    description:
+      "Monitors Hive API endpoint health, latency and validity with automatic provider switching.",
   },
 ];
 
@@ -193,6 +202,7 @@ export default function DemoApp() {
           {active_tab === "post-card" && <PostCardTab />}
           {active_tab === "post-list" && <PostListTab />}
           {active_tab === "renderer" && <RendererTab />}
+          {active_tab === "health-checker" && <HealthCheckerTab />}
         </div>
       </div>
 
