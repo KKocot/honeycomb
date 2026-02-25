@@ -2,6 +2,7 @@ import type { Framework } from "@/lib/framework";
 
 type FrameworkCode = Record<Framework, string>;
 
+
 export const CODE: {
   basic: FrameworkCode;
   importStyles: string;
@@ -64,6 +65,23 @@ defineProps<{
   permlink: string;
 }>();
 </script>`,
+    svelte: `<script lang="ts">
+  import { HiveContentRenderer } from "@barddev/honeycomb-svelte";
+
+  let { body, author, permlink }: {
+    body: string;
+    author: string;
+    permlink: string;
+  } = $props();
+</script>
+
+<div class="prose dark:prose-invert hive-renderer max-w-none">
+  <HiveContentRenderer
+    {body}
+    {author}
+    {permlink}
+  />
+</div>`,
   },
 
   importStyles: `/* globals.css */
@@ -91,6 +109,10 @@ export default {
     <HiveContentRenderer :body="body" />
   </div>
 </template>`,
+    svelte: `<!-- Wrap the renderer with prose + hive-renderer classes -->
+<div class="prose dark:prose-invert hive-renderer max-w-none">
+  <HiveContentRenderer {body} />
+</div>`,
   },
 
   customOptions: {
@@ -142,6 +164,26 @@ const rendererOptions = {
   hashtagUrlFn: (tag: string) => \`/tag/\${tag}\`,
 };
 </script>`,
+    svelte: `<script lang="ts">
+  import { HiveContentRenderer } from "@barddev/honeycomb-svelte";
+
+  let { body }: { body: string } = $props();
+
+  const renderer_options = {
+    baseUrl: "https://hive.blog/",
+    cssClassForExternalLinks: "link-external",
+    imageProxyFn: (url: string) => \`https://images.hive.blog/0x0/\${url}\`,
+    usertagUrlFn: (account: string) => \`/user/\${account}\`,
+    hashtagUrlFn: (tag: string) => \`/tag/\${tag}\`,
+  };
+</script>
+
+<HiveContentRenderer
+  {body}
+  author="barddev"
+  permlink="hello-hive"
+  options={renderer_options}
+/>`,
   },
 
   programmatic: `import {

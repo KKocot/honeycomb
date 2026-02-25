@@ -32,11 +32,19 @@ function App() {
 <script setup lang="ts">
 import { ApiTracker } from "@barddev/honeycomb-vue";
 </script>`,
+    svelte: `<script lang="ts">
+  import { ApiTracker } from "@barddev/honeycomb-svelte";
+</script>
+
+<div>
+  <ApiTracker />
+</div>`,
   },
   showUrl: {
     react: `<ApiTracker showUrl side="bottom" />`,
     solid: `<ApiTracker showUrl side="bottom" />`,
     vue: `<ApiTracker :show-url="true" side="bottom" />`,
+    svelte: `<ApiTracker showUrl side="bottom" />`,
   },
 };
 
@@ -111,6 +119,9 @@ export default async function ApiTrackerPage({ params }: PageProps) {
         )}
         {framework === "vue" && (
           <CodeBlock code={CODE.basic.vue} language="vue" />
+        )}
+        {framework === "svelte" && (
+          <CodeBlock code={CODE.basic.svelte} language="svelte" />
         )}
       </section>
 
@@ -191,6 +202,9 @@ export default async function ApiTrackerPage({ params }: PageProps) {
             )}
             {framework === "vue" && (
               <CodeBlock code={CODE.showUrl.vue} language="vue" />
+            )}
+            {framework === "svelte" && (
+              <CodeBlock code={CODE.showUrl.svelte} language="svelte" />
             )}
           </div>
         </div>

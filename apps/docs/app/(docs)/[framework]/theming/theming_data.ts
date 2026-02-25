@@ -251,6 +251,25 @@ export const CODE = {
 <button class="bg-hive-red text-white hover:bg-hive-red/90">
   Vote on Hive
 </button>`,
+    svelte: `<!-- Layout colors - auto adapt to light/dark mode -->
+<div class="bg-hive-background text-hive-foreground border-hive-border">
+  <p class="text-hive-muted-foreground">Muted text</p>
+</div>
+
+<!-- Card component -->
+<div class="bg-hive-card text-hive-card-foreground border-hive-border border rounded-lg p-4">
+  Card content
+</div>
+
+<!-- Status colors -->
+<div class="bg-hive-success/10 text-hive-success">Connected</div>
+<div class="bg-hive-warning/10 text-hive-warning">Connecting...</div>
+<div class="bg-hive-destructive/10 text-hive-destructive">Error</div>
+
+<!-- Brand colors -->
+<button class="bg-hive-red text-white hover:bg-hive-red/90">
+  Vote on Hive
+</button>`,
   },
   cssFiles: `Package exports 3 CSS files:
 

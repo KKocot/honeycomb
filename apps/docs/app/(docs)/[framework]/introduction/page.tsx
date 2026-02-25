@@ -33,12 +33,18 @@ const FRAMEWORK_DEMOS: Record<Framework, DemoConfig[]> = {
   vue: [
     { name: "Vite", desc: "Lightning-fast SPA bundler", app: "demo-vue-vite" },
   ],
+  svelte: [
+    { name: "Vite", desc: "Lightning-fast SPA bundler", app: "demo-svelte-vite" },
+    { name: "SvelteKit", desc: "Full-stack meta-framework with SSR", app: "demo-svelte-kit" },
+    { name: "Astro", desc: "Island architecture with partial hydration", app: "demo-svelte-astro" },
+  ],
 };
 
 const FRAMEWORK_LABELS: Record<Framework, string> = {
   react: "React",
   solid: "Solid.js",
   vue: "Vue 3",
+  svelte: "Svelte 5",
 };
 
 interface PageProps {
@@ -114,7 +120,7 @@ export default async function IntroductionPage({ params }: PageProps) {
           Also Available
         </h2>
         <div className="flex flex-wrap gap-3">
-          {(["react", "solid", "vue"] as const)
+          {(["react", "solid", "vue", "svelte"] as const)
             .filter((fw): fw is Framework => fw !== framework)
             .map((fw) => (
               <Link

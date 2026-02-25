@@ -88,6 +88,28 @@ const healthy_count = computed(() =>
 );
 </script>`,
 
+  useHiveSvelte: `<script lang="ts">
+  import { useHive } from "@barddev/honeycomb-svelte";
+
+  // Do NOT destructure - getters lose reactivity when copied
+  const hive = useHive();
+</script>
+
+{#if hive.is_loading}
+  <p>Connecting to Hive...</p>
+{:else if hive.error}
+  <p>Error: {hive.error}</p>
+{:else}
+  <div>
+    <p>Status: {hive.status}</p>
+    <p>Endpoint: {hive.api_endpoint}</p>
+    <p>Healthy: {hive.endpoints.filter((ep) => ep.healthy).length}</p>
+    <button onclick={hive.refresh_endpoints}>
+      Refresh Endpoints
+    </button>
+  </div>
+{/if}`,
+
   // useHiveChain
   useHiveChainReact: `import { useHiveChain } from "@barddev/honeycomb-react";
 
@@ -183,6 +205,37 @@ async function fetch_global_props() {
 }
 </script>`,
 
+  useHiveChainSvelte: `<script lang="ts">
+  import { useHiveChain } from "@barddev/honeycomb-svelte";
+
+  let { username }: { username: string } = $props();
+
+  // Do NOT destructure - getters lose reactivity when copied
+  const hive_chain = useHiveChain();
+
+  async function fetch_account() {
+    if (!hive_chain.chain) return;
+
+    const result = await hive_chain.chain.api.database_api.find_accounts({
+      accounts: [username],
+    });
+    // result.accounts[0] contains full account data
+  }
+
+  async function fetch_global_props() {
+    if (!hive_chain.chain) return;
+
+    const global_props =
+      await hive_chain.chain.api.database_api.get_dynamic_global_properties({});
+    // global_props.head_block_number, global_props.current_supply, etc.
+  }
+</script>
+
+<div>
+  <button onclick={fetch_account}>Fetch Account</button>
+  <button onclick={fetch_global_props}>Fetch Global Props</button>
+</div>`,
+
   // useApiEndpoint
   useApiEndpointReact: `import { useApiEndpoint } from "@barddev/honeycomb-react";
 
@@ -207,6 +260,14 @@ import { useApiEndpoint } from "@barddev/honeycomb-vue";
 // Returns a Ref - auto-unwrapped in template
 const apiEndpoint = useApiEndpoint();
 </script>`,
+
+  useApiEndpointSvelte: `<script lang="ts">
+  import { useApiEndpoint } from "@barddev/honeycomb-svelte";
+
+  const endpoint = useApiEndpoint();
+</script>
+
+<p>Connected to: {endpoint.url ?? "none"}</p>`,
 
   // useHiveStatus
   useHiveStatusReact: `import { useHiveStatus } from "@barddev/honeycomb-react";
@@ -268,6 +329,25 @@ const healthy_count = computed(
   () => endpoints.value.filter((ep) => ep.healthy).length
 );
 </script>`,
+
+  useHiveStatusSvelte: `<script lang="ts">
+  import { useHiveStatus } from "@barddev/honeycomb-svelte";
+
+  const hive_status = useHiveStatus();
+  let healthy = $derived(
+    hive_status.endpoints.filter((ep) => ep.healthy).length
+  );
+</script>
+
+<div>
+  <p>Status: {hive_status.status}</p>
+  <p>Healthy endpoints: {healthy} / {hive_status.endpoints.length}</p>
+  <ul>
+    {#each hive_status.endpoints as ep (ep.url)}
+      <li>{ep.url} - {ep.healthy ? "OK" : ep.lastError ?? "unhealthy"}</li>
+    {/each}
+  </ul>
+</div>`,
 
   // useHiveAccount
   useHiveAccountReact: `import { useHiveAccount } from "@barddev/honeycomb-react";
@@ -339,6 +419,31 @@ const props = defineProps<{ username: string }>();
 
 const { account, isLoading, error, refetch } = useHiveAccount(props.username);
 </script>`,
+  useHiveAccountSvelte: `<script lang="ts">
+  import { useHiveAccount } from "@barddev/honeycomb-svelte";
+
+  let { username }: { username: string } = $props();
+
+  // Do NOT destructure - getters lose reactivity when copied
+  const result = useHiveAccount(() => username);
+</script>
+
+{#if result.is_loading}
+  <p>Loading account...</p>
+{:else if result.error}
+  <p>Error: {result.error.message}</p>
+{:else if !result.account}
+  <p>Account not found</p>
+{:else}
+  <div>
+    <h2>{result.account.name}</h2>
+    <p>Balance: {result.account.balance}</p>
+    <p>HBD: {result.account.hbd_balance}</p>
+    <p>Posts: {result.account.post_count}</p>
+    <p>Joined: {result.account.created}</p>
+    <button onclick={result.refetch}>Refresh</button>
+  </div>
+{/if}`,
 };
 
 export const USE_HIVE_ACCOUNT_RETURN_VALUES = [
@@ -346,6 +451,7 @@ export const USE_HIVE_ACCOUNT_RETURN_VALUES = [
     react: "account",
     solid: "account",
     vue: "account",
+    svelte: "account",
     type: "HiveAccount | null",
     desc: "Account data (name, balance, hbd_balance, post_count, etc.)",
   },
@@ -353,6 +459,7 @@ export const USE_HIVE_ACCOUNT_RETURN_VALUES = [
     react: "is_loading",
     solid: "is_loading",
     vue: "isLoading",
+    svelte: "is_loading",
     type: "boolean",
     desc: "True while fetching account data",
   },
@@ -360,6 +467,7 @@ export const USE_HIVE_ACCOUNT_RETURN_VALUES = [
     react: "error",
     solid: "error",
     vue: "error",
+    svelte: "error",
     type: "Error | null",
     desc: "Error if fetch failed",
   },
@@ -367,6 +475,7 @@ export const USE_HIVE_ACCOUNT_RETURN_VALUES = [
     react: "refetch",
     solid: "refetch",
     vue: "refetch",
+    svelte: "refetch",
     type: "() => void",
     desc: "Manually re-fetch account data",
   },
@@ -377,6 +486,7 @@ export const USE_HIVE_RETURN_VALUES = [
     react: "chain",
     solid: "chain",
     vue: "chain",
+    svelte: "chain",
     type: "IHiveChainInterface | null",
     desc: "Hive chain instance for API calls",
   },
@@ -384,6 +494,7 @@ export const USE_HIVE_RETURN_VALUES = [
     react: "is_loading",
     solid: "is_loading",
     vue: "isLoading",
+    svelte: "is_loading",
     type: "boolean",
     desc: "True while connecting to blockchain",
   },
@@ -391,6 +502,7 @@ export const USE_HIVE_RETURN_VALUES = [
     react: "error",
     solid: "error",
     vue: "error",
+    svelte: "error",
     type: "string | null",
     desc: "Error message if connection failed",
   },
@@ -398,6 +510,7 @@ export const USE_HIVE_RETURN_VALUES = [
     react: "is_client",
     solid: "is_client",
     vue: "N/A",
+    svelte: "is_client",
     type: "boolean",
     desc: "True when running on client (SSR detection). Not available in Vue package.",
   },
@@ -405,6 +518,7 @@ export const USE_HIVE_RETURN_VALUES = [
     react: "api_endpoint",
     solid: "api_endpoint",
     vue: "apiEndpoint",
+    svelte: "api_endpoint",
     type: "string | null",
     desc: "Currently active API endpoint URL",
   },
@@ -412,6 +526,7 @@ export const USE_HIVE_RETURN_VALUES = [
     react: "status",
     solid: "status",
     vue: "status",
+    svelte: "status",
     type: "ConnectionStatus",
     desc: "Connection state: connecting | connected | reconnecting | disconnected | error",
   },
@@ -419,6 +534,7 @@ export const USE_HIVE_RETURN_VALUES = [
     react: "endpoints",
     solid: "endpoints",
     vue: "endpoints",
+    svelte: "endpoints",
     type: "EndpointStatus[]",
     desc: "Health status of all configured endpoints",
   },
@@ -426,6 +542,7 @@ export const USE_HIVE_RETURN_VALUES = [
     react: "refresh_endpoints",
     solid: "refresh_endpoints",
     vue: "refreshEndpoints",
+    svelte: "refresh_endpoints",
     type: "() => Promise<void>",
     desc: "Manually trigger endpoint health checks",
   },

@@ -35,6 +35,14 @@ function UserProfile() {
 <script setup lang="ts">
 import { HiveAvatar } from "@barddev/honeycomb-vue";
 </script>`,
+    svelte: `<script lang="ts">
+  import { HiveAvatar } from "@barddev/honeycomb-svelte";
+</script>
+
+<div class="flex items-center gap-3">
+  <HiveAvatar username="barddev" size="lg" />
+  <span>@barddev</span>
+</div>`,
   },
   sizes: {
     react: `<HiveAvatar username="barddev" size="xs" />  {/* 24px */}
@@ -54,6 +62,11 @@ import { HiveAvatar } from "@barddev/honeycomb-vue";
   <HiveAvatar username="barddev" size="lg" />  <!-- 48px -->
   <HiveAvatar username="barddev" size="xl" />  <!-- 64px -->
 </template>`,
+    svelte: `<HiveAvatar username="barddev" size="xs" />  <!-- 24px -->
+<HiveAvatar username="barddev" size="sm" />  <!-- 32px -->
+<HiveAvatar username="barddev" size="md" />  <!-- 40px -->
+<HiveAvatar username="barddev" size="lg" />  <!-- 48px -->
+<HiveAvatar username="barddev" size="xl" />  <!-- 64px -->`,
   },
   customStyle: {
     react: `// Custom styling with className
@@ -112,6 +125,24 @@ import { HiveAvatar } from "@barddev/honeycomb-vue";
     <HiveAvatar username="arcange" class="border-2 border-background" />
   </div>
 </template>`,
+    svelte: `<!-- Custom styling with class -->
+<HiveAvatar
+  username="barddev"
+  class="ring-2 ring-hive-red ring-offset-2"
+/>
+
+<!-- With border -->
+<HiveAvatar
+  username="barddev"
+  class="border-2 border-hive-red"
+/>
+
+<!-- Overlapping avatars -->
+<div class="flex -space-x-2">
+  <HiveAvatar username="barddev" class="border-2 border-background" />
+  <HiveAvatar username="blocktrades" class="border-2 border-background" />
+  <HiveAvatar username="arcange" class="border-2 border-background" />
+</div>`,
   },
 };
 
@@ -158,6 +189,9 @@ export default async function AvatarPage({ params }: PageProps) {
         )}
         {framework === "vue" && (
           <CodeBlock code={CODE.basic.vue} language="vue" />
+        )}
+        {framework === "svelte" && (
+          <CodeBlock code={CODE.basic.svelte} language="svelte" />
         )}
       </section>
 
@@ -280,6 +314,9 @@ export default async function AvatarPage({ params }: PageProps) {
             {framework === "vue" && (
               <CodeBlock code={CODE.sizes.vue} language="vue" />
             )}
+            {framework === "svelte" && (
+              <CodeBlock code={CODE.sizes.svelte} language="svelte" />
+            )}
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Custom styling</h3>
@@ -291,6 +328,9 @@ export default async function AvatarPage({ params }: PageProps) {
             )}
             {framework === "vue" && (
               <CodeBlock code={CODE.customStyle.vue} language="vue" />
+            )}
+            {framework === "svelte" && (
+              <CodeBlock code={CODE.customStyle.svelte} language="svelte" />
             )}
           </div>
         </div>

@@ -41,6 +41,16 @@ function UserStats() {
 <script setup lang="ts">
 import { HiveManabar } from "@barddev/honeycomb-vue";
 </script>`,
+    svelte: `<script lang="ts">
+  import { HiveManabar } from "@barddev/honeycomb-svelte";
+</script>
+
+<HiveManabar
+  username="barddev"
+  variant="full"
+  showValues
+  showCooldown
+/>`,
   },
   compact: {
     react: `// Compact variant - small rings in a row
@@ -51,6 +61,8 @@ import { HiveManabar } from "@barddev/honeycomb-vue";
   <!-- Compact variant - small rings in a row -->
   <HiveManabar username="barddev" variant="compact" />
 </template>`,
+    svelte: `<!-- Compact variant - small rings in a row -->
+<HiveManabar username="barddev" variant="compact" />`,
   },
   ring: {
     react: `// Ring variant - single RC ring (for headers/navbars)
@@ -61,6 +73,8 @@ import { HiveManabar } from "@barddev/honeycomb-vue";
   <!-- Ring variant - single RC ring (for headers/navbars) -->
   <HiveManabar username="barddev" variant="ring" />
 </template>`,
+    svelte: `<!-- Ring variant - single RC ring (for headers/navbars) -->
+<HiveManabar username="barddev" variant="ring" />`,
   },
   options: {
     react: `// Full variant with all options
@@ -116,6 +130,23 @@ import { HiveManabar } from "@barddev/honeycomb-vue";
     :showCooldown="false"
   />
 </template>`,
+    svelte: `<!-- Full variant with all options -->
+<HiveManabar
+  username="barddev"
+  variant="full"
+  showLabels={true}
+  showValues={true}
+  showCooldown={true}
+/>
+
+<!-- Minimal display -->
+<HiveManabar
+  username="barddev"
+  variant="full"
+  showLabels={false}
+  showValues={false}
+  showCooldown={false}
+/>`,
   },
 };
 
@@ -160,7 +191,7 @@ export default async function ManabarPage({ params }: PageProps) {
         <h2 className="text-xl font-semibold mb-4">Usage</h2>
         <CodeBlock
           code={CODE.basic[framework]}
-          language={framework === "vue" ? "vue" : "tsx"}
+          language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
         />
       </section>
 
@@ -368,7 +399,7 @@ export default async function ManabarPage({ params }: PageProps) {
             </p>
             <CodeBlock
               code={CODE.compact[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
           <div>
@@ -378,7 +409,7 @@ export default async function ManabarPage({ params }: PageProps) {
             </p>
             <CodeBlock
               code={CODE.ring[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
         </div>
@@ -389,7 +420,7 @@ export default async function ManabarPage({ params }: PageProps) {
         <h2 className="text-xl font-semibold mb-4">Display Options</h2>
         <CodeBlock
           code={CODE.options[framework]}
-          language={framework === "vue" ? "vue" : "tsx"}
+          language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
         />
       </section>
 

@@ -9,6 +9,7 @@ const PACKAGES = {
   react: "@barddev/honeycomb-react",
   solid: "@barddev/honeycomb-solid",
   vue: "@barddev/honeycomb-vue",
+  svelte: "@barddev/honeycomb-svelte",
 } as const;
 
 const pmCommands = (pkg: string) => ({
@@ -170,6 +171,44 @@ import { useHive } from "@barddev/honeycomb-vue";
 const { chain, is_loading, error } = useHive();
 </script>`,
   },
+  svelte: {
+    provider: `<script lang="ts">
+  import { HiveProvider } from "@barddev/honeycomb-svelte";
+  import "@barddev/honeycomb-svelte/styles.css";
+</script>
+
+<HiveProvider>
+  <slot />
+</HiveProvider>`,
+    usage: `<script lang="ts">
+  import { useHive } from "@barddev/honeycomb-svelte";
+
+  const hive = useHive();
+</script>
+
+{#if hive.is_loading}
+  <p>Connecting...</p>
+{:else if hive.error}
+  <p>Error: {hive.error}</p>
+{:else}
+  <p>Connected!</p>
+{/if}`,
+    vite_config: `// vite.config.ts
+import { defineConfig } from "vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+
+export default defineConfig({
+  plugins: [svelte()],
+});`,
+    sveltekit_config: `// svelte.config.js
+import adapter from "@sveltejs/adapter-auto";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
+
+export default {
+  preprocess: vitePreprocess(),
+  kit: { adapter: adapter() },
+};`,
+  },
 };
 
 interface PageProps {
@@ -250,6 +289,14 @@ export default async function InstallationPage({ params }: PageProps) {
                 <CodeBlock filename="App.vue" code={CODE.vue.provider} language="vue" />
               </div>
             )}
+            {framework === "svelte" && (
+              <div className="space-y-4">
+                <p className="mb-3">
+                  Wrap your app with <code>HiveProvider</code>:
+                </p>
+                <CodeBlock filename="+layout.svelte" code={CODE.svelte.provider} language="svelte" />
+              </div>
+            )}
           </Step>
 
           {framework === "solid" && (
@@ -287,6 +334,9 @@ export default async function InstallationPage({ params }: PageProps) {
             )}
             {framework === "vue" && (
               <CodeBlock filename="components/MyComponent.vue" code={CODE.vue.usage} language="vue" />
+            )}
+            {framework === "svelte" && (
+              <CodeBlock filename="components/MyComponent.svelte" code={CODE.svelte.usage} language="svelte" />
             )}
           </Step>
         </Steps>
@@ -371,6 +421,34 @@ export default async function InstallationPage({ params }: PageProps) {
                 Monorepo demo apps may work without it due to Vite workspace
                 resolution.
               </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Framework Guides (Svelte only) */}
+      {framework === "svelte" && (
+        <section>
+          <h2 className="text-xl font-semibold mb-4">Framework Guides</h2>
+          <p className="text-muted-foreground mb-6">
+            Configuration varies by meta-framework. Pick your setup below.
+          </p>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="rounded-lg border border-border bg-card p-4">
+              <h3 className="font-semibold mb-3">Vite</h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                Standard SPA setup with Svelte plugin.
+              </p>
+              <CodeBlock filename="vite.config.ts" code={CODE.svelte.vite_config} language="ts" />
+            </div>
+
+            <div className="rounded-lg border border-border bg-card p-4">
+              <h3 className="font-semibold mb-3">SvelteKit</h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                Full-stack meta-framework with SSR support.
+              </p>
+              <CodeBlock filename="svelte.config.js" code={CODE.svelte.sveltekit_config} language="js" />
             </div>
           </div>
         </section>

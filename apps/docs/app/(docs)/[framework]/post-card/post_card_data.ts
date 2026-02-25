@@ -30,6 +30,14 @@ function PostFeed() {
 <script setup lang="ts">
 import { HivePostCard } from "@barddev/honeycomb-vue";
 </script>`,
+    svelte: `<script lang="ts">
+  import { HivePostCard } from "@barddev/honeycomb-svelte";
+</script>
+
+<HivePostCard
+  author="barddev"
+  permlink="my-first-post"
+/>`,
   },
   variants: {
     react: `// Card (default)
@@ -58,6 +66,14 @@ import { HivePostCard } from "@barddev/honeycomb-vue";
   <!-- Grid -->
   <HivePostCard author="barddev" permlink="post" variant="grid" />
 </template>`,
+    svelte: `<!-- Card (default) -->
+<HivePostCard author="barddev" permlink="post" variant="card" />
+
+<!-- Compact -->
+<HivePostCard author="barddev" permlink="post" variant="compact" />
+
+<!-- Grid -->
+<HivePostCard author="barddev" permlink="post" variant="grid" />`,
   },
   hideElements: {
     react: `// Hide specific elements
@@ -86,6 +102,14 @@ import { HivePostCard } from "@barddev/honeycomb-vue";
 
   <!-- Available options: "author" | "thumbnail" | "payout" | "votes" | "comments" | "time" -->
 </template>`,
+    svelte: `<!-- Hide specific elements -->
+<HivePostCard
+  author="barddev"
+  permlink="my-post"
+  hide={["author", "thumbnail", "payout"]}
+/>
+
+<!-- Available options: "author" | "thumbnail" | "payout" | "votes" | "comments" | "time" -->`,
   },
   customStyle: {
     react: `// Custom styling with className
@@ -108,6 +132,12 @@ import { HivePostCard } from "@barddev/honeycomb-vue";
     class="max-w-xl shadow-lg rounded-2xl"
   />
 </template>`,
+    svelte: `<!-- Custom styling with class -->
+<HivePostCard
+  author="barddev"
+  permlink="my-post"
+  class="max-w-xl shadow-lg rounded-2xl"
+/>`,
   },
   postList: {
     react: `import { HivePostCard } from "@barddev/honeycomb-react";
@@ -162,5 +192,21 @@ defineProps<{
   posts: Array<{ author: string; permlink: string }>;
 }>();
 </script>`,
+    svelte: `<script lang="ts">
+  import { HivePostCard } from "@barddev/honeycomb-svelte";
+
+  let { posts }: {
+    posts: Array<{ author: string; permlink: string }>;
+  } = $props();
+</script>
+
+<div class="space-y-4">
+  {#each posts as post (\`\${post.author}/\${post.permlink}\`)}
+    <HivePostCard
+      author={post.author}
+      permlink={post.permlink}
+    />
+  {/each}
+</div>`,
   },
 };

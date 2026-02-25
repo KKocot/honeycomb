@@ -108,7 +108,7 @@ export default async function ContentRendererPage({ params }: PageProps) {
         <h2 className="text-xl font-semibold mb-4">Usage</h2>
         <CodeBlock
           code={CODE.basic[framework]}
-          language={framework === "vue" ? "vue" : "tsx"}
+          language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
         />
       </section>
 
@@ -137,7 +137,7 @@ export default async function ContentRendererPage({ params }: PageProps) {
             <h3 className="text-sm font-medium mb-2">3. Wrap with classes</h3>
             <CodeBlock
               code={CODE.wrapperClasses[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
         </div>
@@ -417,7 +417,7 @@ export default async function ContentRendererPage({ params }: PageProps) {
             <h3 className="text-sm font-medium mb-2">Custom options</h3>
             <CodeBlock
               code={CODE.customOptions[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
           <div>

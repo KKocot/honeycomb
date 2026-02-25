@@ -2,6 +2,7 @@ export const FRAMEWORKS = [
   { id: "react", label: "React", demo_base: "/demo/react-next/" },
   { id: "solid", label: "Solid.js", demo_base: "/demo/solid-vite/" },
   { id: "vue", label: "Vue 3", demo_base: "/demo/vue-vite/" },
+  { id: "svelte", label: "Svelte 5", demo_base: "/demo/svelte-vite/" },
 ] as const;
 
 export function get_demo_url(framework: Framework): string {

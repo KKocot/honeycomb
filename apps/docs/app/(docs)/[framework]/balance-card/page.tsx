@@ -21,6 +21,11 @@ function WalletPage() {
 <script setup lang="ts">
 import { BalanceCard } from "@barddev/honeycomb-vue";
 </script>`,
+  svelte: `<script lang="ts">
+  import { BalanceCard } from "@barddev/honeycomb-svelte";
+</script>
+
+<BalanceCard username="barddev" />`,
   variants: {
     react: `// Compact
 <BalanceCard username="barddev" variant="compact" />
@@ -48,6 +53,14 @@ import { BalanceCard } from "@barddev/honeycomb-vue";
   <!-- Expanded (with delegations and savings) -->
   <BalanceCard username="barddev" variant="expanded" />
 </template>`,
+    svelte: `<!-- Compact -->
+<BalanceCard username="barddev" variant="compact" />
+
+<!-- Default -->
+<BalanceCard username="barddev" />
+
+<!-- Expanded (with delegations and savings) -->
+<BalanceCard username="barddev" variant="expanded" />`,
   },
   customStyle: {
     react: `<BalanceCard
@@ -64,6 +77,10 @@ import { BalanceCard } from "@barddev/honeycomb-vue";
     class="max-w-md border-hive-red/50"
   />
 </template>`,
+    svelte: `<BalanceCard
+  username="barddev"
+  class="max-w-md border-hive-red/50"
+/>`,
   },
 };
 
@@ -109,6 +126,9 @@ export default async function BalanceCardPage({ params }: PageProps) {
         )}
         {framework === "vue" && (
           <CodeBlock code={CODE.vue} language="vue" />
+        )}
+        {framework === "svelte" && (
+          <CodeBlock code={CODE.svelte} language="svelte" />
         )}
       </section>
 
@@ -285,6 +305,9 @@ export default async function BalanceCardPage({ params }: PageProps) {
             {framework === "vue" && (
               <CodeBlock code={CODE.variants.vue} language="vue" />
             )}
+            {framework === "svelte" && (
+              <CodeBlock code={CODE.variants.svelte} language="svelte" />
+            )}
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Custom styling</h3>
@@ -296,6 +319,9 @@ export default async function BalanceCardPage({ params }: PageProps) {
             )}
             {framework === "vue" && (
               <CodeBlock code={CODE.customStyle.vue} language="vue" />
+            )}
+            {framework === "svelte" && (
+              <CodeBlock code={CODE.customStyle.svelte} language="svelte" />
             )}
           </div>
         </div>

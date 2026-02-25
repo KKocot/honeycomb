@@ -219,7 +219,7 @@ export default async function ThemingPage({ params }: PageProps) {
         <p className="text-muted-foreground mb-4">
           How to use Honeycomb color variables in your components.
         </p>
-        <CodeBlock code={CODE.usage[framework]} language={framework === "vue" ? "vue" : "tsx"} />
+        <CodeBlock code={CODE.usage[framework]} language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"} />
       </section>
 
       {/* Customization */}

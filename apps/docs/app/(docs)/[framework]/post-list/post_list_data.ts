@@ -17,6 +17,11 @@ function TrendingFeed() {
 <script setup lang="ts">
 import { HivePostList } from "@barddev/honeycomb-vue";
 </script>`,
+    svelte: `<script lang="ts">
+  import { HivePostList } from "@barddev/honeycomb-svelte";
+</script>
+
+<HivePostList sort="trending" limit={10} />`,
   },
   sortControls: {
     react: `import { HivePostList } from "@barddev/honeycomb-react";
@@ -54,6 +59,15 @@ function FeedWithControls() {
 <script setup lang="ts">
 import { HivePostList } from "@barddev/honeycomb-vue";
 </script>`,
+    svelte: `<script lang="ts">
+  import { HivePostList } from "@barddev/honeycomb-svelte";
+</script>
+
+<HivePostList
+  sort="trending"
+  tag="hive"
+  show_sort_controls
+/>`,
   },
   pinnedPosts: {
     react: `import { HivePostList } from "@barddev/honeycomb-react";
@@ -99,6 +113,19 @@ const pinned = [
   { author: "barddev", permlink: "hive-ui-announcement" },
 ];
 </script>`,
+    svelte: `<script lang="ts">
+  import { HivePostList } from "@barddev/honeycomb-svelte";
+
+  const pinned = [
+    { author: "hiveio", permlink: "welcome-to-hive" },
+    { author: "barddev", permlink: "hive-ui-announcement" },
+  ];
+</script>
+
+<HivePostList
+  sort="created"
+  pinned_posts={pinned}
+/>`,
   },
   variants: {
     react: `// Compact (default) - single-line rows
@@ -127,6 +154,14 @@ const pinned = [
   <!-- Grid - responsive image grid -->
   <HivePostList sort="trending" variant="grid" />
 </template>`,
+    svelte: `<!-- Compact (default) - single-line rows -->
+<HivePostList sort="trending" variant="compact" />
+
+<!-- Card - full post cards with body preview -->
+<HivePostList sort="trending" variant="card" />
+
+<!-- Grid - responsive image grid -->
+<HivePostList sort="trending" variant="grid" />`,
   },
   hideElements: {
     react: `// Hide specific elements from post items
@@ -152,6 +187,13 @@ const pinned = [
 
   <!-- Available: "author" | "thumbnail" | "payout" | "votes" | "comments" | "time" -->
 </template>`,
+    svelte: `<!-- Hide specific elements from post items -->
+<HivePostList
+  sort="trending"
+  hide={["thumbnail", "payout", "time"]}
+/>
+
+<!-- Available: "author" | "thumbnail" | "payout" | "votes" | "comments" | "time" -->`,
   },
   communityPosts: {
     react: `import { HivePostList } from "@barddev/honeycomb-react";
@@ -193,6 +235,16 @@ function LeoFinanceFeed() {
 <script setup lang="ts">
 import { HivePostList } from "@barddev/honeycomb-vue";
 </script>`,
+    svelte: `<script lang="ts">
+  import { HivePostList } from "@barddev/honeycomb-svelte";
+</script>
+
+<HivePostList
+  tag="hive-167922"
+  sort="trending"
+  show_sort_controls
+  limit={10}
+/>`,
   },
   tagFilter: {
     react: `import { HivePostList } from "@barddev/honeycomb-react";
@@ -230,6 +282,15 @@ function PhotographyFeed() {
 <script setup lang="ts">
 import { HivePostList } from "@barddev/honeycomb-vue";
 </script>`,
+    svelte: `<script lang="ts">
+  import { HivePostList } from "@barddev/honeycomb-svelte";
+</script>
+
+<HivePostList
+  tag="photography"
+  sort="created"
+  limit={10}
+/>`,
   },
   hookUsage: {
     react: `import { useHivePostList } from "@barddev/honeycomb-react";
@@ -353,5 +414,43 @@ import { useHivePostList } from "@barddev/honeycomb-vue";
 const sorts = ["trending", "hot", "created"];
 const feed = useHivePostList({ sort: "trending", tag: "hive", limit: 10 });
 </script>`,
+    svelte: `<script lang="ts">
+  import { useHivePostList } from "@barddev/honeycomb-svelte";
+
+  const sorts = ["trending", "hot", "created"];
+  const feed = useHivePostList({ sort: "trending", tag: "hive", limit: 10 });
+</script>
+
+{#if feed.is_loading}
+  <p>Loading...</p>
+{:else if feed.error}
+  <p>Error: {feed.error.message}</p>
+{:else}
+  <div>
+    <div class="flex gap-2 mb-4">
+      {#each sorts as s}
+        <button
+          class:font-bold={feed.sort === s}
+          onclick={() => feed.set_sort(s)}
+        >
+          {s}
+        </button>
+      {/each}
+    </div>
+
+    {#each feed.posts as post (\`\${post.author}/\${post.permlink}\`)}
+      <article>
+        <h3>{post.title}</h3>
+        <p>by @{post.author} - {post.payout_value}</p>
+      </article>
+    {/each}
+
+    <div class="flex gap-2 mt-4">
+      <button onclick={feed.prev_page} disabled={!feed.has_prev}>Previous</button>
+      <span>Page {feed.page}</span>
+      <button onclick={feed.next_page} disabled={!feed.has_next}>Next</button>
+    </div>
+  </div>
+{/if}`,
   },
 };

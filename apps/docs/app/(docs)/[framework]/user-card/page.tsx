@@ -31,6 +31,13 @@ function ProfilePage() {
 <script setup>
 import { UserCard } from "@barddev/honeycomb-vue";
 </script>`,
+  svelte: `<script lang="ts">
+  import { UserCard } from "@barddev/honeycomb-svelte";
+</script>
+
+<div class="max-w-md">
+  <UserCard username="barddev" />
+</div>`,
   variants: {
     react: `// Compact - inline display
 <UserCard username="blocktrades" variant="compact" />
@@ -58,6 +65,14 @@ import { UserCard } from "@barddev/honeycomb-vue";
   <!-- Expanded - full profile card with cover image -->
   <UserCard username="blocktrades" variant="expanded" />
 </template>`,
+    svelte: `<!-- Compact - inline display -->
+<UserCard username="blocktrades" variant="compact" />
+
+<!-- Default - card with basic info -->
+<UserCard username="blocktrades" variant="default" />
+
+<!-- Expanded - full profile card with cover image -->
+<UserCard username="blocktrades" variant="expanded" />`,
   },
   withoutStats: {
     react: `// Hide post count and balances
@@ -68,6 +83,8 @@ import { UserCard } from "@barddev/honeycomb-vue";
   <!-- Hide post count and balances -->
   <UserCard username="blocktrades" :showStats="false" />
 </template>`,
+    svelte: `<!-- Hide post count and balances -->
+<UserCard username="blocktrades" showStats={false} />`,
   },
   customStyle: {
     react: `<UserCard
@@ -84,6 +101,10 @@ import { UserCard } from "@barddev/honeycomb-vue";
     class="bg-hive-red/10 border-hive-red"
   />
 </template>`,
+    svelte: `<UserCard
+  username="blocktrades"
+  class="bg-hive-red/10 border-hive-red"
+/>`,
   },
 };
 
@@ -129,6 +150,9 @@ export default async function UserCardPage({ params }: PageProps) {
         )}
         {framework === "vue" && (
           <CodeBlock code={CODE.vue} language="vue" />
+        )}
+        {framework === "svelte" && (
+          <CodeBlock code={CODE.svelte} language="svelte" />
         )}
       </section>
 
@@ -252,6 +276,9 @@ export default async function UserCardPage({ params }: PageProps) {
             {framework === "vue" && (
               <CodeBlock code={CODE.variants.vue} language="vue" />
             )}
+            {framework === "svelte" && (
+              <CodeBlock code={CODE.variants.svelte} language="svelte" />
+            )}
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Without stats</h3>
@@ -264,6 +291,9 @@ export default async function UserCardPage({ params }: PageProps) {
             {framework === "vue" && (
               <CodeBlock code={CODE.withoutStats.vue} language="vue" />
             )}
+            {framework === "svelte" && (
+              <CodeBlock code={CODE.withoutStats.svelte} language="svelte" />
+            )}
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Custom styling</h3>
@@ -275,6 +305,9 @@ export default async function UserCardPage({ params }: PageProps) {
             )}
             {framework === "vue" && (
               <CodeBlock code={CODE.customStyle.vue} language="vue" />
+            )}
+            {framework === "svelte" && (
+              <CodeBlock code={CODE.customStyle.svelte} language="svelte" />
             )}
           </div>
         </div>

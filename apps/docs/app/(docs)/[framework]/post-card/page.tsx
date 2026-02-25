@@ -53,7 +53,7 @@ export default async function PostCardPage({ params }: PageProps) {
         <h2 className="text-xl font-semibold mb-4">Usage</h2>
         <CodeBlock
           code={CODE.basic[framework]}
-          language={framework === "vue" ? "vue" : "tsx"}
+          language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
         />
       </section>
 
@@ -256,28 +256,28 @@ export default async function PostCardPage({ params }: PageProps) {
             <h3 className="text-sm font-medium mb-2">Variants</h3>
             <CodeBlock
               code={CODE.variants[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Hide elements</h3>
             <CodeBlock
               code={CODE.hideElements[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Custom styling</h3>
             <CodeBlock
               code={CODE.customStyle[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Render post list</h3>
             <CodeBlock
               code={CODE.postList[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
         </div>

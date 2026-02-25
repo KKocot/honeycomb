@@ -39,6 +39,16 @@ import { HiveMarkdownEditor } from "@/components/hive/content";
 
 const content = ref("");
 </script>`,
+    svelte: `<script lang="ts">
+  import { HiveMarkdownEditor } from "@/components/hive/content";
+
+  let content = $state("");
+</script>
+
+<HiveMarkdownEditor
+  value={content}
+  onChange={(val) => (content = val)}
+/>`,
   },
   withTheme: {
     react: `// Sync with your app's theme
@@ -86,6 +96,23 @@ import { useColorMode } from "@vueuse/core";
 const content = ref("");
 const { store: resolvedTheme } = useColorMode();
 </script>`,
+    svelte: `<script lang="ts">
+  import { HiveMarkdownEditor } from "@/components/hive/content";
+
+  let content = $state("");
+
+  // Use your preferred theme detection method
+  const is_dark = $derived(
+    document.documentElement.classList.contains("dark")
+  );
+  const theme = $derived(is_dark ? "dark" : "light");
+</script>
+
+<HiveMarkdownEditor
+  value={content}
+  onChange={(val) => (content = val)}
+  {theme}
+/>`,
   },
   fullHeight: {
     react: `// Full height editor
@@ -113,6 +140,14 @@ const { store: resolvedTheme } = useColorMode();
     />
   </div>
 </template>`,
+    svelte: `<!-- Full height editor -->
+<div class="h-[500px]">
+  <HiveMarkdownEditor
+    value={content}
+    onChange={(val) => (content = val)}
+    class="!h-full"
+  />
+</div>`,
   },
   withRenderer: {
     react: `// Editor with live preview using ContentRenderer
@@ -161,5 +196,20 @@ import { HiveMarkdownEditor, HiveContentRenderer } from "@/components/hive/conte
 
 const content = ref("");
 </script>`,
+    svelte: `<script lang="ts">
+  import { HiveMarkdownEditor, HiveContentRenderer } from "@/components/hive/content";
+
+  let content = $state("");
+</script>
+
+<div class="grid grid-cols-2 gap-4 h-[600px]">
+  <HiveMarkdownEditor
+    value={content}
+    onChange={(val) => (content = val)}
+  />
+  <div class="overflow-auto border rounded-lg p-4">
+    <HiveContentRenderer {content} />
+  </div>
+</div>`,
   },
 };

@@ -135,6 +135,29 @@ import { useHive } from "@barddev/honeycomb-vue";
 
 const { chain, is_loading, error, status, api_endpoint } = useHive();
 </script>`,
+  svelteBasic: `<script lang="ts">
+  import { HiveProvider, useHive } from "@barddev/honeycomb-svelte";
+
+  const hive = useHive();
+</script>
+
+<HiveProvider
+  apiEndpoints={[
+    "https://api.hive.blog",
+    "https://api.openhive.network",
+    "https://api.syncad.com",
+  ]}
+  timeout={5000}
+  healthCheckInterval={30000}
+>
+  {#if hive.is_loading}
+    <p>Loading...</p>
+  {:else if hive.error}
+    <p>Error: {hive.error}</p>
+  {:else}
+    <p>Connected!</p>
+  {/if}
+</HiveProvider>`,
   customNodes: `import { HiveProvider } from "@barddev/honeycomb-react";
 
 <HiveProvider
@@ -208,6 +231,10 @@ export default async function HiveProviderPage({ params }: PageProps) {
               <CodeBlock code={CODE.vueChild} language="vue" filename="MyComponent.vue" />
             </div>
           </div>
+        )}
+
+        {framework === "svelte" && (
+          <CodeBlock code={CODE.svelteBasic} language="svelte" />
         )}
       </section>
 

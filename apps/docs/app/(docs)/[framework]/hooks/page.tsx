@@ -97,6 +97,21 @@ export default async function HooksPage({ params }: PageProps) {
           </div>
         )}
 
+        {framework === "svelte" && (
+          <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4 mb-6">
+            <div className="flex gap-3">
+              <Info className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+              <div>
+                <p className="font-medium text-blue-500">Svelte Reactivity</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  All values are reactive &mdash; use them directly in the
+                  template. Use <code>$:</code> for derived values.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {framework === "react" && (
           <CodeBlock code={CODE.useHiveReact} language="tsx" />
         )}
@@ -105,6 +120,9 @@ export default async function HooksPage({ params }: PageProps) {
         )}
         {framework === "vue" && (
           <CodeBlock code={CODE.useHiveVue} language="vue" />
+        )}
+        {framework === "svelte" && (
+          <CodeBlock code={CODE.useHiveSvelte} language="svelte" />
         )}
       </section>
 
@@ -145,6 +163,9 @@ export default async function HooksPage({ params }: PageProps) {
         {framework === "vue" && (
           <CodeBlock code={CODE.useHiveChainVue} language="vue" />
         )}
+        {framework === "svelte" && (
+          <CodeBlock code={CODE.useHiveChainSvelte} language="svelte" />
+        )}
       </section>
 
       {/* useApiEndpoint */}
@@ -163,6 +184,9 @@ export default async function HooksPage({ params }: PageProps) {
         )}
         {framework === "vue" && (
           <CodeBlock code={CODE.useApiEndpointVue} language="vue" />
+        )}
+        {framework === "svelte" && (
+          <CodeBlock code={CODE.useApiEndpointSvelte} language="svelte" />
         )}
       </section>
 
@@ -242,6 +266,9 @@ export default async function HooksPage({ params }: PageProps) {
         )}
         {framework === "vue" && (
           <CodeBlock code={CODE.useHiveStatusVue} language="vue" />
+        )}
+        {framework === "svelte" && (
+          <CodeBlock code={CODE.useHiveStatusSvelte} language="svelte" />
         )}
       </section>
 
@@ -353,6 +380,9 @@ export default async function HooksPage({ params }: PageProps) {
         )}
         {framework === "vue" && (
           <CodeBlock code={CODE.useHiveAccountVue} language="vue" />
+        )}
+        {framework === "svelte" && (
+          <CodeBlock code={CODE.useHiveAccountSvelte} language="svelte" />
         )}
       </section>
 

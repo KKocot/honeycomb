@@ -105,7 +105,7 @@ export default async function MarkdownEditorPage({ params }: PageProps) {
         <h2 className="text-xl font-semibold mb-4">Usage</h2>
         <CodeBlock
           code={CODE.basic[framework]}
-          language={framework === "vue" ? "vue" : "tsx"}
+          language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
         />
       </section>
 
@@ -266,14 +266,14 @@ export default async function MarkdownEditorPage({ params }: PageProps) {
             <h3 className="text-sm font-medium mb-2">With theme support</h3>
             <CodeBlock
               code={CODE.withTheme[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Full height editor</h3>
             <CodeBlock
               code={CODE.fullHeight[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
           <div>
@@ -282,7 +282,7 @@ export default async function MarkdownEditorPage({ params }: PageProps) {
             </h3>
             <CodeBlock
               code={CODE.withRenderer[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
         </div>

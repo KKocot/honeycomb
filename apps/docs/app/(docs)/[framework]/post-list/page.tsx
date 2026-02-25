@@ -60,7 +60,7 @@ export default async function PostListPage({ params }: PageProps) {
         <h2 className="text-xl font-semibold mb-4">Usage</h2>
         <CodeBlock
           code={CODE.basic[framework]}
-          language={framework === "vue" ? "vue" : "tsx"}
+          language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
         />
       </section>
 
@@ -478,7 +478,7 @@ export default async function PostListPage({ params }: PageProps) {
         <h3 className="text-sm font-medium mb-2">Example</h3>
         <CodeBlock
           code={CODE.hookUsage[framework]}
-          language={framework === "vue" ? "vue" : "tsx"}
+          language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
         />
       </section>
 
@@ -499,7 +499,7 @@ export default async function PostListPage({ params }: PageProps) {
             </p>
             <CodeBlock
               code={CODE.communityPosts[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
           <div>
@@ -509,35 +509,35 @@ export default async function PostListPage({ params }: PageProps) {
             </p>
             <CodeBlock
               code={CODE.tagFilter[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Sort controls</h3>
             <CodeBlock
               code={CODE.sortControls[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Pinned posts</h3>
             <CodeBlock
               code={CODE.pinnedPosts[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Variants</h3>
             <CodeBlock
               code={CODE.variants[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
           <div>
             <h3 className="text-sm font-medium mb-2">Hide elements</h3>
             <CodeBlock
               code={CODE.hideElements[framework]}
-              language={framework === "vue" ? "vue" : "tsx"}
+              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
             />
           </div>
         </div>
