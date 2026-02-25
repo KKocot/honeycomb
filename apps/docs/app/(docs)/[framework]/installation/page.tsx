@@ -159,7 +159,7 @@ import { HiveProvider } from "@barddev/honeycomb-vue";
 </script>`,
     usage: `<template>
   <div>
-    <p v-if="is_loading">Connecting...</p>
+    <p v-if="isLoading">Connecting...</p>
     <p v-else-if="error">Error: {{ error }}</p>
     <p v-else>Connected!</p>
   </div>
@@ -168,7 +168,7 @@ import { HiveProvider } from "@barddev/honeycomb-vue";
 <script setup lang="ts">
 import { useHive } from "@barddev/honeycomb-vue";
 
-const { chain, is_loading, error } = useHive();
+const { chain, isLoading, error } = useHive();
 </script>`,
   },
   svelte: {

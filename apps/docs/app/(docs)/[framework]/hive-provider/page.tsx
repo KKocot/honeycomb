@@ -106,13 +106,13 @@ function MyComponent() {
     :health-check-interval="30000"
     :on-endpoint-change="onEndpointChange"
   >
-    <MyComponent />
+    <HomePage />
   </HiveProvider>
 </template>
 
 <script setup lang="ts">
 import { HiveProvider } from "@barddev/honeycomb-vue";
-import MyComponent from "./MyComponent.vue";
+import HomePage from "./pages/index.vue";
 
 const endpoints = [
   "https://api.hive.blog",
@@ -124,16 +124,16 @@ const onEndpointChange = (ep: string) => console.log("Switched to:", ep);
 </script>`,
   vueChild: `<template>
   <div>
-    <p v-if="is_loading">Connecting...</p>
+    <p v-if="isLoading">Connecting...</p>
     <p v-else-if="error">Error: {{ error }}</p>
-    <p v-else>Connected to {{ api_endpoint }}</p>
+    <p v-else>Connected to {{ apiEndpoint }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useHive } from "@barddev/honeycomb-vue";
 
-const { chain, is_loading, error, status, api_endpoint } = useHive();
+const { chain, isLoading, error, status, apiEndpoint } = useHive();
 </script>`,
   svelteBasic: `<script lang="ts">
   import { HiveProvider, useHive } from "@barddev/honeycomb-svelte";
