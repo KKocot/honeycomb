@@ -27,7 +27,7 @@ export function CodeBlockClient({
       )}
     >
       {filename && (
-        <div className="flex items-center justify-between border-b border-border bg-[#161b22] px-4 py-2">
+        <div className="flex items-center justify-between border-b border-border bg-[#21252b] px-4 py-2">
           <span className="text-sm text-zinc-400">{filename}</span>
           <CopyButton value={code} />
         </div>
@@ -39,14 +39,14 @@ export function CodeBlockClient({
         {highlightedHtml ? (
           <div
             className={cn(
-              "[&>pre]:p-4 [&>pre]:overflow-x-auto [&>pre]:text-sm [&>pre]:!bg-[#0d1117] [&>pre]:m-0",
+              "[&>pre]:p-4 [&>pre]:overflow-x-auto [&>pre]:text-sm [&>pre]:!bg-[#282c34] [&>pre]:m-0",
               "[&_.line]:leading-relaxed",
               !filename && "[&>pre]:pr-12"
             )}
             dangerouslySetInnerHTML={{ __html: highlightedHtml }}
           />
         ) : (
-          <pre className={cn("p-4 overflow-x-auto text-sm bg-[#0d1117] m-0", !filename && "pr-12")}>
+          <pre className={cn("p-4 overflow-x-auto text-sm bg-[#282c34] m-0", !filename && "pr-12")}>
             <code className={`language-${language}`}>{code}</code>
           </pre>
         )}

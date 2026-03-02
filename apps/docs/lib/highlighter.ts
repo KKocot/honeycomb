@@ -25,6 +25,7 @@ export async function getHighlighter(): Promise<Highlighter> {
         "css",
         "html",
         "vue",
+        "svelte",
       ],
     });
   }

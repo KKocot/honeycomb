@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Code2, Puzzle, Zap } from "lucide-react";
+import { CodeBlock } from "@/components/code-block";
 
 export default function LandingPage() {
   return (
@@ -67,15 +68,10 @@ export default function LandingPage() {
         <h2 className="mb-6 text-center text-3xl font-bold">
           Simple to Use
         </h2>
-        <div className="overflow-hidden rounded-lg border border-border bg-card">
-          <div className="border-b border-border bg-muted px-4 py-2">
-            <span className="font-mono text-sm text-muted-foreground">
-              App.tsx
-            </span>
-          </div>
-          <pre className="overflow-x-auto p-6">
-            <code className="text-sm">
-{`import { HiveProvider, HiveAvatar } from '@barddev/honeycomb-react'
+        <CodeBlock
+          language="tsx"
+          filename="App.tsx"
+          code={`import { HiveProvider, HiveAvatar } from '@barddev/honeycomb-react'
 
 export default function App() {
   return (
@@ -84,9 +80,7 @@ export default function App() {
     </HiveProvider>
   )
 }`}
-            </code>
-          </pre>
-        </div>
+        />
       </div>
 
       {/* CTA Section */}
