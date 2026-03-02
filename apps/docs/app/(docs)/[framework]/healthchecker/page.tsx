@@ -56,7 +56,7 @@ const healthCheckerServices: HealthCheckerServiceConfig[] = [
         title: "Database - Find accounts",
         method: chain.api.database_api.find_accounts,
         params: { accounts: ["hiveio"], delayed_votes_active: false },
-        validatorFunction: (data: any) =>
+        validatorFunction: (data: unknown) =>
           data?.accounts?.[0]?.name === "hiveio"
             ? true
             : "Find accounts error",
@@ -65,7 +65,7 @@ const healthCheckerServices: HealthCheckerServiceConfig[] = [
         title: "Database - Dynamic global properties",
         method: chain.api.database_api.get_dynamic_global_properties,
         params: {},
-        validatorFunction: (data: any) =>
+        validatorFunction: (data: unknown) =>
           !!data?.head_block_number
             ? true
             : "Dynamic global properties error",
@@ -120,7 +120,7 @@ const healthCheckerServices: HealthCheckerServiceConfig[] = [
         title: "Database - Find accounts",
         method: chain.api.database_api.find_accounts,
         params: { accounts: ["hiveio"], delayed_votes_active: false },
-        validatorFunction: (data: any) =>
+        validatorFunction: (data: unknown) =>
           data?.accounts?.[0]?.name === "hiveio"
             ? true
             : "Find accounts error",
@@ -129,7 +129,7 @@ const healthCheckerServices: HealthCheckerServiceConfig[] = [
         title: "Database - Dynamic global properties",
         method: chain.api.database_api.get_dynamic_global_properties,
         params: {},
-        validatorFunction: (data: any) =>
+        validatorFunction: (data: unknown) =>
           !!data?.head_block_number
             ? true
             : "Dynamic global properties error",
@@ -174,14 +174,14 @@ const healthCheckerServices: HealthCheckerServiceConfig[] = [
           title: "Database - Find accounts",
           method: chain.api.database_api.find_accounts,
           params: { accounts: ["hiveio"], delayed_votes_active: false },
-          validatorFunction: (data: any) =>
+          validatorFunction: (data: unknown) =>
             data?.accounts?.[0]?.name === "hiveio" ? true : "Error",
         },
         {
           title: "Bridge - Get Ranked Posts",
           method: api.bridge.get_ranked_posts,
           params: { observer: "hive.blog", tag: "", limit: 10, sort: "trending" },
-          validatorFunction: (data: any) =>
+          validatorFunction: (data: unknown) =>
             data?.length > 0 ? true : "Bridge API error",
         },
       ];
@@ -199,7 +199,7 @@ const healthCheckerServices: HealthCheckerServiceConfig[] = [
         title: "Database - Dynamic global properties",
         method: chain.api.database_api.get_dynamic_global_properties,
         params: {},
-        validatorFunction: (data: any) =>
+        validatorFunction: (data: unknown) =>
           !!data?.head_block_number ? true : "Error",
       },
     ],
@@ -254,14 +254,14 @@ const healthCheckerServices: HealthCheckerServiceConfig[] = [
           title: "Database - Find accounts",
           method: chain.api.database_api.find_accounts,
           params: { accounts: ["hiveio"], delayed_votes_active: false },
-          validatorFunction: (data: any) =>
+          validatorFunction: (data: unknown) =>
             data?.accounts?.[0]?.name === "hiveio" ? true : "Error",
         },
         {
           title: "Bridge - Get Ranked Posts",
           method: api.bridge.get_ranked_posts,
           params: { observer: "hive.blog", tag: "", limit: 10, sort: "trending" },
-          validatorFunction: (data: any) =>
+          validatorFunction: (data: unknown) =>
             data?.length > 0 ? true : "Bridge API error",
         },
       ];
@@ -283,7 +283,7 @@ const healthCheckerServices: HealthCheckerServiceConfig[] = [
         title: "Database - Dynamic global properties",
         method: chain.api.database_api.get_dynamic_global_properties,
         params: {},
-        validatorFunction: (data: any) =>
+        validatorFunction: (data: unknown) =>
           !!data?.head_block_number ? true : "Error",
       },
     ],
@@ -295,7 +295,7 @@ const healthCheckerServices: HealthCheckerServiceConfig[] = [
   title: "Database - Find accounts",
   method: chain.api.database_api.find_accounts,
   params: { accounts: ["hiveio"], delayed_votes_active: false },
-  validatorFunction: (data: any) =>
+  validatorFunction: (data: unknown) =>
     data?.accounts?.[0]?.name === "hiveio"
       ? true           // check passed
       : "Account not found"  // error message
@@ -365,16 +365,35 @@ export default async function HealthCheckerPage({ params }: PageProps) {
         </p>
       </div>
 
-      {/* Solid-only note */}
-      {framework !== "react" && framework !== "vue" && (
+      {/* Solid note */}
+      {framework === "solid" && (
         <section className="rounded-lg border border-yellow-500/20 bg-yellow-500/5 p-4">
           <div className="flex gap-3">
             <AlertTriangle className="h-5 w-5 text-yellow-500 shrink-0 mt-0.5" />
             <div>
-              <p className="font-medium text-yellow-500">React &amp; Vue Only</p>
+              <p className="font-medium text-yellow-500">Not Available for Solid.js</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                The HealthChecker component is currently available for React and Vue.
-                Solid.js support is planned for a future release.
+                The HealthChecker component is not available for Solid.js.
+                Support is planned for a future release.
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Svelte note */}
+      {framework === "svelte" && (
+        <section className="rounded-lg border border-yellow-500/20 bg-yellow-500/5 p-4">
+          <div className="flex gap-3">
+            <AlertTriangle className="h-5 w-5 text-yellow-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="font-medium text-yellow-500">Svelte: Programmatic API Only</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                The HealthChecker UI component is available for React and Vue.
+                Svelte provides programmatic access via{" "}
+                <code className="rounded bg-muted px-1 py-0.5 text-xs">HealthCheckerService</code>{" "}
+                and{" "}
+                <code className="rounded bg-muted px-1 py-0.5 text-xs">createDefaultCheckers</code>.
               </p>
             </div>
           </div>

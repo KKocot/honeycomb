@@ -13,6 +13,7 @@ type DemoConfig = {
   name: string;
   desc: string;
   app: string;
+  comingSoon?: boolean;
 };
 
 const GITHUB_APPS_BASE =
@@ -36,9 +37,9 @@ const FRAMEWORK_DEMOS: Record<Framework, DemoConfig[]> = {
     { name: "Astro", desc: "Island architecture with partial hydration", app: "demo-vue-astro" },
   ],
   svelte: [
-    { name: "Vite", desc: "Lightning-fast SPA bundler", app: "demo-svelte-vite" },
-    { name: "SvelteKit", desc: "Full-stack meta-framework with SSR", app: "demo-svelte-kit" },
-    { name: "Astro", desc: "Island architecture with partial hydration", app: "demo-svelte-astro" },
+    { name: "Vite", desc: "Lightning-fast SPA bundler", app: "demo-svelte-vite", comingSoon: true },
+    { name: "SvelteKit", desc: "Full-stack meta-framework with SSR", app: "demo-svelte-kit", comingSoon: true },
+    { name: "Astro", desc: "Island architecture with partial hydration", app: "demo-svelte-astro", comingSoon: true },
   ],
 };
 
@@ -98,21 +99,42 @@ export default async function IntroductionPage({ params }: PageProps) {
         </p>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          {FRAMEWORK_DEMOS[framework].map((demo) => (
-            <a
-              key={demo.app}
-              href={`${GITHUB_APPS_BASE}/${demo.app}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group rounded-lg border border-border bg-card p-4 transition-colors hover:border-hive-red/50"
-            >
-              <div className="flex items-start justify-between">
-                <h3 className="text-sm font-semibold">{demo.name}</h3>
-                <ExternalLink className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-hive-red" />
+          {FRAMEWORK_DEMOS[framework].map((demo) =>
+            demo.comingSoon ? (
+              <div
+                key={demo.app}
+                className="rounded-lg border border-border bg-card p-4 opacity-60"
+              >
+                <div className="flex items-start justify-between">
+                  <h3 className="text-sm font-semibold">
+                    {demo.name}{" "}
+                    <span className="text-xs font-normal text-muted-foreground">
+                      (Coming Soon)
+                    </span>
+                  </h3>
+                </div>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {demo.desc}
+                </p>
               </div>
-              <p className="mt-1 text-sm text-muted-foreground">{demo.desc}</p>
-            </a>
-          ))}
+            ) : (
+              <a
+                key={demo.app}
+                href={`${GITHUB_APPS_BASE}/${demo.app}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group rounded-lg border border-border bg-card p-4 transition-colors hover:border-hive-red/50"
+              >
+                <div className="flex items-start justify-between">
+                  <h3 className="text-sm font-semibold">{demo.name}</h3>
+                  <ExternalLink className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-hive-red" />
+                </div>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {demo.desc}
+                </p>
+              </a>
+            )
+          )}
         </div>
       </div>
 

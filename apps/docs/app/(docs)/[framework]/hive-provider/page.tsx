@@ -30,7 +30,9 @@ function App() {
       ]}
       timeout={5000}
       healthCheckInterval={30000}
-      onEndpointChange={(ep) => console.log("Switched to:", ep)}
+      onEndpointChange={(ep) => {
+        // handle endpoint change
+      }}
     >
       <YourApp />
     </HiveProvider>
@@ -51,7 +53,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       ]}
       timeout={5000}
       healthCheckInterval={30000}
-      onEndpointChange={(ep) => console.log("Switched to:", ep)}
+      onEndpointChange={(ep) => {
+        // handle endpoint change
+      }}
     >
       {children}
     </HiveProvider>
@@ -120,7 +124,9 @@ const endpoints = [
   "https://api.syncad.com",
 ];
 
-const onEndpointChange = (ep: string) => console.log("Switched to:", ep);
+const onEndpointChange = (ep: string) => {
+  // handle endpoint change
+};
 </script>`,
   vueChild: `<template>
   <div>
