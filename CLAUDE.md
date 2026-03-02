@@ -53,8 +53,7 @@ pnpm lint             # Lint all
 ### Docs App (`apps/docs`)
 
 **Key directories:**
-- `app/docs/` - Documentation pages (file-based routing)
-- `app/examples/page.tsx` - Interactive component showcase with live demos
+- `app/(docs)/[framework]/` - Documentation pages (file-based routing with framework param)
 - `components/` - Shared UI components for docs site (CodeBlock, InstallationTabs, etc.)
 - `lib/docs-config.ts` - Navigation structure
 - `lib/highlighter.ts` - Shiki code highlighting (singleton pattern, theme: one-dark-pro)
