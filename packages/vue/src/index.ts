@@ -117,6 +117,51 @@ export type {
   StateListener,
 } from "@kkocot/honeycomb-core";
 
+// Editor
+export {
+  MdEditor,
+  type MdEditorProps,
+  EditorToolbar,
+  type EditorToolbarProps,
+  EditorPreview,
+  type EditorPreviewProps,
+  use_codemirror,
+  type UseCodemirrorOptions,
+  type UseCodemirrorReturn,
+  use_draft,
+  type UseDraftOptions,
+  type UseDraftReturn,
+} from "./editor/index.js";
+
+// Re-export editor types from core
+export type {
+  PreviewMode,
+  EditorTheme,
+  ToolbarItemType,
+  EditorActionContext,
+  EditorActionResult,
+  ToolbarAction,
+  ToolbarItem,
+  UploadResult,
+  UploadHandler,
+  DraftData,
+  DraftConfig,
+  PasteData,
+  KeyboardShortcut,
+  EditorPlugin,
+  EditorState as MdEditorState,
+  MdEditorCallbacks,
+  MdEditorConfig,
+} from "@kkocot/honeycomb-core";
+
+// Re-export editor utilities from core
+export {
+  DEFAULT_TOOLBAR,
+  convert_hive_urls_in_text,
+  insert_image_markdown,
+  create_hive_upload_handler,
+} from "@kkocot/honeycomb-core";
+
 // Re-export default endpoints
 export { DEFAULT_API_ENDPOINTS } from "@kkocot/honeycomb-core";
 

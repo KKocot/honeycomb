@@ -128,3 +128,33 @@ export {
   DEFAULT_PLUGINS,
   HighlightPlugin,
 } from "@kkocot/honeycomb-renderer";
+
+// Markdown Editor
+export { MdEditor, type MdEditorProps } from "./editor";
+export { EditorToolbar } from "./editor";
+export { EditorPreview } from "./editor";
+export { use_codemirror } from "./editor";
+export { use_draft } from "./editor";
+
+// Re-export editor types from core
+export type {
+  PreviewMode,
+  EditorTheme,
+  ToolbarItemType,
+  EditorActionContext,
+  EditorActionResult,
+  ToolbarAction,
+  ToolbarItem,
+  UploadResult,
+  UploadHandler,
+  DraftData,
+  DraftConfig,
+  MdEditorCallbacks,
+  MdEditorConfig,
+} from "@kkocot/honeycomb-core";
+export {
+  DEFAULT_TOOLBAR,
+  create_hive_upload_handler,
+  insert_image_markdown,
+  convert_hive_urls_in_text,
+} from "@kkocot/honeycomb-core";
