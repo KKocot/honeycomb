@@ -1,5 +1,6 @@
 import { defineComponent, ref, h } from "vue";
 import { cn } from "./utils.js";
+import { icon_plus, icon_alert_circle } from "./healthchecker-icons.js";
 
 export interface ProviderAdditionProps {
   // onProviderSubmit emitted via events
@@ -14,30 +15,6 @@ function is_valid_url(url: string): boolean {
   } catch {
     return false;
   }
-}
-
-// SVG icon helpers
-function icon_plus(cls: string) {
-  return h(
-    "svg",
-    { xmlns: "http://www.w3.org/2000/svg", width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round", class: cls },
-    [
-      h("path", { d: "M5 12h14" }),
-      h("path", { d: "M12 5v14" }),
-    ]
-  );
-}
-
-function icon_alert_circle(cls: string) {
-  return h(
-    "svg",
-    { xmlns: "http://www.w3.org/2000/svg", width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round", class: cls },
-    [
-      h("circle", { cx: 12, cy: 12, r: 10 }),
-      h("line", { x1: 12, y1: 8, x2: 12, y2: 12 }),
-      h("line", { x1: 12, y1: 16, x2: 12.01, y2: 16 }),
-    ]
-  );
 }
 
 export const ProviderAddition = defineComponent({

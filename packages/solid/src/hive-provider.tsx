@@ -12,19 +12,39 @@ import type { IHiveChainInterface } from "@hiveio/wax";
 import {
   HiveClient,
   DEFAULT_API_ENDPOINTS,
+  HealthCheckerService,
+  DEFAULT_HEALTHCHECKER_KEY,
+  DEFAULT_HEALTHCHECKER_PROVIDERS,
+  createDefaultCheckers,
   type HiveClientState,
   type ConnectionStatus,
   type EndpointStatus,
+  type ApiChecker,
 } from "@kkocot/honeycomb-core";
 
 // Re-export for convenience
-export { DEFAULT_API_ENDPOINTS };
+export { DEFAULT_API_ENDPOINTS, DEFAULT_HEALTHCHECKER_KEY };
 
 // ============== Types ==============
 
 /**
  * Hive context value - all values are signal getters
  */
+export interface HealthCheckerServiceConfig {
+  /** Unique key to identify this service instance */
+  key: string;
+  /** Factory that receives chain and returns checkers array */
+  createCheckers: (chain: IHiveChainInterface) => ApiChecker[];
+  /** Default API endpoint URLs to check */
+  defaultProviders: string[];
+  /** Currently active node address for this service */
+  nodeAddress: string | null;
+  /** Callback fired when the healthchecker switches to a different node. Receives chain for convenience. */
+  onNodeChange: (node: string | null, chain: IHiveChainInterface) => void;
+  /** Enable console logs for debugging */
+  enableLogs?: boolean;
+}
+
 export interface HiveContextValue {
   /** Hive chain instance getter - returns null during SSR and initial load */
   chain: () => IHiveChainInterface | null;
@@ -42,6 +62,8 @@ export interface HiveContextValue {
   endpoints: () => EndpointStatus[];
   /** Refresh all endpoints health status */
   refresh_endpoints: () => Promise<void>;
+  /** Get a HealthCheckerService instance by key, null if not ready */
+  getHealthCheckerService: (key: string) => HealthCheckerService | null;
 }
 
 /**
@@ -67,6 +89,11 @@ export interface HiveProviderProps {
    * Callback fired when endpoint changes
    */
   onEndpointChange?: (endpoint: string) => void;
+  /**
+   * HealthChecker service configurations. Each entry creates a separate
+   * HealthCheckerService instance, accessible by key via getHealthCheckerService().
+   */
+  healthCheckerServices?: HealthCheckerServiceConfig[];
 }
 
 // ============== Context ==============
@@ -108,6 +135,9 @@ export const HiveProvider: ParentComponent<HiveProviderProps> = (props) => {
 
   // Store HiveClient instance reference
   let client_instance: HiveClient | null = null;
+
+  // HealthChecker services
+  const [hc_services, set_hc_services] = createSignal<Map<string, HealthCheckerService>>(new Map());
 
   // Detect client-side
   createEffect(() => {
@@ -158,6 +188,59 @@ export const HiveProvider: ParentComponent<HiveProviderProps> = (props) => {
     });
   });
 
+  // Initialize HealthCheckerService instances when chain becomes available.
+  // When no healthCheckerServices are configured, create a default service
+  // so that <HealthCheckerComponent healthcheckerKey="default" /> works out of the box.
+  createEffect(() => {
+    const chain = chain_ref();
+    if (!chain) return;
+
+    const configs: HealthCheckerServiceConfig[] =
+      props.healthCheckerServices?.length
+        ? props.healthCheckerServices
+        : [
+            {
+              key: DEFAULT_HEALTHCHECKER_KEY,
+              createCheckers: createDefaultCheckers,
+              defaultProviders: DEFAULT_HEALTHCHECKER_PROVIDERS,
+              nodeAddress: null,
+              onNodeChange: (node, c) => {
+                if (node) {
+                  c.endpointUrl = node;
+                }
+              },
+            },
+          ];
+
+    const new_services = new Map<string, HealthCheckerService>();
+
+    for (const config of configs) {
+      const checkers = config.createCheckers(chain);
+      const service = new HealthCheckerService(
+        config.key,
+        checkers,
+        config.defaultProviders,
+        config.nodeAddress,
+        (node) => config.onNodeChange(node, chain),
+        config.enableLogs,
+      );
+      new_services.set(config.key, service);
+    }
+
+    set_hc_services(new_services);
+
+    onCleanup(() => {
+      for (const service of new_services.values()) {
+        service.stopCheckingProcess();
+      }
+      set_hc_services(new Map());
+    });
+  });
+
+  const getHealthCheckerService = (key: string): HealthCheckerService | null => {
+    return hc_services().get(key) ?? null;
+  };
+
   // Memoize context value with signal getters
   const value = createMemo<HiveContextValue>(() => ({
     chain: () => chain_ref(),
@@ -171,6 +254,7 @@ export const HiveProvider: ParentComponent<HiveProviderProps> = (props) => {
     status: () => client_state().status,
     endpoints: () => client_state().endpoints,
     refresh_endpoints: refresh_endpoints,
+    getHealthCheckerService,
   }));
 
   return <HiveContext.Provider value={value()}>{props.children}</HiveContext.Provider>;

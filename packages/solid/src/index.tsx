@@ -11,8 +11,10 @@ export {
   useApiEndpoint,
   useHiveStatus,
   DEFAULT_API_ENDPOINTS,
+  DEFAULT_HEALTHCHECKER_KEY,
   type HiveContextValue,
   type HiveProviderProps,
+  type HealthCheckerServiceConfig,
 } from "./hive-provider";
 
 // Account Hook
@@ -28,6 +30,24 @@ export {
   type HivePost,
   type UseHivePostResult,
 } from "./use-hive-post";
+
+// Health checker service (re-export from core)
+export {
+  HealthCheckerService,
+  createDefaultCheckers,
+  DEFAULT_HEALTHCHECKER_PROVIDERS,
+} from "@kkocot/honeycomb-core";
+export type {
+  ApiChecker,
+  ValidationErrorDetails,
+  HealthCheckerFields,
+} from "@kkocot/honeycomb-core";
+
+// Health checker component
+export {
+  HealthCheckerComponent,
+  type HealthCheckerComponentProps,
+} from "./healthchecker";
 
 // Display Components
 export { ApiTracker, type ApiTrackerProps } from "./api-tracker";

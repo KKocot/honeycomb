@@ -9,30 +9,7 @@ import {
   DialogDescription,
 } from "radix-vue";
 import { cn } from "./utils.js";
-
-// SVG icon helpers
-function icon_x(cls: string) {
-  return h(
-    "svg",
-    { xmlns: "http://www.w3.org/2000/svg", width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round", class: cls },
-    [
-      h("path", { d: "M18 6 6 18" }),
-      h("path", { d: "m6 6 12 12" }),
-    ]
-  );
-}
-
-function icon_alert_triangle(cls: string) {
-  return h(
-    "svg",
-    { xmlns: "http://www.w3.org/2000/svg", width: 24, height: 24, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round", class: cls },
-    [
-      h("path", { d: "m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" }),
-      h("line", { x1: 12, y1: 9, x2: 12, y2: 13 }),
-      h("line", { x1: 12, y1: 17, x2: 12.01, y2: 17 }),
-    ]
-  );
-}
+import { icon_x, icon_triangle_alert as icon_alert_triangle } from "./healthchecker-icons.js";
 
 export const ConfirmationSwitchDialog = defineComponent({
   name: "ConfirmationSwitchDialog",

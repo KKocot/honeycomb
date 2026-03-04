@@ -3,6 +3,7 @@ import type { TScoredEndpoint } from "@hiveio/wax";
 import type { ApiChecker, ValidationErrorDetails } from "@kkocot/honeycomb-core";
 import { SwitchRoot, SwitchThumb } from "radix-vue";
 import { cn } from "./utils.js";
+import { icon_loader_circle } from "./healthchecker-icons.js";
 import { ProviderCard } from "./healthchecker-provider-card.js";
 import { ProviderAddition } from "./healthchecker-provider-addition.js";
 import { ValidationErrorDialog } from "./healthchecker-validation-error-dialog.js";
@@ -11,23 +12,6 @@ import { useHive } from "./hive-provider.js";
 
 export interface HealthCheckerComponentProps {
   healthcheckerKey: string;
-}
-
-// SVG icon helper
-function icon_loader_circle(cls: string) {
-  return h(
-    "svg",
-    { xmlns: "http://www.w3.org/2000/svg", width: 32, height: 32, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round", class: cls },
-    [h("path", { d: "M21 12a9 9 0 1 1-6.219-8.56" })]
-  );
-}
-
-function icon_loader_circle_sm(cls: string) {
-  return h(
-    "svg",
-    { xmlns: "http://www.w3.org/2000/svg", width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round", class: cls },
-    [h("path", { d: "M21 12a9 9 0 1 1-6.219-8.56" })]
-  );
 }
 
 export const HealthCheckerComponent = defineComponent({
@@ -156,7 +140,7 @@ export const HealthCheckerComponent = defineComponent({
       } else if (switch_status.value === "waiting") {
         switch_status_content = h("span", { class: "inline-flex items-center gap-2" }, [
           "Evaluating",
-          icon_loader_circle_sm("animate-spin h-4 w-4"),
+          icon_loader_circle("animate-spin h-4 w-4"),
         ]);
       } else if (switch_status.value === "done") {
         switch_status_content = h("span", { class: "text-green-600" }, "Switching...");
