@@ -9,6 +9,7 @@ import PostCardTab from "./components/PostCardTab";
 import PostListTab from "./components/PostListTab";
 import RendererTab from "./components/RendererTab";
 import MdEditorTab from "./components/MdEditorTab";
+import HealthCheckerTab from "./components/HealthCheckerTab";
 
 type TabId =
   | "api-tracker"
@@ -20,7 +21,8 @@ type TabId =
   | "post-card"
   | "post-list"
   | "renderer"
-  | "md-editor";
+  | "md-editor"
+  | "health-checker";
 
 interface TabConfig {
   id: TabId;
@@ -95,6 +97,13 @@ const TABS: readonly TabConfig[] = [
     title: "Markdown Editor",
     description:
       "Full-featured markdown editor with toolbar, preview modes, and Hive-specific formatting.",
+  },
+  {
+    id: "health-checker",
+    label: "Health Checker",
+    title: "Health Checker",
+    description:
+      "Monitor and manage Hive API endpoints with real-time health checks.",
   },
 ] as const;
 
@@ -254,6 +263,9 @@ export default function StatusDisplay() {
             </Match>
             <Match when={active_tab() === "md-editor"}>
               <MdEditorTab />
+            </Match>
+            <Match when={active_tab() === "health-checker"}>
+              <HealthCheckerTab />
             </Match>
           </Switch>
         </div>
