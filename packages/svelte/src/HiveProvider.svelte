@@ -54,7 +54,7 @@
 
   let client: HiveClient | null = null;
   let unsubscribe_fn: (() => void) | null = null;
-  let hc_services = new Map<string, HealthCheckerService>();
+  let hc_services: Map<string, HealthCheckerService> = $state(new Map());
 
   const refresh_endpoints = async () => {
     if (client) {

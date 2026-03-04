@@ -15,6 +15,12 @@ export { default as HiveManabar } from "./manabar.svelte";
 export { default as HivePostCard } from "./post-card.svelte";
 export { default as HivePostList } from "./post-list.svelte";
 export { default as HiveContentRenderer } from "./HiveContentRenderer.svelte";
+// Health Checker Components
+export { default as HealthCheckerComponent } from "./healthchecker.svelte";
+export { default as ProviderCard } from "./healthchecker-provider-card.svelte";
+export { default as ProviderAddition } from "./healthchecker-provider-addition.svelte";
+export { default as ConfirmationSwitchDialog } from "./healthchecker-confirmation-switch-dialog.svelte";
+export { default as ValidationErrorDialog } from "./healthchecker-validation-error-dialog.svelte";
 // Data Hooks
 export { useHiveAccount, } from "./use-hive-account.svelte";
 export { useHivePost, } from "./use-hive-post.svelte";

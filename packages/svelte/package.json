@@ -128,6 +128,7 @@
     "@hiveio/wax": "^1.28.4-rc0",
     "@kkocot/honeycomb-core": "workspace:*",
     "@kkocot/honeycomb-renderer": "workspace:*",
+    "bits-ui": "^1.0.0",
     "@sveltejs/package": "^2.3.0",
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
     "@tailwindcss/cli": "^4.0.0",
