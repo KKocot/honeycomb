@@ -59,3 +59,45 @@ export {
   type RankedPost,
   type RankedPostsResult,
 } from "./post-list.js";
+
+// Editor types
+export type {
+  PreviewMode,
+  EditorTheme,
+  ToolbarItemType,
+  EditorActionContext,
+  EditorActionResult,
+  ToolbarAction,
+  ToolbarItem,
+  UploadResult,
+  UploadHandler,
+  DraftData,
+  DraftConfig,
+  PasteData,
+  KeyboardShortcut,
+  EditorPlugin,
+  EditorState,
+  MdEditorCallbacks,
+  MdEditorConfig,
+} from "./editor/index.js";
+
+// Editor URL converter
+export {
+  is_hive_url,
+  convert_hive_url,
+  convert_hive_urls_in_text,
+  type UrlConversion,
+  type ConvertResult,
+} from "./editor/index.js";
+
+// Editor upload
+export {
+  create_hive_upload_handler,
+  extract_images_from_markdown,
+  insert_image_markdown,
+  type HiveImageUploadConfig,
+  type UploadProgress,
+} from "./editor/index.js";
+
+// Editor toolbar actions
+export { DEFAULT_TOOLBAR } from "./editor/index.js";
