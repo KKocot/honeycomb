@@ -40,6 +40,9 @@ pnpm lint             # Lint all
 - `apps/demo-solid-vite` - Solid.js + Vite demo
 - `apps/demo-solid-astro` - Astro + Solid.js islands demo
 - `apps/demo-solid-start` - SolidStart demo
+- `apps/demo-svelte-vite` - Vite + Svelte 5 SPA demo
+- `apps/demo-svelte-kit` - SvelteKit 2 demo
+- `apps/demo-svelte-astro` - Astro + Svelte islands demo
 - `apps/demo-vue-vite` - Vue 3 + Vite demo
 - `apps/demo-vue-nuxt` - Nuxt 3 demo
 - `apps/demo-vue-astro` - Astro + Vue islands demo
@@ -48,6 +51,7 @@ pnpm lint             # Lint all
 - `packages/core` - Core logic and types
 - `packages/react` - React components and hooks
 - `packages/solid` - Solid.js components and hooks
+- `packages/svelte` - Svelte 5 components and hooks
 - `packages/vue` - Vue 3 components and composables
 
 ### Docs App (`apps/docs`)

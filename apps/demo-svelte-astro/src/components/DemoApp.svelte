@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { HiveProvider } from "@barddev/honeycomb-svelte";
+  import { healthCheckerServices } from "./health-checker-config";
   import ApiTrackerTab from "./ApiTrackerTab.svelte";
   import HooksTab from "./HooksTab.svelte";
   import AvatarTab from "./AvatarTab.svelte";
@@ -150,7 +151,7 @@
   const active_config = $derived(TABS.find((t) => t.id === active_tab));
 </script>
 
-<HiveProvider>
+<HiveProvider {healthCheckerServices}>
   <div class="min-h-screen">
     <!-- Header -->
     <header

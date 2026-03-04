@@ -2,10 +2,11 @@
   import { browser } from "$app/environment";
   import { HiveProvider } from "@barddev/honeycomb-svelte";
   import StatusDisplay from "$lib/StatusDisplay.svelte";
+  import { healthCheckerServices } from "$lib/health-checker-config";
 </script>
 
 {#if browser}
-  <HiveProvider>
+  <HiveProvider {healthCheckerServices}>
     <StatusDisplay />
   </HiveProvider>
 {:else}

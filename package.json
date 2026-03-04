@@ -34,6 +34,12 @@
     "build:demo-vue-astro": "pnpm --filter demo-vue-astro build",
     "dev:demo-vue-nuxt": "pnpm --filter demo-vue-nuxt dev",
     "build:demo-vue-nuxt": "pnpm --filter demo-vue-nuxt build",
+    "dev:demo-svelte-vite": "pnpm --filter demo-svelte-vite dev",
+    "build:demo-svelte-vite": "pnpm --filter demo-svelte-vite build",
+    "dev:demo-svelte-kit": "pnpm --filter demo-svelte-kit dev",
+    "build:demo-svelte-kit": "pnpm --filter demo-svelte-kit build",
+    "dev:demo-svelte-astro": "pnpm --filter demo-svelte-astro dev",
+    "build:demo-svelte-astro": "pnpm --filter demo-svelte-astro build",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "pnpm build && changeset publish"
