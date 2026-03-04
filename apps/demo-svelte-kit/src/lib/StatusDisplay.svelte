@@ -10,6 +10,7 @@
   import PostListTab from "./components/PostListTab.svelte";
   import RendererTab from "./components/RendererTab.svelte";
   import MdEditorTab from "./components/MdEditorTab.svelte";
+  import HealthCheckerTab from "./components/HealthCheckerTab.svelte";
 
   type TabId =
     | "api-tracker"
@@ -21,6 +22,7 @@
     | "post-card"
     | "post-list"
     | "renderer"
+    | "health-checker"
     | "md-editor";
 
   interface TabConfig {
@@ -90,6 +92,13 @@
       title: "Content Renderer",
       description:
         "Renders Hive markdown content with mentions, hashtags, embeds, and sanitization.",
+    },
+    {
+      id: "health-checker",
+      label: "Health Checker",
+      title: "Health Checker",
+      description:
+        "Monitors Hive API endpoint health, latency and validity with automatic provider switching.",
     },
     {
       id: "md-editor",
@@ -192,6 +201,8 @@
         <PostListTab />
       {:else if active_tab === "renderer"}
         <RendererTab />
+      {:else if active_tab === "health-checker"}
+        <HealthCheckerTab />
       {:else if active_tab === "md-editor"}
         <MdEditorTab />
       {/if}

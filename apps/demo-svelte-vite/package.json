@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@barddev/honeycomb-svelte": "workspace:*",
+    "bits-ui": "^1.0.0",
     "highlight.js": "^11.11.1",
     "svelte": "^5.0.0"
   },

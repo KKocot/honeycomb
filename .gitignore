@@ -6,6 +6,7 @@ node_modules
 dist
 .next
 .astro
+.svelte-kit
 .react-router
 out
 build
