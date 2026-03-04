@@ -79,6 +79,7 @@
         <PostListTab v-else-if="active_tab === 'post-list'" />
         <RendererTab v-else-if="active_tab === 'renderer'" />
         <HealthCheckerTab v-else-if="active_tab === 'health-checker'" />
+        <MdEditorTab v-else-if="active_tab === 'md-editor'" />
       </div>
     </div>
 
@@ -105,6 +106,7 @@ import PostCardTab from "./PostCardTab.vue";
 import PostListTab from "./PostListTab.vue";
 import RendererTab from "./RendererTab.vue";
 import HealthCheckerTab from "./HealthCheckerTab.vue";
+import MdEditorTab from "./MdEditorTab.vue";
 
 type TabId =
   | "api-tracker"
@@ -116,7 +118,8 @@ type TabId =
   | "post-card"
   | "post-list"
   | "renderer"
-  | "health-checker";
+  | "health-checker"
+  | "md-editor";
 
 interface TabConfig {
   id: TabId;
@@ -188,6 +191,13 @@ const TABS: readonly TabConfig[] = [
     title: "Health Checker",
     description:
       "Monitors Hive API endpoint health, latency and validity with automatic provider switching.",
+  },
+  {
+    id: "md-editor",
+    label: "Markdown Editor",
+    title: "Markdown Editor",
+    description:
+      "CodeMirror 6 based Markdown editor with toolbar, preview modes, and draft auto-save.",
   },
 ];
 

@@ -10,6 +10,7 @@ import PostCardTab from "./PostCardTab";
 import PostListTab from "./PostListTab";
 import RendererTab from "./RendererTab";
 import HealthCheckerTab from "./HealthCheckerTab";
+import MdEditorTab from "./MdEditorTab";
 
 type TabId =
   | "api-tracker"
@@ -21,7 +22,8 @@ type TabId =
   | "post-card"
   | "post-list"
   | "renderer"
-  | "health-checker";
+  | "health-checker"
+  | "md-editor";
 
 interface TabConfig {
   id: TabId;
@@ -97,6 +99,13 @@ const TABS: readonly TabConfig[] = [
     title: "Health Checker",
     description:
       "Monitors Hive API endpoint health, latency and validity with automatic provider switching.",
+  },
+  {
+    id: "md-editor",
+    label: "Markdown Editor",
+    title: "Markdown Editor",
+    description:
+      "Full-featured Markdown editor with CodeMirror, toolbar, preview modes, and Hive URL conversion.",
   },
 ];
 
@@ -203,6 +212,7 @@ export default function DemoApp() {
           {active_tab === "post-list" && <PostListTab />}
           {active_tab === "renderer" && <RendererTab />}
           {active_tab === "health-checker" && <HealthCheckerTab />}
+          {active_tab === "md-editor" && <MdEditorTab />}
         </div>
       </div>
 

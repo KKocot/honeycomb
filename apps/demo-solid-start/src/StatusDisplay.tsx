@@ -8,6 +8,7 @@ import ManabarTab from "./components/ManabarTab";
 import PostCardTab from "./components/PostCardTab";
 import PostListTab from "./components/PostListTab";
 import RendererTab from "./components/RendererTab";
+import MdEditorTab from "./components/MdEditorTab";
 
 type TabId =
   | "api-tracker"
@@ -18,7 +19,8 @@ type TabId =
   | "manabar"
   | "post-card"
   | "post-list"
-  | "renderer";
+  | "renderer"
+  | "md-editor";
 
 interface TabConfig {
   id: TabId;
@@ -87,6 +89,13 @@ const TABS: readonly TabConfig[] = [
     title: "Content Renderer",
     description:
       "Renders Hive markdown content with mentions, hashtags, embeds, and sanitization.",
+  },
+  {
+    id: "md-editor",
+    label: "Md Editor",
+    title: "Markdown Editor",
+    description:
+      "Full-featured markdown editor with toolbar, preview modes, and Hive-specific formatting.",
   },
 ] as const;
 
@@ -276,6 +285,9 @@ export default function StatusDisplay() {
             </Match>
             <Match when={active_tab() === "renderer"}>
               <RendererTab />
+            </Match>
+            <Match when={active_tab() === "md-editor"}>
+              <MdEditorTab />
             </Match>
           </Switch>
         </div>

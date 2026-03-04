@@ -9,6 +9,7 @@
   import PostCardTab from "./components/PostCardTab.svelte";
   import PostListTab from "./components/PostListTab.svelte";
   import RendererTab from "./components/RendererTab.svelte";
+  import MdEditorTab from "./components/MdEditorTab.svelte";
 
   type TabId =
     | "api-tracker"
@@ -19,7 +20,8 @@
     | "manabar"
     | "post-card"
     | "post-list"
-    | "renderer";
+    | "renderer"
+    | "md-editor";
 
   interface TabConfig {
     id: TabId;
@@ -88,6 +90,13 @@
       title: "Content Renderer",
       description:
         "Renders Hive markdown content with mentions, hashtags, embeds, and sanitization.",
+    },
+    {
+      id: "md-editor",
+      label: "Md Editor",
+      title: "Markdown Editor",
+      description:
+        "Rich markdown editor with toolbar, preview modes, and Hive-specific features.",
     },
   ] as const;
 
@@ -266,6 +275,8 @@
         <PostListTab />
       {:else if active_tab === "renderer"}
         <RendererTab />
+      {:else if active_tab === "md-editor"}
+        <MdEditorTab />
       {/if}
     </div>
   </div>
