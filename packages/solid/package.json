@@ -1,6 +1,6 @@
 {
   "name": "@barddev/honeycomb-solid",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "Solid.js components for Hive Blockchain applications",
   "keywords": [
     "hive",

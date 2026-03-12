@@ -1,6 +1,6 @@
 {
   "name": "@barddev/honeycomb-vue",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "Vue 3 composables for Hive Blockchain applications",
   "keywords": [
     "hive",
