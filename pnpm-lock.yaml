@@ -20,7 +20,7 @@ importers:
 
   apps/demo-react-astro:
     dependencies:
-      '@barddev/honeycomb-react':
+      '@hiveio/honeycomb-react':
         specifier: workspace:*
         version: link:../../packages/react
       '@radix-ui/react-popover':
@@ -69,9 +69,6 @@ importers:
 
   apps/demo-react-next:
     dependencies:
-      '@barddev/honeycomb-react':
-        specifier: workspace:*
-        version: link:../../packages/react
       '@codemirror/autocomplete':
         specifier: ^6.20.1
         version: 6.20.1
@@ -96,6 +93,9 @@ importers:
       '@codemirror/view':
         specifier: ^6.39.16
         version: 6.39.16
+      '@hiveio/honeycomb-react':
+        specifier: workspace:*
+        version: link:../../packages/react
       '@radix-ui/react-popover':
         specifier: ^1.1.0
         version: 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -145,7 +145,7 @@ importers:
 
   apps/demo-react-remix:
     dependencies:
-      '@barddev/honeycomb-react':
+      '@hiveio/honeycomb-react':
         specifier: workspace:*
         version: link:../../packages/react
       '@radix-ui/react-popover':
@@ -206,7 +206,7 @@ importers:
 
   apps/demo-react-vite:
     dependencies:
-      '@barddev/honeycomb-react':
+      '@hiveio/honeycomb-react':
         specifier: workspace:*
         version: link:../../packages/react
       '@radix-ui/react-popover':
@@ -255,7 +255,7 @@ importers:
 
   apps/demo-solid-astro:
     dependencies:
-      '@barddev/honeycomb-solid':
+      '@hiveio/honeycomb-solid':
         specifier: workspace:*
         version: link:../../packages/solid
       highlight.js:
@@ -292,7 +292,7 @@ importers:
 
   apps/demo-solid-start:
     dependencies:
-      '@barddev/honeycomb-solid':
+      '@hiveio/honeycomb-solid':
         specifier: workspace:*
         version: link:../../packages/solid
       '@solidjs/router':
@@ -332,7 +332,7 @@ importers:
 
   apps/demo-solid-vite:
     dependencies:
-      '@barddev/honeycomb-solid':
+      '@hiveio/honeycomb-solid':
         specifier: workspace:*
         version: link:../../packages/solid
       highlight.js:
@@ -369,7 +369,7 @@ importers:
 
   apps/demo-svelte-astro:
     dependencies:
-      '@barddev/honeycomb-svelte':
+      '@hiveio/honeycomb-svelte':
         specifier: workspace:*
         version: link:../../packages/svelte
       bits-ui:
@@ -409,9 +409,6 @@ importers:
 
   apps/demo-svelte-kit:
     dependencies:
-      '@barddev/honeycomb-svelte':
-        specifier: workspace:*
-        version: link:../../packages/svelte
       '@codemirror/autocomplete':
         specifier: ^6.20.1
         version: 6.20.1
@@ -436,6 +433,9 @@ importers:
       '@codemirror/view':
         specifier: ^6.39.16
         version: 6.39.16
+      '@hiveio/honeycomb-svelte':
+        specifier: workspace:*
+        version: link:../../packages/svelte
       bits-ui:
         specifier: ^1.0.0
         version: 1.8.0(svelte@5.53.3)
@@ -479,7 +479,7 @@ importers:
 
   apps/demo-svelte-vite:
     dependencies:
-      '@barddev/honeycomb-svelte':
+      '@hiveio/honeycomb-svelte':
         specifier: workspace:*
         version: link:../../packages/svelte
       bits-ui:
@@ -519,7 +519,7 @@ importers:
 
   apps/demo-vue-astro:
     dependencies:
-      '@barddev/honeycomb-vue':
+      '@hiveio/honeycomb-vue':
         specifier: workspace:*
         version: link:../../packages/vue
       highlight.js:
@@ -550,7 +550,7 @@ importers:
 
   apps/demo-vue-nuxt:
     dependencies:
-      '@barddev/honeycomb-vue':
+      '@hiveio/honeycomb-vue':
         specifier: workspace:*
         version: link:../../packages/vue
       highlight.js:
@@ -578,9 +578,6 @@ importers:
 
   apps/demo-vue-vite:
     dependencies:
-      '@barddev/honeycomb-vue':
-        specifier: workspace:*
-        version: link:../../packages/vue
       '@codemirror/autocomplete':
         specifier: ^6.20.1
         version: 6.20.1
@@ -605,6 +602,9 @@ importers:
       '@codemirror/view':
         specifier: ^6.39.16
         version: 6.39.16
+      '@hiveio/honeycomb-vue':
+        specifier: workspace:*
+        version: link:../../packages/vue
       highlight.js:
         specifier: ^11.11.1
         version: 11.11.1
