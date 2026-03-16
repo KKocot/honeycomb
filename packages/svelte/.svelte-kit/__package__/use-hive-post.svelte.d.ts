@@ -23,7 +23,7 @@ export interface UseHivePostResult {
  * @example
  * ```svelte
  * <script lang="ts">
- *   import { useHivePost } from "@barddev/honeycomb-svelte";
+ *   import { useHivePost } from "@hiveio/honeycomb-svelte";
  *   // Static:
  *   const result = useHivePost("barddev", "my-post-permlink");
  *   // Reactive (tracks changes):

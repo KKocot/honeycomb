@@ -86,7 +86,7 @@ const HIVE_INJECTION_KEY: InjectionKey<HiveContextValue> = Symbol("hive");
  * </template>
  *
  * <script setup>
- * import { HiveProvider } from '@barddev/honeycomb-vue';
+ * import { HiveProvider } from '@hiveio/honeycomb-vue';
  *
  * const endpoints = ['https://api.hive.blog', 'https://api.openhive.network'];
  * </script>
@@ -367,7 +367,7 @@ export function useHiveStatus(): {
  * @example
  * ```typescript
  * import { createApp } from 'vue';
- * import { hivePlugin } from '@barddev/honeycomb-vue';
+ * import { hivePlugin } from '@hiveio/honeycomb-vue';
  *
  * const app = createApp(App);
  * app.use(hivePlugin, {

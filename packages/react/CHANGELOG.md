@@ -1,4 +1,4 @@
-# @barddev/honeycomb-react
+# @hiveio/honeycomb-react
 
 ## 0.7.0
 
@@ -8,4 +8,4 @@
 
 ### Patch Changes
 
-- f729521: Add wasmUrlPlugin export for SSR frameworks (Astro, SolidStart, Remix). Import from `@barddev/honeycomb-<framework>/plugins`. Also adds tailwindcss as optional peer dependency.
+- f729521: Add wasmUrlPlugin export for SSR frameworks (Astro, SolidStart, Remix). Import from `@hiveio/honeycomb-<framework>/plugins`. Also adds tailwindcss as optional peer dependency.

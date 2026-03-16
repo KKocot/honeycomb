@@ -43,7 +43,7 @@ export interface UseHiveAccountResult {
  * @example
  * ```svelte
  * <script lang="ts">
- *   import { useHiveAccount } from "@barddev/honeycomb-svelte";
+ *   import { useHiveAccount } from "@hiveio/honeycomb-svelte";
  *   // Static:
  *   const result = useHiveAccount("blocktrades");
  *   // Reactive (tracks changes):

@@ -53,7 +53,7 @@ export interface UseHiveAccountResult {
  * @example
  * ```vue
  * <script setup>
- * import { useHiveAccount } from '@barddev/honeycomb-vue';
+ * import { useHiveAccount } from '@hiveio/honeycomb-vue';
  *
  * const { account, isLoading, error } = useHiveAccount("blocktrades");
  * </script>

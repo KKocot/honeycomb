@@ -2,16 +2,16 @@
 
 **A multi-framework component library for Hive Blockchain applications.**
 
-![npm react](https://img.shields.io/npm/v/@barddev/honeycomb-react)
-![npm solid](https://img.shields.io/npm/v/@barddev/honeycomb-solid)
-![npm vue](https://img.shields.io/npm/v/@barddev/honeycomb-vue)
-![npm svelte](https://img.shields.io/npm/v/@barddev/honeycomb-svelte)
+![npm react](https://img.shields.io/npm/v/@hiveio/honeycomb-react)
+![npm solid](https://img.shields.io/npm/v/@hiveio/honeycomb-solid)
+![npm vue](https://img.shields.io/npm/v/@hiveio/honeycomb-vue)
+![npm svelte](https://img.shields.io/npm/v/@hiveio/honeycomb-svelte)
 ![license](https://img.shields.io/badge/license-MIT-blue)
 
 Honeycomb provides ready-to-use UI components, data hooks, and blockchain connectivity for Hive applications. It ships framework-specific packages for React, Solid.js, Vue 3, and Svelte 5 -- all sharing a common core with consistent APIs.
 
 **Documentation:** [honeycomb.bard-dev.com](https://honeycomb.bard-dev.com)
-**npm:** [@barddev/honeycomb-react](https://www.npmjs.com/package/@barddev/honeycomb-react) | [@barddev/honeycomb-solid](https://www.npmjs.com/package/@barddev/honeycomb-solid) | [@barddev/honeycomb-vue](https://www.npmjs.com/package/@barddev/honeycomb-vue) | [@barddev/honeycomb-svelte](https://www.npmjs.com/package/@barddev/honeycomb-svelte)
+**npm:** [@hiveio/honeycomb-react](https://www.npmjs.com/package/@hiveio/honeycomb-react) | [@hiveio/honeycomb-solid](https://www.npmjs.com/package/@hiveio/honeycomb-solid) | [@hiveio/honeycomb-vue](https://www.npmjs.com/package/@hiveio/honeycomb-vue) | [@hiveio/honeycomb-svelte](https://www.npmjs.com/package/@hiveio/honeycomb-svelte)
 
 ---
 
@@ -33,12 +33,12 @@ Honeycomb provides ready-to-use UI components, data hooks, and blockchain connec
 ### React
 
 ```bash
-npm install @barddev/honeycomb-react @hiveio/wax
+npm install @hiveio/honeycomb-react @hiveio/wax
 ```
 
 ```tsx
-import { HiveProvider, useHiveAccount, HiveAvatar } from "@barddev/honeycomb-react";
-import "@barddev/honeycomb-react/styles.css";
+import { HiveProvider, useHiveAccount, HiveAvatar } from "@hiveio/honeycomb-react";
+import "@hiveio/honeycomb-react/styles.css";
 
 function App() {
   return (
@@ -65,12 +65,12 @@ function Profile({ username }: { username: string }) {
 ### Solid
 
 ```bash
-npm install @barddev/honeycomb-solid @hiveio/wax
+npm install @hiveio/honeycomb-solid @hiveio/wax
 ```
 
 ```tsx
-import { HiveProvider, useHiveAccount, HiveAvatar } from "@barddev/honeycomb-solid";
-import "@barddev/honeycomb-solid/styles.css";
+import { HiveProvider, useHiveAccount, HiveAvatar } from "@hiveio/honeycomb-solid";
+import "@hiveio/honeycomb-solid/styles.css";
 import { Show } from "solid-js";
 
 function App() {
@@ -99,15 +99,15 @@ function Profile(props: { username: string }) {
 ### Vue
 
 ```bash
-npm install @barddev/honeycomb-vue @hiveio/wax
+npm install @hiveio/honeycomb-vue @hiveio/wax
 ```
 
 **App.vue:**
 
 ```vue
 <script setup lang="ts">
-import { HiveProvider } from "@barddev/honeycomb-vue";
-import "@barddev/honeycomb-vue/styles.css";
+import { HiveProvider } from "@hiveio/honeycomb-vue";
+import "@hiveio/honeycomb-vue/styles.css";
 import Profile from "./Profile.vue";
 </script>
 
@@ -122,7 +122,7 @@ import Profile from "./Profile.vue";
 
 ```vue
 <script setup lang="ts">
-import { useHiveAccount, HiveAvatar } from "@barddev/honeycomb-vue";
+import { useHiveAccount, HiveAvatar } from "@hiveio/honeycomb-vue";
 
 const props = defineProps<{ username: string }>();
 const { account, isLoading } = useHiveAccount(() => props.username);
@@ -142,15 +142,15 @@ const { account, isLoading } = useHiveAccount(() => props.username);
 ### Svelte
 
 ```bash
-npm install @barddev/honeycomb-svelte @hiveio/wax
+npm install @hiveio/honeycomb-svelte @hiveio/wax
 ```
 
 **App.svelte:**
 
 ```svelte
 <script lang="ts">
-  import { HiveProvider } from "@barddev/honeycomb-svelte";
-  import "@barddev/honeycomb-svelte/styles.css";
+  import { HiveProvider } from "@hiveio/honeycomb-svelte";
+  import "@hiveio/honeycomb-svelte/styles.css";
   import Profile from "./Profile.svelte";
 </script>
 
@@ -163,7 +163,7 @@ npm install @barddev/honeycomb-svelte @hiveio/wax
 
 ```svelte
 <script lang="ts">
-  import { useHiveAccount, HiveAvatar } from "@barddev/honeycomb-svelte";
+  import { useHiveAccount, HiveAvatar } from "@hiveio/honeycomb-svelte";
 
   const { username } = $props<{ username: string }>();
   const hive_account = useHiveAccount(username);
@@ -185,10 +185,10 @@ npm install @barddev/honeycomb-svelte @hiveio/wax
 
 | Package | Version | Description |
 |---------|---------|-------------|
-| [@barddev/honeycomb-react](https://www.npmjs.com/package/@barddev/honeycomb-react) | ![npm](https://img.shields.io/npm/v/@barddev/honeycomb-react) | React 19 components and hooks |
-| [@barddev/honeycomb-solid](https://www.npmjs.com/package/@barddev/honeycomb-solid) | ![npm](https://img.shields.io/npm/v/@barddev/honeycomb-solid) | Solid.js components and hooks |
-| [@barddev/honeycomb-vue](https://www.npmjs.com/package/@barddev/honeycomb-vue) | ![npm](https://img.shields.io/npm/v/@barddev/honeycomb-vue) | Vue 3 composables and components |
-| [@barddev/honeycomb-svelte](https://www.npmjs.com/package/@barddev/honeycomb-svelte) | ![npm](https://img.shields.io/npm/v/@barddev/honeycomb-svelte) | Svelte 5 components and hooks (runes) |
+| [@hiveio/honeycomb-react](https://www.npmjs.com/package/@hiveio/honeycomb-react) | ![npm](https://img.shields.io/npm/v/@hiveio/honeycomb-react) | React 19 components and hooks |
+| [@hiveio/honeycomb-solid](https://www.npmjs.com/package/@hiveio/honeycomb-solid) | ![npm](https://img.shields.io/npm/v/@hiveio/honeycomb-solid) | Solid.js components and hooks |
+| [@hiveio/honeycomb-vue](https://www.npmjs.com/package/@hiveio/honeycomb-vue) | ![npm](https://img.shields.io/npm/v/@hiveio/honeycomb-vue) | Vue 3 composables and components |
+| [@hiveio/honeycomb-svelte](https://www.npmjs.com/package/@hiveio/honeycomb-svelte) | ![npm](https://img.shields.io/npm/v/@hiveio/honeycomb-svelte) | Svelte 5 components and hooks (runes) |
 | @kkocot/honeycomb-core | -- | Framework-agnostic core (internal) |
 | @kkocot/honeycomb-renderer | -- | Content renderer with plugin system (internal) |
 

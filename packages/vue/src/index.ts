@@ -1,5 +1,5 @@
 /**
- * @barddev/honeycomb-vue
+ * @hiveio/honeycomb-vue
  * Vue 3 composables for Hive Blockchain applications
  */
 

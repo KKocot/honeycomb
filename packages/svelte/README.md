@@ -1,10 +1,10 @@
-# @barddev/honeycomb-svelte
+# Honeycomb Svelte
 
-[![npm version](https://img.shields.io/npm/v/@barddev/honeycomb-svelte)](https://www.npmjs.com/package/@barddev/honeycomb-svelte) [![license](https://img.shields.io/npm/l/@barddev/honeycomb-svelte)](https://github.com/KKocot/honeycomb/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@hiveio/honeycomb-svelte)](https://www.npmjs.com/package/@hiveio/honeycomb-svelte) [![license](https://img.shields.io/npm/l/@hiveio/honeycomb-svelte)](https://github.com/KKocot/honeycomb/blob/main/LICENSE)
 
 Svelte 5 components and hooks for Hive Blockchain applications. Read-only (passive) -- displays blockchain data without auth or transaction signing. Uses Svelte 5 runes ($state, $derived, $props).
 
-[Documentation](https://honeycomb.bard-dev.com/docs/svelte/introduction) | [GitHub](https://github.com/KKocot/honeycomb)
+[Documentation](https://honeycomb.bard-dev.com/docs/svelte/introduction) | [GitHub](https://github.com/KKocot/honeycomb) | [npm](https://www.npmjs.com/package/@hiveio/honeycomb-svelte)
 
 ## Requirements
 
@@ -18,13 +18,13 @@ Svelte 5 components and hooks for Hive Blockchain applications. Read-only (passi
 ## Installation
 
 ```bash
-npm install @barddev/honeycomb-svelte @hiveio/wax svelte
+npm install @hiveio/honeycomb-svelte @hiveio/wax svelte
 # or
-pnpm add @barddev/honeycomb-svelte @hiveio/wax svelte
+pnpm add @hiveio/honeycomb-svelte @hiveio/wax svelte
 # or
-yarn add @barddev/honeycomb-svelte @hiveio/wax svelte
+yarn add @hiveio/honeycomb-svelte @hiveio/wax svelte
 # or
-bun add @barddev/honeycomb-svelte @hiveio/wax svelte
+bun add @hiveio/honeycomb-svelte @hiveio/wax svelte
 ```
 
 ## CSS Setup
@@ -40,7 +40,7 @@ The package exports 3 CSS files -- pick what fits your project:
 ### Option A: All-in-one (no Tailwind required)
 
 ```ts
-import "@barddev/honeycomb-svelte/styles.css";
+import "@hiveio/honeycomb-svelte/styles.css";
 ```
 
 ### Option B: With your own Tailwind CSS (recommended)
@@ -48,14 +48,14 @@ import "@barddev/honeycomb-svelte/styles.css";
 1. Import `base.css` for component styles in your entry file:
 
 ```ts
-import "@barddev/honeycomb-svelte/base.css";
+import "@hiveio/honeycomb-svelte/base.css";
 ```
 
 2. Import `theme.css` in your global CSS to get `hive-*` utility classes:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-svelte/theme.css";
+@import "@hiveio/honeycomb-svelte/theme.css";
 
 @theme inline {
   --color-background: hsl(var(--hive-background));
@@ -86,8 +86,8 @@ Light mode works by default (no `dark` class needed).
 ```svelte
 <!-- src/App.svelte -->
 <script lang="ts">
-  import { HiveProvider } from "@barddev/honeycomb-svelte";
-  import "@barddev/honeycomb-svelte/styles.css";
+  import { HiveProvider } from "@hiveio/honeycomb-svelte";
+  import "@hiveio/honeycomb-svelte/styles.css";
   import Inner from "./Inner.svelte";
 </script>
 
@@ -99,7 +99,7 @@ Light mode works by default (no `dark` class needed).
 ```svelte
 <!-- src/Inner.svelte -->
 <script lang="ts">
-  import { useHive, HiveAvatar, UserCard } from "@barddev/honeycomb-svelte";
+  import { useHive, HiveAvatar, UserCard } from "@hiveio/honeycomb-svelte";
 
   const hive = useHive();
 </script>
@@ -123,8 +123,8 @@ Light mode works by default (no `dark` class needed).
 <!-- src/routes/+page.svelte -->
 <script lang="ts">
   import { browser } from "$app/environment";
-  import { HiveProvider } from "@barddev/honeycomb-svelte";
-  import "@barddev/honeycomb-svelte/styles.css";
+  import { HiveProvider } from "@hiveio/honeycomb-svelte";
+  import "@hiveio/honeycomb-svelte/styles.css";
 </script>
 
 {#if browser}
@@ -139,7 +139,7 @@ Light mode works by default (no `dark` class needed).
 ```ts
 // vite.config.ts (SvelteKit)
 import { sveltekit } from "@sveltejs/kit/vite";
-import { wasmUrlPlugin } from "@barddev/honeycomb-svelte/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-svelte/plugins";
 import { defineConfig } from "vite";
 
 export default defineConfig({
@@ -154,7 +154,7 @@ Use `client:only="svelte"` (NOT `client:load`) -- WASM does not work in Node.js 
 ```astro
 ---
 import DemoApp from "../components/DemoApp.svelte";
-import "@barddev/honeycomb-svelte/styles.css";
+import "@hiveio/honeycomb-svelte/styles.css";
 ---
 
 <html lang="en" class="dark">
@@ -168,7 +168,7 @@ import "@barddev/honeycomb-svelte/styles.css";
 // astro.config.mjs
 import { defineConfig } from "astro/config";
 import svelte from "@astrojs/svelte";
-import { wasmUrlPlugin } from "@barddev/honeycomb-svelte/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-svelte/plugins";
 
 export default defineConfig({
   integrations: [svelte()],
@@ -191,7 +191,7 @@ export default defineConfig({
 - Add `bg-hive-background text-hive-foreground` to `<body>`.
 
 **WASM error: Failed to fetch dynamically imported module**
-- SvelteKit/Astro: add `wasmUrlPlugin()` from `@barddev/honeycomb-svelte/plugins` to your Vite config.
+- SvelteKit/Astro: add `wasmUrlPlugin()` from `@hiveio/honeycomb-svelte/plugins` to your Vite config.
 
 **SSR errors with SvelteKit**
 - Wrap `HiveProvider` in `{#if browser}` guard (import `browser` from `$app/environment`).

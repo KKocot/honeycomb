@@ -1,5 +1,5 @@
 /**
- * @barddev/honeycomb-solid
+ * @hiveio/honeycomb-solid
  * Solid.js components for Hive Blockchain applications
  */
 
@@ -122,7 +122,7 @@ export {
 } from "@kkocot/honeycomb-renderer";
 
 // Vite plugins (separate entry point):
-// import { wasmUrlPlugin } from "@barddev/honeycomb-solid/plugins"
+// import { wasmUrlPlugin } from "@hiveio/honeycomb-solid/plugins"
 
 // Markdown Editor
 export { MdEditor, type MdEditorProps } from "./editor";

@@ -1,21 +1,21 @@
-# @barddev/honeycomb-vue
+# Honeycomb Vue
 
-[![npm version](https://img.shields.io/npm/v/@barddev/honeycomb-vue)](https://www.npmjs.com/package/@barddev/honeycomb-vue) [![license](https://img.shields.io/npm/l/@barddev/honeycomb-vue)](https://github.com/KKocot/honeycomb/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@hiveio/honeycomb-vue)](https://www.npmjs.com/package/@hiveio/honeycomb-vue) [![license](https://img.shields.io/npm/l/@hiveio/honeycomb-vue)](https://github.com/KKocot/honeycomb/blob/main/LICENSE)
 
 Vue 3 composables and components for Hive Blockchain applications. Read-only (passive) - displays blockchain data without auth or transaction signing.
 
-[Documentation](https://honeycomb.bard-dev.com/docs/vue/introduction) | [GitHub](https://github.com/KKocot/honeycomb)
+[Documentation](https://honeycomb.bard-dev.com/docs/vue/introduction) | [GitHub](https://github.com/KKocot/honeycomb) | [npm](https://www.npmjs.com/package/@hiveio/honeycomb-vue)
 
 ## Installation
 
 ```bash
-npm install @barddev/honeycomb-vue
+npm install @hiveio/honeycomb-vue
 # or
-pnpm add @barddev/honeycomb-vue
+pnpm add @hiveio/honeycomb-vue
 # or
-yarn add @barddev/honeycomb-vue
+yarn add @hiveio/honeycomb-vue
 # or
-bun add @barddev/honeycomb-vue
+bun add @hiveio/honeycomb-vue
 ```
 
 ### Peer Dependencies
@@ -37,7 +37,7 @@ bun add @hiveio/wax radix-vue vue
 Import the bundled stylesheet in your entry file (e.g. `main.ts`):
 
 ```ts
-import "@barddev/honeycomb-vue/styles.css";
+import "@hiveio/honeycomb-vue/styles.css";
 ```
 
 Includes CSS variables, component styles, Tailwind utilities, and theme tokens.
@@ -47,8 +47,8 @@ Includes CSS variables, component styles, Tailwind utilities, and theme tokens.
 ```vue
 <!-- App.vue -->
 <script setup lang="ts">
-import { HiveProvider } from "@barddev/honeycomb-vue";
-import "@barddev/honeycomb-vue/styles.css";
+import { HiveProvider } from "@hiveio/honeycomb-vue";
+import "@hiveio/honeycomb-vue/styles.css";
 </script>
 
 <template>
@@ -61,7 +61,7 @@ import "@barddev/honeycomb-vue/styles.css";
 ```vue
 <!-- Page.vue -->
 <script setup lang="ts">
-import { useHive, HiveAvatar, UserCard } from "@barddev/honeycomb-vue";
+import { useHive, HiveAvatar, UserCard } from "@hiveio/honeycomb-vue";
 
 const { chain, isLoading, error, status } = useHive();
 </script>

@@ -3,7 +3,7 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [],
-  "linked": [["@barddev/honeycomb-react", "@barddev/honeycomb-vue", "@barddev/honeycomb-solid", "@barddev/honeycomb-svelte"]],
+  "linked": [["@hiveio/honeycomb-react", "@hiveio/honeycomb-vue", "@hiveio/honeycomb-solid", "@hiveio/honeycomb-svelte"]],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",

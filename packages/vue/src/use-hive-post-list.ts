@@ -39,7 +39,7 @@ const DEFAULT_LIMIT = 20;
  * @example
  * ```vue
  * <script setup>
- * import { useHivePostList } from '@barddev/honeycomb-vue';
+ * import { useHivePostList } from '@hiveio/honeycomb-vue';
  *
  * const { posts, isLoading, nextPage, prevPage, hasNext, hasPrev } =
  *   useHivePostList({ sort: "trending", limit: 10 });

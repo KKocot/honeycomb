@@ -1,10 +1,10 @@
-# @barddev/honeycomb-solid
+# Honeycomb Solid.js
 
-[![npm version](https://img.shields.io/npm/v/@barddev/honeycomb-solid)](https://www.npmjs.com/package/@barddev/honeycomb-solid) [![license](https://img.shields.io/npm/l/@barddev/honeycomb-solid)](https://github.com/KKocot/honeycomb/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@hiveio/honeycomb-solid)](https://www.npmjs.com/package/@hiveio/honeycomb-solid) [![license](https://img.shields.io/npm/l/@hiveio/honeycomb-solid)](https://github.com/KKocot/honeycomb/blob/main/LICENSE)
 
 Solid.js components and hooks for Hive Blockchain applications. Read-only (passive) -- displays blockchain data without auth or transaction signing. SSR-compatible, works with SolidStart and Astro.
 
-[Documentation](https://honeycomb.bard-dev.com/docs/solid/introduction) | [GitHub](https://github.com/KKocot/honeycomb)
+[Documentation](https://honeycomb.bard-dev.com/docs/solid/introduction) | [GitHub](https://github.com/KKocot/honeycomb) | [npm](https://www.npmjs.com/package/@hiveio/honeycomb-solid)
 
 ## Requirements
 
@@ -18,13 +18,13 @@ Solid.js components and hooks for Hive Blockchain applications. Read-only (passi
 ## Installation
 
 ```bash
-npm install @barddev/honeycomb-solid @hiveio/wax solid-js
+npm install @hiveio/honeycomb-solid @hiveio/wax solid-js
 # or
-pnpm add @barddev/honeycomb-solid @hiveio/wax solid-js
+pnpm add @hiveio/honeycomb-solid @hiveio/wax solid-js
 # or
-yarn add @barddev/honeycomb-solid @hiveio/wax solid-js
+yarn add @hiveio/honeycomb-solid @hiveio/wax solid-js
 # or
-bun add @barddev/honeycomb-solid @hiveio/wax solid-js
+bun add @hiveio/honeycomb-solid @hiveio/wax solid-js
 ```
 
 ## CSS Setup
@@ -42,7 +42,7 @@ The package exports 3 CSS files -- pick what fits your project:
 Import `styles.css` in your entry file:
 
 ```tsx
-import "@barddev/honeycomb-solid/styles.css";
+import "@hiveio/honeycomb-solid/styles.css";
 ```
 
 ### Option B: With your own Tailwind CSS (recommended)
@@ -50,14 +50,14 @@ import "@barddev/honeycomb-solid/styles.css";
 1. Import `base.css` for component styles (without Tailwind utilities) in your entry file:
 
 ```tsx
-import "@barddev/honeycomb-solid/base.css";
+import "@hiveio/honeycomb-solid/base.css";
 ```
 
 2. Import `theme.css` in your global CSS to get `hive-*` utility classes:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-solid/theme.css";
+@import "@hiveio/honeycomb-solid/theme.css";
 
 @theme inline {
   --color-background: hsl(var(--hive-background));
@@ -88,8 +88,8 @@ Light mode works by default (no `dark` class needed).
 ```tsx
 // src/index.tsx
 import { render } from "solid-js/web";
-import { HiveProvider } from "@barddev/honeycomb-solid";
-import "@barddev/honeycomb-solid/styles.css";
+import { HiveProvider } from "@hiveio/honeycomb-solid";
+import "@hiveio/honeycomb-solid/styles.css";
 import App from "./App";
 
 const root_element = document.getElementById("root");
@@ -108,7 +108,7 @@ render(
 ```tsx
 // src/App.tsx
 import { Show } from "solid-js";
-import { useHive, HiveAvatar, UserCard } from "@barddev/honeycomb-solid";
+import { useHive, HiveAvatar, UserCard } from "@hiveio/honeycomb-solid";
 
 export default function App() {
   const { is_loading, error, status } = useHive();
@@ -143,7 +143,7 @@ export default defineConfig({
 ---
 // src/pages/index.astro
 import DemoApp from "../components/DemoApp";
-import "@barddev/honeycomb-solid/styles.css";
+import "@hiveio/honeycomb-solid/styles.css";
 import "../styles/global.css";
 ---
 
@@ -172,7 +172,7 @@ export default defineConfig({
 If you get WASM errors in dev, add the `wasmUrlPlugin`:
 
 ```js
-import { wasmUrlPlugin } from "@barddev/honeycomb-solid/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-solid/plugins";
 
 export default defineConfig({
   integrations: [solidJs()],
@@ -199,7 +199,7 @@ export default function Home() {
 
 ```tsx
 // src/ClientApp.tsx
-import { HiveProvider } from "@barddev/honeycomb-solid";
+import { HiveProvider } from "@hiveio/honeycomb-solid";
 import App from "./App";
 
 export default function ClientApp() {
@@ -214,7 +214,7 @@ export default function ClientApp() {
 ```ts
 // app.config.ts
 import { defineConfig } from "@solidjs/start/config";
-import { wasmUrlPlugin } from "@barddev/honeycomb-solid/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-solid/plugins";
 
 export default defineConfig({
   ssr: true,
@@ -224,7 +224,7 @@ export default defineConfig({
       conditions: ["solid", "browser", "module"],
     },
     ssr: {
-      noExternal: ["@barddev/honeycomb-solid"],
+      noExternal: ["@hiveio/honeycomb-solid"],
     },
     optimizeDeps: {
       exclude: ["@hiveio/wax"],
@@ -247,11 +247,11 @@ export default defineConfig({
 - Add `bg-hive-background text-hive-foreground` to `<body>`.
 
 **WASM error: Failed to fetch dynamically imported module**
-- Astro/SolidStart: add `wasmUrlPlugin()` from `@barddev/honeycomb-solid/plugins` to your Vite config.
+- Astro/SolidStart: add `wasmUrlPlugin()` from `@hiveio/honeycomb-solid/plugins` to your Vite config.
 
 **SSR errors with SolidStart**
 - Wrap components with `clientOnly()` from `@solidjs/start`.
-- Add `ssr: { noExternal: ["@barddev/honeycomb-solid"] }` to vite config.
+- Add `ssr: { noExternal: ["@hiveio/honeycomb-solid"] }` to vite config.
 
 ## Components
 

@@ -1,4 +1,4 @@
-# @barddev/honeycomb-vue
+# @hiveio/honeycomb-vue
 
 ## 0.8.2
 

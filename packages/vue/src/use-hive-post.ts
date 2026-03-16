@@ -75,7 +75,7 @@ function is_valid_post_result(
  * @example
  * ```vue
  * <script setup>
- * import { useHivePost } from '@barddev/honeycomb-vue';
+ * import { useHivePost } from '@hiveio/honeycomb-vue';
  *
  * const { post, isLoading, error } = useHivePost("barddev", "my-post-permlink");
  * </script>

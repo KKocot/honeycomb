@@ -39,7 +39,7 @@ const DEFAULT_LIMIT = 20;
  * @example
  * ```svelte
  * <script lang="ts">
- *   import { useHivePostList } from "@barddev/honeycomb-svelte";
+ *   import { useHivePostList } from "@hiveio/honeycomb-svelte";
  *   // Static:
  *   const result = useHivePostList({ sort: "trending", limit: 10 });
  *   // Reactive (tracks changes):

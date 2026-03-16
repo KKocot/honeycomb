@@ -1,21 +1,21 @@
-# @barddev/honeycomb-react
+# Honeycomb React
 
-[![npm version](https://img.shields.io/npm/v/@barddev/honeycomb-react)](https://www.npmjs.com/package/@barddev/honeycomb-react) [![license](https://img.shields.io/npm/l/@barddev/honeycomb-react)](https://github.com/KKocot/honeycomb/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@hiveio/honeycomb-react)](https://www.npmjs.com/package/@hiveio/honeycomb-react) [![license](https://img.shields.io/npm/l/@hiveio/honeycomb-react)](https://github.com/KKocot/honeycomb/blob/main/LICENSE)
 
 React components and hooks for Hive Blockchain applications. Read-only (passive) - displays blockchain data without auth or transaction signing. SSR-compatible, works with Next.js App Router.
 
-[Documentation](https://honeycomb.bard-dev.com/docs/react/introduction) | [GitHub](https://github.com/KKocot/honeycomb)
+[Documentation](https://honeycomb.bard-dev.com/docs/react/introduction) | [GitHub](https://github.com/KKocot/honeycomb) | [npm](https://www.npmjs.com/package/@hiveio/honeycomb-react)
 
 ## Installation
 
 ```bash
-npm install @barddev/honeycomb-react
+npm install @hiveio/honeycomb-react
 # or
-pnpm add @barddev/honeycomb-react
+pnpm add @hiveio/honeycomb-react
 # or
-yarn add @barddev/honeycomb-react
+yarn add @hiveio/honeycomb-react
 # or
-bun add @barddev/honeycomb-react
+bun add @hiveio/honeycomb-react
 ```
 
 ### Peer Dependencies
@@ -37,7 +37,7 @@ bun add @hiveio/wax @radix-ui/react-popover react react-dom
 Import the bundled stylesheet in your entry file (e.g. `main.tsx`, `layout.tsx`):
 
 ```tsx
-import "@barddev/honeycomb-react/styles.css";
+import "@hiveio/honeycomb-react/styles.css";
 ```
 
 Includes CSS variables, component styles, Tailwind utilities, and theme tokens.
@@ -46,8 +46,8 @@ Includes CSS variables, component styles, Tailwind utilities, and theme tokens.
 
 ```tsx
 // app/layout.tsx (Next.js App Router)
-import { HiveProvider } from "@barddev/honeycomb-react";
-import "@barddev/honeycomb-react/styles.css";
+import { HiveProvider } from "@hiveio/honeycomb-react";
+import "@hiveio/honeycomb-react/styles.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -64,7 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 // app/page.tsx
 "use client";
 
-import { useHive, HiveAvatar, UserCard } from "@barddev/honeycomb-react";
+import { useHive, HiveAvatar, UserCard } from "@hiveio/honeycomb-react";
 
 export default function Page() {
   const { chain, is_loading, error, status } = useHive();
