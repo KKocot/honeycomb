@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { HiveProvider } from "@barddev/honeycomb-react";
+import { HiveProvider } from "@hiveio/honeycomb-react";
 import ApiTrackerTab from "./ApiTrackerTab";
 import HooksTab from "./HooksTab";
 import AvatarTab from "./AvatarTab";
@@ -162,7 +162,7 @@ export default function DemoApp() {
             </span>
           </div>
           <div className="text-sm text-hive-muted-foreground font-mono">
-            @barddev/honeycomb-react
+            @hiveio/honeycomb-react
           </div>
         </div>
       </header>
@@ -218,7 +218,7 @@ export default function DemoApp() {
 
       <footer className="border-t border-hive-border mt-16 py-8">
         <div className="container mx-auto px-4 text-center text-sm text-hive-muted-foreground">
-          Honeycomb React Astro Demo - @barddev/honeycomb-react
+          Honeycomb React Astro Demo - @hiveio/honeycomb-react
         </div>
       </footer>
     </HiveProvider>

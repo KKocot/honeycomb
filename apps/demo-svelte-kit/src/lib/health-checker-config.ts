@@ -1,4 +1,4 @@
-import type { HealthCheckerServiceConfig } from "@barddev/honeycomb-svelte";
+import type { HealthCheckerServiceConfig } from "@hiveio/honeycomb-svelte";
 
 
 const DEMO_ENDPOINTS = [

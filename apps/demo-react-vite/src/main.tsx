@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { HiveProvider } from "@barddev/honeycomb-react";
-import "@barddev/honeycomb-react/styles.css";
+import { HiveProvider } from "@hiveio/honeycomb-react";
+import "@hiveio/honeycomb-react/styles.css";
 import "./index.css";
 import App from "./App";
 

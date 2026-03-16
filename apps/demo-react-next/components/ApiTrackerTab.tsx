@@ -1,6 +1,6 @@
 "use client";
 
-import { ApiTracker } from "@barddev/honeycomb-react";
+import { ApiTracker } from "@hiveio/honeycomb-react";
 
 export default function ApiTrackerTab() {
   return (

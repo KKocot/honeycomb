@@ -1,10 +1,10 @@
 # Honeycomb Vue Demo (Nuxt)
 
-Interactive demo of `@barddev/honeycomb-vue` components in a **Nuxt 3** project (SPA mode).
+Interactive demo of `@hiveio/honeycomb-vue` components in a **Nuxt 3** project (SPA mode).
 
 **Dev server:** http://localhost:3040/demo/vue-nuxt/
 
-## Adding @barddev/honeycomb-vue to a Nuxt project
+## Adding @hiveio/honeycomb-vue to a Nuxt project
 
 ### 1. Create a Nuxt app
 
@@ -16,7 +16,7 @@ cd my-hive-app
 ### 2. Install dependencies
 
 ```bash
-npm install @barddev/honeycomb-vue @kkocot/honeycomb-core highlight.js
+npm install @hiveio/honeycomb-vue @kkocot/honeycomb-core highlight.js
 npm install -D @tailwindcss/vite @tailwindcss/typography tailwindcss
 ```
 
@@ -24,7 +24,7 @@ Peer dependencies:
 - `@kkocot/honeycomb-core` - core types and utilities
 - `highlight.js` - optional, for code syntax highlighting in ContentRenderer
 
-`radix-vue` is bundled as a dependency of `@barddev/honeycomb-vue` and installed automatically.
+`radix-vue` is bundled as a dependency of `@hiveio/honeycomb-vue` and installed automatically.
 
 Nuxt uses Vite natively, so use `@tailwindcss/vite` instead of the PostCSS plugin.
 
@@ -71,7 +71,7 @@ Create `assets/css/main.css`:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-vue/theme.css";
+@import "@hiveio/honeycomb-vue/theme.css";
 
 @plugin "@tailwindcss/typography";
 ```
@@ -87,7 +87,7 @@ Create `assets/css/main.css`:
 </template>
 
 <script setup lang="ts">
-import "@barddev/honeycomb-vue/styles.css";
+import "@hiveio/honeycomb-vue/styles.css";
 </script>
 ```
 
@@ -105,7 +105,7 @@ import "@barddev/honeycomb-vue/styles.css";
 </template>
 
 <script setup lang="ts">
-import { HiveProvider, HiveAvatar, HiveUserCard } from "@barddev/honeycomb-vue";
+import { HiveProvider, HiveAvatar, HiveUserCard } from "@hiveio/honeycomb-vue";
 </script>
 ```
 

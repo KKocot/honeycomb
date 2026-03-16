@@ -18,7 +18,7 @@ const PUBLIC_NODES = [
 ];
 
 const CODE = {
-  reactBasic: `import { HiveProvider } from "@barddev/honeycomb-react";
+  reactBasic: `import { HiveProvider } from "@hiveio/honeycomb-react";
 
 function App() {
   return (
@@ -41,7 +41,7 @@ function App() {
   reactNextjs: `// app/providers.tsx
 "use client";
 
-import { HiveProvider } from "@barddev/honeycomb-react";
+import { HiveProvider } from "@hiveio/honeycomb-react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -74,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }`,
-  solidBasic: `import { HiveProvider, useHive } from "@barddev/honeycomb-solid";
+  solidBasic: `import { HiveProvider, useHive } from "@hiveio/honeycomb-solid";
 
 function App() {
   return (
@@ -115,7 +115,7 @@ function MyComponent() {
 </template>
 
 <script setup lang="ts">
-import { HiveProvider } from "@barddev/honeycomb-vue";
+import { HiveProvider } from "@hiveio/honeycomb-vue";
 import HomePage from "./pages/index.vue";
 
 const endpoints = [
@@ -137,12 +137,12 @@ const onEndpointChange = (ep: string) => {
 </template>
 
 <script setup lang="ts">
-import { useHive } from "@barddev/honeycomb-vue";
+import { useHive } from "@hiveio/honeycomb-vue";
 
 const { chain, isLoading, error, status, apiEndpoint } = useHive();
 </script>`,
   svelteBasic: `<script lang="ts">
-  import { HiveProvider, useHive } from "@barddev/honeycomb-svelte";
+  import { HiveProvider, useHive } from "@hiveio/honeycomb-svelte";
 
   const hive = useHive();
 </script>
@@ -164,7 +164,7 @@ const { chain, isLoading, error, status, apiEndpoint } = useHive();
     <p>Connected!</p>
   {/if}
 </HiveProvider>`,
-  customNodes: `import { HiveProvider } from "@barddev/honeycomb-react";
+  customNodes: `import { HiveProvider } from "@hiveio/honeycomb-react";
 
 <HiveProvider
   apiEndpoints={[

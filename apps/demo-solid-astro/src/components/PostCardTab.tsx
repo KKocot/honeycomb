@@ -1,5 +1,5 @@
-import { HivePostCard } from "@barddev/honeycomb-solid";
-import type { PostHideOption } from "@barddev/honeycomb-solid";
+import { HivePostCard } from "@hiveio/honeycomb-solid";
+import type { PostHideOption } from "@hiveio/honeycomb-solid";
 
 const POST_A = {
   author: "barddev",

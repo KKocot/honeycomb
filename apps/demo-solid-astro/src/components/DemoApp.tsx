@@ -2,7 +2,7 @@ import { createSignal, Switch, Match, For, onMount, onCleanup } from "solid-js";
 import {
   HiveProvider,
   type HealthCheckerServiceConfig,
-} from "@barddev/honeycomb-solid";
+} from "@hiveio/honeycomb-solid";
 import ApiTrackerTab from "./ApiTrackerTab";
 import HooksTab from "./HooksTab";
 import AvatarTab from "./AvatarTab";
@@ -345,7 +345,7 @@ export default function DemoApp() {
             </div>
 
             <div class="text-sm text-muted-foreground font-mono">
-              @barddev/honeycomb-solid
+              @hiveio/honeycomb-solid
             </div>
           </div>
         </header>
@@ -422,7 +422,7 @@ export default function DemoApp() {
 
         <footer class="border-t border-border mt-16 py-8">
           <div class="container mx-auto px-4 text-center text-sm text-muted-foreground">
-            <p>Honeycomb Solid Astro Demo - @barddev/honeycomb-solid</p>
+            <p>Honeycomb Solid Astro Demo - @hiveio/honeycomb-solid</p>
           </div>
         </footer>
       </div>

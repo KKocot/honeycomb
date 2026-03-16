@@ -11,7 +11,7 @@
     "test:ui": "playwright test --ui"
   },
   "dependencies": {
-    "@barddev/honeycomb-solid": "workspace:*",
+    "@hiveio/honeycomb-solid": "workspace:*",
     "highlight.js": "^11.11.1",
     "solid-js": "^1.9.0"
   },

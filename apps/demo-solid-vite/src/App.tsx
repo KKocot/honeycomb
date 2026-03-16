@@ -1,7 +1,7 @@
 import {
   HiveProvider,
   type HealthCheckerServiceConfig,
-} from "@barddev/honeycomb-solid";
+} from "@hiveio/honeycomb-solid";
 import StatusDisplay from "./StatusDisplay";
 
 const DEMO_ENDPOINTS = [

@@ -214,7 +214,7 @@
     <div
       class="container mx-auto px-4 text-center text-sm text-muted-foreground"
     >
-      <p>Honeycomb SvelteKit Demo - @barddev/honeycomb-svelte</p>
+      <p>Honeycomb SvelteKit Demo - @hiveio/honeycomb-svelte</p>
     </div>
   </footer>
 </div>

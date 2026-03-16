@@ -1,6 +1,6 @@
 export const CODE = {
   // useHive
-  useHiveReact: `import { useHive } from "@barddev/honeycomb-react";
+  useHiveReact: `import { useHive } from "@hiveio/honeycomb-react";
 
 function StatusBar() {
   const {
@@ -28,7 +28,7 @@ function StatusBar() {
     </div>
   );
 }`,
-  useHiveSolid: `import { useHive } from "@barddev/honeycomb-solid";
+  useHiveSolid: `import { useHive } from "@hiveio/honeycomb-solid";
 
 function StatusBar() {
   const {
@@ -77,7 +77,7 @@ function StatusBar() {
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useHive } from "@barddev/honeycomb-vue";
+import { useHive } from "@hiveio/honeycomb-vue";
 
 const { chain, isLoading, error, apiEndpoint, status, endpoints, refreshEndpoints } =
   useHive();
@@ -89,7 +89,7 @@ const healthy_count = computed(() =>
 </script>`,
 
   useHiveSvelte: `<script lang="ts">
-  import { useHive } from "@barddev/honeycomb-svelte";
+  import { useHive } from "@hiveio/honeycomb-svelte";
 
   // Do NOT destructure - getters lose reactivity when copied
   const hive = useHive();
@@ -111,7 +111,7 @@ const healthy_count = computed(() =>
 {/if}`,
 
   // useHiveChain
-  useHiveChainReact: `import { useHiveChain } from "@barddev/honeycomb-react";
+  useHiveChainReact: `import { useHiveChain } from "@hiveio/honeycomb-react";
 
 function AccountLookup({ username }: { username: string }) {
   const chain = useHiveChain();
@@ -140,7 +140,7 @@ function AccountLookup({ username }: { username: string }) {
     </div>
   );
 }`,
-  useHiveChainSolid: `import { useHiveChain } from "@barddev/honeycomb-solid";
+  useHiveChainSolid: `import { useHiveChain } from "@hiveio/honeycomb-solid";
 
 function AccountLookup(props: { username: string }) {
   // Returns a signal getter
@@ -180,7 +180,7 @@ function AccountLookup(props: { username: string }) {
 </template>
 
 <script setup lang="ts">
-import { useHiveChain } from "@barddev/honeycomb-vue";
+import { useHiveChain } from "@hiveio/honeycomb-vue";
 
 const props = defineProps<{ username: string }>();
 
@@ -206,7 +206,7 @@ async function fetch_global_props() {
 </script>`,
 
   useHiveChainSvelte: `<script lang="ts">
-  import { useHiveChain } from "@barddev/honeycomb-svelte";
+  import { useHiveChain } from "@hiveio/honeycomb-svelte";
 
   let { username }: { username: string } = $props();
 
@@ -237,13 +237,13 @@ async function fetch_global_props() {
 </div>`,
 
   // useApiEndpoint
-  useApiEndpointReact: `import { useApiEndpoint } from "@barddev/honeycomb-react";
+  useApiEndpointReact: `import { useApiEndpoint } from "@hiveio/honeycomb-react";
 
 function EndpointDisplay() {
   const endpoint = useApiEndpoint();
   return <p>Connected to: {endpoint ?? "none"}</p>;
 }`,
-  useApiEndpointSolid: `import { useApiEndpoint } from "@barddev/honeycomb-solid";
+  useApiEndpointSolid: `import { useApiEndpoint } from "@hiveio/honeycomb-solid";
 
 function EndpointDisplay() {
   const endpoint = useApiEndpoint();
@@ -255,14 +255,14 @@ function EndpointDisplay() {
 </template>
 
 <script setup lang="ts">
-import { useApiEndpoint } from "@barddev/honeycomb-vue";
+import { useApiEndpoint } from "@hiveio/honeycomb-vue";
 
 // Returns a Ref - auto-unwrapped in template
 const apiEndpoint = useApiEndpoint();
 </script>`,
 
   useApiEndpointSvelte: `<script lang="ts">
-  import { useApiEndpoint } from "@barddev/honeycomb-svelte";
+  import { useApiEndpoint } from "@hiveio/honeycomb-svelte";
 
   const endpoint = useApiEndpoint();
 </script>
@@ -270,7 +270,7 @@ const apiEndpoint = useApiEndpoint();
 <p>Connected to: {endpoint.url ?? "none"}</p>`,
 
   // useHiveStatus
-  useHiveStatusReact: `import { useHiveStatus } from "@barddev/honeycomb-react";
+  useHiveStatusReact: `import { useHiveStatus } from "@hiveio/honeycomb-react";
 
 function ConnectionMonitor() {
   const { status, endpoints } = useHiveStatus();
@@ -290,7 +290,7 @@ function ConnectionMonitor() {
     </div>
   );
 }`,
-  useHiveStatusSolid: `import { useHiveStatus } from "@barddev/honeycomb-solid";
+  useHiveStatusSolid: `import { useHiveStatus } from "@hiveio/honeycomb-solid";
 
 function ConnectionMonitor() {
   // Returns a signal getter for { status, endpoints }
@@ -321,7 +321,7 @@ function ConnectionMonitor() {
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useHiveStatus } from "@barddev/honeycomb-vue";
+import { useHiveStatus } from "@hiveio/honeycomb-vue";
 
 // Returns { status: Ref, endpoints: Ref }
 const { status, endpoints } = useHiveStatus();
@@ -331,7 +331,7 @@ const healthy_count = computed(
 </script>`,
 
   useHiveStatusSvelte: `<script lang="ts">
-  import { useHiveStatus } from "@barddev/honeycomb-svelte";
+  import { useHiveStatus } from "@hiveio/honeycomb-svelte";
 
   const hive_status = useHiveStatus();
   let healthy = $derived(
@@ -350,7 +350,7 @@ const healthy_count = computed(
 </div>`,
 
   // useHiveAccount
-  useHiveAccountReact: `import { useHiveAccount } from "@barddev/honeycomb-react";
+  useHiveAccountReact: `import { useHiveAccount } from "@hiveio/honeycomb-react";
 
 function UserProfile({ username }: { username: string }) {
   const { account, is_loading, error, refetch } = useHiveAccount(username);
@@ -370,7 +370,7 @@ function UserProfile({ username }: { username: string }) {
     </div>
   );
 }`,
-  useHiveAccountSolid: `import { useHiveAccount } from "@barddev/honeycomb-solid";
+  useHiveAccountSolid: `import { useHiveAccount } from "@hiveio/honeycomb-solid";
 
 function UserProfile(props: { username: string }) {
   const { account, is_loading, error, refetch } = useHiveAccount(props.username);
@@ -413,14 +413,14 @@ function UserProfile(props: { username: string }) {
 </template>
 
 <script setup lang="ts">
-import { useHiveAccount } from "@barddev/honeycomb-vue";
+import { useHiveAccount } from "@hiveio/honeycomb-vue";
 
 const props = defineProps<{ username: string }>();
 
 const { account, isLoading, error, refetch } = useHiveAccount(props.username);
 </script>`,
   useHiveAccountSvelte: `<script lang="ts">
-  import { useHiveAccount } from "@barddev/honeycomb-svelte";
+  import { useHiveAccount } from "@hiveio/honeycomb-svelte";
 
   let { username }: { username: string } = $props();
 

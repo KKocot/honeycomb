@@ -1,4 +1,4 @@
-import { UserCard } from "@barddev/honeycomb-react";
+import { UserCard } from "@hiveio/honeycomb-react";
 
 const DEMO_USERS = ["barddev", "blocktrades", "good-karma", "arcange"];
 

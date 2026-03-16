@@ -5,7 +5,7 @@
     useHiveStatus,
     useHiveAccount,
     type ConnectionStatus,
-  } from "@barddev/honeycomb-svelte";
+  } from "@hiveio/honeycomb-svelte";
 
   function get_status_color(status_value: ConnectionStatus): string {
     switch (status_value) {

@@ -1,10 +1,10 @@
 # Honeycomb Solid Demo (Vite)
 
-Interactive demo of `@barddev/honeycomb-solid` components in a **Vite + Solid.js** SPA.
+Interactive demo of `@hiveio/honeycomb-solid` components in a **Vite + Solid.js** SPA.
 
 **Dev server:** http://localhost:3032/demo/solid-vite/
 
-## Adding @barddev/honeycomb-solid to a Vite + Solid.js project
+## Adding @hiveio/honeycomb-solid to a Vite + Solid.js project
 
 ### 1. Create a Vite app
 
@@ -17,7 +17,7 @@ npm install
 ### 2. Install dependencies
 
 ```bash
-npm install @barddev/honeycomb-solid @kkocot/honeycomb-core highlight.js
+npm install @hiveio/honeycomb-solid @kkocot/honeycomb-core highlight.js
 npm install -D @tailwindcss/postcss @tailwindcss/typography postcss tailwindcss vite-plugin-solid
 ```
 
@@ -57,7 +57,7 @@ Replace `src/index.css`:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-solid/theme.css";
+@import "@hiveio/honeycomb-solid/theme.css";
 
 @plugin "@tailwindcss/typography";
 ```
@@ -71,7 +71,7 @@ Replace `src/index.css`:
 // src/index.tsx
 import { render } from "solid-js/web";
 import App from "./App";
-import "@barddev/honeycomb-solid/styles.css";
+import "@hiveio/honeycomb-solid/styles.css";
 import "./index.css";
 
 const root_element = document.getElementById("root");
@@ -92,7 +92,7 @@ render(() => <App />, root_element);
 
 ```tsx
 // src/App.tsx
-import { HiveProvider, HiveAvatar, HiveUserCard } from "@barddev/honeycomb-solid";
+import { HiveProvider, HiveAvatar, HiveUserCard } from "@hiveio/honeycomb-solid";
 
 export default function App() {
   return (
@@ -112,7 +112,7 @@ Solid.js uses `class` instead of `className` for HTML attributes.
 
 | Aspect | React (Vite) | Solid.js (Vite) |
 |--------|-------------|-----------------|
-| Package | `@barddev/honeycomb-react` | `@barddev/honeycomb-solid` |
+| Package | `@hiveio/honeycomb-react` | `@hiveio/honeycomb-solid` |
 | Entry | `createRoot().render()` | `render(() => <App />, el)` |
 | HTML classes | `className` | `class` |
 | Reactivity | Hooks re-render component | Fine-grained signals, no re-renders |

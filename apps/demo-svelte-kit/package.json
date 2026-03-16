@@ -11,7 +11,7 @@
     "test:ui": "playwright test --ui"
   },
   "dependencies": {
-    "@barddev/honeycomb-svelte": "workspace:*",
+    "@hiveio/honeycomb-svelte": "workspace:*",
     "bits-ui": "^1.0.0",
     "@codemirror/autocomplete": "^6.20.1",
     "@codemirror/commands": "^6.10.2",

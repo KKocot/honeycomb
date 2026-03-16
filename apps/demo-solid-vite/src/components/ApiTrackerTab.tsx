@@ -1,4 +1,4 @@
-import { ApiTracker } from "@barddev/honeycomb-solid";
+import { ApiTracker } from "@hiveio/honeycomb-solid";
 
 export default function ApiTrackerTab() {
   return (

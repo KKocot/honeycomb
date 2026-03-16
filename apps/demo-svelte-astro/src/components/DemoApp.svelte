@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { HiveProvider } from "@barddev/honeycomb-svelte";
+  import { HiveProvider } from "@hiveio/honeycomb-svelte";
   import { healthCheckerServices } from "./health-checker-config";
   import ApiTrackerTab from "./ApiTrackerTab.svelte";
   import HooksTab from "./HooksTab.svelte";
@@ -234,7 +234,7 @@
         </div>
 
         <div class="text-sm text-muted-foreground font-mono">
-          @barddev/honeycomb-svelte
+          @hiveio/honeycomb-svelte
         </div>
       </div>
     </header>
@@ -302,7 +302,7 @@
       <div
         class="container mx-auto px-4 text-center text-sm text-muted-foreground"
       >
-        <p>Honeycomb Svelte Astro Demo - @barddev/honeycomb-svelte</p>
+        <p>Honeycomb Svelte Astro Demo - @hiveio/honeycomb-svelte</p>
       </div>
     </footer>
   </div>

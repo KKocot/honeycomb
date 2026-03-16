@@ -1,6 +1,6 @@
 <script lang="ts">
   import { browser } from "$app/environment";
-  import { HiveProvider } from "@barddev/honeycomb-svelte";
+  import { HiveProvider } from "@hiveio/honeycomb-svelte";
   import StatusDisplay from "$lib/StatusDisplay.svelte";
   import { healthCheckerServices } from "$lib/health-checker-config";
 </script>

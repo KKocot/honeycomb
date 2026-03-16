@@ -1,5 +1,5 @@
 import { createSignal, For } from "solid-js";
-import { HealthCheckerComponent } from "@barddev/honeycomb-solid";
+import { HealthCheckerComponent } from "@hiveio/honeycomb-solid";
 
 const HC_TABS = [
   {

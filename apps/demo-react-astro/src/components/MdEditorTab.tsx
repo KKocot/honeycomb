@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MdEditor } from "@barddev/honeycomb-react";
+import { MdEditor } from "@hiveio/honeycomb-react";
 
 const INITIAL_CONTENT = `# Hello Hive!
 

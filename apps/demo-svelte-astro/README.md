@@ -1,10 +1,10 @@
 # Honeycomb Svelte Demo (Astro)
 
-Interactive demo of `@barddev/honeycomb-svelte` components in an **Astro 5** project using Svelte islands.
+Interactive demo of `@hiveio/honeycomb-svelte` components in an **Astro 5** project using Svelte islands.
 
 **Dev server:** http://localhost:3043/demo/svelte-astro/
 
-## Adding @barddev/honeycomb-svelte to an Astro project
+## Adding @hiveio/honeycomb-svelte to an Astro project
 
 ### 1. Create an Astro app
 
@@ -17,7 +17,7 @@ npx astro add svelte
 ### 2. Install dependencies
 
 ```bash
-npm install @barddev/honeycomb-svelte @kkocot/honeycomb-core highlight.js
+npm install @hiveio/honeycomb-svelte @kkocot/honeycomb-core highlight.js
 npm install -D @tailwindcss/postcss @tailwindcss/typography postcss tailwindcss
 ```
 
@@ -29,7 +29,7 @@ Add `wasmUrlPlugin` so `@hiveio/wax` WASM binary resolves correctly:
 // astro.config.mjs
 import { defineConfig } from "astro/config";
 import svelte from "@astrojs/svelte";
-import { wasmUrlPlugin } from "@barddev/honeycomb-svelte/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-svelte/plugins";
 
 export default defineConfig({
   integrations: [svelte()],
@@ -56,7 +56,7 @@ Create `src/styles/global.css`:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-svelte/theme.css";
+@import "@hiveio/honeycomb-svelte/theme.css";
 
 @plugin "@tailwindcss/typography";
 ```
@@ -66,7 +66,7 @@ Create `src/styles/global.css`:
 ```astro
 ---
 // src/layouts/BaseLayout.astro
-import "@barddev/honeycomb-svelte/styles.css";
+import "@hiveio/honeycomb-svelte/styles.css";
 import "../styles/global.css";
 
 interface Props {
@@ -96,7 +96,7 @@ const { title } = Astro.props;
 ```svelte
 <!-- src/components/HiveApp.svelte -->
 <script lang="ts">
-  import { HiveProvider, HiveAvatar, HiveUserCard } from "@barddev/honeycomb-svelte";
+  import { HiveProvider, HiveAvatar, HiveUserCard } from "@hiveio/honeycomb-svelte";
 </script>
 
 <HiveProvider>

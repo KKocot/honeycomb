@@ -1,10 +1,10 @@
 # Honeycomb Vue Demo (Vite)
 
-Interactive demo of `@barddev/honeycomb-vue` components in a **Vite + Vue 3** SPA.
+Interactive demo of `@hiveio/honeycomb-vue` components in a **Vite + Vue 3** SPA.
 
 **Dev server:** http://localhost:3033/demo/vue-vite/
 
-## Adding @barddev/honeycomb-vue to a Vite + Vue project
+## Adding @hiveio/honeycomb-vue to a Vite + Vue project
 
 ### 1. Create a Vite app
 
@@ -16,7 +16,7 @@ cd my-hive-app
 ### 2. Install dependencies
 
 ```bash
-npm install @barddev/honeycomb-vue @kkocot/honeycomb-core highlight.js
+npm install @hiveio/honeycomb-vue @kkocot/honeycomb-core highlight.js
 npm install -D @tailwindcss/postcss @tailwindcss/typography postcss tailwindcss
 ```
 
@@ -24,7 +24,7 @@ Peer dependencies:
 - `@kkocot/honeycomb-core` - core types and utilities
 - `highlight.js` - optional, for code syntax highlighting in ContentRenderer
 
-`radix-vue` is bundled as a dependency of `@barddev/honeycomb-vue` and installed automatically.
+`radix-vue` is bundled as a dependency of `@hiveio/honeycomb-vue` and installed automatically.
 
 ### 3. Configure PostCSS
 
@@ -43,7 +43,7 @@ Replace `src/style.css`:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-vue/theme.css";
+@import "@hiveio/honeycomb-vue/theme.css";
 
 @plugin "@tailwindcss/typography";
 ```
@@ -57,7 +57,7 @@ Replace `src/style.css`:
 // src/main.ts
 import { createApp } from "vue";
 import App from "./App.vue";
-import "@barddev/honeycomb-vue/styles.css";
+import "@hiveio/honeycomb-vue/styles.css";
 import "./style.css";
 
 createApp(App).mount("#app");
@@ -79,7 +79,7 @@ createApp(App).mount("#app");
 </template>
 
 <script setup lang="ts">
-import { HiveProvider } from "@barddev/honeycomb-vue";
+import { HiveProvider } from "@hiveio/honeycomb-vue";
 import HomePage from "./pages/index.vue";
 </script>
 ```
@@ -99,8 +99,8 @@ import HomePage from "./pages/index.vue";
 </template>
 
 <script setup lang="ts">
-import { HiveAvatar, HiveUserCard } from "@barddev/honeycomb-vue";
-import { useHive } from "@barddev/honeycomb-vue";
+import { HiveAvatar, HiveUserCard } from "@hiveio/honeycomb-vue";
+import { useHive } from "@hiveio/honeycomb-vue";
 
 const { isLoading } = useHive();
 </script>
@@ -112,7 +112,7 @@ Vue uses `<script setup>` with auto-registration - imported components are avail
 
 | Aspect | React (Vite) | Vue 3 (Vite) |
 |--------|-------------|--------------|
-| Package | `@barddev/honeycomb-react` | `@barddev/honeycomb-vue` |
+| Package | `@hiveio/honeycomb-react` | `@hiveio/honeycomb-vue` |
 | Entry | `createRoot().render()` | `createApp().mount()` |
 | Components | JSX functions | `.vue` SFC with `<template>` + `<script setup>` |
 | Reactivity | `useState` / `useEffect` | `ref()` / `computed()` / `watch()` |

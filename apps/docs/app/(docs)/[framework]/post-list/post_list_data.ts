@@ -1,11 +1,11 @@
 export const CODE = {
   basic: {
-    react: `import { HivePostList } from "@barddev/honeycomb-react";
+    react: `import { HivePostList } from "@hiveio/honeycomb-react";
 
 function TrendingFeed() {
   return <HivePostList sort="trending" limit={10} />;
 }`,
-    solid: `import { HivePostList } from "@barddev/honeycomb-solid";
+    solid: `import { HivePostList } from "@hiveio/honeycomb-solid";
 
 function TrendingFeed() {
   return <HivePostList sort="trending" limit={10} />;
@@ -15,16 +15,16 @@ function TrendingFeed() {
 </template>
 
 <script setup lang="ts">
-import { HivePostList } from "@barddev/honeycomb-vue";
+import { HivePostList } from "@hiveio/honeycomb-vue";
 </script>`,
     svelte: `<script lang="ts">
-  import { HivePostList } from "@barddev/honeycomb-svelte";
+  import { HivePostList } from "@hiveio/honeycomb-svelte";
 </script>
 
 <HivePostList sort="trending" limit={10} />`,
   },
   sortControls: {
-    react: `import { HivePostList } from "@barddev/honeycomb-react";
+    react: `import { HivePostList } from "@hiveio/honeycomb-react";
 
 // Show sort buttons (trending, hot, created, payout, muted)
 function FeedWithControls() {
@@ -36,7 +36,7 @@ function FeedWithControls() {
     />
   );
 }`,
-    solid: `import { HivePostList } from "@barddev/honeycomb-solid";
+    solid: `import { HivePostList } from "@hiveio/honeycomb-solid";
 
 // Show sort buttons (trending, hot, created, payout, muted)
 function FeedWithControls() {
@@ -57,10 +57,10 @@ function FeedWithControls() {
 </template>
 
 <script setup lang="ts">
-import { HivePostList } from "@barddev/honeycomb-vue";
+import { HivePostList } from "@hiveio/honeycomb-vue";
 </script>`,
     svelte: `<script lang="ts">
-  import { HivePostList } from "@barddev/honeycomb-svelte";
+  import { HivePostList } from "@hiveio/honeycomb-svelte";
 </script>
 
 <HivePostList
@@ -70,7 +70,7 @@ import { HivePostList } from "@barddev/honeycomb-vue";
 />`,
   },
   pinnedPosts: {
-    react: `import { HivePostList } from "@barddev/honeycomb-react";
+    react: `import { HivePostList } from "@hiveio/honeycomb-react";
 
 // Pin specific posts to the top of the list
 function FeedWithPinned() {
@@ -84,7 +84,7 @@ function FeedWithPinned() {
     />
   );
 }`,
-    solid: `import { HivePostList } from "@barddev/honeycomb-solid";
+    solid: `import { HivePostList } from "@hiveio/honeycomb-solid";
 
 // Pin specific posts to the top of the list
 function FeedWithPinned() {
@@ -106,7 +106,7 @@ function FeedWithPinned() {
 </template>
 
 <script setup lang="ts">
-import { HivePostList } from "@barddev/honeycomb-vue";
+import { HivePostList } from "@hiveio/honeycomb-vue";
 
 const pinned = [
   { author: "hiveio", permlink: "welcome-to-hive" },
@@ -114,7 +114,7 @@ const pinned = [
 ];
 </script>`,
     svelte: `<script lang="ts">
-  import { HivePostList } from "@barddev/honeycomb-svelte";
+  import { HivePostList } from "@hiveio/honeycomb-svelte";
 
   const pinned = [
     { author: "hiveio", permlink: "welcome-to-hive" },
@@ -196,7 +196,7 @@ const pinned = [
 <!-- Available: "author" | "thumbnail" | "payout" | "votes" | "comments" | "time" -->`,
   },
   communityPosts: {
-    react: `import { HivePostList } from "@barddev/honeycomb-react";
+    react: `import { HivePostList } from "@hiveio/honeycomb-react";
 
 // Show posts from a specific community
 function LeoFinanceFeed() {
@@ -209,7 +209,7 @@ function LeoFinanceFeed() {
     />
   );
 }`,
-    solid: `import { HivePostList } from "@barddev/honeycomb-solid";
+    solid: `import { HivePostList } from "@hiveio/honeycomb-solid";
 
 // Show posts from a specific community
 function LeoFinanceFeed() {
@@ -233,10 +233,10 @@ function LeoFinanceFeed() {
 </template>
 
 <script setup lang="ts">
-import { HivePostList } from "@barddev/honeycomb-vue";
+import { HivePostList } from "@hiveio/honeycomb-vue";
 </script>`,
     svelte: `<script lang="ts">
-  import { HivePostList } from "@barddev/honeycomb-svelte";
+  import { HivePostList } from "@hiveio/honeycomb-svelte";
 </script>
 
 <HivePostList
@@ -247,7 +247,7 @@ import { HivePostList } from "@barddev/honeycomb-vue";
 />`,
   },
   tagFilter: {
-    react: `import { HivePostList } from "@barddev/honeycomb-react";
+    react: `import { HivePostList } from "@hiveio/honeycomb-react";
 
 // Filter posts by a specific tag
 function PhotographyFeed() {
@@ -259,7 +259,7 @@ function PhotographyFeed() {
     />
   );
 }`,
-    solid: `import { HivePostList } from "@barddev/honeycomb-solid";
+    solid: `import { HivePostList } from "@hiveio/honeycomb-solid";
 
 // Filter posts by a specific tag
 function PhotographyFeed() {
@@ -280,10 +280,10 @@ function PhotographyFeed() {
 </template>
 
 <script setup lang="ts">
-import { HivePostList } from "@barddev/honeycomb-vue";
+import { HivePostList } from "@hiveio/honeycomb-vue";
 </script>`,
     svelte: `<script lang="ts">
-  import { HivePostList } from "@barddev/honeycomb-svelte";
+  import { HivePostList } from "@hiveio/honeycomb-svelte";
 </script>
 
 <HivePostList
@@ -293,7 +293,7 @@ import { HivePostList } from "@barddev/honeycomb-vue";
 />`,
   },
   hookUsage: {
-    react: `import { useHivePostList } from "@barddev/honeycomb-react";
+    react: `import { useHivePostList } from "@hiveio/honeycomb-react";
 
 function CustomFeed() {
   const {
@@ -341,7 +341,7 @@ function CustomFeed() {
     </div>
   );
 }`,
-    solid: `import { useHivePostList } from "@barddev/honeycomb-solid";
+    solid: `import { useHivePostList } from "@hiveio/honeycomb-solid";
 import { For, Show } from "solid-js";
 
 function CustomFeed() {
@@ -409,13 +409,13 @@ function CustomFeed() {
 </template>
 
 <script setup lang="ts">
-import { useHivePostList } from "@barddev/honeycomb-vue";
+import { useHivePostList } from "@hiveio/honeycomb-vue";
 
 const sorts = ["trending", "hot", "created"];
 const feed = useHivePostList({ sort: "trending", tag: "hive", limit: 10 });
 </script>`,
     svelte: `<script lang="ts">
-  import { useHivePostList } from "@barddev/honeycomb-svelte";
+  import { useHivePostList } from "@hiveio/honeycomb-svelte";
 
   const sorts = ["trending", "hot", "created"];
   const feed = useHivePostList({ sort: "trending", tag: "hive", limit: 10 });

@@ -6,10 +6,10 @@ import { UsageTabs } from "@/components/usage-tabs";
 import { parseFramework } from "@/lib/framework";
 
 const PACKAGES = {
-  react: "@barddev/honeycomb-react",
-  solid: "@barddev/honeycomb-solid",
-  vue: "@barddev/honeycomb-vue",
-  svelte: "@barddev/honeycomb-svelte",
+  react: "@hiveio/honeycomb-react",
+  solid: "@hiveio/honeycomb-solid",
+  vue: "@hiveio/honeycomb-vue",
+  svelte: "@hiveio/honeycomb-svelte",
 } as const;
 
 const pmCommands = (pkg: string) => ({
@@ -32,7 +32,7 @@ const CODE = {
   react: {
     provider: `"use client";
 
-import { HiveProvider } from "@barddev/honeycomb-react";
+import { HiveProvider } from "@hiveio/honeycomb-react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -52,7 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }`,
-    usage: `import { useHive } from "@barddev/honeycomb-react";
+    usage: `import { useHive } from "@hiveio/honeycomb-react";
 
 function MyComponent() {
   const { chain, is_loading, error } = useHive();
@@ -64,7 +64,7 @@ function MyComponent() {
 }`,
   },
   solid: {
-    provider: `import { HiveProvider } from "@barddev/honeycomb-solid";
+    provider: `import { HiveProvider } from "@hiveio/honeycomb-solid";
 
 function App() {
   return (
@@ -73,7 +73,7 @@ function App() {
     </HiveProvider>
   );
 }`,
-    usage: `import { useHive } from "@barddev/honeycomb-solid";
+    usage: `import { useHive } from "@hiveio/honeycomb-solid";
 
 function MyComponent() {
   const { chain, is_loading, error } = useHive();
@@ -86,11 +86,11 @@ function MyComponent() {
   );
 }`,
     styles_entry: `// Entry file (index.tsx or app.tsx)
-import "@barddev/honeycomb-solid/base.css";
+import "@hiveio/honeycomb-solid/base.css";
 import "./app.css";`,
     styles_css: `/* app.css */
 @import "tailwindcss";
-@import "@barddev/honeycomb-solid/theme.css";
+@import "@hiveio/honeycomb-solid/theme.css";
 
 @theme inline {
   --color-background: hsl(var(--hive-background));
@@ -118,7 +118,7 @@ export default defineConfig({
 import { defineConfig } from "astro/config";
 import solid from "@astrojs/solid-js";
 import tailwindcss from "@tailwindcss/vite";
-import { wasmUrlPlugin } from "@barddev/honeycomb-solid/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-solid/plugins";
 
 export default defineConfig({
   integrations: [solid()],
@@ -129,7 +129,7 @@ export default defineConfig({
     solid_start_config: `// app.config.ts
 import { defineConfig } from "@solidjs/start/config";
 import tailwindcss from "@tailwindcss/vite";
-import { wasmUrlPlugin } from "@barddev/honeycomb-solid/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-solid/plugins";
 
 export default defineConfig({
   ssr: true,
@@ -142,7 +142,7 @@ export default defineConfig({
       exclude: ["@hiveio/wax"],
     },
     ssr: {
-      noExternal: ["@barddev/honeycomb-solid"],
+      noExternal: ["@hiveio/honeycomb-solid"],
     },
   },
 });`,
@@ -155,7 +155,7 @@ export default defineConfig({
 </template>
 
 <script setup lang="ts">
-import { HiveProvider } from "@barddev/honeycomb-vue";
+import { HiveProvider } from "@hiveio/honeycomb-vue";
 </script>`,
     usage: `<template>
   <div>
@@ -166,22 +166,22 @@ import { HiveProvider } from "@barddev/honeycomb-vue";
 </template>
 
 <script setup lang="ts">
-import { useHive } from "@barddev/honeycomb-vue";
+import { useHive } from "@hiveio/honeycomb-vue";
 
 const { chain, isLoading, error } = useHive();
 </script>`,
   },
   svelte: {
     provider: `<script lang="ts">
-  import { HiveProvider } from "@barddev/honeycomb-svelte";
-  import "@barddev/honeycomb-svelte/styles.css";
+  import { HiveProvider } from "@hiveio/honeycomb-svelte";
+  import "@hiveio/honeycomb-svelte/styles.css";
 </script>
 
 <HiveProvider>
   <slot />
 </HiveProvider>`,
     usage: `<script lang="ts">
-  import { useHive } from "@barddev/honeycomb-svelte";
+  import { useHive } from "@hiveio/honeycomb-svelte";
 
   const hive = useHive();
 </script>

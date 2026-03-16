@@ -1,6 +1,6 @@
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
-import { wasmUrlPlugin } from "@barddev/honeycomb-svelte/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-svelte/plugins";
 
 export default defineConfig({
   plugins: [sveltekit(), wasmUrlPlugin()],

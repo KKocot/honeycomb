@@ -1,10 +1,10 @@
 # Honeycomb Solid Demo (SolidStart)
 
-Interactive demo of `@barddev/honeycomb-solid` components in a **SolidStart** project with SSR.
+Interactive demo of `@hiveio/honeycomb-solid` components in a **SolidStart** project with SSR.
 
 **Dev server:** http://localhost:3037/
 
-## Adding @barddev/honeycomb-solid to a SolidStart project
+## Adding @hiveio/honeycomb-solid to a SolidStart project
 
 ### 1. Create a SolidStart app
 
@@ -16,7 +16,7 @@ cd my-hive-app
 ### 2. Install dependencies
 
 ```bash
-npm install @barddev/honeycomb-solid @kkocot/honeycomb-core highlight.js
+npm install @hiveio/honeycomb-solid @kkocot/honeycomb-core highlight.js
 npm install -D @tailwindcss/postcss @tailwindcss/typography postcss tailwindcss
 ```
 
@@ -27,7 +27,7 @@ npm install -D @tailwindcss/postcss @tailwindcss/typography postcss tailwindcss
 ```ts
 // app.config.ts
 import { defineConfig } from "@solidjs/start/config";
-import { wasmUrlPlugin } from "@barddev/honeycomb-solid/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-solid/plugins";
 
 export default defineConfig({
   ssr: true,
@@ -37,7 +37,7 @@ export default defineConfig({
       conditions: ["solid", "browser", "module"],
     },
     ssr: {
-      noExternal: ["@barddev/honeycomb-solid"],
+      noExternal: ["@hiveio/honeycomb-solid"],
     },
     optimizeDeps: {
       exclude: ["@hiveio/wax"],
@@ -68,7 +68,7 @@ Create `src/global.css`:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-solid/theme.css";
+@import "@hiveio/honeycomb-solid/theme.css";
 
 @plugin "@tailwindcss/typography";
 ```
@@ -80,7 +80,7 @@ Create `src/global.css`:
 import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
-import "@barddev/honeycomb-solid/styles.css";
+import "@hiveio/honeycomb-solid/styles.css";
 import "./global.css";
 
 export default function App() {
@@ -111,7 +111,7 @@ export default function Home() {
 
 ```tsx
 // src/ClientApp.tsx
-import { HiveProvider, HiveAvatar, HiveUserCard } from "@barddev/honeycomb-solid";
+import { HiveProvider, HiveAvatar, HiveUserCard } from "@hiveio/honeycomb-solid";
 
 export default function ClientApp() {
   return (

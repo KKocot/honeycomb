@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { HealthCheckerComponent } from "@barddev/honeycomb-svelte";
+  import { HealthCheckerComponent } from "@hiveio/honeycomb-svelte";
 
   const HC_TABS = [
     {

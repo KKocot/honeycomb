@@ -4,7 +4,7 @@ import { CodeBlock } from "@/components/code-block";
 import { parseFramework } from "@/lib/framework";
 
 const CODE = {
-  react: `import { UserCard } from "@barddev/honeycomb-react";
+  react: `import { UserCard } from "@hiveio/honeycomb-react";
 
 function ProfilePage() {
   return (
@@ -13,7 +13,7 @@ function ProfilePage() {
     </div>
   );
 }`,
-  solid: `import { UserCard } from "@barddev/honeycomb-solid";
+  solid: `import { UserCard } from "@hiveio/honeycomb-solid";
 
 function ProfilePage() {
   return (
@@ -29,10 +29,10 @@ function ProfilePage() {
 </template>
 
 <script setup>
-import { UserCard } from "@barddev/honeycomb-vue";
+import { UserCard } from "@hiveio/honeycomb-vue";
 </script>`,
   svelte: `<script lang="ts">
-  import { UserCard } from "@barddev/honeycomb-svelte";
+  import { UserCard } from "@hiveio/honeycomb-svelte";
 </script>
 
 <div class="max-w-md">

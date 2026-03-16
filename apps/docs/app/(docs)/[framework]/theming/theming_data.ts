@@ -181,7 +181,7 @@ export const CODE = {
 }`,
   tailwindTheme: `/* Import in your app.css alongside tailwindcss */
 @import "tailwindcss";
-@import "@barddev/honeycomb-<framework>/theme.css";
+@import "@hiveio/honeycomb-<framework>/theme.css";
 
 /* Optional: map hive vars to Tailwind semantic colors */
 @theme inline {
@@ -283,7 +283,7 @@ theme.css  — @theme inline tokens only.
              Use to add hive-* utility classes to your own Tailwind project.`,
   solidCssSetup: `/* app.css — Solid.js projects with Tailwind CSS 4 */
 @import "tailwindcss";
-@import "@barddev/honeycomb-solid/theme.css";
+@import "@hiveio/honeycomb-solid/theme.css";
 
 @theme inline {
   --color-background: hsl(var(--hive-background));

@@ -47,7 +47,7 @@ test.describe("Honeycomb SvelteKit Demo", () => {
   test("shows footer", async ({ page }) => {
     await page.goto("/");
     await expect(
-      page.getByText("Honeycomb SvelteKit Demo - @barddev/honeycomb-svelte"),
+      page.getByText("Honeycomb SvelteKit Demo - @hiveio/honeycomb-svelte"),
     ).toBeVisible();
   });
 });

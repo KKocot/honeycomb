@@ -5,8 +5,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-import { HiveProvider } from "@barddev/honeycomb-react";
-import "@barddev/honeycomb-react/styles.css";
+import { HiveProvider } from "@hiveio/honeycomb-react";
+import "@hiveio/honeycomb-react/styles.css";
 import "./app.css";
 
 export function Layout({ children }: { children: React.ReactNode }) {

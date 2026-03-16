@@ -5,7 +5,7 @@ import { parseFramework } from "@/lib/framework";
 
 const CODE = {
   basic: {
-    react: `import { HiveManabar } from "@barddev/honeycomb-react";
+    react: `import { HiveManabar } from "@hiveio/honeycomb-react";
 
 function UserStats() {
   return (
@@ -17,7 +17,7 @@ function UserStats() {
     />
   );
 }`,
-    solid: `import { HiveManabar } from "@barddev/honeycomb-solid";
+    solid: `import { HiveManabar } from "@hiveio/honeycomb-solid";
 
 function UserStats() {
   return (
@@ -39,10 +39,10 @@ function UserStats() {
 </template>
 
 <script setup lang="ts">
-import { HiveManabar } from "@barddev/honeycomb-vue";
+import { HiveManabar } from "@hiveio/honeycomb-vue";
 </script>`,
     svelte: `<script lang="ts">
-  import { HiveManabar } from "@barddev/honeycomb-svelte";
+  import { HiveManabar } from "@hiveio/honeycomb-svelte";
 </script>
 
 <HiveManabar

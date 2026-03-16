@@ -1,10 +1,10 @@
 # Honeycomb Vue Demo (Astro)
 
-Interactive demo of `@barddev/honeycomb-vue` components in an **Astro 5** project using Vue islands.
+Interactive demo of `@hiveio/honeycomb-vue` components in an **Astro 5** project using Vue islands.
 
 **Dev server:** http://localhost:3039/demo/vue-astro/
 
-## Adding @barddev/honeycomb-vue to an Astro project
+## Adding @hiveio/honeycomb-vue to an Astro project
 
 ### 1. Create an Astro app
 
@@ -17,7 +17,7 @@ npx astro add vue
 ### 2. Install dependencies
 
 ```bash
-npm install @barddev/honeycomb-vue @kkocot/honeycomb-core highlight.js
+npm install @hiveio/honeycomb-vue @kkocot/honeycomb-core highlight.js
 npm install -D @tailwindcss/vite @tailwindcss/typography tailwindcss
 ```
 
@@ -25,7 +25,7 @@ Peer dependencies:
 - `@kkocot/honeycomb-core` - core types and utilities
 - `highlight.js` - optional, for code syntax highlighting in ContentRenderer
 
-`radix-vue` is bundled as a dependency of `@barddev/honeycomb-vue` and installed automatically.
+`radix-vue` is bundled as a dependency of `@hiveio/honeycomb-vue` and installed automatically.
 
 ### 3. Configure Astro
 
@@ -36,7 +36,7 @@ Add `@tailwindcss/vite` and `wasmUrlPlugin` so Tailwind and `@hiveio/wax` WASM b
 import { defineConfig } from "astro/config";
 import vue from "@astrojs/vue";
 import tailwindcss from "@tailwindcss/vite";
-import { wasmUrlPlugin } from "@barddev/honeycomb-vue/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-vue/plugins";
 
 export default defineConfig({
   integrations: [vue()],
@@ -52,7 +52,7 @@ Create `src/styles/global.css`:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-vue/theme.css";
+@import "@hiveio/honeycomb-vue/theme.css";
 
 @plugin "@tailwindcss/typography";
 ```
@@ -62,7 +62,7 @@ Create `src/styles/global.css`:
 ```astro
 ---
 // src/layouts/BaseLayout.astro
-import "@barddev/honeycomb-vue/styles.css";
+import "@hiveio/honeycomb-vue/styles.css";
 import "../styles/global.css";
 
 interface Props {
@@ -101,7 +101,7 @@ const { title } = Astro.props;
 </template>
 
 <script setup lang="ts">
-import { HiveProvider, HiveAvatar, HiveUserCard } from "@barddev/honeycomb-vue";
+import { HiveProvider, HiveAvatar, HiveUserCard } from "@hiveio/honeycomb-vue";
 </script>
 ```
 

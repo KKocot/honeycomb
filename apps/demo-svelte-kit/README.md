@@ -1,10 +1,10 @@
 # Honeycomb Svelte Demo (SvelteKit)
 
-Interactive demo of `@barddev/honeycomb-svelte` components in a **SvelteKit** project with SSR.
+Interactive demo of `@hiveio/honeycomb-svelte` components in a **SvelteKit** project with SSR.
 
 **Dev server:** http://localhost:3042/
 
-## Adding @barddev/honeycomb-svelte to a SvelteKit project
+## Adding @hiveio/honeycomb-svelte to a SvelteKit project
 
 ### 1. Create a SvelteKit app
 
@@ -16,7 +16,7 @@ cd my-hive-app
 ### 2. Install dependencies
 
 ```bash
-npm install @barddev/honeycomb-svelte @kkocot/honeycomb-core highlight.js
+npm install @hiveio/honeycomb-svelte @kkocot/honeycomb-core highlight.js
 npm install -D @sveltejs/adapter-node @tailwindcss/postcss @tailwindcss/typography postcss tailwindcss
 ```
 
@@ -41,7 +41,7 @@ Add `wasmUrlPlugin` so `@hiveio/wax` WASM binary resolves correctly:
 // vite.config.ts
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
-import { wasmUrlPlugin } from "@barddev/honeycomb-svelte/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-svelte/plugins";
 
 export default defineConfig({
   plugins: [sveltekit(), wasmUrlPlugin()],
@@ -65,7 +65,7 @@ Create `src/app.css`:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-svelte/theme.css";
+@import "@hiveio/honeycomb-svelte/theme.css";
 
 @plugin "@tailwindcss/typography";
 ```
@@ -75,7 +75,7 @@ Create `src/app.css`:
 ```svelte
 <!-- src/routes/+layout.svelte -->
 <script lang="ts">
-  import "@barddev/honeycomb-svelte/styles.css";
+  import "@hiveio/honeycomb-svelte/styles.css";
   import "../app.css";
 
   let { children } = $props();
@@ -94,7 +94,7 @@ Since `@hiveio/wax` uses WASM and browser APIs, guard Hive components with `{#if
 <!-- src/routes/+page.svelte -->
 <script lang="ts">
   import { browser } from "$app/environment";
-  import { HiveProvider, HiveAvatar, HiveUserCard } from "@barddev/honeycomb-svelte";
+  import { HiveProvider, HiveAvatar, HiveUserCard } from "@hiveio/honeycomb-svelte";
 </script>
 
 {#if browser}

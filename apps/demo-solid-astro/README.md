@@ -1,10 +1,10 @@
 # Honeycomb Solid Demo (Astro)
 
-Interactive demo of `@barddev/honeycomb-solid` components in an **Astro 5** project using Solid.js islands.
+Interactive demo of `@hiveio/honeycomb-solid` components in an **Astro 5** project using Solid.js islands.
 
 **Dev server:** http://localhost:3038/demo/solid-astro/
 
-## Adding @barddev/honeycomb-solid to an Astro project
+## Adding @hiveio/honeycomb-solid to an Astro project
 
 ### 1. Create an Astro app
 
@@ -17,7 +17,7 @@ npx astro add solid-js
 ### 2. Install dependencies
 
 ```bash
-npm install @barddev/honeycomb-solid @kkocot/honeycomb-core highlight.js
+npm install @hiveio/honeycomb-solid @kkocot/honeycomb-core highlight.js
 npm install -D @tailwindcss/postcss @tailwindcss/typography postcss tailwindcss
 ```
 
@@ -29,7 +29,7 @@ Add the `wasmUrlPlugin` so `@hiveio/wax` WASM binary resolves correctly:
 // astro.config.mjs
 import { defineConfig } from "astro/config";
 import solidJs from "@astrojs/solid-js";
-import { wasmUrlPlugin } from "@barddev/honeycomb-solid/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-solid/plugins";
 
 export default defineConfig({
   integrations: [solidJs()],
@@ -56,7 +56,7 @@ Create `src/styles/global.css`:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-solid/theme.css";
+@import "@hiveio/honeycomb-solid/theme.css";
 
 @plugin "@tailwindcss/typography";
 ```
@@ -66,7 +66,7 @@ Create `src/styles/global.css`:
 ```astro
 ---
 // src/layouts/BaseLayout.astro
-import "@barddev/honeycomb-solid/styles.css";
+import "@hiveio/honeycomb-solid/styles.css";
 import "../styles/global.css";
 
 interface Props {
@@ -95,7 +95,7 @@ const { title } = Astro.props;
 
 ```tsx
 // src/components/HiveApp.tsx
-import { HiveProvider, HiveAvatar, HiveUserCard } from "@barddev/honeycomb-solid";
+import { HiveProvider, HiveAvatar, HiveUserCard } from "@hiveio/honeycomb-solid";
 
 export default function HiveApp() {
   return (

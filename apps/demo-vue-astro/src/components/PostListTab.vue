@@ -90,7 +90,7 @@
 </template>
 
 <script setup lang="ts">
-import { HivePostList } from "@barddev/honeycomb-vue";
+import { HivePostList } from "@hiveio/honeycomb-vue";
 
 const PINNED_POSTS = [
   { author: "gtg", permlink: "hive-hardfork-28-jump-starter-kit" },

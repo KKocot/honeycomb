@@ -150,7 +150,7 @@ export default function Home() {
             </span>
           </div>
           <div className="text-sm text-hive-muted-foreground font-mono">
-            @barddev/honeycomb-react
+            @hiveio/honeycomb-react
           </div>
         </div>
       </header>
@@ -206,7 +206,7 @@ export default function Home() {
 
       <footer className="border-t border-hive-border mt-16 py-8">
         <div className="container mx-auto px-4 text-center text-sm text-hive-muted-foreground">
-          Honeycomb React Router Demo - @barddev/honeycomb-react
+          Honeycomb React Router Demo - @hiveio/honeycomb-react
         </div>
       </footer>
     </div>

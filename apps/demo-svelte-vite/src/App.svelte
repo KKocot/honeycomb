@@ -2,7 +2,7 @@
   import {
     HiveProvider,
     type HealthCheckerServiceConfig,
-  } from "@barddev/honeycomb-svelte";
+  } from "@hiveio/honeycomb-svelte";
   import StatusDisplay from "./StatusDisplay.svelte";
 
   const DEMO_ENDPOINTS = [

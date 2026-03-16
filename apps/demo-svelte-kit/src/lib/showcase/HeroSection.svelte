@@ -1,6 +1,6 @@
 <section id="hero" class="py-16 text-center">
   <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-hive-red/10 border border-hive-red/20 text-hive-red text-sm font-medium mb-6">
-    @barddev/honeycomb-svelte
+    @hiveio/honeycomb-svelte
   </div>
   <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
     Honeycomb for <span class="text-hive-red">Svelte 5</span>

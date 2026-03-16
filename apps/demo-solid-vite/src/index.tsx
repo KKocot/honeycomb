@@ -1,6 +1,6 @@
 import { render } from "solid-js/web";
 import App from "./App";
-import "@barddev/honeycomb-solid/styles.css";
+import "@hiveio/honeycomb-solid/styles.css";
 import "./index.css";
 
 const root_element = document.getElementById("root");

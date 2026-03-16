@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { MdEditor } from "@barddev/honeycomb-svelte";
+  import { MdEditor } from "@hiveio/honeycomb-svelte";
 
   const INITIAL_CONTENT = `# Hello Hive!
 

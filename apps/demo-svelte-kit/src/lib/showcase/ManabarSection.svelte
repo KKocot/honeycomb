@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { HiveManabar } from "@barddev/honeycomb-svelte";
+  import { HiveManabar } from "@hiveio/honeycomb-svelte";
 
   const USERS = ["barddev", "blocktrades", "arcange"];
 </script>

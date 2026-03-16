@@ -1,6 +1,6 @@
 <script lang="ts">
   import "../app.css";
-  import "@barddev/honeycomb-svelte/styles.css";
+  import "@hiveio/honeycomb-svelte/styles.css";
   import { page } from "$app/state";
 
   let { children } = $props();

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { HivePostList } from "@barddev/honeycomb-svelte";
+  import { HivePostList } from "@hiveio/honeycomb-svelte";
 
   const PINNED_POSTS = [
     { author: "gtg", permlink: "hive-hardfork-28-jump-starter-kit" },

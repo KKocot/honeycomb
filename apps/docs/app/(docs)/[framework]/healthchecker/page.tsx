@@ -6,7 +6,7 @@ import { parseFramework } from "@/lib/framework";
 
 const CODE = {
   zeroConfig: {
-    react: `import { HiveProvider, HealthCheckerComponent } from "@barddev/honeycomb-react";
+    react: `import { HiveProvider, HealthCheckerComponent } from "@hiveio/honeycomb-react";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
 </template>
 
 <script setup lang="ts">
-import { HiveProvider, HealthCheckerComponent } from "@barddev/honeycomb-vue";
+import { HiveProvider, HealthCheckerComponent } from "@hiveio/honeycomb-vue";
 </script>`,
   },
   customServices: {
@@ -30,7 +30,7 @@ import { HiveProvider, HealthCheckerComponent } from "@barddev/honeycomb-vue";
   HiveProvider,
   HealthCheckerComponent,
   type HealthCheckerServiceConfig,
-} from "@barddev/honeycomb-react";
+} from "@hiveio/honeycomb-react";
 
 const ENDPOINTS = [
   "https://api.hive.blog",
@@ -93,7 +93,7 @@ import {
   HealthCheckerComponent,
   type HealthCheckerServiceConfig,
   type ApiChecker,
-} from "@barddev/honeycomb-vue";
+} from "@hiveio/honeycomb-vue";
 import type { IHiveChainInterface } from "@hiveio/wax";
 
 const ENDPOINTS = [
@@ -144,7 +144,7 @@ const healthCheckerServices: HealthCheckerServiceConfig[] = [
   HiveProvider,
   HealthCheckerComponent,
   type HealthCheckerServiceConfig,
-} from "@barddev/honeycomb-react";
+} from "@hiveio/honeycomb-react";
 
 const NODE_ENDPOINTS = [
   "https://api.hive.blog",
@@ -232,7 +232,7 @@ import {
   HiveProvider,
   HealthCheckerComponent,
   type HealthCheckerServiceConfig,
-} from "@barddev/honeycomb-vue";
+} from "@hiveio/honeycomb-vue";
 
 const healthCheckerServices: HealthCheckerServiceConfig[] = [
   {
@@ -301,7 +301,7 @@ const healthCheckerServices: HealthCheckerServiceConfig[] = [
       : "Account not found"  // error message
 }`,
   serviceAccess: {
-    react: `import { useHive } from "@barddev/honeycomb-react";
+    react: `import { useHive } from "@hiveio/honeycomb-react";
 
 function MyComponent() {
   const { getHealthCheckerService } = useHive();
@@ -334,7 +334,7 @@ function MyComponent() {
 </template>
 
 <script setup lang="ts">
-import { useHive } from "@barddev/honeycomb-vue";
+import { useHive } from "@hiveio/honeycomb-vue";
 
 const { getHealthCheckerService } = useHive();
 const service = getHealthCheckerService("default");

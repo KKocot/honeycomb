@@ -1,7 +1,7 @@
 import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
-import "@barddev/honeycomb-solid/styles.css";
+import "@hiveio/honeycomb-solid/styles.css";
 import "./global.css";
 
 export default function App() {

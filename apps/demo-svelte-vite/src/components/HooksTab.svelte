@@ -7,7 +7,7 @@
     useHiveChain,
     type ConnectionStatus,
     type EndpointStatus,
-  } from "@barddev/honeycomb-svelte";
+  } from "@hiveio/honeycomb-svelte";
 
   interface GlobalProps {
     head_block_number: number;

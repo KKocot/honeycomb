@@ -1,10 +1,10 @@
 # Honeycomb React Demo (Next.js)
 
-Interactive demo of `@barddev/honeycomb-react` components with live Hive blockchain data.
+Interactive demo of `@hiveio/honeycomb-react` components with live Hive blockchain data.
 
 **Dev server:** http://localhost:3031/demo/react-next
 
-This guide shows how to integrate `@barddev/honeycomb-react` into a fresh Next.js project from scratch.
+This guide shows how to integrate `@hiveio/honeycomb-react` into a fresh Next.js project from scratch.
 
 ## Setup guide
 
@@ -18,7 +18,7 @@ cd my-hive-app
 ### 2. Install honeycomb-react
 
 ```bash
-npm install @barddev/honeycomb-react @hiveio/wax @radix-ui/react-popover
+npm install @hiveio/honeycomb-react @hiveio/wax @radix-ui/react-popover
 ```
 
 Peer dependencies:
@@ -34,7 +34,7 @@ Add `transpilePackages` so Webpack can process the package:
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@barddev/honeycomb-react"],
+  transpilePackages: ["@hiveio/honeycomb-react"],
 };
 
 export default nextConfig;
@@ -59,7 +59,7 @@ Replace the contents of `app/globals.css`:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-react/theme.css";
+@import "@hiveio/honeycomb-react/theme.css";
 
 @plugin "@tailwindcss/typography";
 ```
@@ -71,8 +71,8 @@ Replace the contents of `app/globals.css`:
 
 ```tsx
 // app/layout.tsx
-import { HiveProvider } from "@barddev/honeycomb-react";
-import "@barddev/honeycomb-react/styles.css";
+import { HiveProvider } from "@hiveio/honeycomb-react";
+import "@hiveio/honeycomb-react/styles.css";
 import "./globals.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -101,7 +101,7 @@ import {
   HiveAvatar,
   HiveUserCard,
   HiveBalanceCard,
-} from "@barddev/honeycomb-react";
+} from "@hiveio/honeycomb-react";
 
 export default function Page() {
   return (

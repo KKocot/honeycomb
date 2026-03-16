@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { HiveAvatar } from "@barddev/honeycomb-svelte";
-  import type { AvatarSize } from "@barddev/honeycomb-svelte";
+  import { HiveAvatar } from "@hiveio/honeycomb-svelte";
+  import type { AvatarSize } from "@hiveio/honeycomb-svelte";
 
   const DEMO_USERS = [
     "barddev",

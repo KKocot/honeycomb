@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HealthCheckerComponent } from "@barddev/honeycomb-react";
+import { HealthCheckerComponent } from "@hiveio/honeycomb-react";
 
 const HC_TABS = [
   {

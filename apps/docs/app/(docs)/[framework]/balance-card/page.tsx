@@ -4,12 +4,12 @@ import { CodeBlock } from "@/components/code-block";
 import { parseFramework } from "@/lib/framework";
 
 const CODE = {
-  react: `import { BalanceCard } from "@barddev/honeycomb-react";
+  react: `import { BalanceCard } from "@hiveio/honeycomb-react";
 
 function WalletPage() {
   return <BalanceCard username="barddev" />;
 }`,
-  solid: `import { BalanceCard } from "@barddev/honeycomb-solid";
+  solid: `import { BalanceCard } from "@hiveio/honeycomb-solid";
 
 function WalletPage() {
   return <BalanceCard username="barddev" />;
@@ -19,10 +19,10 @@ function WalletPage() {
 </template>
 
 <script setup lang="ts">
-import { BalanceCard } from "@barddev/honeycomb-vue";
+import { BalanceCard } from "@hiveio/honeycomb-vue";
 </script>`,
   svelte: `<script lang="ts">
-  import { BalanceCard } from "@barddev/honeycomb-svelte";
+  import { BalanceCard } from "@hiveio/honeycomb-svelte";
 </script>
 
 <BalanceCard username="barddev" />`,

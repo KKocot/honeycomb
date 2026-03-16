@@ -71,7 +71,7 @@ export default function LandingPage() {
         <CodeBlock
           language="tsx"
           filename="App.tsx"
-          code={`import { HiveProvider, HiveAvatar } from '@barddev/honeycomb-react'
+          code={`import { HiveProvider, HiveAvatar } from '@hiveio/honeycomb-react'
 
 export default function App() {
   return (

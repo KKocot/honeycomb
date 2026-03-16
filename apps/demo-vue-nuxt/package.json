@@ -10,7 +10,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@barddev/honeycomb-vue": "workspace:*",
+    "@hiveio/honeycomb-vue": "workspace:*",
     "highlight.js": "^11.11.1",
     "vue": "^3.5.0"
   },

@@ -229,7 +229,7 @@
       </div>
 
       <div class="text-sm text-muted-foreground font-mono">
-        @barddev/honeycomb-svelte
+        @hiveio/honeycomb-svelte
       </div>
     </div>
   </header>
@@ -297,7 +297,7 @@
     <div
       class="container mx-auto px-4 text-center text-sm text-muted-foreground"
     >
-      <p>Honeycomb Svelte Demo - @barddev/honeycomb-svelte</p>
+      <p>Honeycomb Svelte Demo - @hiveio/honeycomb-svelte</p>
     </div>
   </footer>
 </div>

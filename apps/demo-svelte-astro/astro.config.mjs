@@ -1,6 +1,6 @@
 import { defineConfig } from "astro/config";
 import svelte from "@astrojs/svelte";
-import { wasmUrlPlugin } from "@barddev/honeycomb-svelte/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-svelte/plugins";
 
 export default defineConfig({
   integrations: [svelte()],

@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { HealthCheckerComponent } from "@barddev/honeycomb-vue";
+import { HealthCheckerComponent } from "@hiveio/honeycomb-vue";
 
 const HC_TABS = [
   {

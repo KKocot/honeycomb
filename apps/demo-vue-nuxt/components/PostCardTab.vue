@@ -81,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import { HivePostCard } from "@barddev/honeycomb-vue";
+import { HivePostCard } from "@hiveio/honeycomb-vue";
 
 const GTG_POST_A = {
   author: "gtg",

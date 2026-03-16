@@ -190,7 +190,7 @@ import {
   useHiveStatus,
   useHiveAccount,
   useHiveChain,
-} from "@barddev/honeycomb-vue";
+} from "@hiveio/honeycomb-vue";
 
 const {
   isLoading: is_loading,

@@ -161,7 +161,7 @@ export default function App() {
             </span>
           </div>
           <div className="text-sm text-hive-muted-foreground font-mono">
-            @barddev/honeycomb-react
+            @hiveio/honeycomb-react
           </div>
         </div>
       </header>
@@ -217,7 +217,7 @@ export default function App() {
 
       <footer className="border-t border-hive-border mt-16 py-8">
         <div className="container mx-auto px-4 text-center text-sm text-hive-muted-foreground">
-          Honeycomb React Vite Demo - @barddev/honeycomb-react
+          Honeycomb React Vite Demo - @hiveio/honeycomb-react
         </div>
       </footer>
     </div>

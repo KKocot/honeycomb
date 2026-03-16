@@ -1,4 +1,4 @@
 @import "tailwindcss";
-@import "@barddev/honeycomb-react/theme.css";
+@import "@hiveio/honeycomb-react/theme.css";
 
 @plugin "@tailwindcss/typography";

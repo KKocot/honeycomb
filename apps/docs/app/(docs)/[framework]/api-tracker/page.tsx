@@ -5,7 +5,7 @@ import { parseFramework } from "@/lib/framework";
 
 const CODE = {
   basic: {
-    react: `import { ApiTracker } from "@barddev/honeycomb-react";
+    react: `import { ApiTracker } from "@hiveio/honeycomb-react";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
     </div>
   );
 }`,
-    solid: `import { ApiTracker } from "@barddev/honeycomb-solid";
+    solid: `import { ApiTracker } from "@hiveio/honeycomb-solid";
 
 function App() {
   return (
@@ -30,10 +30,10 @@ function App() {
 </template>
 
 <script setup lang="ts">
-import { ApiTracker } from "@barddev/honeycomb-vue";
+import { ApiTracker } from "@hiveio/honeycomb-vue";
 </script>`,
     svelte: `<script lang="ts">
-  import { ApiTracker } from "@barddev/honeycomb-svelte";
+  import { ApiTracker } from "@hiveio/honeycomb-svelte";
 </script>
 
 <div>

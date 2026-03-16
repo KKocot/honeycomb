@@ -1,5 +1,5 @@
 import { defineConfig } from "@solidjs/start/config";
-import { wasmUrlPlugin } from "@barddev/honeycomb-solid/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-solid/plugins";
 
 export default defineConfig({
   ssr: true,
@@ -9,7 +9,7 @@ export default defineConfig({
       conditions: ["solid", "browser", "module"],
     },
     ssr: {
-      noExternal: ["@barddev/honeycomb-solid"],
+      noExternal: ["@hiveio/honeycomb-solid"],
     },
     optimizeDeps: {
       exclude: ["@hiveio/wax"],

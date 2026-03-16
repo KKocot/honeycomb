@@ -5,7 +5,7 @@ import { parseFramework } from "@/lib/framework";
 
 const CODE = {
   basic: {
-    react: `import { HiveAvatar } from "@barddev/honeycomb-react";
+    react: `import { HiveAvatar } from "@hiveio/honeycomb-react";
 
 function UserProfile() {
   return (
@@ -15,7 +15,7 @@ function UserProfile() {
     </div>
   );
 }`,
-    solid: `import { HiveAvatar } from "@barddev/honeycomb-solid";
+    solid: `import { HiveAvatar } from "@hiveio/honeycomb-solid";
 
 function UserProfile() {
   return (
@@ -33,10 +33,10 @@ function UserProfile() {
 </template>
 
 <script setup lang="ts">
-import { HiveAvatar } from "@barddev/honeycomb-vue";
+import { HiveAvatar } from "@hiveio/honeycomb-vue";
 </script>`,
     svelte: `<script lang="ts">
-  import { HiveAvatar } from "@barddev/honeycomb-svelte";
+  import { HiveAvatar } from "@hiveio/honeycomb-svelte";
 </script>
 
 <div class="flex items-center gap-3">

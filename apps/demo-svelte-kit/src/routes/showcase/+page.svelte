@@ -1,7 +1,7 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import { onMount } from "svelte";
-  import { HiveProvider } from "@barddev/honeycomb-svelte";
+  import { HiveProvider } from "@hiveio/honeycomb-svelte";
   import HeroSection from "$lib/showcase/HeroSection.svelte";
   import AvatarSection from "$lib/showcase/AvatarSection.svelte";
   import UserCardSection from "$lib/showcase/UserCardSection.svelte";

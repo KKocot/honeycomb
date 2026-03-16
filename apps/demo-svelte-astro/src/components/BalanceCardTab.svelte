@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { BalanceCard } from "@barddev/honeycomb-svelte";
+  import { BalanceCard } from "@hiveio/honeycomb-svelte";
 
   const USERS = ["barddev", "blocktrades", "arcange"];
   const ALL_USERS = ["barddev", "blocktrades", "arcange", "good-karma"];

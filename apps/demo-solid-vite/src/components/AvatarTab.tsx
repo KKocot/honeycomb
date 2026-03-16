@@ -1,6 +1,6 @@
 import { For } from "solid-js";
-import { HiveAvatar } from "@barddev/honeycomb-solid";
-import type { AvatarSize } from "@barddev/honeycomb-solid";
+import { HiveAvatar } from "@hiveio/honeycomb-solid";
+import type { AvatarSize } from "@hiveio/honeycomb-solid";
 
 const DEMO_USERS = ["barddev", "blocktrades", "arcange", "good-karma", "therealwolf"];
 const SIZES: readonly AvatarSize[] = ["xs", "sm", "md", "lg", "xl"];

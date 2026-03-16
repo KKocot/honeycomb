@@ -48,7 +48,7 @@ test.describe("Honeycomb Svelte Astro Demo", () => {
     await page.goto("/");
     await expect(
       page.getByText(
-        "Honeycomb Svelte Astro Demo - @barddev/honeycomb-svelte",
+        "Honeycomb Svelte Astro Demo - @hiveio/honeycomb-svelte",
       ),
     ).toBeVisible();
   });

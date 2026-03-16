@@ -12,7 +12,7 @@ export const CODE: {
   programmatic: string;
 } = {
   basic: {
-    react: `import { HiveContentRenderer } from "@barddev/honeycomb-react";
+    react: `import { HiveContentRenderer } from "@hiveio/honeycomb-react";
 
 function PostContent({ body, author, permlink }: {
   body: string;
@@ -29,7 +29,7 @@ function PostContent({ body, author, permlink }: {
     </div>
   );
 }`,
-    solid: `import { HiveContentRenderer } from "@barddev/honeycomb-solid";
+    solid: `import { HiveContentRenderer } from "@hiveio/honeycomb-solid";
 
 function PostContent(props: {
   body: string;
@@ -57,7 +57,7 @@ function PostContent(props: {
 </template>
 
 <script setup lang="ts">
-import { HiveContentRenderer } from "@barddev/honeycomb-vue";
+import { HiveContentRenderer } from "@hiveio/honeycomb-vue";
 
 defineProps<{
   body: string;
@@ -66,7 +66,7 @@ defineProps<{
 }>();
 </script>`,
     svelte: `<script lang="ts">
-  import { HiveContentRenderer } from "@barddev/honeycomb-svelte";
+  import { HiveContentRenderer } from "@hiveio/honeycomb-svelte";
 
   let { body, author, permlink }: {
     body: string;
@@ -116,7 +116,7 @@ export default {
   },
 
   customOptions: {
-    react: `import { HiveContentRenderer } from "@barddev/honeycomb-react";
+    react: `import { HiveContentRenderer } from "@hiveio/honeycomb-react";
 
 <HiveContentRenderer
   body={body}
@@ -130,7 +130,7 @@ export default {
     hashtagUrlFn: (tag) => \`/tag/\${tag}\`,
   }}
 />`,
-    solid: `import { HiveContentRenderer } from "@barddev/honeycomb-solid";
+    solid: `import { HiveContentRenderer } from "@hiveio/honeycomb-solid";
 
 <HiveContentRenderer
   body={body}
@@ -154,7 +154,7 @@ export default {
 </template>
 
 <script setup lang="ts">
-import { HiveContentRenderer } from "@barddev/honeycomb-vue";
+import { HiveContentRenderer } from "@hiveio/honeycomb-vue";
 
 const rendererOptions = {
   baseUrl: "https://hive.blog/",
@@ -165,7 +165,7 @@ const rendererOptions = {
 };
 </script>`,
     svelte: `<script lang="ts">
-  import { HiveContentRenderer } from "@barddev/honeycomb-svelte";
+  import { HiveContentRenderer } from "@hiveio/honeycomb-svelte";
 
   let { body }: { body: string } = $props();
 

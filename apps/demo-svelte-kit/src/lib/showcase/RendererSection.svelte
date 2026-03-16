@@ -3,7 +3,7 @@
     HiveContentRenderer,
     DEFAULT_PLUGINS,
     HighlightPlugin,
-  } from "@barddev/honeycomb-svelte";
+  } from "@hiveio/honeycomb-svelte";
   import hljs from "highlight.js";
   import "highlight.js/styles/github-dark.css";
 

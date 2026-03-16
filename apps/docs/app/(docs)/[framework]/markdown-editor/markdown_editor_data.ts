@@ -71,7 +71,7 @@ export const CODE: {
 
   basic: {
     react: `import { useState } from "react";
-import { MdEditor } from "@barddev/honeycomb-react";
+import { MdEditor } from "@hiveio/honeycomb-react";
 
 function PostEditor() {
   const [content, set_content] = useState("");
@@ -79,7 +79,7 @@ function PostEditor() {
   return <MdEditor value={content} onChange={set_content} />;
 }`,
     solid: `import { createSignal } from "solid-js";
-import { MdEditor } from "@barddev/honeycomb-solid";
+import { MdEditor } from "@hiveio/honeycomb-solid";
 
 function PostEditor() {
   const [content, set_content] = createSignal("");
@@ -92,12 +92,12 @@ function PostEditor() {
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { MdEditor } from "@barddev/honeycomb-vue";
+import { MdEditor } from "@hiveio/honeycomb-vue";
 
 const content = ref("");
 </script>`,
     svelte: `<script lang="ts">
-  import { MdEditor } from "@barddev/honeycomb-svelte";
+  import { MdEditor } from "@hiveio/honeycomb-svelte";
 
   let content = $state("");
 </script>
@@ -107,7 +107,7 @@ const content = ref("");
 
   withUpload: {
     react: `import { useState, useMemo } from "react";
-import { MdEditor, create_hive_upload_handler } from "@barddev/honeycomb-react";
+import { MdEditor, create_hive_upload_handler } from "@hiveio/honeycomb-react";
 
 function PostEditor({ username }: { username: string }) {
   const [content, set_content] = useState("");
@@ -137,7 +137,7 @@ function PostEditor({ username }: { username: string }) {
   );
 }`,
     solid: `import { createSignal, createMemo } from "solid-js";
-import { MdEditor, create_hive_upload_handler } from "@barddev/honeycomb-solid";
+import { MdEditor, create_hive_upload_handler } from "@hiveio/honeycomb-solid";
 
 function PostEditor(props: { username: string }) {
   const [content, set_content] = createSignal("");
@@ -170,7 +170,7 @@ function PostEditor(props: { username: string }) {
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { MdEditor, create_hive_upload_handler } from "@barddev/honeycomb-vue";
+import { MdEditor, create_hive_upload_handler } from "@hiveio/honeycomb-vue";
 
 const props = defineProps<{ username: string }>();
 const content = ref("");
@@ -186,7 +186,7 @@ const upload_handler = computed(() =>
 );
 </script>`,
     svelte: `<script lang="ts">
-  import { MdEditor, create_hive_upload_handler } from "@barddev/honeycomb-svelte";
+  import { MdEditor, create_hive_upload_handler } from "@hiveio/honeycomb-svelte";
 
   let { username }: { username: string } = $props();
   let content = $state("");
@@ -272,8 +272,8 @@ const upload_handler = computed(() =>
   },
 
   customToolbar: {
-    react: `import { MdEditor, DEFAULT_TOOLBAR } from "@barddev/honeycomb-react";
-import type { ToolbarItem } from "@barddev/honeycomb-react";
+    react: `import { MdEditor, DEFAULT_TOOLBAR } from "@hiveio/honeycomb-react";
+import type { ToolbarItem } from "@hiveio/honeycomb-react";
 
 // Use only formatting actions
 const minimal_toolbar: ToolbarItem[] = DEFAULT_TOOLBAR.filter(
@@ -296,8 +296,8 @@ function MinimalEditor() {
     />
   );
 }`,
-    solid: `import { MdEditor, DEFAULT_TOOLBAR } from "@barddev/honeycomb-solid";
-import type { ToolbarItem } from "@barddev/honeycomb-solid";
+    solid: `import { MdEditor, DEFAULT_TOOLBAR } from "@hiveio/honeycomb-solid";
+import type { ToolbarItem } from "@hiveio/honeycomb-solid";
 
 const minimal_toolbar: ToolbarItem[] = DEFAULT_TOOLBAR.filter(
   (item) =>
@@ -329,7 +329,7 @@ function MinimalEditor() {
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { MdEditor, DEFAULT_TOOLBAR } from "@barddev/honeycomb-vue";
+import { MdEditor, DEFAULT_TOOLBAR } from "@hiveio/honeycomb-vue";
 
 const content = ref("");
 
@@ -343,7 +343,7 @@ const minimal_toolbar = DEFAULT_TOOLBAR.filter(
 );
 </script>`,
     svelte: `<script lang="ts">
-  import { MdEditor, DEFAULT_TOOLBAR } from "@barddev/honeycomb-svelte";
+  import { MdEditor, DEFAULT_TOOLBAR } from "@hiveio/honeycomb-svelte";
 
   let content = $state("");
 

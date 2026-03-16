@@ -47,7 +47,7 @@ test.describe("Honeycomb Svelte Vite Demo", () => {
   test("shows footer", async ({ page }) => {
     await page.goto("/");
     await expect(
-      page.getByText("Honeycomb Svelte Demo - @barddev/honeycomb-svelte"),
+      page.getByText("Honeycomb Svelte Demo - @hiveio/honeycomb-svelte"),
     ).toBeVisible();
   });
 });

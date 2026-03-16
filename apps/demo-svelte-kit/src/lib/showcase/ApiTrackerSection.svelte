@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ApiTracker } from "@barddev/honeycomb-svelte";
+  import { ApiTracker } from "@hiveio/honeycomb-svelte";
 </script>
 
 <section id="api-tracker" class="scroll-mt-20">

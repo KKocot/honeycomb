@@ -1,10 +1,10 @@
 # Honeycomb React Demo (Astro)
 
-Interactive demo of `@barddev/honeycomb-react` components in an **Astro 5** project using React islands.
+Interactive demo of `@hiveio/honeycomb-react` components in an **Astro 5** project using React islands.
 
 **Dev server:** http://localhost:3035/demo/react-astro/
 
-## Adding @barddev/honeycomb-react to an Astro project
+## Adding @hiveio/honeycomb-react to an Astro project
 
 ### 1. Create an Astro app
 
@@ -17,7 +17,7 @@ npx astro add react
 ### 2. Install dependencies
 
 ```bash
-npm install @barddev/honeycomb-react @kkocot/honeycomb-core @radix-ui/react-popover highlight.js
+npm install @hiveio/honeycomb-react @kkocot/honeycomb-core @radix-ui/react-popover highlight.js
 npm install -D @tailwindcss/postcss @tailwindcss/typography postcss tailwindcss
 ```
 
@@ -38,7 +38,7 @@ Create `src/styles/global.css`:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-react/theme.css";
+@import "@hiveio/honeycomb-react/theme.css";
 
 @plugin "@tailwindcss/typography";
 ```
@@ -48,7 +48,7 @@ Create `src/styles/global.css`:
 ```astro
 ---
 // src/layouts/BaseLayout.astro
-import "@barddev/honeycomb-react/styles.css";
+import "@hiveio/honeycomb-react/styles.css";
 import "../styles/global.css";
 
 interface Props {
@@ -77,7 +77,7 @@ const { title } = Astro.props;
 
 ```tsx
 // src/components/HiveApp.tsx
-import { HiveProvider, HiveAvatar, UserCard } from "@barddev/honeycomb-react";
+import { HiveProvider, HiveAvatar, UserCard } from "@hiveio/honeycomb-react";
 
 export default function HiveApp() {
   return (

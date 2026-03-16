@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 import vue from "@astrojs/vue";
 import tailwindcss from "@tailwindcss/vite";
-import { wasmUrlPlugin } from "@barddev/honeycomb-vue/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-vue/plugins";
 
 export default defineConfig({
   integrations: [vue()],

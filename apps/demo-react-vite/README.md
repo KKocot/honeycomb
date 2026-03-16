@@ -1,10 +1,10 @@
 # Honeycomb React Demo (Vite)
 
-Interactive demo of `@barddev/honeycomb-react` components in a **Vite + React** SPA.
+Interactive demo of `@hiveio/honeycomb-react` components in a **Vite + React** SPA.
 
 **Dev server:** http://localhost:3034/demo/react-vite/
 
-## Adding @barddev/honeycomb-react to a Vite + React project
+## Adding @hiveio/honeycomb-react to a Vite + React project
 
 ### 1. Create a Vite app
 
@@ -16,7 +16,7 @@ cd my-hive-app
 ### 2. Install dependencies
 
 ```bash
-npm install @barddev/honeycomb-react @kkocot/honeycomb-core @radix-ui/react-popover highlight.js
+npm install @hiveio/honeycomb-react @kkocot/honeycomb-core @radix-ui/react-popover highlight.js
 npm install -D @tailwindcss/postcss @tailwindcss/typography postcss tailwindcss
 ```
 
@@ -42,7 +42,7 @@ Replace `src/index.css`:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-react/theme.css";
+@import "@hiveio/honeycomb-react/theme.css";
 
 @plugin "@tailwindcss/typography";
 ```
@@ -56,8 +56,8 @@ Replace `src/index.css`:
 // src/main.tsx
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { HiveProvider } from "@barddev/honeycomb-react";
-import "@barddev/honeycomb-react/styles.css";
+import { HiveProvider } from "@hiveio/honeycomb-react";
+import "@hiveio/honeycomb-react/styles.css";
 import "./index.css";
 import App from "./App";
 
@@ -79,7 +79,7 @@ createRoot(document.getElementById("root")!).render(
 
 ```tsx
 // src/App.tsx
-import { HiveAvatar, UserCard, useHive } from "@barddev/honeycomb-react";
+import { HiveAvatar, UserCard, useHive } from "@hiveio/honeycomb-react";
 
 export default function App() {
   const { status } = useHive();

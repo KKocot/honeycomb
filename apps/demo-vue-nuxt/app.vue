@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import "@barddev/honeycomb-vue/styles.css";
+import "@hiveio/honeycomb-vue/styles.css";
 </script>

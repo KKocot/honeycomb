@@ -1,10 +1,10 @@
 # Honeycomb React Demo (React Router)
 
-Interactive demo of `@barddev/honeycomb-react` components in a **React Router 7** project (SPA mode).
+Interactive demo of `@hiveio/honeycomb-react` components in a **React Router 7** project (SPA mode).
 
 **Dev server:** http://localhost:3036/demo/react-remix/
 
-## Adding @barddev/honeycomb-react to a React Router 7 project
+## Adding @hiveio/honeycomb-react to a React Router 7 project
 
 ### 1. Create a React Router app
 
@@ -16,7 +16,7 @@ cd my-hive-app
 ### 2. Install dependencies
 
 ```bash
-npm install @barddev/honeycomb-react @kkocot/honeycomb-core @radix-ui/react-popover highlight.js
+npm install @hiveio/honeycomb-react @kkocot/honeycomb-core @radix-ui/react-popover highlight.js
 npm install -D @tailwindcss/postcss @tailwindcss/typography postcss tailwindcss
 ```
 
@@ -50,7 +50,7 @@ Replace `app/app.css`:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-react/theme.css";
+@import "@hiveio/honeycomb-react/theme.css";
 
 @plugin "@tailwindcss/typography";
 ```
@@ -60,8 +60,8 @@ Replace `app/app.css`:
 ```tsx
 // app/root.tsx
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
-import { HiveProvider } from "@barddev/honeycomb-react";
-import "@barddev/honeycomb-react/styles.css";
+import { HiveProvider } from "@hiveio/honeycomb-react";
+import "@hiveio/honeycomb-react/styles.css";
 import "./app.css";
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -100,7 +100,7 @@ export default function Root() {
 
 ```tsx
 // app/routes/home.tsx
-import { HiveAvatar, UserCard, useHive } from "@barddev/honeycomb-react";
+import { HiveAvatar, UserCard, useHive } from "@hiveio/honeycomb-react";
 import { useSearchParams } from "react-router";
 
 export function meta() {

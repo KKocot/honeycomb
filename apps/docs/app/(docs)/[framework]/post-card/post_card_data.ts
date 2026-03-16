@@ -1,6 +1,6 @@
 export const CODE = {
   basic: {
-    react: `import { HivePostCard } from "@barddev/honeycomb-react";
+    react: `import { HivePostCard } from "@hiveio/honeycomb-react";
 
 function PostFeed() {
   return (
@@ -10,7 +10,7 @@ function PostFeed() {
     />
   );
 }`,
-    solid: `import { HivePostCard } from "@barddev/honeycomb-solid";
+    solid: `import { HivePostCard } from "@hiveio/honeycomb-solid";
 
 function PostFeed() {
   return (
@@ -28,10 +28,10 @@ function PostFeed() {
 </template>
 
 <script setup lang="ts">
-import { HivePostCard } from "@barddev/honeycomb-vue";
+import { HivePostCard } from "@hiveio/honeycomb-vue";
 </script>`,
     svelte: `<script lang="ts">
-  import { HivePostCard } from "@barddev/honeycomb-svelte";
+  import { HivePostCard } from "@hiveio/honeycomb-svelte";
 </script>
 
 <HivePostCard
@@ -140,7 +140,7 @@ import { HivePostCard } from "@barddev/honeycomb-vue";
 />`,
   },
   postList: {
-    react: `import { HivePostCard } from "@barddev/honeycomb-react";
+    react: `import { HivePostCard } from "@hiveio/honeycomb-react";
 
 // Render a list of posts
 function PostList({ posts }: { posts: Array<{ author: string; permlink: string }> }) {
@@ -157,7 +157,7 @@ function PostList({ posts }: { posts: Array<{ author: string; permlink: string }
   );
 }`,
     solid: `import { For } from "solid-js";
-import { HivePostCard } from "@barddev/honeycomb-solid";
+import { HivePostCard } from "@hiveio/honeycomb-solid";
 
 // Render a list of posts
 function PostList(props: { posts: Array<{ author: string; permlink: string }> }) {
@@ -186,14 +186,14 @@ function PostList(props: { posts: Array<{ author: string; permlink: string }> })
 </template>
 
 <script setup lang="ts">
-import { HivePostCard } from "@barddev/honeycomb-vue";
+import { HivePostCard } from "@hiveio/honeycomb-vue";
 
 defineProps<{
   posts: Array<{ author: string; permlink: string }>;
 }>();
 </script>`,
     svelte: `<script lang="ts">
-  import { HivePostCard } from "@barddev/honeycomb-svelte";
+  import { HivePostCard } from "@hiveio/honeycomb-svelte";
 
   let { posts }: {
     posts: Array<{ author: string; permlink: string }>;

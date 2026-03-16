@@ -1,10 +1,10 @@
 # Honeycomb Svelte Demo (Vite)
 
-Interactive demo of `@barddev/honeycomb-svelte` components in a **Vite + Svelte 5** SPA.
+Interactive demo of `@hiveio/honeycomb-svelte` components in a **Vite + Svelte 5** SPA.
 
 **Dev server:** http://localhost:3041/demo/svelte-vite/
 
-## Adding @barddev/honeycomb-svelte to a Vite + Svelte project
+## Adding @hiveio/honeycomb-svelte to a Vite + Svelte project
 
 ### 1. Create a Vite app
 
@@ -16,7 +16,7 @@ cd my-hive-app
 ### 2. Install dependencies
 
 ```bash
-npm install @barddev/honeycomb-svelte @kkocot/honeycomb-core highlight.js
+npm install @hiveio/honeycomb-svelte @kkocot/honeycomb-core highlight.js
 npm install -D @tailwindcss/postcss @tailwindcss/typography postcss tailwindcss
 ```
 
@@ -41,7 +41,7 @@ Replace `src/app.css`:
 
 ```css
 @import "tailwindcss";
-@import "@barddev/honeycomb-svelte/theme.css";
+@import "@hiveio/honeycomb-svelte/theme.css";
 
 @plugin "@tailwindcss/typography";
 ```
@@ -55,7 +55,7 @@ Replace `src/app.css`:
 // src/main.ts
 import { mount } from "svelte";
 import App from "./App.svelte";
-import "@barddev/honeycomb-svelte/styles.css";
+import "@hiveio/honeycomb-svelte/styles.css";
 import "./app.css";
 
 const root_element = document.getElementById("root");
@@ -79,7 +79,7 @@ Svelte 5 uses `mount()` instead of the old `new App({ target })` constructor.
 ```svelte
 <!-- src/App.svelte -->
 <script lang="ts">
-  import { HiveProvider, HiveAvatar, HiveUserCard } from "@barddev/honeycomb-svelte";
+  import { HiveProvider, HiveAvatar, HiveUserCard } from "@hiveio/honeycomb-svelte";
 </script>
 
 <HiveProvider>
@@ -94,7 +94,7 @@ Svelte 5 uses `mount()` instead of the old `new App({ target })` constructor.
 
 | Aspect | React (Vite) | Svelte 5 (Vite) |
 |--------|-------------|------------------|
-| Package | `@barddev/honeycomb-react` | `@barddev/honeycomb-svelte` |
+| Package | `@hiveio/honeycomb-react` | `@hiveio/honeycomb-svelte` |
 | Entry | `createRoot().render()` | `mount(App, { target })` |
 | Components | JSX functions | `.svelte` SFC with `<script>` + template |
 | Reactivity | `useState` / `useEffect` | `$state` / `$derived` / `$effect` |

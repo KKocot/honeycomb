@@ -1,6 +1,6 @@
 import { defineConfig } from "astro/config";
 import solidJs from "@astrojs/solid-js";
-import { wasmUrlPlugin } from "@barddev/honeycomb-solid/plugins";
+import { wasmUrlPlugin } from "@hiveio/honeycomb-solid/plugins";
 
 export default defineConfig({
   integrations: [solidJs()],

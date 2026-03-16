@@ -1,6 +1,6 @@
 import { mount } from "svelte";
 import App from "./App.svelte";
-import "@barddev/honeycomb-svelte/styles.css";
+import "@hiveio/honeycomb-svelte/styles.css";
 import "./app.css";
 
 const root_element = document.getElementById("root");

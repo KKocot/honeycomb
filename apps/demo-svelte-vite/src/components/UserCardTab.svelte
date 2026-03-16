@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { UserCard } from "@barddev/honeycomb-svelte";
+  import { UserCard } from "@hiveio/honeycomb-svelte";
 
   const DEMO_USERS = ["barddev", "blocktrades", "good-karma", "arcange"];
 </script>

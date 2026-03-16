@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import {
   HiveProvider,
   type HealthCheckerServiceConfig,
-} from "@barddev/honeycomb-react";
+} from "@hiveio/honeycomb-react";
 
 const DEMO_ENDPOINTS = [
   "https://api.hive.blog",

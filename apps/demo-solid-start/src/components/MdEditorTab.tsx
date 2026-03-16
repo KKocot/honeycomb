@@ -1,5 +1,5 @@
 import { createSignal } from "solid-js";
-import { MdEditor } from "@barddev/honeycomb-solid";
+import { MdEditor } from "@hiveio/honeycomb-solid";
 
 const INITIAL_CONTENT = `# Hello Hive!
 

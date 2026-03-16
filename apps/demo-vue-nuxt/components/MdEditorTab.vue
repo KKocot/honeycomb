@@ -17,8 +17,8 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { MdEditor } from "@barddev/honeycomb-vue";
-import type { MdEditorConfig } from "@barddev/honeycomb-vue";
+import { MdEditor } from "@hiveio/honeycomb-vue";
+import type { MdEditorConfig } from "@hiveio/honeycomb-vue";
 
 const INITIAL_CONTENT = `# Hello from Honeycomb Vue Editor
 
@@ -34,7 +34,7 @@ This is a **Markdown editor** built with CodeMirror 6.
 ### Code example
 
 \`\`\`typescript
-import { MdEditor } from "@barddev/honeycomb-vue";
+import { MdEditor } from "@hiveio/honeycomb-vue";
 \`\`\`
 
 > Try the toolbar buttons above or toggle the preview mode.

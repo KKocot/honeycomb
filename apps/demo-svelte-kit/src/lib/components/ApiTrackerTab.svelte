@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ApiTracker } from "@barddev/honeycomb-svelte";
+  import { ApiTracker } from "@hiveio/honeycomb-svelte";
 </script>
 
 <div class="space-y-6">

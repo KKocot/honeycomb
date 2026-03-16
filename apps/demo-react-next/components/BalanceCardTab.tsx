@@ -1,6 +1,6 @@
 "use client";
 
-import { BalanceCard } from "@barddev/honeycomb-react";
+import { BalanceCard } from "@hiveio/honeycomb-react";
 
 const DEMO_USERS = ["barddev", "blocktrades", "arcange", "good-karma"];
 

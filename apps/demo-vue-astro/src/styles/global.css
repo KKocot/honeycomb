@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@barddev/honeycomb-vue/theme.css";
+@import "@hiveio/honeycomb-vue/theme.css";
 
 @plugin "@tailwindcss/typography";
 

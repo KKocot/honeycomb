@@ -31,7 +31,7 @@
         </div>
 
         <div class="text-sm text-muted-foreground font-mono">
-          @barddev/honeycomb-vue
+          @hiveio/honeycomb-vue
         </div>
       </div>
     </header>
@@ -85,7 +85,7 @@
       <div
         class="container mx-auto px-4 text-center text-sm text-muted-foreground"
       >
-        <p>Honeycomb Vue Astro Demo - @barddev/honeycomb-vue</p>
+        <p>Honeycomb Vue Astro Demo - @hiveio/honeycomb-vue</p>
       </div>
     </footer>
   </div>

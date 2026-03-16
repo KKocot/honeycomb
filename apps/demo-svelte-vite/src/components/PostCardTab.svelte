@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { HivePostCard } from "@barddev/honeycomb-svelte";
-  import type { PostHideOption } from "@barddev/honeycomb-svelte";
+  import { HivePostCard } from "@hiveio/honeycomb-svelte";
+  import type { PostHideOption } from "@hiveio/honeycomb-svelte";
 
   const POST_A = { author: "barddev", permlink: "my-honey-pot" };
   const POST_B = {

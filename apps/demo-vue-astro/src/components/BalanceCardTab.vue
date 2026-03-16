@@ -71,7 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import { BalanceCard } from "@barddev/honeycomb-vue";
+import { BalanceCard } from "@hiveio/honeycomb-vue";
 
 const USERS = ["barddev", "blocktrades", "arcange"];
 const ALL_USERS = ["barddev", "blocktrades", "arcange", "good-karma"];
