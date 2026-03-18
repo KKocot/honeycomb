@@ -10,6 +10,7 @@ import {
   FRAMEWORKS,
   parseFramework,
   get_demo_url,
+  get_npm_url,
   type Framework,
 } from "@/lib/framework";
 
@@ -151,6 +152,23 @@ export function Header() {
         </nav>
 
         <div className="ml-auto flex items-center gap-4">
+          <a
+            href={get_npm_url(active_framework)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted-foreground transition-colors hover:text-foreground"
+            title={`npm: ${FRAMEWORKS.find((fw) => fw.id === active_framework)?.npm_package}`}
+          >
+            <svg
+              viewBox="0 0 780 250"
+              className="h-5 w-5"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M240,250h100v-50h100V0H240V250z M340,50h50v100h-50V50z M480,0v200h100V50h50v150h50V50h50v150h50V0H480z M0,200h100V50h50v150h50V0H0V200z" />
+            </svg>
+            <span className="sr-only">npm</span>
+          </a>
           <a
             href="https://github.com/KKocot/honeycomb"
             target="_blank"
