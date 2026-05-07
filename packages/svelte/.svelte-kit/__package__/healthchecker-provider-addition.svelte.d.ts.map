@@ -1,1 +1,0 @@
-{"version":3,"file":"healthchecker-provider-addition.svelte.d.ts","sourceRoot":"","sources":["../src/healthchecker-provider-addition.svelte.ts"],"names":[],"mappings":"AAGE,MAAM,WAAW,qBAAqB;IACpC,gBAAgB,EAAE,CAAC,QAAQ,EAAE,MAAM,KAAK,IAAI,CAAC;CAC9C;AAqFH,QAAA,MAAM,6BAA6B,2DAAwC,CAAC;AAC5E,KAAK,6BAA6B,GAAG,UAAU,CAAC,OAAO,6BAA6B,CAAC,CAAC;AACtF,eAAe,6BAA6B,CAAC"}
