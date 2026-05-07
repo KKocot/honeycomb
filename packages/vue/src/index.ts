@@ -76,6 +76,18 @@ export {
   type HivePostListProps,
 } from "./post-list.js";
 
+// Author Post List
+export {
+  useHiveAuthorPostList,
+  type UseHiveAuthorPostListOptions,
+  type UseHiveAuthorPostListResult,
+} from "./use-hive-author-post-list.js";
+
+export {
+  HiveAuthorPostList,
+  type HiveAuthorPostListProps,
+} from "./author-post-list.js";
+
 // Content Renderer
 export {
   HiveContentRenderer,
@@ -105,6 +117,15 @@ export type {
   PaginationCursor,
   RankedPost,
   RankedPostsResult,
+} from "@kkocot/honeycomb-core";
+
+// Re-export author post list types from core
+export type {
+  AccountPost,
+  AccountPostCursor,
+  AccountPostsResult,
+  ParsedPostMetadata,
+  FetchAccountPostsOptions,
 } from "@kkocot/honeycomb-core";
 
 // Re-export core types

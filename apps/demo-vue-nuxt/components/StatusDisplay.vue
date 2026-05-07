@@ -77,6 +77,7 @@
         <ManabarTab v-else-if="active_tab === 'manabar'" />
         <PostCardTab v-else-if="active_tab === 'post-card'" />
         <PostListTab v-else-if="active_tab === 'post-list'" />
+        <AuthorPostListTab v-else-if="active_tab === 'author-post-list'" />
         <RendererTab v-else-if="active_tab === 'renderer'" />
         <HealthCheckerTab v-else-if="active_tab === 'health-checker'" />
         <MdEditorTab v-else-if="active_tab === 'md-editor'" />
@@ -107,6 +108,7 @@ type TabId =
   | "manabar"
   | "post-card"
   | "post-list"
+  | "author-post-list"
   | "renderer"
   | "health-checker"
   | "md-editor";
@@ -167,6 +169,13 @@ const TABS: readonly TabConfig[] = [
     title: "Post List",
     description:
       "Paginated list of ranked Hive posts with sort controls and multiple layouts.",
+  },
+  {
+    id: "author-post-list",
+    label: "Author Post List",
+    title: "Author Post List",
+    description:
+      "Paginated list of posts authored by a specific Hive account, with optional tag filter and pinned posts.",
   },
   {
     id: "renderer",

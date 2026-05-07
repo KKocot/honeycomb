@@ -55,6 +55,7 @@ export const docsConfig: NavSection[] = [
     items: [
       { title: "Post Card", href: "/react/post-card" },
       { title: "Post List", href: "/react/post-list" },
+      { title: "Author Post List", href: "/react/author-post-list" },
     ],
   },
   {

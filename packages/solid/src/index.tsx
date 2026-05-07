@@ -98,6 +98,25 @@ export type {
   RankedPostsResult,
 } from "@kkocot/honeycomb-core";
 
+// Author Post List
+export {
+  useHiveAuthorPostList,
+  type UseHiveAuthorPostListOptions,
+  type UseHiveAuthorPostListResult,
+} from "./use-hive-author-post-list";
+
+export {
+  HiveAuthorPostList,
+  type HiveAuthorPostListProps,
+} from "./author-post-list";
+
+// Re-export author post list types from core
+export type {
+  AccountPost,
+  AccountPostCursor,
+  AccountPostsResult,
+} from "@kkocot/honeycomb-core";
+
 // Content Renderer
 export {
   HiveContentRenderer,

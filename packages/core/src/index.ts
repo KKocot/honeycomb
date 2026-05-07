@@ -60,6 +60,16 @@ export {
   type RankedPostsResult,
 } from "./post-list.js";
 
+// Author post list
+export { fetch_account_posts } from "./author-post-list.js";
+export type {
+  AccountPost,
+  AccountPostsResult,
+  FetchAccountPostsOptions,
+  AccountPostCursor,
+  ParsedPostMetadata,
+} from "./author-post-list.js";
+
 // Editor types
 export type {
   PreviewMode,

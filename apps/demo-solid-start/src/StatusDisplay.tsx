@@ -7,6 +7,7 @@ import BalanceCardTab from "./components/BalanceCardTab";
 import ManabarTab from "./components/ManabarTab";
 import PostCardTab from "./components/PostCardTab";
 import PostListTab from "./components/PostListTab";
+import AuthorPostListTab from "./components/AuthorPostListTab";
 import RendererTab from "./components/RendererTab";
 import MdEditorTab from "./components/MdEditorTab";
 import HealthCheckerTab from "./components/HealthCheckerTab";
@@ -20,6 +21,7 @@ type TabId =
   | "manabar"
   | "post-card"
   | "post-list"
+  | "author-post-list"
   | "renderer"
   | "md-editor"
   | "health-checker";
@@ -84,6 +86,13 @@ const TABS: readonly TabConfig[] = [
     title: "Post List",
     description:
       "Paginated list of ranked Hive posts with sort controls and multiple layouts.",
+  },
+  {
+    id: "author-post-list",
+    label: "Author Post List",
+    title: "Author Post List",
+    description:
+      "Posts authored by a specific Hive account with sort controls, tag filter, and multiple layouts.",
   },
   {
     id: "renderer",
@@ -291,6 +300,9 @@ export default function StatusDisplay() {
             </Match>
             <Match when={active_tab() === "post-list"}>
               <PostListTab />
+            </Match>
+            <Match when={active_tab() === "author-post-list"}>
+              <AuthorPostListTab />
             </Match>
             <Match when={active_tab() === "renderer"}>
               <RendererTab />

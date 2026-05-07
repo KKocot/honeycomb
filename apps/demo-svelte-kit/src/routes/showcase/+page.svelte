@@ -9,6 +9,7 @@
   import ManabarSection from "$lib/showcase/ManabarSection.svelte";
   import PostCardSection from "$lib/showcase/PostCardSection.svelte";
   import PostListSection from "$lib/showcase/PostListSection.svelte";
+  import AuthorPostListSection from "$lib/showcase/AuthorPostListSection.svelte";
   import RendererSection from "$lib/showcase/RendererSection.svelte";
   import ApiTrackerSection from "$lib/showcase/ApiTrackerSection.svelte";
   import HooksSection from "$lib/showcase/HooksSection.svelte";
@@ -25,6 +26,7 @@
     { id: "manabar", label: "Manabar" },
     { id: "post-card", label: "PostCard" },
     { id: "post-list", label: "PostList" },
+    { id: "author-post-list", label: "AuthorPostList" },
     { id: "renderer", label: "Renderer" },
     { id: "api-tracker", label: "ApiTracker" },
     { id: "hooks", label: "Hooks" },
@@ -88,6 +90,7 @@
       <ManabarSection />
       <PostCardSection />
       <PostListSection />
+      <AuthorPostListSection />
       <RendererSection />
       <ApiTrackerSection />
       <HooksSection />

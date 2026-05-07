@@ -10,6 +10,7 @@
   import ManabarTab from "./ManabarTab.svelte";
   import PostCardTab from "./PostCardTab.svelte";
   import PostListTab from "./PostListTab.svelte";
+  import AuthorPostListTab from "./AuthorPostListTab.svelte";
   import RendererTab from "./RendererTab.svelte";
   import MdEditorTab from "./MdEditorTab.svelte";
   import HealthCheckerTab from "./HealthCheckerTab.svelte";
@@ -23,6 +24,7 @@
     | "manabar"
     | "post-card"
     | "post-list"
+    | "author-post-list"
     | "renderer"
     | "health-checker"
     | "md-editor";
@@ -87,6 +89,13 @@
       title: "Post List",
       description:
         "Paginated list of ranked Hive posts with sort controls and multiple layouts.",
+    },
+    {
+      id: "author-post-list",
+      label: "Author Post List",
+      title: "Author Post List",
+      description:
+        "Hive post feed scoped to a specific author with tag filters and multiple layouts.",
     },
     {
       id: "renderer",
@@ -287,6 +296,8 @@
           <PostCardTab />
         {:else if active_tab === "post-list"}
           <PostListTab />
+        {:else if active_tab === "author-post-list"}
+          <AuthorPostListTab />
         {:else if active_tab === "renderer"}
           <RendererTab />
         {:else if active_tab === "health-checker"}

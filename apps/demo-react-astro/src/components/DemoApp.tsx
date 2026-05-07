@@ -8,6 +8,7 @@ import BalanceCardTab from "./BalanceCardTab";
 import ManabarTab from "./ManabarTab";
 import PostCardTab from "./PostCardTab";
 import PostListTab from "./PostListTab";
+import AuthorPostListTab from "./AuthorPostListTab";
 import RendererTab from "./RendererTab";
 import HealthCheckerTab from "./HealthCheckerTab";
 import MdEditorTab from "./MdEditorTab";
@@ -21,6 +22,7 @@ type TabId =
   | "manabar"
   | "post-card"
   | "post-list"
+  | "author-post-list"
   | "renderer"
   | "health-checker"
   | "md-editor";
@@ -85,6 +87,13 @@ const TABS: readonly TabConfig[] = [
     title: "Post List",
     description:
       "Paginated Hive post feed with sort controls, pinned posts, and multiple layouts.",
+  },
+  {
+    id: "author-post-list",
+    label: "Author Post List",
+    title: "Author Post List",
+    description:
+      "Hive post feed scoped to a specific author with sort controls, tag filters, and multiple layouts.",
   },
   {
     id: "renderer",
@@ -210,6 +219,7 @@ export default function DemoApp() {
           {active_tab === "manabar" && <ManabarTab />}
           {active_tab === "post-card" && <PostCardTab />}
           {active_tab === "post-list" && <PostListTab />}
+          {active_tab === "author-post-list" && <AuthorPostListTab />}
           {active_tab === "renderer" && <RendererTab />}
           {active_tab === "health-checker" && <HealthCheckerTab />}
           {active_tab === "md-editor" && <MdEditorTab />}

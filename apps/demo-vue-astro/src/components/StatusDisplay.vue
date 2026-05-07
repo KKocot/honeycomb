@@ -75,6 +75,7 @@
         <ManabarTab v-else-if="active_tab === 'manabar'" />
         <PostCardTab v-else-if="active_tab === 'post-card'" />
         <PostListTab v-else-if="active_tab === 'post-list'" />
+        <AuthorPostListTab v-else-if="active_tab === 'author-post-list'" />
         <RendererTab v-else-if="active_tab === 'renderer'" />
         <HealthCheckerTab v-else-if="active_tab === 'health-checker'" />
         <MdEditorTab v-else-if="active_tab === 'md-editor'" />
@@ -101,6 +102,7 @@ import BalanceCardTab from "./BalanceCardTab.vue";
 import ManabarTab from "./ManabarTab.vue";
 import PostCardTab from "./PostCardTab.vue";
 import PostListTab from "./PostListTab.vue";
+import AuthorPostListTab from "./AuthorPostListTab.vue";
 import RendererTab from "./RendererTab.vue";
 import HealthCheckerTab from "./HealthCheckerTab.vue";
 import MdEditorTab from "./MdEditorTab.vue";
@@ -114,6 +116,7 @@ type TabId =
   | "manabar"
   | "post-card"
   | "post-list"
+  | "author-post-list"
   | "renderer"
   | "health-checker"
   | "md-editor";
@@ -174,6 +177,13 @@ const TABS: readonly TabConfig[] = [
     title: "Post List",
     description:
       "Paginated list of ranked Hive posts with sort controls and multiple layouts.",
+  },
+  {
+    id: "author-post-list",
+    label: "Author Post List",
+    title: "Author Post List",
+    description:
+      "Hive post feed scoped to a specific author with tag filters and multiple layouts.",
   },
   {
     id: "renderer",

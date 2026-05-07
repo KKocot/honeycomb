@@ -6,30 +6,37 @@ import {
   ChevronRight,
   Info,
   MessageCircle,
-  Pin,
   ThumbsUp,
   User,
 } from "lucide-react";
 import { CodeBlock } from "@/components/code-block";
 import { parseFramework } from "@/lib/framework";
-import { CODE } from "./post_list_data";
+import { CODE } from "./author_post_list_data";
 
 interface PageProps {
   params: Promise<{ framework: string }>;
 }
 
-export default async function PostListPage({ params }: PageProps) {
+export default async function AuthorPostListPage({ params }: PageProps) {
   const { framework: raw_framework } = await params;
   const framework = parseFramework(raw_framework);
+  // Pick syntax-highlighting language for code samples.
+  const code_language =
+    framework === "vue"
+      ? "vue"
+      : framework === "svelte"
+        ? "svelte"
+        : "tsx";
 
   return (
     <article className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">HivePostList</h1>
+        <h1 className="text-3xl font-bold tracking-tight">
+          HiveAuthorPostList
+        </h1>
         <p className="mt-2 text-lg text-muted-foreground">
-          Post feed with sorting, pagination, pinned posts, and multiple layout
-          variants. Supports global ranked posts, community feeds, and tag
-          filtering.
+          Display top-level posts authored by a specific Hive account, with
+          optional client-side tag filter and cursor-based Prev/Next pagination.
         </p>
       </div>
 
@@ -39,17 +46,18 @@ export default async function PostListPage({ params }: PageProps) {
           <Info className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
           <div>
             <p className="font-medium text-blue-500">
-              Uses bridge.get_ranked_posts
+              Uses bridge.get_account_posts
             </p>
             <p className="mt-1 text-sm text-muted-foreground">
-              Fetches posts from the Hive blockchain via the Bridge API. Use the{" "}
+              Fetches top-level posts from the Hive blockchain via the Bridge
+              API for a specific account (sort is fixed to{" "}
+              <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                "posts"
+              </code>
+              ). Use the{" "}
               <code className="rounded bg-muted px-1 py-0.5 text-xs">tag</code>{" "}
-              prop to filter by community (e.g.{" "}
-              <code className="rounded bg-muted px-1 py-0.5 text-xs">hive-167922</code>
-              ) or by tag (e.g.{" "}
-              <code className="rounded bg-muted px-1 py-0.5 text-xs">photography</code>
-              ). Without a tag, returns global ranked posts. Requires
-              HiveProvider wrapper.
+              prop to additionally filter by a Hive tag (client-side filter on
+              the returned page). Requires a HiveProvider wrapper.
             </p>
           </div>
         </div>
@@ -58,10 +66,7 @@ export default async function PostListPage({ params }: PageProps) {
       {/* Usage */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Usage</h2>
-        <CodeBlock
-          code={CODE.basic[framework]}
-          language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
-        />
+        <CodeBlock code={CODE.basic[framework]} language={code_language} />
       </section>
 
       {/* Preview */}
@@ -69,74 +74,28 @@ export default async function PostListPage({ params }: PageProps) {
         <h2 className="text-xl font-semibold mb-4">Preview</h2>
         <div className="rounded-lg border border-border p-6">
           <div className="space-y-4">
-            {/* Sort controls */}
-            <div className="flex gap-2">
-              {["Trending", "Hot", "Created", "Payout"].map((label, i) => (
-                <button
-                  key={label}
-                  className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                    i === 0
-                      ? "bg-hive-red text-white"
-                      : "bg-muted text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-
-            {/* Pinned post */}
-            <div className="flex gap-4 rounded-lg border border-hive-red/20 bg-hive-red/5 p-4">
-              <div className="w-16 h-16 rounded bg-muted shrink-0 flex items-center justify-center">
-                <User className="h-6 w-6 text-muted-foreground" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <Pin className="h-3.5 w-3.5 text-hive-red" />
-                  <span className="text-xs font-medium text-hive-red">
-                    Pinned
-                  </span>
-                </div>
-                <h3 className="font-semibold truncate mt-1">
-                  Welcome to Hive - Getting Started Guide
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  @hiveio
-                </p>
-                <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
-                  <span className="flex items-center gap-1">
-                    <ThumbsUp className="h-3.5 w-3.5" /> 312
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <MessageCircle className="h-3.5 w-3.5" /> 87
-                  </span>
-                  <span className="text-green-500">$124.50</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Regular posts */}
+            {/* Posts */}
             {[
               {
-                title: "Building DApps on Hive Blockchain",
-                author: "barddev",
-                votes: 89,
-                comments: 24,
-                payout: "$15.30",
+                title: "Welcome to Hive - Getting Started Guide",
+                author: "hiveio",
+                votes: 312,
+                comments: 87,
+                payout: "$124.50",
               },
               {
-                title: "Weekly Development Update #42",
-                author: "hivebuzz",
+                title: "Hive Improvement Proposals: How They Work",
+                author: "hiveio",
+                votes: 198,
+                comments: 42,
+                payout: "$58.20",
+              },
+              {
+                title: "Building on Hive: Developer Resources",
+                author: "hiveio",
                 votes: 156,
-                comments: 45,
-                payout: "$32.10",
-              },
-              {
-                title: "Understanding Resource Credits",
-                author: "peakd",
-                votes: 67,
-                comments: 12,
-                payout: "$8.75",
+                comments: 34,
+                payout: "$41.75",
               },
             ].map((post) => (
               <div
@@ -168,11 +127,11 @@ export default async function PostListPage({ params }: PageProps) {
             <div className="flex items-center justify-between pt-2">
               <button className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground opacity-50 cursor-not-allowed">
                 <ChevronLeft className="h-4 w-4" />
-                Previous
+                Prev Page
               </button>
               <span className="text-sm text-muted-foreground">Page 1</span>
               <button className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-sm hover:bg-accent transition-colors">
-                Next
+                Next Page
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>
@@ -190,22 +149,24 @@ export default async function PostListPage({ params }: PageProps) {
                 <th className="py-3 px-4 text-left font-semibold">Prop</th>
                 <th className="py-3 px-4 text-left font-semibold">Type</th>
                 <th className="py-3 px-4 text-left font-semibold">Default</th>
-                <th className="py-3 px-4 text-left font-semibold">Description</th>
+                <th className="py-3 px-4 text-left font-semibold">
+                  Description
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
               <tr>
                 <td className="py-3 px-4">
-                  <code>sort</code>
+                  <code>account</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  <code>{`"trending" | "hot" | "created" | "payout" | "muted"`}</code>
+                  <code>string</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  <code>"trending"</code>
+                  <em>required</em>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  Sort order for the post feed
+                  Hive account name to fetch posts for
                 </td>
               </tr>
               <tr>
@@ -217,8 +178,7 @@ export default async function PostListPage({ params }: PageProps) {
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">-</td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  Community name (<code>hive-167922</code>) or tag
-                  (<code>photography</code>). Omit for global feed.
+                  Optional client-side tag filter applied to the returned page
                 </td>
               </tr>
               <tr>
@@ -232,7 +192,7 @@ export default async function PostListPage({ params }: PageProps) {
                   <code>20</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  Posts per page
+                  Posts per page (see Pagination note below)
                 </td>
               </tr>
               <tr>
@@ -242,31 +202,13 @@ export default async function PostListPage({ params }: PageProps) {
                   </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  <code>{`Array<{ author: string; permlink: string }>`}</code>
+                  <code>AccountPost[]</code>
                 </td>
+                <td className="py-3 px-4 text-muted-foreground">-</td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  <code>[]</code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground">
-                  Posts pinned at the top of the list
-                </td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4">
-                  <code>
-                    {framework === "vue"
-                      ? "showSortControls"
-                      : "show_sort_controls"}
-                  </code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground">
-                  <code>boolean</code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground">
-                  <code>false</code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground">
-                  Show sort buttons above the list
+                  Full <code>AccountPost</code> objects rendered above the
+                  list. Unlike <code>HivePostList</code>, no extra fetch is
+                  performed.
                 </td>
               </tr>
               <tr>
@@ -308,21 +250,37 @@ export default async function PostListPage({ params }: PageProps) {
                   <code>{`"https://blog.openhive.network"`}</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  Base URL for post links
+                  Base URL for post links. Only{" "}
+                  <code>http(s)://</code> and root-relative paths are accepted;
+                  invalid values fall back to the default.
                 </td>
               </tr>
               <tr>
                 <td className="py-3 px-4">
-                  <code>
-                    {framework === "react" ? "className" : "class"}
-                  </code>
+                  <code>{framework === "react" ? "className" : "class"}</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>string</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">-</td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  Additional CSS classes
+                  Additional CSS classes applied to the wrapper
+                </td>
+              </tr>
+              <tr>
+                <td className="py-3 px-4">
+                  <code>
+                    {framework === "vue" ? "apiEndpoint" : "api_endpoint"}
+                  </code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <code>string</code>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  <em>from HiveProvider</em>
+                </td>
+                <td className="py-3 px-4 text-muted-foreground">
+                  Override the API endpoint for this component instance
                 </td>
               </tr>
             </tbody>
@@ -330,16 +288,89 @@ export default async function PostListPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Pagination note */}
+      <section className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4">
+        <div className="flex gap-3">
+          <Info className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+          <div>
+            <p className="font-medium text-blue-500">Pagination behavior</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              The first page returns up to{" "}
+              <code className="rounded bg-muted px-1 py-0.5 text-xs">limit</code>{" "}
+              posts. Subsequent pages return up to{" "}
+              <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                min(limit, 19)
+              </code>{" "}
+              posts because{" "}
+              <code className="rounded bg-muted px-1 py-0.5 text-xs">
+                bridge.get_account_posts
+              </code>{" "}
+              consumes one slot for the cursor (start_author / start_permlink).
+              This is an upstream Hive API constraint, not a component
+              limitation.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Tag filter example */}
+      <section>
+        <h2 className="text-xl font-semibold mb-4">Tag filter</h2>
+        <p className="text-sm text-muted-foreground mb-4">
+          Combine{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">account</code>{" "}
+          with{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">tag</code> to
+          show only posts of that author tagged with a specific Hive tag. The
+          filter is applied client-side to the returned page.
+        </p>
+        <CodeBlock
+          code={CODE.tagFilter[framework]}
+          language={code_language}
+        />
+      </section>
+
+      {/* Pinned posts */}
+      <section>
+        <h2 className="text-xl font-semibold mb-4">Pinned posts</h2>
+        <p className="text-sm text-muted-foreground mb-4">
+          Unlike{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">
+            HivePostList
+          </code>{" "}
+          (which accepts{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">
+            {"{ author, permlink }"}
+          </code>{" "}
+          and refetches each pinned post),{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">
+            HiveAuthorPostList
+          </code>{" "}
+          expects full{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">
+            AccountPost
+          </code>{" "}
+          objects so pinned posts can be rendered without an extra API call
+          (avoiding N+1 fetches).
+        </p>
+        <CodeBlock
+          code={CODE.pinnedExample[framework]}
+          language={code_language}
+        />
+      </section>
+
       {/* Hook */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">useHivePostList Hook</h2>
+        <h2 className="text-xl font-semibold mb-4">
+          useHiveAuthorPostList Hook
+        </h2>
         <p className="text-muted-foreground mb-4">
-          For full control over the post feed, use the{" "}
+          For full control, use the{" "}
           <code className="rounded bg-muted px-1.5 py-0.5 text-sm">
-            useHivePostList
+            useHiveAuthorPostList
           </code>{" "}
-          hook directly. It returns posts, loading state, pagination controls,
-          and sort management.
+          hook directly. It returns posts, loading state, and cursor-based
+          pagination controls.
         </p>
 
         <h3 className="text-sm font-medium mb-2">Return values</h3>
@@ -362,19 +393,18 @@ export default async function PostListPage({ params }: PageProps) {
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>
                     {framework === "vue"
-                      ? "Ref<RankedPost[]>"
-                      : "RankedPost[]"}
+                      ? "Ref<AccountPost[]>"
+                      : "AccountPost[]"}
                   </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  Current page of ranked posts
+                  Current page of posts authored by{" "}
+                  <code>account</code>
                 </td>
               </tr>
               <tr>
                 <td className="py-3 px-4">
-                  <code>
-                    {framework === "vue" ? "isLoading" : "is_loading"}
-                  </code>
+                  <code>{framework === "vue" ? "isLoading" : "is_loading"}</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>
@@ -390,36 +420,14 @@ export default async function PostListPage({ params }: PageProps) {
                   <code>error</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  <code>Error | null</code>
+                  <code>
+                    {framework === "vue"
+                      ? "Ref<Error | null>"
+                      : "Error | null"}
+                  </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   Fetch error, if any
-                </td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4">
-                  <code>sort</code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground">
-                  <code>
-                    {framework === "vue" ? "Ref<SortType>" : "SortType"}
-                  </code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground">
-                  Current sort method
-                </td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4">
-                  <code>
-                    {framework === "vue" ? "setSort" : "set_sort"}
-                  </code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground">
-                  <code>(sort: SortType) =&gt; void</code>
-                </td>
-                <td className="py-3 px-4 text-muted-foreground">
-                  Change sort method (resets to page 1)
                 </td>
               </tr>
               <tr>
@@ -432,18 +440,13 @@ export default async function PostListPage({ params }: PageProps) {
                   </code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
-                  Current page number
+                  Current page number (1-based)
                 </td>
               </tr>
               <tr>
                 <td className="py-3 px-4">
-                  <code>
-                    {framework === "vue" ? "hasPrev" : "has_prev"}
-                  </code>{" "}
-                  /{" "}
-                  <code>
-                    {framework === "vue" ? "hasNext" : "has_next"}
-                  </code>
+                  <code>{framework === "vue" ? "hasPrev" : "has_prev"}</code> /{" "}
+                  <code>{framework === "vue" ? "hasNext" : "has_next"}</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>
@@ -456,13 +459,9 @@ export default async function PostListPage({ params }: PageProps) {
               </tr>
               <tr>
                 <td className="py-3 px-4">
-                  <code>
-                    {framework === "vue" ? "prevPage" : "prev_page"}
-                  </code>{" "}
+                  <code>{framework === "vue" ? "prevPage" : "prev_page"}</code>{" "}
                   /{" "}
-                  <code>
-                    {framework === "vue" ? "nextPage" : "next_page"}
-                  </code>
+                  <code>{framework === "vue" ? "nextPage" : "next_page"}</code>
                 </td>
                 <td className="py-3 px-4 text-muted-foreground">
                   <code>() =&gt; void</code>
@@ -478,85 +477,24 @@ export default async function PostListPage({ params }: PageProps) {
         <h3 className="text-sm font-medium mb-2">Example</h3>
         <CodeBlock
           code={CODE.hookUsage[framework]}
-          language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
+          language={code_language}
         />
-      </section>
-
-      {/* Examples */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Examples</h2>
-        <div className="space-y-6">
-          <div>
-            <h3 className="text-sm font-medium mb-2">Community posts</h3>
-            <p className="text-sm text-muted-foreground mb-2">
-              Pass a community name (format{" "}
-              <code className="rounded bg-muted px-1 py-0.5 text-xs">
-                hive-NNNNNN
-              </code>
-              ) as the{" "}
-              <code className="rounded bg-muted px-1 py-0.5 text-xs">tag</code>{" "}
-              prop to show posts from that community.
-            </p>
-            <CodeBlock
-              code={CODE.communityPosts[framework]}
-              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
-            />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Tag filter</h3>
-            <p className="text-sm text-muted-foreground mb-2">
-              Pass any Hive tag to filter posts. Works with all sort options.
-            </p>
-            <CodeBlock
-              code={CODE.tagFilter[framework]}
-              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
-            />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Sort controls</h3>
-            <CodeBlock
-              code={CODE.sortControls[framework]}
-              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
-            />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Pinned posts</h3>
-            <CodeBlock
-              code={CODE.pinnedPosts[framework]}
-              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
-            />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Variants</h3>
-            <CodeBlock
-              code={CODE.variants[framework]}
-              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
-            />
-          </div>
-          <div>
-            <h3 className="text-sm font-medium mb-2">Hide elements</h3>
-            <CodeBlock
-              code={CODE.hideElements[framework]}
-              language={framework === "vue" ? "vue" : framework === "svelte" ? "svelte" : "tsx"}
-            />
-          </div>
-        </div>
       </section>
 
       {/* Navigation */}
       <section className="flex items-center justify-between">
         <Link
-          href={`/${framework}/post-card`}
+          href={`/${framework}/post-list`}
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
         >
           <ArrowLeft className="h-4 w-4" />
-          Post Card
+          Post List
         </Link>
         <Link
-          href={`/${framework}/author-post-list`}
+          href={`/${framework}/content-renderer`}
           className="inline-flex items-center gap-2 rounded-lg bg-hive-red px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-hive-red/90"
         >
-          Author Post List
+          Content Renderer
           <ArrowRight className="h-4 w-4" />
         </Link>
       </section>

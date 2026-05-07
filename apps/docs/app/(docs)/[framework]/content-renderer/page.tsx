@@ -543,11 +543,11 @@ export default async function ContentRendererPage({ params }: PageProps) {
       {/* Navigation */}
       <section className="flex items-center justify-between">
         <Link
-          href={`/${framework}/post-list`}
+          href={`/${framework}/author-post-list`}
           className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium transition-colors hover:bg-accent"
         >
           <ArrowLeft className="h-4 w-4" />
-          Post List
+          Author Post List
         </Link>
         <Link
           href={`/${framework}/markdown-editor`}

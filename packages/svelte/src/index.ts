@@ -68,6 +68,9 @@ export type {
 export { default as HivePostList } from "./post-list.svelte";
 export type { HivePostListProps } from "./post-list.svelte";
 
+export { default as HiveAuthorPostList } from "./author-post-list.svelte";
+export type { HiveAuthorPostListProps } from "./author-post-list.svelte";
+
 export { default as HiveContentRenderer } from "./HiveContentRenderer.svelte";
 export type { HiveContentRendererProps } from "./HiveContentRenderer.svelte";
 
@@ -106,12 +109,27 @@ export {
   type UseHivePostListResult,
 } from "./use-hive-post-list.svelte";
 
+export {
+  useHiveAuthorPostList,
+  type UseHiveAuthorPostListOptions,
+  type UseHiveAuthorPostListResult,
+} from "./use-hive-author-post-list.svelte";
+
 // Re-export post list types from core
 export type {
   SortType,
   PaginationCursor,
   RankedPost,
   RankedPostsResult,
+} from "@kkocot/honeycomb-core";
+
+// Re-export author post list types from core
+export type {
+  AccountPost,
+  AccountPostCursor,
+  AccountPostsResult,
+  FetchAccountPostsOptions,
+  ParsedPostMetadata,
 } from "@kkocot/honeycomb-core";
 
 // Content Renderer re-exports
