@@ -11,6 +11,10 @@
   ],
   "rewrites": [
     {
+      "source": "/demo/react-next",
+      "destination": "https://honeycomb-demo-react-next.vercel.app/demo/react-next"
+    },
+    {
       "source": "/demo/react-next/:path*",
       "destination": "https://honeycomb-demo-react-next.vercel.app/demo/react-next/:path*"
     },
