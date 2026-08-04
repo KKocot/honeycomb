@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "buildCommand": "cd ../.. && pnpm turbo build --filter=docs",
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/docs",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/demo/react-next/:path*",
+      "destination": "https://honeycomb-demo-react-next.vercel.app/demo/react-next/:path*"
+    },
+    {
+      "source": "/demo/solid-vite/:path*",
+      "destination": "https://honeycomb-demos.vercel.app/demo/solid-vite/:path*"
+    },
+    {
+      "source": "/demo/svelte-vite/:path*",
+      "destination": "https://honeycomb-demos.vercel.app/demo/svelte-vite/:path*"
+    },
+    {
+      "source": "/demo/vue-vite/:path*",
+      "destination": "https://honeycomb-demos.vercel.app/demo/vue-vite/:path*"
+    }
+  ]
+}

@@ -11,6 +11,10 @@ dist
 out
 build
 
+# Vercel
+.vercel
+.vercel-static
+
 # Cache
 .turbo
 .cache
